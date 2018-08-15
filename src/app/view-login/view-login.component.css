@@ -32,4 +32,22 @@
   .view-login div.row div:nth-child(2) {
     display: none;
   }
+  .view-login div.row {
+    height: 100vh;
+    background-image: url("../../assets/images/img-view-one.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* color: #ffffff70; */
+    opacity: 0.9;
+  }
+  .view-login div.row div:nth-child(1) div:nth-child(1) p{
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 320px)  {
+  .view-login div.row div:nth-child(1) div:nth-child(1) {
+    padding-top: 5%;
+  }
+  
 }
