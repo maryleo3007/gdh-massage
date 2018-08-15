@@ -15,9 +15,10 @@ import { LoginComponent } from './login/login.component';
 import { HttpService } from './shared/http.service';
 import { AuthService } from './auth/auth.service';
 import { HomeService } from './home/home.service';
+import { ViewLoginComponent } from './view-login/view-login.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: ViewLoginComponent },
   { path: 'home', component: HomeComponent }
 ];
 
@@ -25,7 +26,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    ViewLoginComponent
   ],
   imports: [
     BrowserModule,
