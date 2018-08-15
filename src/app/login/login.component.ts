@@ -25,6 +25,7 @@ import { AuthService } from '../auth/auth.service';
     <button class="ms-Button" (click)="onLogin()">
       <span class="ms-Button-label">Connect</span>
     </button>
+    <button class="btn btn-primary">holi</button>
     </div>
   </div>
 </div>
