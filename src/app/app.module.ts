@@ -12,9 +12,12 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 
+import { TurnComponent } from './turn/turn.component';
+
 import { HttpService } from './shared/http.service';
 import { AuthService } from './auth/auth.service';
 import { HomeService } from './home/home.service';
+import { ReservComponent } from './reserv/reserv.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -25,7 +28,9 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    TurnComponent,
+    ReservComponent
   ],
   imports: [
     BrowserModule,

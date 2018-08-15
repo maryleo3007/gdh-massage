@@ -6,6 +6,7 @@ import { AuthService } from './auth/auth.service';
   selector: 'app-root',
   template: `
     <router-outlet></router-outlet>
+    <app-reserv></app-reserv>
   `
 })
 export class AppComponent implements OnInit {
@@ -14,4 +15,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.authService.initAuth();
   }
+
+  
+
 }
