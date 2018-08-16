@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
-// import { AngularFireDatabase } from 'angularfire2/database';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'turn-component',
-    template: `<h1>Formulario de prueba de firebase</h1>`
+  selector: 'app-turn',
+  templateUrl: './turn.component.html',
+  styleUrls: ['./turn.component.css']
 })
+export class TurnComponent implements OnInit {
 
-export class TurnComponent{
-    // constructor(db: AngularFireDatabase) { }
+  constructor() { }
+
+  ngOnInit() {
+  }
+
 }
-
-
-
