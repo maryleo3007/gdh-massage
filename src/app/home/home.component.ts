@@ -7,8 +7,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types"
+
+// services
 import { HomeService } from './home.service';
 import { AuthService } from '../auth/auth.service';
+import { TurnosService } from './../services/turnos.service';
 
 @Component({
   selector: 'app-home',
@@ -57,13 +60,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   subsGetMe: Subscription;
   subsSendMail: Subscription;
   date: any;
+  turnosList: any[];
 
   send: MicrosoftGraph.Event;
   subsSendCalendar: Subscription;
-
+  
   constructor(
     private homeService: HomeService,
-    private authService: AuthService
+    private authService: AuthService,
+    private turnoService: TurnosService
   ) { }
 
   ngOnInit() {
@@ -77,6 +82,19 @@ export class HomeComponent implements OnInit, OnDestroy {
       // send name and nameUser to local storage
       localStorage.setItem('name', name);
       localStorage.setItem('userName', userName);
+    });
+
+    // get turnos
+    this.turnoService.getTurnos()
+    .snapshotChanges()
+    .subscribe(item => {
+      this.turnosList = [];
+      item.forEach(elem => {
+        let x = elem.payload.toJSON();
+        x["$key"] = elem.key;
+        this.turnosList.push(x);
+        console.log(this.turnosList)
+      });
     });
   }
 

@@ -17,6 +17,14 @@ import { AuthService } from './auth/auth.service';
 import { HomeService } from './home/home.service';
 import { ViewLoginComponent } from './view-login/view-login.component';
 
+// import angular firebase
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+
+// enviroment - config firebase
+import { environment } from '../environments/environment';
+
 const routes: Routes = [
   { path: '', component: ViewLoginComponent },
   { path: 'home', component: HomeComponent }
@@ -30,6 +38,9 @@ const routes: Routes = [
     ViewLoginComponent
   ],
   imports: [
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
     BrowserModule,
     HttpModule,
     RouterModule.forRoot(routes)
