@@ -67,7 +67,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.subsGetMe = this.homeService.getMe().subscribe(me => this.me = me);
+    this.subsGetMe = this.homeService.getMe().subscribe(me => {
+      this.me = me; 
+      let cutName = me.mail.indexOf('@');
+      let cutUserName = me.displayName.indexOf(' ');
+      let name = me.mail.substring(0,cutName);
+      let userName = me.displayName.substring(cutUserName+1);
+      
+      // send name and nameUser to local storage
+      localStorage.setItem('name', name);
+      localStorage.setItem('userName', userName);
+    });
   }
 
   ngOnDestroy() {
