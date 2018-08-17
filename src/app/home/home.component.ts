@@ -5,13 +5,15 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-
+import { Observable, Subject } from 'rxjs';
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types"
 
 // services
 import { HomeService } from './home.service';
 import { AuthService } from '../auth/auth.service';
 import { TurnosService } from './../services/turnos.service';
+
+
 
 @Component({
   selector: 'app-home',
@@ -93,9 +95,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         let x = elem.payload.toJSON();
         x["$key"] = elem.key;
         this.turnosList.push(x);
-        console.log(this.turnosList)
+        console.log(this.turnosList);
+        console.log('holi')
       });
     });
+
+    console.log('holibuuu')
+
+
   }
 
   ngOnDestroy() {
