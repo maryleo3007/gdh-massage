@@ -1,0 +1,37 @@
+<h1>holi</h1>
+<div class="ms-Grid-row">
+  <!-- App navigation bar markup. -->
+  <div class="ms-NavBar">
+    <ul class="ms-NavBar-items">
+      <li class="ms-NavBar-item">Microsoft Graph Connect sample</li>
+      <li class="ms-NavBar-item ms-NavBar-item--right" (click)="onLogout()"><i class="ms-Icon ms-Icon--x"></i> Disconnect</li>
+    </ul>
+  </div>
+
+  <!-- App main content markup. -->
+    <div class="ms-Grid-col ms-u-mdPush1 ms-u-md9 ms-u-lgPush1 ms-u-lg6">
+    <div>
+      <h2 *ngIf="me" class="ms-font-xxl ms-fontWeight-semibold">Hi, {{ me.displayName }}!</h2>
+      <p class="ms-font-xl">You're now connected to Microsoft Graph. Click the button below to send a message from your account using the Microsoft Graph API. </p>
+      <div *ngIf="me" class="ms-TextField">
+        <input value="{{me.mail || me.userPrincipalName}}" class="ms-TextField-field">
+      </div>
+      <button class="ms-Button" (click)="onSendMail()">
+        <span class="ms-Button-label">Send mail</span>
+      </button>
+      <button class="ms-Button" (click)="onSendCalendar()">
+      <span class="ms-Button-label">Agendar</span>
+      </button>
+      <div *ngIf="this.emailSent">
+        <p class="ms-font-m ms-fontColor-green">Successfully sent an email to {{ me.mail || me.userPrincipalName }}!</p>
+      </div>
+      <div *ngIf="!this.emailSent && !me">
+        <p class="ms-font-m ms-fontColor-redDark">Something went wrong, couldn't send an email.</p>
+      </div>
+      <div>
+        <button class="btn btn-primary" (click)="insertInscription(this.primero)">agregar inscripcion</button>  
+        <button class="btn btn-primary" (click)="insertReport(this.segundo)">agregar reporte</button> 
+      </div>
+    </div>
+  </div>
+</div>

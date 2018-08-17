@@ -27,10 +27,11 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 // enviroment - config firebase
 import { environment } from '../environments/environment';
+import { ViewHomeComponent } from './view-home/view-home.component';
 
 const routes: Routes = [
   { path: '', component: ViewLoginComponent },
-  { path: 'home', component: HomeComponent }
+  { path: 'home', component: ViewHomeComponent }
 ];
 
 @NgModule({
@@ -38,7 +39,8 @@ const routes: Routes = [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    ViewLoginComponent
+    ViewLoginComponent,
+    ViewHomeComponent
   ],
   imports: [
     AngularFireAuthModule,
