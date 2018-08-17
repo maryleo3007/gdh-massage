@@ -95,14 +95,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         let x = elem.payload.toJSON();
         x["$key"] = elem.key;
         this.turnosList.push(x);
-        console.log(this.turnosList);
-        console.log('holi')
       });
+      console.log(this.turnosList);
     });
-
-    console.log('holibuuu')
-
-
   }
 
   ngOnDestroy() {

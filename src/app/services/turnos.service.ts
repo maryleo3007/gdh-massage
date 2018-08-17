@@ -18,7 +18,7 @@ export class TurnosService {
   // }
 
   getTurnos() {
-    this.turnosList = this.firebase.list('gdh-masajes/terapeuta1');
+    this.turnosList = this.firebase.list('terapeuta1');
     return this.turnosList;
   }
 }
