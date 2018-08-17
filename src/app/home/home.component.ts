@@ -13,11 +13,12 @@ import { HomeService } from './home.service';
 import { AuthService } from '../auth/auth.service';
 import { TurnosService } from './../services/turnos.service';
 import { InscriptionService } from './../services/inscription.service';
+import { ReportService } from './../services/report.service';
 
 
 // models
 import { InscripcionModel } from './../models/inscriptions';
-
+import { ReportsModel } from './../models/reports';
 
 
 
@@ -54,7 +55,8 @@ import { InscripcionModel } from './../models/inscriptions';
         <p class="ms-font-m ms-fontColor-redDark">Something went wrong, couldn't send an email.</p>
       </div>
       <div>
-        <button class="btn btn-primary" (click)="insertInscription(this.primero)">agregar</button>   
+        <button class="btn btn-primary" (click)="insertInscription(this.primero)">agregar inscripcion</button>  
+        <button class="btn btn-primary" (click)="insertReport(this.segundo)">agregar reporte</button> 
       </div>
     </div>
   </div>
@@ -76,11 +78,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   terapeuta2: any[];
   terapeuta3: any[];
   inscriptionList: any[];
+  reportList: any[];
   primero: InscripcionModel = {
     date: 'la fecha',
     hourStart: 'la hora',
     hourEnd: 'hora de termino',
     userName: 'nombre usuario',
+    boolAny: false
+  };
+
+  segundo: ReportsModel = {
+    date: 'la fecha',
+    hourStart: 'la hora',
+    hourEnd: 'hora de termino',
+    userName: 'nombre usuario',
+    userAssist: 'nombre asistencia',
+    boolMatch: false,
+    assistance: false,
     boolAny: false
   };
 
@@ -91,7 +105,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private homeService: HomeService,
     private authService: AuthService,
     private turnoService: TurnosService,
-    private inscriptionService: InscriptionService
+    private inscriptionService: InscriptionService,
+    private reportService: ReportService
   ) { }
 
   ngOnInit() {
@@ -156,6 +171,18 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.terapeuta3.push(x);
       });
     });    
+
+    // get reports
+    this.reportService.getReports()
+    .snapshotChanges()
+    .subscribe(item => {
+      this.reportList = [];
+      item.forEach(elem => {
+        let x = elem.payload.toJSON();
+        x['$key'] = elem.key;
+        this.reportList.push(x)
+      })
+    })
   }
 
   ngOnDestroy() {
@@ -211,6 +238,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   insertInscription(x){
     if (InscripcionModel){
           this.inscriptionService.insertInscription(x);
+    }
+  }
+
+  insertReport(x){
+    if (ReportsModel){
+          this.reportService.insertReport(x);
+          console.log(x)
     }
   }
 }
