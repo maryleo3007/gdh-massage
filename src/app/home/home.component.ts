@@ -12,6 +12,11 @@ import * as MicrosoftGraph from "@microsoft/microsoft-graph-types"
 import { HomeService } from './home.service';
 import { AuthService } from '../auth/auth.service';
 import { TurnosService } from './../services/turnos.service';
+import { InscriptionService } from './../services/inscription.service';
+
+// models
+import { InscripcionModel } from './../models/inscriptions';
+
 
 
 
@@ -47,6 +52,9 @@ import { TurnosService } from './../services/turnos.service';
       <div *ngIf="!this.emailSent && !me">
         <p class="ms-font-m ms-fontColor-redDark">Something went wrong, couldn't send an email.</p>
       </div>
+      <div>
+        <button class="btn btn-primary" (click)="insertInscription()">agregar</button>      
+      </div>
     </div>
   </div>
 </div>
@@ -62,7 +70,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   subsGetMe: Subscription;
   subsSendMail: Subscription;
   date: any;
-  turnosList: any[];
+  terapeuta1: any[];
+  terapeuta2: any[];
+  terapeuta3: any[];
+  primero: any[];
+  
+  // primero: {
+  //   date: 'la fecha',
+  //   hourStart: 'la hora',
+  //   hourEnd: 'hora de termino',
+  //   userName: 'nombre usuario',
+  //   boolAny: false
+  // }
+
+  // primero 
 
   send: MicrosoftGraph.Event;
   subsSendCalendar: Subscription;
@@ -70,7 +91,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private homeService: HomeService,
     private authService: AuthService,
-    private turnoService: TurnosService
+    private turnoService: TurnosService,
+    private inscriptionService: InscriptionService
   ) { }
 
   ngOnInit() {
@@ -86,18 +108,53 @@ export class HomeComponent implements OnInit, OnDestroy {
       localStorage.setItem('userName', userName);
     });
 
+   
     // get turnos
-    this.turnoService.getTurnos()
+    this.turnoService.getTurnosT1()
     .snapshotChanges()
     .subscribe(item => {
-      this.turnosList = [];
+      this.terapeuta1 = [];
       item.forEach(elem => {
         let x = elem.payload.toJSON();
         x["$key"] = elem.key;
-        this.turnosList.push(x);
+        this.terapeuta1.push(x);
       });
-      console.log(this.turnosList);
+      console.log(this.terapeuta1);
     });
+
+    this.turnoService.getTurnosT2()
+    .snapshotChanges()
+    .subscribe(item => {
+      this.terapeuta2 = [];
+      item.forEach(elem => {
+        let x = elem.payload.toJSON();
+        x["$key"] = elem.key;
+        this.terapeuta2.push(x);
+      });
+      console.log(this.terapeuta2);
+    });
+
+    this.turnoService.getTurnosT3()
+    .snapshotChanges()
+    .subscribe(item => {
+      this.terapeuta3 = [];
+      item.forEach(elem => {
+        let x = elem.payload.toJSON();
+        x["$key"] = elem.key;
+        this.terapeuta3.push(x);
+      });
+      console.log(this.terapeuta3);
+    });
+
+    this.primero = [{
+        date: 'la fecha',
+        hourStart: 'la hora',
+        hourEnd: 'hora de termino',
+        userName: 'nombre usuario',
+        boolAny: false
+    }]
+    console.log(this.primero)
+    
   }
 
   ngOnDestroy() {
@@ -149,5 +206,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onLogin() {
     this.authService.login();
+  }
+
+  insertInscription(){
+    this.inscriptionService.insertInscription(this.primero[0]);
   }
 }

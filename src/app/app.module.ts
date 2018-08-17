@@ -17,6 +17,8 @@ import { AuthService } from './auth/auth.service';
 import { HomeService } from './home/home.service';
 import { ViewLoginComponent } from './view-login/view-login.component';
 import { TurnosService } from './services/turnos.service';
+import { ReportService } from './services/report.service';
+import { InscriptionService } from './services/inscription.service';
 
 // import angular firebase
 import { AngularFireModule } from 'angularfire2';
@@ -39,7 +41,7 @@ const routes: Routes = [
     ViewLoginComponent
   ],
   imports: [
-  AngularFireAuthModule,
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     BrowserModule,
@@ -50,7 +52,9 @@ const routes: Routes = [
     HttpService,
     AuthService,
     HomeService,
-    TurnosService
+    TurnosService,
+    ReportService,
+    InscriptionService
   ],
   bootstrap: [
     AppComponent
