@@ -1,7 +1,7 @@
 export class InscripcionModel {
-  date: string;
-  hourStart: string;
-  hourEnd: string;
-  userName: string;
-  boolAny: boolean;
+  public date: any;
+  public hourStart: any;
+  public hourEnd: any;
+  public userName: any;
+  public boolAny: any;
 }

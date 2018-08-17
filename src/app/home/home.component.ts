@@ -14,6 +14,7 @@ import { AuthService } from '../auth/auth.service';
 import { TurnosService } from './../services/turnos.service';
 import { InscriptionService } from './../services/inscription.service';
 
+
 // models
 import { InscripcionModel } from './../models/inscriptions';
 
@@ -53,12 +54,13 @@ import { InscripcionModel } from './../models/inscriptions';
         <p class="ms-font-m ms-fontColor-redDark">Something went wrong, couldn't send an email.</p>
       </div>
       <div>
-        <button class="btn btn-primary" (click)="insertInscription()">agregar</button>      
+        <button class="btn btn-primary" (click)="insertInscription(this.primero)">agregar</button>   
       </div>
     </div>
   </div>
 </div>
-  `
+  `,
+  providers: [InscriptionService]
 })
 export class HomeComponent implements OnInit, OnDestroy {
   events: MicrosoftGraph.Event[];
@@ -73,17 +75,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   terapeuta1: any[];
   terapeuta2: any[];
   terapeuta3: any[];
-  primero: any[];
-  
-  // primero: {
-  //   date: 'la fecha',
-  //   hourStart: 'la hora',
-  //   hourEnd: 'hora de termino',
-  //   userName: 'nombre usuario',
-  //   boolAny: false
-  // }
-
-  // primero 
+  inscriptionList: any[];
+  primero: InscripcionModel = {
+    date: 'la fecha',
+    hourStart: 'la hora',
+    hourEnd: 'hora de termino',
+    userName: 'nombre usuario',
+    boolAny: false
+  };
 
   send: MicrosoftGraph.Event;
   subsSendCalendar: Subscription;
@@ -146,15 +145,17 @@ export class HomeComponent implements OnInit, OnDestroy {
       console.log(this.terapeuta3);
     });
 
-    this.primero = [{
-        date: 'la fecha',
-        hourStart: 'la hora',
-        hourEnd: 'hora de termino',
-        userName: 'nombre usuario',
-        boolAny: false
-    }]
-    console.log(this.primero)
-    
+    // get inscriptions
+    this.inscriptionService.getInscriptions()
+    .snapshotChanges()
+    .subscribe(item => {
+      this.inscriptionList = [];
+      item.forEach(elem => {
+        let x = elem.payload.toJSON();
+        x["$key"] = elem.key;
+        this.terapeuta3.push(x);
+      });
+    });    
   }
 
   ngOnDestroy() {
@@ -196,7 +197,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           timeZone: "GMT-0500"
         }
     }
-    
     this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
   }
 
@@ -208,7 +208,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.authService.login();
   }
 
-  insertInscription(){
-    this.inscriptionService.insertInscription(this.primero[0]);
+  insertInscription(x){
+    if (InscripcionModel){
+          this.inscriptionService.insertInscription(x);
+    }
   }
 }
