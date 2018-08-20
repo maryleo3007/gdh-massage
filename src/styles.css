@@ -3,6 +3,11 @@
   font-family: Roboto, sans-serif;
 }
 
+/* body {
+  overflow-x: hidden;
+  width: 100%;
+} */
+
 :root {
   --title-gray: #5c6579;
   --content-gray: #8690a0;

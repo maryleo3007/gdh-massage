@@ -25,6 +25,7 @@ export class ViewCoorComponent implements OnInit {
       if(auth){
         this.emailUser = auth.email;
         this.isLogin = true;
+        console.log(this.emailUser)
         if(auth.email === 'aponcedeleon@inteligogroup.com' || auth.email === 'valvarez@inteligogroup.com' ||
           auth.email === 'mllamocca@inteligogroup.com' || auth.email === 'acabrera@inteligogroup.com' ||
           auth.email === 'linga@inteligogroup.com' || auth.email === 'coordinadora@inteligogroup.com'

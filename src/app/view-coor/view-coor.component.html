@@ -1,3 +1,8 @@
-<p>
-  view-coor works!
-</p>
+<div class="" *ngIf="show">
+  <p>vista coordi</p>
+  <a class="nav-link" href="/login" (click)="logoutUser()">Salir</a>
+
+</div>
+<div class="" *ngIf="!show">
+  <p>No es tu ruta</p>
+</div>
