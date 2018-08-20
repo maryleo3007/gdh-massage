@@ -31,8 +31,8 @@ export class LoginFbComponent implements OnInit {
             auth.email === 'aponcedeleon@inteligogroup.com' ||
             auth.email === 'valvarez@inteligogroup.com'
           ) {
-            // this.router.navigate(['/recepcion']);
-            console.log('es vania o aurora')
+            this.router.navigate(['/admin']);
+            // console.log('es vania o aurora')
           } else if (
             auth.email === 'coordinadora@inteligogroup.com' ||
             auth.email === 'acabrera@inteligogroup.com' ||
@@ -40,8 +40,8 @@ export class LoginFbComponent implements OnInit {
             auth.email === 'mllamocca@inteligogroup.com' ||
             auth.email === 'linga@inteligogroup.com'
           ) {
-            // this.router.navigate(['/food-order']);
-            console.log('coordinadora')
+            this.router.navigate(['/coordi']);
+            // console.log('coordinadora')
           } 
         });
       })

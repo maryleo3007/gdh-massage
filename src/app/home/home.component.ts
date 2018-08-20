@@ -11,14 +11,14 @@ import * as MicrosoftGraph from "@microsoft/microsoft-graph-types"
 // services
 import { HomeService } from './home.service';
 import { AuthService } from '../auth/auth.service';
-import { TurnosService } from './../services/turnos.service';
-import { InscriptionService } from './../services/inscription.service';
-import { ReportService } from './../services/report.service';
+import { TurnosService } from '../services/turnos.service';
+import { InscriptionService } from '../services/inscription.service';
+import { ReportService } from '../services/report.service';
 
 
 // models
-import { InscripcionModel } from './../models/inscriptions';
-import { ReportsModel } from './../models/reports';
+import { InscripcionModel } from '../models/inscriptions';
+import { ReportsModel } from '../models/reports';
 
 
 

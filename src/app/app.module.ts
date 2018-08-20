@@ -32,11 +32,18 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 import { ViewHomeComponent } from './view-home/view-home.component';
 import { LoginFbComponent } from './login-fb/login-fb.component';
+import { ViewCoorComponent } from './view-coor/view-coor.component';
+import { ViewAdminComponent } from './view-admin/view-admin.component';
+
+// guard
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: ViewLoginComponent },
   { path: 'home', component: ViewHomeComponent },
   { path: 'login', component: LoginFbComponent },
+  { path: 'coordi', component: ViewCoorComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: ViewAdminComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
@@ -46,10 +53,12 @@ const routes: Routes = [
     LoginComponent,
     ViewLoginComponent,
     ViewHomeComponent,
-    LoginFbComponent
+    LoginFbComponent,
+    ViewCoorComponent,
+    ViewAdminComponent
   ],
   imports: [
-  AngularFireAuthModule,
+AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     BrowserModule,
@@ -61,6 +70,7 @@ const routes: Routes = [
   providers: [
     HttpService,
     AuthService,
+    AuthGuard,
     HomeService,
     TurnosService,
     ReportService,
