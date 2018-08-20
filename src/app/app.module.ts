@@ -7,6 +7,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -19,6 +21,7 @@ import { ViewLoginComponent } from './view-login/view-login.component';
 import { TurnosService } from './services/turnos.service';
 import { ReportService } from './services/report.service';
 import { InscriptionService } from './services/inscription.service';
+import { AuthFirebaseService } from './services/auth-firebase.service';
 
 // import angular firebase
 import { AngularFireModule } from 'angularfire2';
@@ -28,10 +31,12 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 // enviroment - config firebase
 import { environment } from '../environments/environment';
 import { ViewHomeComponent } from './view-home/view-home.component';
+import { ViewCoorComponent } from './view-coor/view-coor.component';
 
 const routes: Routes = [
   { path: '', component: ViewLoginComponent },
-  { path: 'home', component: ViewHomeComponent }
+  { path: 'home', component: ViewHomeComponent },
+  { path: 'coordinator', component: ViewCoorComponent },
 ];
 
 @NgModule({
@@ -40,14 +45,17 @@ const routes: Routes = [
     HomeComponent,
     LoginComponent,
     ViewLoginComponent,
-    ViewHomeComponent
+    ViewHomeComponent,
+    ViewCoorComponent
   ],
   imports: [
-    AngularFireAuthModule,
+  AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     BrowserModule,
+    FormsModule,
     HttpModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
   providers: [
@@ -56,7 +64,8 @@ const routes: Routes = [
     HomeService,
     TurnosService,
     ReportService,
-    InscriptionService
+    InscriptionService,
+    AuthFirebaseService
   ],
   bootstrap: [
     AppComponent

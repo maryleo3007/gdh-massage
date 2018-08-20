@@ -1,0 +1,28 @@
+<form (submit)='loginUser()' class="">
+  <div class="form-group pl-3 pr-3 pt-3">
+    <div class="row row-input">
+      <div class="col-1">
+        <i class="fa fa-user-o icon-input" aria-hidden="true"></i>
+      </div>
+      <div class="col-10">
+          <input placeholder="Email" type="email" name='email' [(ngModel)]='email'>    
+      </div>
+    </div>
+  </div>
+  <div class="form-group pl-3 pr-3 pt-3">
+    <div class="row row-input">
+      <div class="col-1">
+        <i class="fa fa-unlock-alt icon-input" aria-hidden="true"></i>
+      </div>
+      <div class="col-10">
+          <input  placeholder="Contraseña" type="password" name='password' [(ngModel)]='password'>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center pt-3 pb-3">
+    <input type="submit" class="btn btn-block bg-blue col-lg-10 col-md-10 col-sm-10 col-12 mt-2" value="Ingresar">
+  </div>
+  <div class="text-center text-danger">
+    <p>{{err}}</p>
+  </div>
+</form>
