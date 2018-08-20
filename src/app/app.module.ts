@@ -13,11 +13,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { ViewHomeComponent } from './view-home/view-home.component';
+import { LoginFbComponent } from './login-fb/login-fb.component';
+import { ViewCoorComponent } from './view-coor/view-coor.component';
+import { ViewAdminComponent } from './view-admin/view-admin.component';
+import { ViewLoginComponent } from './view-login/view-login.component';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 import { HttpService } from './shared/http.service';
 import { AuthService } from './auth/auth.service';
 import { HomeService } from './home/home.service';
-import { ViewLoginComponent } from './view-login/view-login.component';
 import { TurnosService } from './services/turnos.service';
 import { ReportService } from './services/report.service';
 import { InscriptionService } from './services/inscription.service';
@@ -30,10 +35,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 // enviroment - config firebase
 import { environment } from '../environments/environment';
-import { ViewHomeComponent } from './view-home/view-home.component';
-import { LoginFbComponent } from './login-fb/login-fb.component';
-import { ViewCoorComponent } from './view-coor/view-coor.component';
-import { ViewAdminComponent } from './view-admin/view-admin.component';
+
 
 // guard
 import { AuthGuard } from './guards/auth.guard';
@@ -44,6 +46,7 @@ const routes: Routes = [
   { path: 'login', component: LoginFbComponent },
   { path: 'coordi', component: ViewCoorComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: ViewAdminComponent, canActivate: [AuthGuard] },
+  {path: '**', component: NotFoundPageComponent},
 ];
 
 @NgModule({
@@ -55,10 +58,11 @@ const routes: Routes = [
     ViewHomeComponent,
     LoginFbComponent,
     ViewCoorComponent,
-    ViewAdminComponent
+    ViewAdminComponent,
+    NotFoundPageComponent
   ],
   imports: [
-AngularFireAuthModule,
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     BrowserModule,

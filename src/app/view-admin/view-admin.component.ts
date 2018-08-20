@@ -12,9 +12,6 @@ export class ViewAdminComponent implements OnInit {
   public isLogin: boolean;
   public name: string;
   public correctUser: boolean;
-  // public lastName: string;
-  // public area: string;
-  // public img: string;
   public show:boolean;
   constructor(
     private authFirebaseService: AuthFirebaseService
@@ -26,21 +23,11 @@ export class ViewAdminComponent implements OnInit {
       if(auth){
         this.emailUser = auth.email;
         this.isLogin = true;
-        // console.log(this.emailUser)
         if(auth.email === 'aponcedeleon@inteligogroup.com' ||auth.email === 'valvarez@inteligogroup.com') {
           this.show = true;
-          console.log('son ellas')
-        } else {
-          console.log('no es tu ruta');
+        } else if (auth.email == undefined || auth.email == null){
           this.show  = false;
         }
-        // if(this.name === undefined) {
-        //   console.log('no es tu ruta');
-        //   this.correctUser = false;
-        // } else {
-        //   this.correctUser = true;
-          
-        // }
       }     
     });
   }
