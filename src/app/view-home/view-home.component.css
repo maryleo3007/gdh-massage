@@ -1,0 +1,28 @@
+.turn-btn{
+    background-color: #FFFFFF;
+    border: 1px solid #004A8C;
+    color: #808080;
+    font-size: 18px;
+    padding: 2px 18px;
+    box-shadow: 0px 3px 3px #aaaaaa;
+    cursor: pointer;
+    width: 150px;
+}
+.turn-btn.active{
+    background-color: #004A8C;
+    color: #ffffff;
+}
+.turn-btn:disabled,
+.turn-btn[disabled]{
+  border: 1px solid #F1F2F2;
+  background-color: #F1F2F2;
+  box-shadow: none;
+  color: #B3B3B3;
+  cursor: auto;
+}
+
+.therapist-content span{
+    color: #cccccc;
+    font-size: 20px;
+    font-weight: 100;
+}

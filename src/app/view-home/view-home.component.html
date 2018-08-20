@@ -1,37 +1,90 @@
-<h1>holi</h1>
-<div class="ms-Grid-row">
-  <!-- App navigation bar markup. -->
-  <div class="ms-NavBar">
-    <ul class="ms-NavBar-items">
-      <li class="ms-NavBar-item">Microsoft Graph Connect sample</li>
-      <li class="ms-NavBar-item ms-NavBar-item--right" (click)="onLogout()"><i class="ms-Icon ms-Icon--x"></i> Disconnect</li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-light ">
+    <div class="col-md-6 col-8 col-sm-6">
+      <span>Masajes antiestrés</span>
+      <div class="separador"></div>
+      <span>Elije tu turno</span>
+    </div>
+    <div class="col-md-6 col-4 col-sm-6 text-right">
+      <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
+    </div>
+</nav>
+<div class="content">
+  <div class="container mt-3 mb-3 therapist-content">
+    <div class="row">
+        <div class="col-md-4 col-4 text-center">
+            <div class="therapist-container"> 
+                <span>Terapeuta 1</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-4 text-center">
+            <div class="therapist-container">
+                <span>Terapeuta 2</span>
+            </div>
+        </div>
+        <div class="col-md-4 col-4 text-center">
+            <div class="therapist-container">
+                <span>Terapeuta 3</span>
+            </div>
+        </div>
+    </div>
   </div>
-
-  <!-- App main content markup. -->
-    <div class="ms-Grid-col ms-u-mdPush1 ms-u-md9 ms-u-lgPush1 ms-u-lg6">
-    <div>
-      <h2 *ngIf="me" class="ms-font-xxl ms-fontWeight-semibold">Hi, {{ me.displayName }}!</h2>
-      <p class="ms-font-xl">You're now connected to Microsoft Graph. Click the button below to send a message from your account using the Microsoft Graph API. </p>
-      <div *ngIf="me" class="ms-TextField">
-        <input value="{{me.mail || me.userPrincipalName}}" class="ms-TextField-field">
-      </div>
-      <button class="ms-Button" (click)="onSendMail()">
-        <span class="ms-Button-label">Send mail</span>
-      </button>
-      <button class="ms-Button" (click)="onSendCalendar()">
-      <span class="ms-Button-label">Agendar</span>
-      </button>
-      <div *ngIf="this.emailSent">
-        <p class="ms-font-m ms-fontColor-green">Successfully sent an email to {{ me.mail || me.userPrincipalName }}!</p>
-      </div>
-      <div *ngIf="!this.emailSent && !me">
-        <p class="ms-font-m ms-fontColor-redDark">Something went wrong, couldn't send an email.</p>
-      </div>
+  <div class="container turn-content">
+    <div class="row">
+        <!-- *ngFor="let item of list" -->
+        
+          <div class="col-12 col-md-4 text-center">             
+            <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
+                <button *ngIf="item1.available == true" disabled class="turn-btn">{{item1.hourStart}} - {{item1.hourEnd}}</button>
+                <button *ngIf="item1.available == false" class="turn-btn">{{item1.hourStart}} - {{item1.hourEnd}}</button>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 text-center">            
+            <div *ngFor = "let item2 of terapeuta2" class="mb-2 turn-container">
+                <button *ngIf="item2.available == true" disabled class="turn-btn">{{item2.hourStart}} - {{item2.hourEnd}}</button>
+                <button *ngIf="item2.available == false" class="turn-btn">{{item2.hourStart}} - {{item2.hourEnd}}</button>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 mb-2 text-center">
+            <div *ngFor = "let item3 of terapeuta3" class="mb-2 turn-container">
+                <button *ngIf="item3.available == true" disabled class="turn-btn">{{item3.hourStart}} - {{item3.hourEnd}}</button>
+                <button *ngIf="item3.available == false" class="turn-btn">{{item3.hourStart}} - {{item3.hourEnd}}</button>
+            </div>
+          </div>
+    </div>
+        <!-- App main content markup. -->
+           
+  </div>
+  <div class="text-right">
+    <a class="logOut" (click)="onLogout()"> Salir</a>
+  </div>
+  <div>
       <div>
         <button class="btn btn-primary" (click)="insertInscription(this.primero)">agregar inscripcion</button>  
         <button class="btn btn-primary" (click)="insertReport(this.segundo)">agregar reporte</button> 
       </div>
     </div>
-  </div>
+
 </div>
+
+<!-- modal 0 -->
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ¿Deseas confirmar este turno?
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+  <!-- modal confirmacion -->
+
+

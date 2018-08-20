@@ -8,3 +8,37 @@
   --content-gray: #8690a0;
   --dark-blue: #30497B;
 }
+.separador{
+  width: 1px;
+  height: 18px;
+  margin-left: 7px;
+  margin-right: 7px;
+  margin-bottom: -3px;
+  background: #30497B;
+  display: inline-block;
+}
+.navbar span{
+  font-size: 12px;
+}
+.navbar{
+  background-color: #F4F8FD;
+}
+.navbar img{
+  height: 20px;
+}
+.navbar span:nth-child(1){
+  font-weight: 600;
+  color: #808CA5;
+}
+.navbar span:nth-child(3){
+  font-weight: 100;
+  color: #30497B;
+}
+@media (min-width: 768px) {
+  .navbar span{
+    font-size: 18px;
+  }
+  .navbar img{
+    height: 40px;
+  }
+}
