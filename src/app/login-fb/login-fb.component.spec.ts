@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewCoorComponent } from './view-coor.component';
+import { LoginFbComponent } from './login-fb.component';
 
 describe('ViewCoorComponent', () => {
-  let component: ViewCoorComponent;
-  let fixture: ComponentFixture<ViewCoorComponent>;
+  let component: LoginFbComponent;
+  let fixture: ComponentFixture<LoginFbComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewCoorComponent ]
+      declarations: [ LoginFbComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewCoorComponent);
+    fixture = TestBed.createComponent(LoginFbComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

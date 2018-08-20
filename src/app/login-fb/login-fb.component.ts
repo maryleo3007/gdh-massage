@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-view-coor',
-  templateUrl: './view-coor.component.html',
-  styleUrls: ['./view-coor.component.css']
+  selector: 'app-login-fb',
+  templateUrl: './login-fb.component.html',
+  styleUrls: ['./login-fb.component.css']
 })
-export class ViewCoorComponent implements OnInit {
+export class LoginFbComponent implements OnInit {
   public email: string;
   public password: string;
   public err: any;

@@ -31,12 +31,12 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 // enviroment - config firebase
 import { environment } from '../environments/environment';
 import { ViewHomeComponent } from './view-home/view-home.component';
-import { ViewCoorComponent } from './view-coor/view-coor.component';
+import { LoginFbComponent } from './login-fb/login-fb.component';
 
 const routes: Routes = [
   { path: '', component: ViewLoginComponent },
   { path: 'home', component: ViewHomeComponent },
-  { path: 'coordinator', component: ViewCoorComponent },
+  { path: 'login', component: LoginFbComponent },
 ];
 
 @NgModule({
@@ -46,7 +46,7 @@ const routes: Routes = [
     LoginComponent,
     ViewLoginComponent,
     ViewHomeComponent,
-    ViewCoorComponent
+    LoginFbComponent
   ],
   imports: [
   AngularFireAuthModule,
