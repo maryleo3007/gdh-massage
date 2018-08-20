@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthFirebaseService } from './../services/auth-firebase.service';
+
 
 @Component({
   selector: 'app-view-coor',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewCoorComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private authFirebaseService: AuthFirebaseService
+  ) { }
 
   ngOnInit() {
   }
 
+  logoutUser() {
+    this.authFirebaseService.logout();
+  }
 }
