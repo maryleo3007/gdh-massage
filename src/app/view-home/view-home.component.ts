@@ -11,6 +11,7 @@ import { InscriptionService } from './../services/inscription.service';
 import { ReportService } from './../services/report.service';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
+
 // models
 import { InscripcionModel } from './../models/inscriptions';
 import { ReportsModel } from './../models/reports';
