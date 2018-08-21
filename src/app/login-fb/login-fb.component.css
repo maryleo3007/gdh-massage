@@ -47,15 +47,6 @@
   div.row div:nth-child(1) div:nth-child(1) div:nth-child(4) button {
    text-align: center;
  }
-  /* .view-login-fb div.row div:nth-child(1) div:nth-child(1) label{
-    width: 80%;
-  } */
-};
-
-@media only screen and (max-width: 320px)  {
-  .view-login-fb div.row div:nth-child(1) div:nth-child(1) h3 {
-    padding-top: 5%;
-  }
 };
 
 @media only screen and (max-width: 1100px)  {
@@ -63,3 +54,11 @@
     margin-right: 2rem;
   }
 }
+
+@media only screen and (max-width: 320px)  {
+  .view-login-fb div.row div:nth-child(1) div:nth-child(1) h3 {
+    padding-top: 5%;
+  }
+};
+
+
