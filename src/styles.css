@@ -34,6 +34,27 @@
   font-weight: 100;
   color: #30497B;
 }
+.btn-confirm{
+  background-color: #3A7ABA;
+  color: #ffffff;
+  width: 130px;
+  height: 40px;
+  font-size: 18px;
+  border-radius: 0px;
+  font-weight: 100;
+  box-shadow: 0px 3px 3px #aaaaaa;
+}
+.btn-cancel{
+  background-color: #D2DEEA;
+  color: #3A7ABA;
+  width: 130px;
+  height: 40px;
+  font-size: 18px;
+  border-radius: 0px;
+  font-weight: 100;
+  box-shadow: 0px 3px 3px #aaaaaa;
+}
+
 @media (min-width: 768px) {
   .navbar span{
     font-size: 18px;

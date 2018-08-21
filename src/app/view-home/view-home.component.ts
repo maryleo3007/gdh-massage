@@ -1,7 +1,8 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable, Subject } from 'rxjs';
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 // services
 import { HomeService } from '../home/home.service';
@@ -9,8 +10,6 @@ import { AuthService } from '../auth/auth.service';
 import { TurnosService } from './../services/turnos.service';
 import { InscriptionService } from './../services/inscription.service';
 import { ReportService } from './../services/report.service';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { BsModalService } from 'ngx-bootstrap/modal';
 
 // models
 import { InscripcionModel } from './../models/inscriptions';
@@ -39,8 +38,7 @@ export class ViewHomeComponent implements OnInit {
   inscriptionList: any[];
   reportList: any[];
   selectedTurn: TurnModel;
-  modalRef: BsModalRef;
-  modalRef2: BsModalRef;
+  closeResult: string;
 
   primero: InscripcionModel = {
     date: 'la fecha',
@@ -69,7 +67,7 @@ export class ViewHomeComponent implements OnInit {
     private turnoService: TurnosService,
     private inscriptionService: InscriptionService,
     private reportService: ReportService,
-    private modalService: BsModalService
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
@@ -191,19 +189,25 @@ export class ViewHomeComponent implements OnInit {
     }
   }
 
-  onSelectTurn(turn:TurnModel): void{
+  onSelectTurn(turn:TurnModel, modal): void{
     this.selectedTurn = turn;
     console.log(this.selectedTurn);
-    
+    //this.modalService.open(modal);
+    this.modalService.open(modal, { centered: true }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
   }
-  openModal2(template: TemplateRef<any>) {
-    this.modalRef2 = this.modalService.show(template, { class: 'second' });
-  }
-  closeFirstModal() {
-    this.modalRef.hide();
-    this.modalRef = null;
-  }
+
 }

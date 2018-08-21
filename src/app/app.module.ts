@@ -10,10 +10,13 @@ import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { ViewHomeComponent } from './view-home/view-home.component';
+
 
 import { HttpService } from './shared/http.service';
 import { AuthService } from './auth/auth.service';
@@ -22,8 +25,6 @@ import { ViewLoginComponent } from './view-login/view-login.component';
 import { TurnosService } from './services/turnos.service';
 import { ReportService } from './services/report.service';
 import { InscriptionService } from './services/inscription.service';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 // import angular firebase
 import { AngularFireModule } from 'angularfire2';
@@ -32,7 +33,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 // enviroment - config firebase
 import { environment } from '../environments/environment';
-import { ViewHomeComponent } from './view-home/view-home.component';
+
 
 const routes: Routes = [
   { path: '', component: ViewLoginComponent },
@@ -56,8 +57,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     CommonModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot() ,
-    // BsModalService.forRoot()
+    ToastrModule.forRoot(),
+    NgbModule.forRoot()
   ],
   providers: [
     HttpService,
@@ -65,9 +66,7 @@ const routes: Routes = [
     HomeService,
     TurnosService,
     ReportService,
-    InscriptionService,
-    BsModalService,
-    BsModalRef
+    InscriptionService
   ],
   bootstrap: [
     AppComponent

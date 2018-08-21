@@ -24,6 +24,7 @@
     "@firebase/app": "^0.1.10",
     "@microsoft/microsoft-graph-client": "https://github.com/microsoftgraph/msgraph-sdk-javascript.git",
     "@microsoft/microsoft-graph-types": "https://github.com/microsoftgraph/msgraph-typescript-typings.git",
+    "@ng-bootstrap/ng-bootstrap": "^1.1.0",
     "@types/hellojs": "0.2.31",
     "angularfire2": "5.0.0-rc.3",
     "bootstrap": "^4.0.0",
