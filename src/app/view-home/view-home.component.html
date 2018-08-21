@@ -34,8 +34,8 @@
         
           <div class="col-12 col-md-4 text-center">             
             <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
-                <button *ngIf="item1.available == true" disabled class="turn-btn">{{item1.hourStart}} - {{item1.hourEnd}}</button>
-                <button *ngIf="item1.available == false" class="turn-btn">{{item1.hourStart}} - {{item1.hourEnd}}</button>
+                <button *ngIf="item1.available == true" disabled class="turn-btn" (click) = "onSelectTurn(item1)">{{item1.hourStart}} - {{item1.hourEnd}}</button>
+                <button *ngIf="item1.available == false" class="turn-btn" (click) = "openModal(template)">{{item1.hourStart}} - {{item1.hourEnd}}</button>
             </div>
           </div>
           <div class="col-12 col-md-4 text-center">            
@@ -66,25 +66,29 @@
 
 </div>
 
-<!-- modal 0 -->
-
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          ¿Deseas confirmar este turno?
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-</div>
-
-  <!-- modal confirmacion -->
-
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">First modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is a first modal
+    <button type="button" class="btn btn-primary" (click)="openModal2(templateNested)">Open second modal</button>
+  </div>
+</ng-template>
+ 
+<ng-template #templateNested>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Second modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is nested modal.<br>
+    <button *ngIf="modalRef" type="button" class="btn btn-danger" (click)="closeFirstModal()">Close first modal</button>
+  </div>
+</ng-template>
 

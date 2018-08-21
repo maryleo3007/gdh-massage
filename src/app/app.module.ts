@@ -7,6 +7,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -19,6 +22,8 @@ import { ViewLoginComponent } from './view-login/view-login.component';
 import { TurnosService } from './services/turnos.service';
 import { ReportService } from './services/report.service';
 import { InscriptionService } from './services/inscription.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 // import angular firebase
 import { AngularFireModule } from 'angularfire2';
@@ -48,7 +53,11 @@ const routes: Routes = [
     AngularFireDatabaseModule,
     BrowserModule,
     HttpModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    CommonModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot() ,
+    // BsModalService.forRoot()
   ],
   providers: [
     HttpService,
@@ -56,7 +65,9 @@ const routes: Routes = [
     HomeService,
     TurnosService,
     ReportService,
-    InscriptionService
+    InscriptionService,
+    BsModalService,
+    BsModalRef
   ],
   bootstrap: [
     AppComponent
