@@ -39,12 +39,20 @@ export class ViewHomeComponent implements OnInit {
   reportList: any[];
   selectedTurn: TurnModel;
   closeResult: string;
+  today:any;
+  dd:any;
+  mm:any;
+  yyyy:any;
+  name: string;
+  userName:string;
 
   primero: InscripcionModel = {
-    date: 'la fecha',
-    hourStart: 'la hora',
-    hourEnd: 'hora de termino',
-    userName: 'nombre usuario',
+    dateInscription: '',
+    hourStart: '',
+    hourEnd: '',
+    userName: 'acabrera32',
+    userAssist: 'alejandra',
+    therapist: 3,
     boolAny: false
   };
 
@@ -71,16 +79,17 @@ export class ViewHomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.subsGetMe = this.homeService.getMe().subscribe(me => {
+      this.subsGetMe = this.homeService.getMe().subscribe(me => {
       this.me = me; 
       let cutName = me.mail.indexOf('@');
       let cutUserName = me.displayName.indexOf(' ');
-      let name = me.mail.substring(0,cutName);
-      let userName = me.displayName.substring(cutUserName+1);
+      this.name = me.mail.substring(0,cutName);
+      this.userName = me.displayName.substring(cutUserName+1);
       
       // send name and nameUser to local storage
-      localStorage.setItem('name', name);
-      localStorage.setItem('userName', userName);
+      localStorage.setItem('name', this.name);
+      localStorage.setItem('userName', this.userName);
+
     });
 
    
@@ -94,7 +103,7 @@ export class ViewHomeComponent implements OnInit {
         x["$key"] = elem.key;
         this.terapeuta1.push(x);
       });
-      console.log(this.terapeuta1);
+      
     });
 
     this.turnoService.getTurnosT2()
@@ -106,7 +115,7 @@ export class ViewHomeComponent implements OnInit {
         x["$key"] = elem.key;
         this.terapeuta2.push(x);
       });
-      console.log(this.terapeuta2);
+      
     });
 
     this.turnoService.getTurnosT3()
@@ -118,7 +127,7 @@ export class ViewHomeComponent implements OnInit {
         x["$key"] = elem.key;
         this.terapeuta3.push(x);
       });
-      console.log(this.terapeuta3);
+      
     });
 
     // get inscriptions
@@ -131,7 +140,9 @@ export class ViewHomeComponent implements OnInit {
         x["$key"] = elem.key;
         this.inscriptionList.push(x);
       });
-    });    
+      console.log(this.inscriptionList);
+      
+   });    
 
     // get reports
     this.reportService.getReports()
@@ -176,6 +187,34 @@ export class ViewHomeComponent implements OnInit {
     this.authService.login();
   }
 
+  onSelectTurn(turn:TurnModel, modal): void{
+    if (InscripcionModel){
+      this.selectedTurn = turn;
+      this.selectedTurn.available = false;
+      this.primero.dateInscription = this.getDateFull();
+      this.primero.hourStart = this.selectedTurn.hourStart;
+      this.primero.hourEnd = this.selectedTurn.hourEnd;
+      this.primero.therapist = this.selectedTurn.therapistId;
+      this.primero.userAssist = this.name;
+      this.primero.userName = this.userName;
+      
+      this.modalService.open(modal, { centered: true }).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    } 
+  }
+
+  onConfirmTurn (x, modal){
+    this.insertInscription(x);
+    this.modalService.open(modal, { centered: true }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
   insertInscription(x){
     if (InscripcionModel){
           this.inscriptionService.insertInscription(x);
@@ -185,22 +224,11 @@ export class ViewHomeComponent implements OnInit {
   insertReport(x){
     if (ReportsModel){
           this.reportService.insertReport(x);
-          console.log(x)
     }
   }
 
-  onSelectTurn(turn:TurnModel, modal): void{
-    this.selectedTurn = turn;
-    console.log(this.selectedTurn);
-    //this.modalService.open(modal);
-    this.modalService.open(modal, { centered: true }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
   private getDismissReason(reason: any): string {
+    this.selectedTurn.available = false;
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -208,6 +236,23 @@ export class ViewHomeComponent implements OnInit {
     } else {
       return  `with: ${reason}`;
     }
+  }
+
+  private getDateFull(): string{
+    this.today = new Date();
+    this.dd = this.today.getDate();
+    this.mm = this.today.getMonth()+1;
+    this.yyyy = this.today.getFullYear();
+
+    if(this.dd<10){
+      this.dd='0'+this.dd;
+    } 
+    if(this.mm<10){
+      this.mm='0'+this.mm;
+    } 
+    this.today = this.dd+'/'+this.mm+'/'+this.yyyy;
+
+    return this.today;
   }
 
 }

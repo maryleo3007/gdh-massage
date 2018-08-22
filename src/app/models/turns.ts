@@ -1,6 +1,8 @@
 export class TurnModel {
-    hourStart: string;
-    hourEnd: string;
-    available: boolean;
-    count: number;
+    public hourStart: string;
+    public hourEnd: string;
+    public available: boolean;
+    public count: number;
+    public therapistId: number;
+    public confirm: boolean;
 }

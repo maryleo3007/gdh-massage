@@ -26,3 +26,47 @@
     font-size: 20px;
     font-weight: 100;
 }
+
+.logOut{
+    cursor: pointer;
+    color: #c1c1c1 !important;
+}
+
+.logOut:hover{
+    cursor: pointer;
+    color: #3A7ABA !important;
+}
+.btn-close{
+    font-size: 30px;
+}
+
+.text-modal{
+    color: #b4b4b4;
+}
+
+.text-content{
+    color: #bebebe;
+}
+
+.lgnd-stt-turn{
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    border-radius: 2px;
+    margin-right: 0.5rem;
+    margin-bottom: -2px;
+}
+.lgnd-stt-turn-ocup{
+    background-color: #F1F2F2;
+}
+.lgnd-stt-turn-avail{
+    background-color: #ffffff;
+    border: 1px solid #20619A;
+}
+.lgnd-stt-turn-navail{
+    background-color: #004A8C;
+}
+.lgnd-stt-turn-nconfirm{
+    background-color: #D2DEEA;
+}

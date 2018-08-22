@@ -64,9 +64,9 @@ const routes: Routes = [
     HttpService,
     AuthService,
     HomeService,
+    InscriptionService,
     TurnosService,
-    ReportService,
-    InscriptionService
+    ReportService
   ],
   bootstrap: [
     AppComponent

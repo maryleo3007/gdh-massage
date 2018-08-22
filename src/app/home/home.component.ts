@@ -73,19 +73,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   subsGetUsers: Subscription;
   subsGetMe: Subscription;
   subsSendMail: Subscription;
-  date: any;
+  // date: any;
   terapeuta1: any[];
   terapeuta2: any[];
   terapeuta3: any[];
   inscriptionList: any[];
   reportList: any[];
-  primero: InscripcionModel = {
-    date: 'la fecha',
-    hourStart: 'la hora',
-    hourEnd: 'hora de termino',
-    userName: 'nombre usuario',
-    boolAny: false
-  };
+  // primero: InscripcionModel = {
+  //   date: 'la fecha',
+  //   hourStart: 'la hora',
+  //   hourEnd: 'hora de termino',
+  //   userName: 'nombre usuario',
+  //   boolAny: false
+  // };
 
   segundo: ReportsModel = {
     date: 'la fecha',
@@ -168,7 +168,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       item.forEach(elem => {
         let x = elem.payload.toJSON();
         x["$key"] = elem.key;
-        this.terapeuta3.push(x);
+        this.inscriptionList.push(x);
       });
     });    
 
@@ -211,7 +211,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onSendCalendar(){
 
-    this.date = new Date();
+    // this.date = new Date();
 
     // this.send = {
     //     subject: "soy mariiii",
@@ -236,16 +236,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.authService.login();
   }
 
-  insertInscription(x){
-    if (InscripcionModel){
-          this.inscriptionService.insertInscription(x);
-    }
-  }
+  // insertInscription(x){
+  //   if (InscripcionModel){
+  //         this.inscriptionService.insertInscription(x);
+  //   }
+  // }
 
-  insertReport(x){
-    if (ReportsModel){
-          this.reportService.insertReport(x);
-          console.log(x)
-    }
-  }
+  // insertReport(x){
+  //   if (ReportsModel){
+  //         this.reportService.insertReport(x);
+  //         console.log(x)
+  //   }
+  // }
 }

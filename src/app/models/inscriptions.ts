@@ -1,7 +1,9 @@
 export class InscripcionModel {
-  public date: string;
+  public boolAny: boolean;
+  public dateInscription: string;
   public hourStart: string;
   public hourEnd: string;
   public userName: string;
-  public boolAny: boolean;
+  public userAssist: string;
+  public therapist: number;
 }
