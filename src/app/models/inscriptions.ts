@@ -3,5 +3,7 @@ export class InscripcionModel {
   public hourStart: string;
   public hourEnd: string;
   public userName: string;
+  public userAssist: string;
+  public therapist: number;
   public boolAny: boolean;
 }

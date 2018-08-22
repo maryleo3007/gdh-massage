@@ -36,10 +36,12 @@ export class ViewHomeComponent implements OnInit {
   inscriptionList: any[];
   reportList: any[];
   primero: InscripcionModel = {
-    date: 'la fecha',
-    hourStart: 'la hora',
-    hourEnd: 'hora de termino',
-    userName: 'nombre usuario',
+    date: '21/08/2018',
+    hourStart: '1:20',
+    hourEnd: '1:40',
+    userName: 'acabrera32',
+    userAssist: 'alejandra',
+    therapist: 3,
     boolAny: false
   };
 
@@ -88,7 +90,6 @@ export class ViewHomeComponent implements OnInit {
         x["$key"] = elem.key;
         this.terapeuta1.push(x);
       });
-      console.log(this.terapeuta1);
     });
 
     this.turnoService.getTurnosT2()
@@ -100,7 +101,6 @@ export class ViewHomeComponent implements OnInit {
         x["$key"] = elem.key;
         this.terapeuta2.push(x);
       });
-      console.log(this.terapeuta2);
     });
 
     this.turnoService.getTurnosT3()
@@ -112,7 +112,6 @@ export class ViewHomeComponent implements OnInit {
         x["$key"] = elem.key;
         this.terapeuta3.push(x);
       });
-      console.log(this.terapeuta3);
     });
 
     // get inscriptions
@@ -123,8 +122,9 @@ export class ViewHomeComponent implements OnInit {
       item.forEach(elem => {
         let x = elem.payload.toJSON();
         x["$key"] = elem.key;
-        this.terapeuta3.push(x);
+        this.inscriptionList.push(x);
       });
+      console.log(this.inscriptionList)
     });    
 
     // get reports

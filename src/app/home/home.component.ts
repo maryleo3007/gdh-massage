@@ -80,10 +80,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   inscriptionList: any[];
   reportList: any[];
   primero: InscripcionModel = {
-    date: 'la fecha',
-    hourStart: 'la hora',
-    hourEnd: 'hora de termino',
-    userName: 'nombre usuario',
+    date: '21/08/2018',
+    hourStart: '12:00',
+    hourEnd: '12:20',
+    userName: 'acabrera',
+    userAssist: 'alejandra',
+    therapist: 1,
     boolAny: false
   };
 

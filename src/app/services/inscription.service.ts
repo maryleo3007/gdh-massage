@@ -24,6 +24,8 @@ export class InscriptionService {
       hourStart: inscription.hourStart,
       hourEnd: inscription.hourEnd,
       userName: inscription.userName,
+      userAssist: inscription.userAssist,
+      therapist: inscription.therapist,
       boolAny: inscription.boolAny
     })
   }
