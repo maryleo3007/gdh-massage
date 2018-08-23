@@ -34,17 +34,22 @@
         
           <div class="col-12 col-md-4 text-center">             
             <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
-                <button *ngIf="item1.confirm == true" disabled class="turn-btn">
-                  {{item1.hourStart}} - {{item1.hourEnd}}</button>
-                <button *ngIf="item1.confirm == false" class="turn-btn" (click) = "onSelectTurn(item1,modal0)">
-                  {{item1.hourStart}} - {{item1.hourEnd}}</button>
+                <button ng-class="{turn-por-confirmar:item1.userName == name}" 
+                        *ngIf="item1.confirm == false && item1.userName < 1" class="turn-btn turn-disponible" 
+                        (click) = "onSelectTurn(item1,modal0)">
+                        {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                <button *ngIf="item1.confirm == true && item1.userName == name" class="turn-btn turn-seleccionado"
+                        (click) = "onSelectTurn(item1,modal0)">
+                        {{item1.hourStart}} - {{item1.hourEnd}} </button>
+                <button *ngIf="item1.confirm == true && item1.userName != name" disabled class="turn-btn">
+                        {{item1.hourStart}} - {{item1.hourEnd}} </button>
             </div>
           </div>
           <div class="col-12 col-md-4 text-center">            
             <div *ngFor = "let item2 of terapeuta2" class="mb-2 turn-container">
                 <button *ngIf="item2.confirm == true" disabled class="turn-btn">
                   {{item2.hourStart}} - {{item2.hourEnd}}</button>
-                <button *ngIf="item2.confirm == false" class="turn-btn" (click) = "onSelectTurn(item2,modal0)">
+                <button *ngIf="item2.confirm == false" class="turn-btn turn-disponible" (click) = "onSelectTurn(item2,modal0)">
                   {{item2.hourStart}} - {{item2.hourEnd}}</button>
             </div>
           </div>
@@ -52,7 +57,7 @@
             <div *ngFor = "let item3 of terapeuta3" class="mb-2 turn-container">
                 <button *ngIf="item3.confirm == true" disabled class="turn-btn">
                   {{item3.hourStart}} - {{item3.hourEnd}}</button>
-                <button *ngIf="item3.confirm == false" class="turn-btn" (click) = "onSelectTurn(item3,modal0)">
+                <button *ngIf="item3.confirm == false" class="turn-btn turn-disponible" (click) = "onSelectTurn(item3,modal0)">
                   {{item3.hourStart}} - {{item3.hourEnd}}</button>
             </div>
           </div>
@@ -112,15 +117,41 @@
   </div>
   <div class="modal-body">
       <div class="text-center">
-          <h4 class="modal-title pull-left text-modal mr-4 ml-4">
+          <div class="mb-4">
+                <img src="../../assets/images/success.png" alt="">
+          </div>
+          
+          <h4 class="modal-title pull-left text-modal mr-5 ml-5">
             ¡Se confirmó tu reserva!
           <br>
             Recuerda que tu reserva es de <strong>{{selectedTurn.hourStart}}</strong> - <strong>{{selectedTurn.hourEnd}}</strong>
           </h4>
       </div>
-      <div class="text-center"><button *ngIf="modalRef" type="button" class="btn btn-danger" (click)="closeFirstModal()">Agendar</button></div>
-      <div class="text-center"><button type="button" class="btn btn-cancel" aria-label="Close" (click)="d('Cross click')">Cancelar</button></div>
-    
+      <div class="mt-3">
+        <div class="text-center">
+            <button type="button" class="btn btn-agendar" (click)="closeFirstModal()">Agendar </button>
+        </div>
+        <div class="text-center mt-4 mb-4">
+            <button type="button" class="btn btn-cancelReserva" aria-label="Close" (click)="d('Cross click')">Cancelar reserva</button>
+        </div>
+      </div>
   </div>
+</ng-template>
+
+<ng-template #modalSorry class="modal-dialog-centered">
+    <div class="text-right mr-1">
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="text-center">
+            <h4 class="modal-title pull-left text-modal mr-5 ml-5">
+                <strong>Lo siento, <br> ya has realizado una reserva.</strong>
+            <br>
+                Si deseas puedes modificarlo ingresando a tu turno seleccionado.
+            </h4>
+        </div>
+    </div>
 </ng-template>
 

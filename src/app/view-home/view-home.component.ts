@@ -45,14 +45,16 @@ export class ViewHomeComponent implements OnInit {
   yyyy:any;
   name: string;
   userName:string;
+  countConfirm: number;
+
 
   primero: InscripcionModel = {
     dateInscription: '',
     hourStart: '',
     hourEnd: '',
-    userName: 'acabrera32',
-    userAssist: 'alejandra',
-    therapist: 3,
+    userName: '',
+    userAssist: '',
+    therapist: 0,
     boolAny: false
   };
 
@@ -103,6 +105,7 @@ export class ViewHomeComponent implements OnInit {
         x["$key"] = elem.key;
         this.terapeuta1.push(x);
       });
+      console.log(this.terapeuta1);
       
     });
 
@@ -139,9 +142,7 @@ export class ViewHomeComponent implements OnInit {
         let x = elem.payload.toJSON();
         x["$key"] = elem.key;
         this.inscriptionList.push(x);
-      });
-      console.log(this.inscriptionList);
-      
+      });  
    });    
 
     // get reports
@@ -191,13 +192,9 @@ export class ViewHomeComponent implements OnInit {
     if (InscripcionModel){
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
-      this.primero.dateInscription = this.getDateFull();
-      this.primero.hourStart = this.selectedTurn.hourStart;
-      this.primero.hourEnd = this.selectedTurn.hourEnd;
-      this.primero.therapist = this.selectedTurn.therapistId;
-      this.primero.userAssist = this.name;
-      this.primero.userName = this.userName;
       
+      this.updateTurn(this.selectedTurn.$key, this.selectedTurn);
+
       this.modalService.open(modal, { centered: true }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
@@ -208,6 +205,19 @@ export class ViewHomeComponent implements OnInit {
 
   onConfirmTurn (x, modal){
     this.insertInscription(x);
+    this.selectedTurn.confirm = true;
+    this.selectedTurn.userName =  this.name;
+    console.log(this.name);
+
+    this.primero.dateInscription = this.getDateFull();
+    this.primero.hourStart = this.selectedTurn.hourStart;
+    this.primero.hourEnd = this.selectedTurn.hourEnd;
+    this.primero.therapist = this.selectedTurn.therapistId;
+    this.primero.userAssist = this.name;
+    this.primero.userName = this.userName;
+
+    this.updateTurn(this.selectedTurn.$key, this.selectedTurn);
+    
     this.modalService.open(modal, { centered: true }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -227,8 +237,13 @@ export class ViewHomeComponent implements OnInit {
     }
   }
 
+  updateTurn(key, x){
+    this.turnoService.updateTurn1(key,x);
+  }
+
   private getDismissReason(reason: any): string {
-    this.selectedTurn.available = false;
+    this.selectedTurn.available = true;
+    this.updateTurn(this.selectedTurn.$key, this.selectedTurn);
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {

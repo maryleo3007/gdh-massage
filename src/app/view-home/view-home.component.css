@@ -1,6 +1,4 @@
 .turn-btn{
-    background-color: #FFFFFF;
-    border: 1px solid #004A8C;
     color: #808080;
     font-size: 18px;
     padding: 2px 18px;
@@ -69,4 +67,43 @@
 }
 .lgnd-stt-turn-nconfirm{
     background-color: #D2DEEA;
+}
+.btn-agendar, .btn-cancelReserva {
+    background-color: #FFFFFF;
+    border: 1px solid #004A8C;
+    color: #808080;
+    font-size: 16px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 28px;
+    cursor: pointer;
+    width: 200px;
+    border-radius: 0px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 100%;
+}
+.btn-agendar{
+    background-image: url('../../assets/images/agendar.png');
+}
+.btn-cancelReserva{
+    background-image: url('../../assets/images/cancelReserva.png');
+}
+
+.turn-por-confirmar{
+    background-color: #D2DEEA;
+    border: 1px solid #D2DEEA;
+}
+.turn-ocupado{
+    border: 1px solid #F1F2F2;
+    background-color: #F1F2F2;
+}
+.turn-disponible{
+    background-color: #FFFFFF;
+    border: 1px solid #004A8C;
+}   
+.turn-seleccionado{
+    background-color: #004A8C !important;
+    border: 1px solid #004A8C !important;
+    color: #ffffff;
 }
