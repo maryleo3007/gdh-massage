@@ -30,41 +30,49 @@
   </div>
   <div class="container turn-content">
     <div class="row">
-        <!-- *ngFor="let item of list" -->
-        
           <div class="col-12 col-md-4 text-center">             
             <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
                 <button ng-class="{turn-por-confirmar:item1.userName == name}" 
                         *ngIf="item1.confirm == false && item1.userName < 1" class="turn-btn turn-disponible" 
-                        (click) = "onSelectTurn(item1,modal0)">
+                        (click) = "onSelectTurn(item1,modalSelectTurn)">
                         {{item1.hourStart}} - {{item1.hourEnd}} </button>
                 <button *ngIf="item1.confirm == true && item1.userName == name" class="turn-btn turn-seleccionado"
-                        (click) = "onSelectTurn(item1,modal0)">
+                        (click) = "onSelectTurn(item1,modalSelectTurn)">
                         {{item1.hourStart}} - {{item1.hourEnd}} </button>
                 <button *ngIf="item1.confirm == true && item1.userName != name" disabled class="turn-btn">
                         {{item1.hourStart}} - {{item1.hourEnd}} </button>
             </div>
           </div>
           <div class="col-12 col-md-4 text-center">            
-            <div *ngFor = "let item2 of terapeuta2" class="mb-2 turn-container">
-                <button *ngIf="item2.confirm == true" disabled class="turn-btn">
-                  {{item2.hourStart}} - {{item2.hourEnd}}</button>
-                <button *ngIf="item2.confirm == false" class="turn-btn turn-disponible" (click) = "onSelectTurn(item2,modal0)">
-                  {{item2.hourStart}} - {{item2.hourEnd}}</button>
+            <div *ngFor="let item2 of terapeuta2" class="mb-2 turn-container">
+                <button ng-class="{turn-por-confirmar:item2.userName == name}" 
+                        *ngIf="item2.confirm == false && item2.userName < 1" class="turn-btn turn-disponible" 
+                        (click) = "onSelectTurn(item2,modalSelectTurn)">
+                        {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                <button *ngIf="item2.confirm == true && item2.userName == name" class="turn-btn turn-seleccionado"
+                        (click) = "onSelectTurn(item2,modalSelectTurn)">
+                        {{item2.hourStart}} - {{item2.hourEnd}} </button>
+                <button *ngIf="item2.confirm == true && item2.userName != name" disabled class="turn-btn">
+                        {{item2.hourStart}} - {{item2.hourEnd}} </button>
             </div>
           </div>
           <div class="col-12 col-md-4 mb-2 text-center">
-            <div *ngFor = "let item3 of terapeuta3" class="mb-2 turn-container">
-                <button *ngIf="item3.confirm == true" disabled class="turn-btn">
-                  {{item3.hourStart}} - {{item3.hourEnd}}</button>
-                <button *ngIf="item3.confirm == false" class="turn-btn turn-disponible" (click) = "onSelectTurn(item3,modal0)">
-                  {{item3.hourStart}} - {{item3.hourEnd}}</button>
+            <div *ngFor="let item3 of terapeuta3" class="mb-2 turn-container">
+                <button ng-class="{turn-por-confirmar:item3.userName == name}" 
+                        *ngIf="item3.confirm == false && item3.userName < 1" class="turn-btn turn-disponible" 
+                        (click) = "onSelectTurn(item3,modalSelectTurn)">
+                        {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                <button *ngIf="item3.confirm == true && item3.userName == name" class="turn-btn turn-seleccionado"
+                        (click) = "onSelectTurn(item3,modalSelectTurn)">
+                        {{item3.hourStart}} - {{item3.hourEnd}} </button>
+                <button *ngIf="item3.confirm == true && item3.userName != name" disabled class="turn-btn">
+                        {{item3.hourStart}} - {{item3.hourEnd}} </button>
             </div>
           </div>
     </div>
         <!-- App main content markup. -->  
   </div>
-  <div class="container-fluid">
+  <div class="container-fluid mt-3">
       <div class="row text-content">
           <div class="col-md-2 col-2 text-center"> 
                   <div class="lgnd-stt-turn lgnd-stt-turn-ocup"></div><span>Ocupado</span>
@@ -89,7 +97,7 @@
   
 </div>
 
-<ng-template #modal0 let-c="close" let-d="dismiss" class="modal-dialog-centered">
+<ng-template #modalSelectTurn let-c="close" let-d="dismiss" class="modal-dialog-centered">
   <div class="text-right mr-1">
       <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="d('Cross click')">
           <span aria-hidden="true">&times;</span>
@@ -109,7 +117,7 @@
   </div>
 </ng-template>
  
-<ng-template #modalConfirm class="modal-dialog-centered">
+<ng-template #modalConfirm let-c="close" let-d="dismiss" class="modal-dialog-centered">
   <div class="text-right mr-1">
       <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="d('Cross click')">
           <span aria-hidden="true">&times;</span>
@@ -132,7 +140,7 @@
             <button type="button" class="btn btn-agendar" (click)="closeFirstModal()">Agendar </button>
         </div>
         <div class="text-center mt-4 mb-4">
-            <button type="button" class="btn btn-cancelReserva" aria-label="Close" (click)="d('Cross click')">Cancelar reserva</button>
+            <button type="button" class="btn btn-cancelReserva" aria-label="Close" (click)="cancelTurn()">Cancelar reserva</button>
         </div>
       </div>
   </div>

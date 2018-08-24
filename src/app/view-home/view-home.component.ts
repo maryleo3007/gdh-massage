@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable, Subject } from 'rxjs';
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 // services
 import { HomeService } from '../home/home.service';
@@ -45,9 +45,10 @@ export class ViewHomeComponent implements OnInit {
   yyyy:any;
   name: string;
   userName:string;
-  countConfirm: number;
-
-
+  countConfirm: number = 0;
+  modalSelectTurn: NgbModalRef;
+  modalConfirm: NgbModalRef;
+  
   primero: InscripcionModel = {
     dateInscription: '',
     hourStart: '',
@@ -105,8 +106,6 @@ export class ViewHomeComponent implements OnInit {
         x["$key"] = elem.key;
         this.terapeuta1.push(x);
       });
-      console.log(this.terapeuta1);
-      
     });
 
     this.turnoService.getTurnosT2()
@@ -189,25 +188,27 @@ export class ViewHomeComponent implements OnInit {
   }
 
   onSelectTurn(turn:TurnModel, modal): void{
+
     if (InscripcionModel){
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
       
       this.updateTurn(this.selectedTurn.$key, this.selectedTurn);
 
-      this.modalService.open(modal, { centered: true }).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      });
+      this.modalSelectTurn  = this.modalService.open(modal, { centered: true });
+      // this.modalSelectTurn.result.then((result) => {    
+      //   this.closeResult = `Closed with: ${result}`;
+      // }, (reason) => {
+      //   this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      // });
     } 
   }
 
   onConfirmTurn (x, modal){
+
     this.insertInscription(x);
     this.selectedTurn.confirm = true;
     this.selectedTurn.userName =  this.name;
-    console.log(this.name);
 
     this.primero.dateInscription = this.getDateFull();
     this.primero.hourStart = this.selectedTurn.hourStart;
@@ -217,12 +218,16 @@ export class ViewHomeComponent implements OnInit {
     this.primero.userName = this.userName;
 
     this.updateTurn(this.selectedTurn.$key, this.selectedTurn);
+    this.countConfirm++;
     
-    this.modalService.open(modal, { centered: true }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.modalSelectTurn.close();
+    this.modalConfirm =  this.modalService.open(modal, { centered: true });
+    // this.modalConfirm.result.then((result) => {
+    //   this.closeResult = `Closed with: ${result}`;
+    // }, (reason) => {
+    //   this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    // });
+
   }
 
   insertInscription(x){
@@ -241,6 +246,14 @@ export class ViewHomeComponent implements OnInit {
     this.turnoService.updateTurn1(key,x);
   }
 
+  cancelTurn(){
+    this.selectedTurn.available = true;
+    this.selectedTurn.confirm = false;
+    this.selectedTurn.userName = '';
+    this.updateTurn(this.selectedTurn.$key, this.selectedTurn);
+    this.modalConfirm.close();
+  }
+
   private getDismissReason(reason: any): string {
     this.selectedTurn.available = true;
     this.updateTurn(this.selectedTurn.$key, this.selectedTurn);
@@ -252,6 +265,7 @@ export class ViewHomeComponent implements OnInit {
       return  `with: ${reason}`;
     }
   }
+  
 
   private getDateFull(): string{
     this.today = new Date();
