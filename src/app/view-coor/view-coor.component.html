@@ -1,8 +1,24 @@
-<div class="" *ngIf="show">
+<div *ngIf="show">
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="col-3 text-left coordinadora">
+            <i class="fa fa-user" aria-hidden="true"></i>
+      <span>Coordinadora</span>
+        </div>
+        <div class="col-6 text-center title">
+          <span>Masajes Antiestrés</span>
+          <span>| Asistencia</span>
+        </div>
+        <div class="col-3 text-right">
+            <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
+        </div>
+      
+      </nav>
+</div>
+<!-- <div class="" *ngIf="show">
   <p>vista coordi</p>
   <a class="nav-link" href="/login" (click)="logoutUser()">Salir</a>
 
-</div>
+</div> -->
 <div class="" *ngIf="!show">
   <p>No es tu ruta</p>
   <a class="nav-link" href="/login" (click)="logoutUser()">Salir</a>

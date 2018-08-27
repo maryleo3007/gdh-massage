@@ -1,0 +1,26 @@
+div.title span {
+  font-size: 1.25rem;
+}
+div.title span:first-child {
+  font-weight: 600;
+  color: var(--dark-blue);
+}
+
+div.title span:nth-child(2) {
+  color: var(--title-gray);
+}
+
+div.coordinadora {
+  color: var(--title-gray);
+}
+
+div.coordinadora i {
+  font-size: 1.35rem;
+  background-color: #ededed;
+  border-radius: 50%;
+  padding-top: 0.50rem;
+  padding-bottom: 0.50rem;
+  padding-left: 0.65rem;
+  padding-right: 0.60rem;
+  color: var(--title-gray);
+}
