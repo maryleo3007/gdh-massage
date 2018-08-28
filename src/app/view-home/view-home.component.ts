@@ -32,7 +32,7 @@ export class ViewHomeComponent implements OnInit {
   subsGetMe: Subscription;
   subsSendMail: Subscription;
   date: any;
-  terapeuta1: any[];
+  terapeuta1: any;
   terapeuta2: any[];
   terapeuta3: any[];
   inscriptionList: any[];
@@ -48,6 +48,7 @@ export class ViewHomeComponent implements OnInit {
   countConfirm: number = 0;
   modalSelectTurn: NgbModalRef;
   modalConfirm: NgbModalRef;
+  therapistIds: Array<string> = ['terapeuta1', 'terapeuta2', 'terapeuta3'];
   
   primero: InscripcionModel = {
     dateInscription: '',
@@ -95,11 +96,33 @@ export class ViewHomeComponent implements OnInit {
 
     });
 
-   
     // get turnos
+
+    // this.therapistIds.forEach((elemento,index)=>{
+    //   console.log(elemento,index);
+    //   // this.terapeuta1[index] = elemento;
+      
+    //   this.turnoService.getTurnos(elemento)
+    //   .snapshotChanges()
+    //   .subscribe(item => {   
+    //     // this.terapeuta1 = [];
+    //     this.terapeuta1[index]= [];
+        
+    //     console.log(this.terapeuta1[index]);
+        
+    //     item.forEach(elem => {
+    //       let x = elem.payload.toJSON();
+    //       x["$key"] = elem.key;
+    //       // this.terapeuta1.push(x);
+    //       this.terapeuta1[index].push(x);
+    //     });
+    //     console.log(this.terapeuta1[index]);
+    //   });
+    // });
+
     this.turnoService.getTurnosT1()
     .snapshotChanges()
-    .subscribe(item => {
+    .subscribe(item => {   
       this.terapeuta1 = [];
       item.forEach(elem => {
         let x = elem.payload.toJSON();
@@ -117,7 +140,6 @@ export class ViewHomeComponent implements OnInit {
         x["$key"] = elem.key;
         this.terapeuta2.push(x);
       });
-      
     });
 
     this.turnoService.getTurnosT3()
@@ -129,7 +151,6 @@ export class ViewHomeComponent implements OnInit {
         x["$key"] = elem.key;
         this.terapeuta3.push(x);
       });
-      
     });
 
     // get inscriptions
@@ -187,26 +208,54 @@ export class ViewHomeComponent implements OnInit {
     this.authService.login();
   }
 
-  onSelectTurn(turn:TurnModel, modal): void{
+  onSelectTurn1(turn:TurnModel, modal): void{
 
-    if (InscripcionModel){
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
       
-      this.updateTurn(this.selectedTurn.$key, this.selectedTurn);
+      this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
 
       this.modalSelectTurn  = this.modalService.open(modal, { centered: true });
-      // this.modalSelectTurn.result.then((result) => {    
-      //   this.closeResult = `Closed with: ${result}`;
-      // }, (reason) => {
-      //   this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      // });
-    } 
+      this.modalSelectTurn.result.then((result) => {    
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
   }
 
-  onConfirmTurn (x, modal){
+  onSelectTurn2(turn:TurnModel, modal): void{
+    
+      this.selectedTurn = turn;
+      this.selectedTurn.available = false;
+      
+      this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
 
-    this.insertInscription(x);
+      this.modalSelectTurn  = this.modalService.open(modal, { centered: true });
+      this.modalSelectTurn.result.then((result) => {    
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }); 
+  }
+
+  onSelectTurn3(turn:TurnModel, modal): void{
+    
+      this.selectedTurn = turn;
+      this.selectedTurn.available = false;
+      
+      this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
+
+      this.modalSelectTurn  = this.modalService.open(modal, { centered: true });
+      this.modalSelectTurn.result.then((result) => {    
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+  }
+
+  onConfirmTurn1 (x, modal){
+
+    
     this.selectedTurn.confirm = true;
     this.selectedTurn.userName =  this.name;
 
@@ -217,18 +266,73 @@ export class ViewHomeComponent implements OnInit {
     this.primero.userAssist = this.name;
     this.primero.userName = this.userName;
 
-    this.updateTurn(this.selectedTurn.$key, this.selectedTurn);
+    this.insertInscription(x);
+    this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
     this.countConfirm++;
     
     this.modalSelectTurn.close();
     this.modalConfirm =  this.modalService.open(modal, { centered: true });
-    // this.modalConfirm.result.then((result) => {
-    //   this.closeResult = `Closed with: ${result}`;
-    // }, (reason) => {
-    //   this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    // });
+    this.modalConfirm.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
 
   }
+
+  onConfirmTurn2 (x, modal){
+    
+    
+    this.selectedTurn.confirm = true;
+    this.selectedTurn.userName =  this.name;
+
+    this.primero.dateInscription = this.getDateFull();
+    this.primero.hourStart = this.selectedTurn.hourStart;
+    this.primero.hourEnd = this.selectedTurn.hourEnd;
+    this.primero.therapist = this.selectedTurn.therapistId;
+    this.primero.userAssist = this.name;
+    this.primero.userName = this.userName;
+
+    this.insertInscription(x);
+    this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
+    this.countConfirm++;
+    
+    this.modalSelectTurn.close();
+    this.modalConfirm =  this.modalService.open(modal, { centered: true });
+    this.modalConfirm.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+
+  }
+
+  onConfirmTurn3 (x, modal){
+    
+    
+    this.selectedTurn.confirm = true;
+    this.selectedTurn.userName =  this.name;
+
+    this.primero.dateInscription = this.getDateFull();
+    this.primero.hourStart = this.selectedTurn.hourStart;
+    this.primero.hourEnd = this.selectedTurn.hourEnd;
+    this.primero.therapist = this.selectedTurn.therapistId;
+    this.primero.userAssist = this.name;
+    this.primero.userName = this.userName;
+
+    this.insertInscription(x);
+    this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
+    this.countConfirm++;
+    
+    this.modalSelectTurn.close();
+    this.modalConfirm =  this.modalService.open(modal, { centered: true });
+    this.modalConfirm.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+
+    }
 
   insertInscription(x){
     if (InscripcionModel){
@@ -242,21 +346,44 @@ export class ViewHomeComponent implements OnInit {
     }
   }
 
-  updateTurn(key, x){
+  updateTurn1(key, x){
     this.turnoService.updateTurn1(key,x);
   }
+  updateTurn2(key, x){
+    this.turnoService.updateTurn2(key,x);
+  }
+  updateTurn3(key, x){
+    this.turnoService.updateTurn3(key,x);
+  }
 
-  cancelTurn(){
+  cancelTurn1(){
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
     this.selectedTurn.userName = '';
-    this.updateTurn(this.selectedTurn.$key, this.selectedTurn);
+    this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
     this.modalConfirm.close();
+    this.modalSelectTurn.close();
+  }
+  cancelTurn2(){
+    this.selectedTurn.available = true;
+    this.selectedTurn.confirm = false;
+    this.selectedTurn.userName = '';
+    this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
+    this.modalConfirm.close();
+    this.modalSelectTurn.close();
+  }
+  cancelTurn3(){
+    this.selectedTurn.available = true;
+    this.selectedTurn.confirm = false;
+    this.selectedTurn.userName = '';
+    this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
+    this.modalConfirm.close();
+    this.modalSelectTurn.close();
   }
 
   private getDismissReason(reason: any): string {
     this.selectedTurn.available = true;
-    this.updateTurn(this.selectedTurn.$key, this.selectedTurn);
+    this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {

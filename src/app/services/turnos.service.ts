@@ -16,8 +16,20 @@ export class TurnosService {
 
   constructor(private firebase: AngularFireDatabase) { }
 
-  // getTurnos() {
-  //   return (this.turnosList = this.firebase.list('gdh-masajes/terapeuta1'));
+  // getTurnos(therapistId){
+  //   switch (therapistId) {
+  //     case 'terapeuta1':
+  //     this.terapeuta1 = this.firebase.list('terapeuta1');
+  //     return this.terapeuta1;
+
+  //     case 'terapeuta2':
+  //     this.terapeuta2 = this.firebase.list('terapeuta2');
+  //     return this.terapeuta2;
+
+  //     case 'terapeuta3':
+  //     this.terapeuta3 = this.firebase.list('terapeuta3');
+  //     return this.terapeuta3;
+  //   }
   // }
 
   getTurnosT1() {
@@ -35,30 +47,27 @@ export class TurnosService {
     return this.terapeuta3;
   }
 
-  updateTurn1(key:string, turn: TurnModel)
-    {
+  updateTurn1(key:string, turn: TurnModel){
       this.terapeuta1.update(turn.$key, {
         available: turn.available,
         confirm: turn.confirm,
         userName: turn.userName
       });
-    }
+  }
   
-    updateTurn2(key:string, turn: TurnModel)
-    {
-      this.terapeuta2.update(turn.$key, {
-        available: turn.available,
-        confirm: turn.confirm,
-        userName: turn.userName
-      });
-    }
-  
-    updateTurn3(key:string, turn: TurnModel)
-    {
-      this.terapeuta3.update(turn.$key, {
-        available: turn.available,
-        confirm: turn.confirm,
-        userName: turn.userName
-      });
-    }
+  updateTurn2(key:string, turn: TurnModel){
+    this.terapeuta2.update(turn.$key, {
+      available: turn.available,
+      confirm: turn.confirm,
+      userName: turn.userName
+    });
+  }
+
+  updateTurn3(key:string, turn: TurnModel){
+    this.terapeuta3.update(turn.$key, {
+      available: turn.available,
+      confirm: turn.confirm,
+      userName: turn.userName
+    });
+  }
 }

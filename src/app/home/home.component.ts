@@ -124,41 +124,41 @@ export class HomeComponent implements OnInit, OnDestroy {
 
    
     // get turnos
-    this.turnoService.getTurnosT1()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.terapeuta1 = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x["$key"] = elem.key;
-        this.terapeuta1.push(x);
-      });
-      console.log(this.terapeuta1);
-    });
+    // this.turnoService.getTurnosT1()
+    // .snapshotChanges()
+    // .subscribe(item => {
+    //   this.terapeuta1 = [];
+    //   item.forEach(elem => {
+    //     let x = elem.payload.toJSON();
+    //     x["$key"] = elem.key;
+    //     this.terapeuta1.push(x);
+    //   });
+    //   console.log(this.terapeuta1);
+    // });
 
-    this.turnoService.getTurnosT2()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.terapeuta2 = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x["$key"] = elem.key;
-        this.terapeuta2.push(x);
-      });
-      console.log(this.terapeuta2);
-    });
+    // this.turnoService.getTurnosT2()
+    // .snapshotChanges()
+    // .subscribe(item => {
+    //   this.terapeuta2 = [];
+    //   item.forEach(elem => {
+    //     let x = elem.payload.toJSON();
+    //     x["$key"] = elem.key;
+    //     this.terapeuta2.push(x);
+    //   });
+    //   console.log(this.terapeuta2);
+    // });
 
-    this.turnoService.getTurnosT3()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.terapeuta3 = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x["$key"] = elem.key;
-        this.terapeuta3.push(x);
-      });
-      console.log(this.terapeuta3);
-    });
+    // this.turnoService.getTurnosT3()
+    // .snapshotChanges()
+    // .subscribe(item => {
+    //   this.terapeuta3 = [];
+    //   item.forEach(elem => {
+    //     let x = elem.payload.toJSON();
+    //     x["$key"] = elem.key;
+    //     this.terapeuta3.push(x);
+    //   });
+    //   console.log(this.terapeuta3);
+    // });
 
     // get inscriptions
     this.inscriptionService.getInscriptions()
