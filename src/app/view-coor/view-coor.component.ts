@@ -80,40 +80,36 @@ export class ViewCoorComponent implements OnInit {
             if (x['therapist'] === 1) {
               for (const i in this.orderArr) {
                 if (x['hourStart'] === this.orderArr[i].turn) {
-                  x['order'] = i;
+                  x['order'] = parseInt(i);
                   this.therapist1List.push(x);
                 }
               }
             } else if (x['therapist'] === 2) {
               for (const i in this.orderArr) {
                 if (x['hourStart'] === this.orderArr[i].turn) {
-                  x['order'] = i;
+                  x['order'] = parseInt(i);
                   this.therapist2List.push(x);
                 }
               }
             } else if (x['therapist'] === 3) {
               for (const i in this.orderArr) {
                 if (x['hourStart'] === this.orderArr[i].turn) {
-                  x['order'] = i;
+                  x['order'] = parseInt(i);
                   this.therapist3List.push(x);
                 }
               }
             }
             this.inscriptionList.push(x);
+            this.therapist1List.sort(this.sortOrder);
+            this.therapist2List.sort(this.sortOrder);
+            this.therapist3List.sort(this.sortOrder);
           }
+          console.log(this.therapist1List);
+          
         });
-        console.log(this.therapist1List);
-        // console.log(this.therapist2List);
-        // console.log(this.therapist3List);
-        // console.log(date)
       });
 
-      this.therapist1List.sort(function (o1,o2) {
-        if (o1 > o2) { //comparación lexicogŕafica
-          return 1;
-          // console.log('works')
-        } 
-      });
+      
 
     // get reports
     this.reportService.getReports()
@@ -126,11 +122,13 @@ export class ViewCoorComponent implements OnInit {
           this.reportList.push(x)
         })
       })
-
-
   }
 
   logoutUser() {
     this.authFirebaseService.logout();
+  }
+
+  sortOrder(a,b) {
+    return a.order - b.order;
   }
 }
