@@ -6,4 +6,5 @@ export class InscripcionModel {
   public userAssist: string;
   public therapist: number;
   public boolAny: boolean;
+  // public stringVal: boolean;
 }

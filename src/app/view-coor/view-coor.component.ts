@@ -26,6 +26,7 @@ export class ViewCoorComponent implements OnInit {
   public therapist1Choose: boolean;
   public therapist2Choose: boolean;
   public therapist3Choose: boolean;
+  public test: any;
   inscriptionList: any[];
   therapist1List: any[];
   therapist2List: any[];
@@ -67,7 +68,7 @@ export class ViewCoorComponent implements OnInit {
     if (mm < 10) {
       mm = '0' + mm;
     }
-    this.actualDate = 21 + '/' + mm + '/' + yyyy;
+    this.actualDate = dd + '/' + mm + '/' + yyyy;
 
     // get inscriptions
     this.inscriptionService.getInscriptions()
@@ -158,9 +159,10 @@ export class ViewCoorComponent implements OnInit {
     this.therapist3Choose = true;
   }
 
-  addRegister(a,b,c,d,e,f,g) {
+  addRegister(a,b,c,d,e,f,g,h) {
     var x = document.getElementById(g);
     f = true;
-    console.log(a,b,c,d,e,f,x)
+    console.log(a,b,c,d,e,f,x,h)
+    // console.log(this.test)
   }
 }
