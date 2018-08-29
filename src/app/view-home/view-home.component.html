@@ -8,6 +8,7 @@
       <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
     </div>
 </nav>
+<button (click) = "insertUser(user)">insert user</button>
 <div class="content">
   <div class="container mt-3 mb-3 therapist-content">
     <div class="row">
@@ -30,10 +31,10 @@
   </div>
   <div class="container turn-content">
     <div class="row">
-          <div *ngIf="countConfirm < 1" class="col-12 col-md-4 text-center">             
+          <div *ngIf="userReserved == 'false'" class="col-12 col-md-4 text-center">             
             <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
-                <button *ngIf="item1.confirm == false && item1.userName < 1" class="turn-btn turn-disponible" 
-                        [ngClass]="{'turn-disponible':!this.selectedTurn.confirm}"
+                <button *ngIf="item1.confirm == false && item1.userName < 1" class="turn-btn" 
+                        [ngClass]="{'turn-disponible':item1.available,'turn-por-confirmar':!item1.available }"
                         (click) = "onSelectTurn1(item1,modalSelectTurn)">
                         {{item1.hourStart}} - {{item1.hourEnd}} </button>
                 <button *ngIf="item1.confirm == true && item1.userName == name" class="turn-btn turn-seleccionado"
@@ -44,7 +45,7 @@
             </div>
           </div>
          
-          <div *ngIf="countConfirm >= 1" class="col-12 col-md-4 text-center">             
+          <div *ngIf="userReserved == 'true'" class="col-12 col-md-4 text-center">             
             <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
                 <button ng-class="{turn-por-confirmar:item1.userName == name}" 
                         *ngIf="item1.confirm == false && item1.userName < 1" class="turn-btn turn-disponible" 
@@ -58,7 +59,7 @@
             </div>
           </div>
          
-          <div *ngIf="countConfirm < 1" class="col-12 col-md-4 text-center">            
+          <div *ngIf="userReserved  == 'false'" class="col-12 col-md-4 text-center">            
             <div *ngFor="let item2 of terapeuta2" class="mb-2 turn-container">
                 <button ng-class="{turn-por-confirmar:item2.userName == name}" 
                         *ngIf="item2.confirm == false && item2.userName < 1" class="turn-btn turn-disponible" 
@@ -72,7 +73,7 @@
             </div>
           </div>
           
-          <div *ngIf="countConfirm >= 1" class="col-12 col-md-4 text-center">            
+          <div *ngIf="userReserved == 'true'" class="col-12 col-md-4 text-center">            
             <div *ngFor="let item2 of terapeuta2" class="mb-2 turn-container">
                 <button ng-class="{turn-por-confirmar:item2.userName == name}" 
                         *ngIf="item2.confirm == false && item2.userName < 1" class="turn-btn turn-disponible" 
@@ -86,7 +87,7 @@
             </div>
           </div>
 
-          <div *ngIf="countConfirm < 1" class="col-12 col-md-4 mb-2 text-center">
+          <div *ngIf="userReserved  == 'false'" class="col-12 col-md-4 mb-2 text-center">
             <div *ngFor="let item3 of terapeuta3" class="mb-2 turn-container">
                 <button ng-class="{turn-por-confirmar:item3.userName == name}" 
                         *ngIf="item3.confirm == false && item3.userName < 1" class="turn-btn turn-disponible" 
@@ -100,7 +101,7 @@
             </div>
           </div>
 
-          <div *ngIf="countConfirm >= 1" class="col-12 col-md-4 mb-2 text-center">
+          <div *ngIf="userReserved == 'true'" class="col-12 col-md-4 mb-2 text-center">
             <div *ngFor="let item3 of terapeuta3" class="mb-2 turn-container">
                 <button ng-class="{turn-por-confirmar:item3.userName == name}" 
                         *ngIf="item3.confirm == false && item3.userName < 1" class="turn-btn turn-disponible" 

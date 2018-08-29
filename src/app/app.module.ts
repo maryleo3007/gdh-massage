@@ -25,6 +25,7 @@ import { ViewLoginComponent } from './view-login/view-login.component';
 import { TurnosService } from './services/turnos.service';
 import { ReportService } from './services/report.service';
 import { InscriptionService } from './services/inscription.service';
+import { UserService } from './services/user.service';
 
 // import angular firebase
 import { AngularFireModule } from 'angularfire2';
@@ -66,7 +67,8 @@ const routes: Routes = [
     HomeService,
     InscriptionService,
     TurnosService,
-    ReportService
+    ReportService,
+    UserService
   ],
   bootstrap: [
     AppComponent

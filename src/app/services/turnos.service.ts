@@ -51,7 +51,8 @@ export class TurnosService {
       this.terapeuta1.update(turn.$key, {
         available: turn.available,
         confirm: turn.confirm,
-        userName: turn.userName
+        userName: turn.userName,
+        count:turn.count
       });
   }
   
@@ -59,7 +60,8 @@ export class TurnosService {
     this.terapeuta2.update(turn.$key, {
       available: turn.available,
       confirm: turn.confirm,
-      userName: turn.userName
+      userName: turn.userName,
+      count:turn.count
     });
   }
 
@@ -67,7 +69,8 @@ export class TurnosService {
     this.terapeuta3.update(turn.$key, {
       available: turn.available,
       confirm: turn.confirm,
-      userName: turn.userName
+      userName: turn.userName,
+      count:turn.count
     });
   }
 }

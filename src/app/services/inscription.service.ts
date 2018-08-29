@@ -26,7 +26,8 @@ export class InscriptionService {
       userName: inscription.userName,
       boolAny: inscription.boolAny,
       therapist: inscription.therapist,
-      userAssist: inscription.userAssist
+      userAssist: inscription.userAssist,
+      stringVal: inscription.stringVal
     })
   }
 

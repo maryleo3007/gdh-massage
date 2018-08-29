@@ -10,11 +10,13 @@ import { AuthService } from '../auth/auth.service';
 import { TurnosService } from './../services/turnos.service';
 import { InscriptionService } from './../services/inscription.service';
 import { ReportService } from './../services/report.service';
+import { UserService } from './../services/user.service';
 
 // models
 import { InscripcionModel } from './../models/inscriptions';
 import { ReportsModel } from './../models/reports';
 import { TurnModel } from './../models/turns';
+import { UserModel } from './../models/users';
 
 @Component({
   selector: 'app-view-home',
@@ -32,11 +34,12 @@ export class ViewHomeComponent implements OnInit {
   subsGetMe: Subscription;
   subsSendMail: Subscription;
   date: any;
-  terapeuta1: any;
+  terapeuta1: any[];
   terapeuta2: any[];
   terapeuta3: any[];
   inscriptionList: any[];
   reportList: any[];
+  userList: any[];
   selectedTurn: TurnModel;
   closeResult: string;
   today:any;
@@ -48,7 +51,9 @@ export class ViewHomeComponent implements OnInit {
   countConfirm: number = 0;
   modalSelectTurn: NgbModalRef;
   modalConfirm: NgbModalRef;
+  userReserved: string = "false";
   therapistIds: Array<string> = ['terapeuta1', 'terapeuta2', 'terapeuta3'];
+  usersList: any[] = [];
   
   primero: InscripcionModel = {
     dateInscription: '',
@@ -57,7 +62,8 @@ export class ViewHomeComponent implements OnInit {
     userName: '',
     userAssist: '',
     therapist: 0,
-    boolAny: false
+    boolAny: false,
+    stringVal:''
   };
 
   segundo: ReportsModel = {
@@ -71,112 +77,138 @@ export class ViewHomeComponent implements OnInit {
     boolAny: false
   };
 
+  user: UserModel = {
+    $key: '',
+    mail: '',
+    reserved: false,
+    countReserved: -1
+  }
+
   send: MicrosoftGraph.Event;
   subsSendCalendar: Subscription;
+
   constructor(
     private homeService: HomeService,
     private authService: AuthService,
     private turnoService: TurnosService,
     private inscriptionService: InscriptionService,
     private reportService: ReportService,
+    private userService: UserService,
     private modalService: NgbModal
   ) { }
 
   ngOnInit() {
-      this.subsGetMe = this.homeService.getMe().subscribe(me => {
+      
+    this.subsGetMe = this.homeService.getMe().subscribe(me => {
       this.me = me; 
       let cutName = me.mail.indexOf('@');
       let cutUserName = me.displayName.indexOf(' ');
       this.name = me.mail.substring(0,cutName);
       this.userName = me.displayName.substring(cutUserName+1);
-      
-      // send name and nameUser to local storage
-      localStorage.setItem('name', this.name);
-      localStorage.setItem('userName', this.userName);
-
+      console.log(this.me.mail);
     });
+    
+    // send name and nameUser to local storage
+    localStorage.setItem('name', this.name);
+    localStorage.setItem('userName', this.userName);
+    console.log(localStorage.getItem('userReserved'));
+    this.userReserved = localStorage.getItem('userReserved');
 
-    // get turnos
+      // get turnos
 
-    // this.therapistIds.forEach((elemento,index)=>{
-    //   console.log(elemento,index);
-    //   // this.terapeuta1[index] = elemento;
-      
-    //   this.turnoService.getTurnos(elemento)
-    //   .snapshotChanges()
-    //   .subscribe(item => {   
-    //     // this.terapeuta1 = [];
-    //     this.terapeuta1[index]= [];
+      // this.therapistIds.forEach((elemento,index)=>{
+      //   console.log(elemento,index);
+      //   // this.terapeuta1[index] = elemento;
         
-    //     console.log(this.terapeuta1[index]);
-        
-    //     item.forEach(elem => {
-    //       let x = elem.payload.toJSON();
-    //       x["$key"] = elem.key;
-    //       // this.terapeuta1.push(x);
-    //       this.terapeuta1[index].push(x);
-    //     });
-    //     console.log(this.terapeuta1[index]);
-    //   });
-    // });
+      //   this.turnoService.getTurnos(elemento)
+      //   .snapshotChanges()
+      //   .subscribe(item => {   
+      //     // this.terapeuta1 = [];
+      //     this.terapeuta1[index]= [];
+          
+      //     console.log(this.terapeuta1[index]);
+          
+      //     item.forEach(elem => {
+      //       let x = elem.payload.toJSON();
+      //       x["$key"] = elem.key;
+      //       // this.terapeuta1.push(x);
+      //       this.terapeuta1[index].push(x);
+      //     });
+      //     console.log(this.terapeuta1[index]);
+      //   });
+      // });
 
-    this.turnoService.getTurnosT1()
-    .snapshotChanges()
-    .subscribe(item => {   
-      this.terapeuta1 = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x["$key"] = elem.key;
-        this.terapeuta1.push(x);
+      this.turnoService.getTurnosT1()
+      .snapshotChanges()
+      .subscribe(item => {   
+        this.terapeuta1 = [];
+        item.forEach(elem => {
+          let x = elem.payload.toJSON();
+          x["$key"] = elem.key;
+          this.terapeuta1.push(x);
+        });
       });
-    });
 
-    this.turnoService.getTurnosT2()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.terapeuta2 = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x["$key"] = elem.key;
-        this.terapeuta2.push(x);
+      this.turnoService.getTurnosT2()
+      .snapshotChanges()
+      .subscribe(item => {
+        this.terapeuta2 = [];
+        item.forEach(elem => {
+          let x = elem.payload.toJSON();
+          x["$key"] = elem.key;
+          this.terapeuta2.push(x);
+        });
       });
-    });
 
-    this.turnoService.getTurnosT3()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.terapeuta3 = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x["$key"] = elem.key;
-        this.terapeuta3.push(x);
+      this.turnoService.getTurnosT3()
+      .snapshotChanges()
+      .subscribe(item => {
+        this.terapeuta3 = [];
+        item.forEach(elem => {
+          let x = elem.payload.toJSON();
+          x["$key"] = elem.key;
+          this.terapeuta3.push(x);
+        });
       });
-    });
 
-    // get inscriptions
-    this.inscriptionService.getInscriptions()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.inscriptionList = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x["$key"] = elem.key;
-        this.inscriptionList.push(x);
-      });  
-   });    
+      // get inscriptions
+      this.inscriptionService.getInscriptions()
+      .snapshotChanges()
+      .subscribe(item => {
+        this.inscriptionList = [];
+        item.forEach(elem => {
+          let x = elem.payload.toJSON();
+          x["$key"] = elem.key;
+          this.inscriptionList.push(x);
+        });  
+      });    
 
-    // get reports
-    this.reportService.getReports()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.reportList = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x['$key'] = elem.key;
-        this.reportList.push(x)
-      })
-    })
+      // get reports
+      this.reportService.getReports()
+      .snapshotChanges()
+      .subscribe(item => {
+        this.reportList = [];
+        item.forEach(elem => {
+          let x = elem.payload.toJSON();
+          x['$key'] = elem.key;
+          this.reportList.push(x)
+        });
+      });
+
+      //get users
+      this.userService.getUser()
+      .snapshotChanges()
+      .subscribe(item => {
+        this.userList = [];
+        item.forEach(elem => {
+          let x = elem.payload.toJSON();
+          x['$key'] = elem.key;
+          this.userList.push(x);
+        });
+        this.usersList = this.userList;
+      });
   }
+
 
   ngOnDestroy() {
     this.subsGetUsers.unsubscribe();
@@ -206,6 +238,7 @@ export class ViewHomeComponent implements OnInit {
 
   onLogin() {
     this.authService.login();
+    alert("hola");
   }
 
   onSelectTurn1(turn:TurnModel, modal): void{
@@ -255,9 +288,9 @@ export class ViewHomeComponent implements OnInit {
 
   onConfirmTurn1 (x, modal){
 
-    
     this.selectedTurn.confirm = true;
     this.selectedTurn.userName =  this.name;
+    this.selectedTurn.count++
 
     this.primero.dateInscription = this.getDateFull();
     this.primero.hourStart = this.selectedTurn.hourStart;
@@ -268,8 +301,10 @@ export class ViewHomeComponent implements OnInit {
 
     this.insertInscription(x);
     this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
-    this.countConfirm++;
+    this.userReserved = "true";
     
+    localStorage.setItem('userReserved', this.userReserved);
+
     this.modalSelectTurn.close();
     this.modalConfirm =  this.modalService.open(modal, { centered: true });
     this.modalConfirm.result.then((result) => {
@@ -285,6 +320,7 @@ export class ViewHomeComponent implements OnInit {
     
     this.selectedTurn.confirm = true;
     this.selectedTurn.userName =  this.name;
+    this.selectedTurn.count++
 
     this.primero.dateInscription = this.getDateFull();
     this.primero.hourStart = this.selectedTurn.hourStart;
@@ -295,7 +331,7 @@ export class ViewHomeComponent implements OnInit {
 
     this.insertInscription(x);
     this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-    this.countConfirm++;
+    this.userReserved = "true";
     
     this.modalSelectTurn.close();
     this.modalConfirm =  this.modalService.open(modal, { centered: true });
@@ -309,9 +345,9 @@ export class ViewHomeComponent implements OnInit {
 
   onConfirmTurn3 (x, modal){
     
-    
     this.selectedTurn.confirm = true;
     this.selectedTurn.userName =  this.name;
+    this.selectedTurn.count++
 
     this.primero.dateInscription = this.getDateFull();
     this.primero.hourStart = this.selectedTurn.hourStart;
@@ -322,7 +358,7 @@ export class ViewHomeComponent implements OnInit {
 
     this.insertInscription(x);
     this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-    this.countConfirm++;
+    this.userReserved = "true";
     
     this.modalSelectTurn.close();
     this.modalConfirm =  this.modalService.open(modal, { centered: true });
@@ -334,7 +370,8 @@ export class ViewHomeComponent implements OnInit {
 
     }
 
-  insertInscription(x){
+  
+    insertInscription(x){
     if (InscripcionModel){
           this.inscriptionService.insertInscription(x);
     }
@@ -343,6 +380,12 @@ export class ViewHomeComponent implements OnInit {
   insertReport(x){
     if (ReportsModel){
           this.reportService.insertReport(x);
+    }
+  }
+
+  insertUser(x){
+    if (UserModel){
+      this.userService.insertUser(x);
     }
   }
 
@@ -360,7 +403,11 @@ export class ViewHomeComponent implements OnInit {
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
     this.selectedTurn.userName = '';
+    this.userReserved = "false";
+    this.selectedTurn.count--
     this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
+
+    localStorage.setItem('userReserved', this.userReserved);
     this.modalConfirm.close();
     this.modalSelectTurn.close();
   }
@@ -368,6 +415,8 @@ export class ViewHomeComponent implements OnInit {
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
     this.selectedTurn.userName = '';
+    this.userReserved = "false";
+    this.selectedTurn.count--
     this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
     this.modalConfirm.close();
     this.modalSelectTurn.close();
@@ -376,6 +425,8 @@ export class ViewHomeComponent implements OnInit {
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
     this.selectedTurn.userName = '';
+    this.userReserved = "false";
+    this.selectedTurn.count--
     this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
     this.modalConfirm.close();
     this.modalSelectTurn.close();
