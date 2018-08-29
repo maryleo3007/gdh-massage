@@ -9,6 +9,7 @@ import { ReportService } from '../services/report.service';
 // models
 import { InscripcionModel } from '../models/inscriptions';
 import { ReportsModel } from '../models/reports';
+import { log } from 'util';
 @Component({
   selector: 'app-view-coor',
   templateUrl: './view-coor.component.html',
@@ -22,6 +23,9 @@ export class ViewCoorComponent implements OnInit {
   public correctUser: boolean;
   public show: boolean;
   public actualDate: string;
+  public therapist1Choose: boolean;
+  public therapist2Choose: boolean;
+  public therapist3Choose: boolean;
   inscriptionList: any[];
   therapist1List: any[];
   therapist2List: any[];
@@ -103,9 +107,7 @@ export class ViewCoorComponent implements OnInit {
             this.therapist1List.sort(this.sortOrder);
             this.therapist2List.sort(this.sortOrder);
             this.therapist3List.sort(this.sortOrder);
-          }
-          console.log(this.therapist1List);
-          
+          }          
         });
       });
 
@@ -122,6 +124,12 @@ export class ViewCoorComponent implements OnInit {
           this.reportList.push(x)
         })
       })
+
+      this.therapist1Choose = true;
+      this.therapist2Choose = false;
+      this.therapist3Choose = false;
+      
+
   }
 
   logoutUser() {
@@ -130,5 +138,29 @@ export class ViewCoorComponent implements OnInit {
 
   sortOrder(a,b) {
     return a.order - b.order;
+  }
+
+  chooseTerap1() {
+    this.therapist1Choose = true;
+    this.therapist2Choose = false;
+    this.therapist3Choose = false;
+  }
+
+  chooseTerap2() {
+    this.therapist1Choose = false;
+    this.therapist2Choose = true;
+    this.therapist3Choose = false;
+  }
+
+  chooseTerap3() {
+    this.therapist1Choose = false;
+    this.therapist2Choose = false;
+    this.therapist3Choose = true;
+  }
+
+  addRegister(a,b,c,d,e,f,g) {
+    var x = document.getElementById(g);
+    f = true;
+    console.log(a,b,c,d,e,f,x)
   }
 }

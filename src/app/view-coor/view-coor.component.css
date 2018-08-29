@@ -25,9 +25,39 @@ div.coordinadora i {
   color: var(--title-gray);
 }
 
-button.terapeuta {
-  border-color: var(--dark-blue); 
-  background-color: var(--dark-blue);
-  color: white;
+button {
   font-size: 1.2rem;
+}
+
+button.btn-primary {
+  border-color: var(--dark-blue) !important;
+  background-color: var(--dark-blue) !important;
+}
+
+button.btn-primary {  
+  box-shadow: 0 0 0 0;
+}
+
+button.btn-primary:hover {  
+  background-color: #1b3260 !important;
+}
+
+td button {
+  font-size: 0.9rem;
+}
+
+.hora {
+  width: 25%;
+}
+
+.nombre {
+  width: 45%;
+}
+
+.asistencia {
+  width: 15%;
+}
+
+.falta {
+  width: 15%;
 }
