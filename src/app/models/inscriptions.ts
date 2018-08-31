@@ -1,4 +1,5 @@
 export class InscripcionModel {
+  public $key: string;
   public boolAny: boolean;
   public dateInscription: string;
   public hourStart: string;

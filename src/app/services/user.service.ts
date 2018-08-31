@@ -27,4 +27,12 @@ export class UserService {
     });
   }
 
+  updateUser(key: string, user: UserModel){
+    this.userList.update(user.$key,{
+      mail: user.mail,
+      reserved: user.reserved,
+      countReserved: user.countReserved
+    });
+  }
+
 }

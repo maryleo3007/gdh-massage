@@ -31,4 +31,8 @@ export class InscriptionService {
     })
   }
 
+  deleteInscription($key: string){
+    this.inscriptionList.remove($key);
+  }
+
 }

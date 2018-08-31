@@ -41,6 +41,7 @@ export class ViewHomeComponent implements OnInit {
   reportList: any[];
   userList: any[];
   selectedTurn: TurnModel;
+  selectedUser: UserModel;
   closeResult: string;
   today:any;
   dd:any;
@@ -56,6 +57,7 @@ export class ViewHomeComponent implements OnInit {
   usersList: any[] = [];
   
   primero: InscripcionModel = {
+    $key:'',
     dateInscription: '',
     hourStart: '',
     hourEnd: '',
@@ -111,10 +113,9 @@ export class ViewHomeComponent implements OnInit {
     localStorage.setItem('name', this.name);
     localStorage.setItem('userName', this.userName);
     console.log(localStorage.getItem('userReserved'));
-    this.userReserved = localStorage.getItem('userReserved');
-    // this.userReserved = 'false';
+    // this.userReserved = localStorage.getItem('userReserved');
+    this.userReserved = 'false';
       
-    
     // get turnos
 
       // this.therapistIds.forEach((elemento,index)=>{
@@ -232,7 +233,7 @@ export class ViewHomeComponent implements OnInit {
     this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
   }
 
-  onSelectTurn1(turn:TurnModel, modal): void{
+  onSelectTurn1(user: UserModel, turn:TurnModel, modal): void{
 
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
@@ -249,7 +250,7 @@ export class ViewHomeComponent implements OnInit {
       });
   }
 
-  onSelectTurn2(turn:TurnModel, modal): void{
+  onSelectTurn2(user: UserModel, turn:TurnModel, modal): void{
     
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
@@ -266,7 +267,7 @@ export class ViewHomeComponent implements OnInit {
       }); 
   }
 
-  onSelectTurn3(turn:TurnModel, modal): void{
+  onSelectTurn3(user: UserModel, turn:TurnModel, modal): void{
     
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
@@ -434,39 +435,50 @@ export class ViewHomeComponent implements OnInit {
     this.turnoService.updateTurn3(key,x);
   }
 
-  cancelTurn1(){
+  cancelTurn1(inscription: InscripcionModel){
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
     this.selectedTurn.userName = '';
     this.userReserved = "false";
     this.selectedTurn.count--
     this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
+    this.onDelete(inscription.$key);
 
     localStorage.setItem('userReserved', this.userReserved);
     this.modalConfirm.close();
     this.modalSelectTurn.close();
   }
 
-  cancelTurn2(){
+  cancelTurn2(x){
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
     this.selectedTurn.userName = '';
     this.userReserved = "false";
     this.selectedTurn.count--
     this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
+    // this.onDelete(x.$key);
     this.modalConfirm.close();
     this.modalSelectTurn.close();
   }
 
-  cancelTurn3(){
+  cancelTurn3(x){
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
     this.selectedTurn.userName = '';
     this.userReserved = "false";
     this.selectedTurn.count--
     this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
+    // this.onDelete(x.$key);
     this.modalConfirm.close();
     this.modalSelectTurn.close();
+  }
+
+  onDelete($key: string) {
+    this.inscriptionService.deleteInscription($key);
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 
   private getDismissReason(reason: any): string {
