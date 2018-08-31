@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { TurnModel } from './../models/turns';
+
 
 @Injectable()
 export class TurnosService {
@@ -33,4 +35,31 @@ export class TurnosService {
     this.terapeuta3 = this.firebase.list('terapeuta3');
     return this.terapeuta3;
   }
+
+  updateTurn1(key:string, turn: TurnModel){
+    this.terapeuta1.update(turn.$key, {
+      available: turn.available,
+      confirm: turn.confirm,
+      userName: turn.userName,
+      count:turn.count
+    });
+}
+
+updateTurn2(key:string, turn: TurnModel){
+  this.terapeuta2.update(turn.$key, {
+    available: turn.available,
+    confirm: turn.confirm,
+    userName: turn.userName,
+    count:turn.count
+  });
+}
+
+updateTurn3(key:string, turn: TurnModel){
+  this.terapeuta3.update(turn.$key, {
+    available: turn.available,
+    confirm: turn.confirm,
+    userName: turn.userName,
+    count:turn.count
+  });
+}
 }

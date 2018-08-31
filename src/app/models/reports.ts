@@ -7,4 +7,5 @@ export class ReportsModel {
   public boolMatch: boolean;
   public assistance: boolean;
   public boolAny: boolean;
+  public therapist: number;
 }

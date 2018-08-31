@@ -20,13 +20,14 @@ export class InscriptionService {
 
   insertInscription(inscription: InscripcionModel){
     this.inscriptionList.push({
-      date: inscription.date,
+      date: inscription.dateInscription,
       hourStart: inscription.hourStart,
       hourEnd: inscription.hourEnd,
       userName: inscription.userName,
-      userAssist: inscription.userAssist,
+      boolAny: inscription.boolAny,
       therapist: inscription.therapist,
-      boolAny: inscription.boolAny
+      userAssist: inscription.userAssist,
+      stringVal: inscription.stringVal
     })
   }
 

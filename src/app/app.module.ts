@@ -8,6 +8,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { AppComponent } from './app.component';
@@ -27,6 +31,8 @@ import { TurnosService } from './services/turnos.service';
 import { ReportService } from './services/report.service';
 import { InscriptionService } from './services/inscription.service';
 import { AuthFirebaseService } from './services/auth-firebase.service';
+import { UserService } from './services/user.service';
+
 
 // import angular firebase
 import { AngularFireModule } from 'angularfire2';
@@ -69,7 +75,11 @@ const routes: Routes = [
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    CommonModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    NgbModule.forRoot()
   ],
   providers: [
     HttpService,
@@ -79,7 +89,8 @@ const routes: Routes = [
     TurnosService,
     ReportService,
     InscriptionService,
-    AuthFirebaseService
+    AuthFirebaseService,
+    UserService
   ],
   bootstrap: [
     AppComponent

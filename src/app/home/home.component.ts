@@ -79,26 +79,26 @@ export class HomeComponent implements OnInit, OnDestroy {
   terapeuta3: any[];
   inscriptionList: any[];
   reportList: any[];
-  primero: InscripcionModel = {
-    date: '21/08/2018',
-    hourStart: '12:00',
-    hourEnd: '12:20',
-    userName: 'acabrera',
-    userAssist: 'alejandra',
-    therapist: 1,
-    boolAny: false
-  };
+  // primero: InscripcionModel = {
+  //   date: '21/08/2018',
+  //   hourStart: '12:00',
+  //   hourEnd: '12:20',
+  //   userName: 'acabrera',
+  //   userAssist: 'alejandra',
+  //   therapist: 1,
+  //   boolAny: false
+  // };
 
-  segundo: ReportsModel = {
-    date: 'la fecha',
-    hourStart: 'la hora',
-    hourEnd: 'hora de termino',
-    userName: 'nombre usuario',
-    userAssist: 'nombre asistencia',
-    boolMatch: false,
-    assistance: false,
-    boolAny: false
-  };
+  // segundo: ReportsModel = {
+  //   date: 'la fecha',
+  //   hourStart: 'la hora',
+  //   hourEnd: 'hora de termino',
+  //   userName: 'nombre usuario',
+  //   userAssist: 'nombre asistencia',
+  //   boolMatch: false,
+  //   assistance: false,
+  //   boolAny: false
+  // };
 
   send: MicrosoftGraph.Event;
   subsSendCalendar: Subscription;
@@ -135,7 +135,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         x["$key"] = elem.key;
         this.terapeuta1.push(x);
       });
-      console.log(this.terapeuta1);
+      // console.log(this.terapeuta1);
     });
 
     this.turnoService.getTurnosT2()
@@ -147,7 +147,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         x["$key"] = elem.key;
         this.terapeuta2.push(x);
       });
-      console.log(this.terapeuta2);
+      // console.log(this.terapeuta2);
     });
 
     this.turnoService.getTurnosT3()
@@ -159,7 +159,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         x["$key"] = elem.key;
         this.terapeuta3.push(x);
       });
-      console.log(this.terapeuta3);
+      // console.log(this.terapeuta3);
     });
 
     // get inscriptions

@@ -25,7 +25,8 @@ export class ReportService {
       userAssist: report.userAssist,
       boolMatch: report.boolMatch,
       assistance: report.assistance,
-      boolAny: report.boolAny
+      boolAny: report.boolAny,
+      therapist: report.therapist
     })
   }
 }
