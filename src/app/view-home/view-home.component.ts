@@ -235,7 +235,6 @@ export class ViewHomeComponent implements OnInit {
 
   onSelectTurn1(user: UserModel, turn:TurnModel, modal): void{
 
-      console.log(user);
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
       
@@ -251,7 +250,7 @@ export class ViewHomeComponent implements OnInit {
       });
   }
 
-  onSelectTurn2(turn:TurnModel, modal): void{
+  onSelectTurn2(user: UserModel, turn:TurnModel, modal): void{
     
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
@@ -268,7 +267,7 @@ export class ViewHomeComponent implements OnInit {
       }); 
   }
 
-  onSelectTurn3(turn:TurnModel, modal): void{
+  onSelectTurn3(user: UserModel, turn:TurnModel, modal): void{
     
       this.selectedTurn = turn;
       this.selectedTurn.available = false;

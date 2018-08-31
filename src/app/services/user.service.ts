@@ -1,14 +1,9 @@
+import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise';
-import { Injectable } from '@angular/core';
-
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { TurnModel } from './../models/turns';
 import { UserModel } from './../models/user';
-
 
 
 @Injectable()
@@ -32,5 +27,12 @@ export class UserService {
     });
   }
 
-}
+  updateUser(key: string, user: UserModel){
+    this.userList.update(user.$key,{
+      mail: user.mail,
+      reserved: user.reserved,
+      countReserved: user.countReserved
+    });
+  }
 
+}

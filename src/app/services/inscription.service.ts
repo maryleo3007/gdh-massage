@@ -31,4 +31,8 @@ export class InscriptionService {
     })
   }
 
+  updateBoolAny($key: string, flag: boolean) {
+    this.inscriptionList.update($key, { boolAny: flag })
+  }
+
 }

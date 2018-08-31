@@ -159,26 +159,33 @@ export class ViewCoorComponent implements OnInit {
     this.therapist3Choose = true;
   }
 
-  addRegister(date,hourStart,hourEnd,assistance,userAssist, stringVal,userName,boolMatch,boolAny) {
+  addRegister(date,hourStart,hourEnd,assistance,userAssist, stringVal,userName,boolMatch,boolAny, therapist,$key) {
     assistance = true;
     boolMatch = false;
     userAssist = userAssist.toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"").replace(/ /g,"");
     stringVal = stringVal.toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"").replace(/ /g,"");
-    if( userAssist === stringVal) {
+    if(userAssist === stringVal) {
       boolMatch = true;
     }
-    console.log(
-      {'fecha': date,
-      'inicio': hourStart,
-      'fin': hourEnd,
-      'asistencia': assistance,
-      'nombre de asistencia': userAssist,
-      'input val': stringVal,
-      'nombre usuario': userName,
-      'coincide': boolMatch,
-      'booleanox': boolAny
-    }
-  )
-    // console.log(this.test)
+      
+    let report: ReportsModel = {
+      date: date,
+      hourStart: hourStart,
+      hourEnd: hourEnd,
+      userName: userName,
+      userAssist: stringVal,
+      boolMatch: boolMatch,
+      assistance: assistance,
+      boolAny: boolAny,
+      therapist: therapist
+    };
+    boolAny = true;
+    this.inscriptionService.updateBoolAny($key,boolAny);
+
+    this.reportService.insertReport(report);
+    
+    console.log(date,hourStart,hourEnd,assistance,userAssist, stringVal,userName,boolMatch,boolAny, therapist,$key)
+    stringVal = stringVal;
+    console.log(stringVal)
   }
 }
