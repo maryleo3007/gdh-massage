@@ -105,7 +105,6 @@ export class ViewHomeComponent implements OnInit {
       let cutUserName = me.displayName.indexOf(' ');
       this.name = me.mail.substring(0,cutName);
       this.userName = me.displayName.substring(cutUserName+1);
-      console.log(this.me.mail);
     });
     
     // send name and nameUser to local storage
@@ -113,8 +112,10 @@ export class ViewHomeComponent implements OnInit {
     localStorage.setItem('userName', this.userName);
     console.log(localStorage.getItem('userReserved'));
     this.userReserved = localStorage.getItem('userReserved');
-
-      // get turnos
+    // this.userReserved = 'false';
+      
+    
+    // get turnos
 
       // this.therapistIds.forEach((elemento,index)=>{
       //   console.log(elemento,index);
@@ -209,7 +210,6 @@ export class ViewHomeComponent implements OnInit {
       });
   }
 
-
   ngOnDestroy() {
     this.subsGetUsers.unsubscribe();
   }
@@ -232,15 +232,6 @@ export class ViewHomeComponent implements OnInit {
     this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
   }
 
-  onLogout() {
-    this.authService.logout();
-  }
-
-  onLogin() {
-    this.authService.login();
-    alert("hola");
-  }
-
   onSelectTurn1(turn:TurnModel, modal): void{
 
       this.selectedTurn = turn;
@@ -252,6 +243,8 @@ export class ViewHomeComponent implements OnInit {
       this.modalSelectTurn.result.then((result) => {    
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
+        this.selectedTurn.available = true;
+        this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
   }
@@ -267,6 +260,8 @@ export class ViewHomeComponent implements OnInit {
       this.modalSelectTurn.result.then((result) => {    
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
+        this.selectedTurn.available = true;
+        this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }); 
   }
@@ -282,11 +277,27 @@ export class ViewHomeComponent implements OnInit {
       this.modalSelectTurn.result.then((result) => {    
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
+        this.selectedTurn.available = true;
+        this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
   }
 
+
   onConfirmTurn1 (x, modal){
+    let userExist  = false;
+    this.user.mail = this.me.mail;
+
+    this.userList.forEach((elem)=>{
+      if( elem.mail === this.me.mail ){
+        userExist = true;
+      }
+    });
+
+    if (userExist == false) {
+      this.user.reserved = true;
+      this.insertUser(this.user);
+    }
 
     this.selectedTurn.confirm = true;
     this.selectedTurn.userName =  this.name;
@@ -296,8 +307,8 @@ export class ViewHomeComponent implements OnInit {
     this.primero.hourStart = this.selectedTurn.hourStart;
     this.primero.hourEnd = this.selectedTurn.hourEnd;
     this.primero.therapist = this.selectedTurn.therapistId;
-    this.primero.userAssist = this.name;
-    this.primero.userName = this.userName;
+    this.primero.userAssist = this.userName;
+    this.primero.userName = this.name;
 
     this.insertInscription(x);
     this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
@@ -311,13 +322,28 @@ export class ViewHomeComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.selectedTurn.available = true;
+      this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
     });
 
   }
 
   onConfirmTurn2 (x, modal){
     
-    
+    let userExist  = false;
+    this.user.mail = this.me.mail;
+
+    this.userList.forEach((elem)=>{
+      if( elem.mail === this.me.mail ){
+        userExist = true;
+      }
+    });
+
+    if (userExist == false) {
+      this.user.reserved = true;
+      this.insertUser(this.user);
+    }
+
     this.selectedTurn.confirm = true;
     this.selectedTurn.userName =  this.name;
     this.selectedTurn.count++
@@ -326,18 +352,22 @@ export class ViewHomeComponent implements OnInit {
     this.primero.hourStart = this.selectedTurn.hourStart;
     this.primero.hourEnd = this.selectedTurn.hourEnd;
     this.primero.therapist = this.selectedTurn.therapistId;
-    this.primero.userAssist = this.name;
-    this.primero.userName = this.userName;
+    this.primero.userAssist = this.userName;
+    this.primero.userName = this.name;
 
     this.insertInscription(x);
     this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
     this.userReserved = "true";
+
+    localStorage.setItem('userReserved', this.userReserved);
     
     this.modalSelectTurn.close();
     this.modalConfirm =  this.modalService.open(modal, { centered: true });
     this.modalConfirm.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
+      this.selectedTurn.available = true;
+      this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
 
@@ -353,8 +383,8 @@ export class ViewHomeComponent implements OnInit {
     this.primero.hourStart = this.selectedTurn.hourStart;
     this.primero.hourEnd = this.selectedTurn.hourEnd;
     this.primero.therapist = this.selectedTurn.therapistId;
-    this.primero.userAssist = this.name;
-    this.primero.userName = this.userName;
+    this.primero.userAssist = this.userName;
+    this.primero.userName = this.name;
 
     this.insertInscription(x);
     this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
@@ -365,12 +395,15 @@ export class ViewHomeComponent implements OnInit {
     this.modalConfirm.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
+      this.selectedTurn.available = true;
+      this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
 
     }
 
   
+ 
     insertInscription(x){
     if (InscripcionModel){
           this.inscriptionService.insertInscription(x);
@@ -392,9 +425,11 @@ export class ViewHomeComponent implements OnInit {
   updateTurn1(key, x){
     this.turnoService.updateTurn1(key,x);
   }
+
   updateTurn2(key, x){
     this.turnoService.updateTurn2(key,x);
   }
+
   updateTurn3(key, x){
     this.turnoService.updateTurn3(key,x);
   }
@@ -411,6 +446,7 @@ export class ViewHomeComponent implements OnInit {
     this.modalConfirm.close();
     this.modalSelectTurn.close();
   }
+
   cancelTurn2(){
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
@@ -421,6 +457,7 @@ export class ViewHomeComponent implements OnInit {
     this.modalConfirm.close();
     this.modalSelectTurn.close();
   }
+
   cancelTurn3(){
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
@@ -433,8 +470,6 @@ export class ViewHomeComponent implements OnInit {
   }
 
   private getDismissReason(reason: any): string {
-    this.selectedTurn.available = true;
-    this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
