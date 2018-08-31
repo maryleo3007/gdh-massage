@@ -1,0 +1,109 @@
+.turn-btn{
+    color: #808080;
+    font-size: 18px;
+    padding: 2px 18px;
+    box-shadow: 0px 3px 3px #aaaaaa;
+    cursor: pointer;
+    width: 150px;
+}
+.turn-btn.active{
+    background-color: #004A8C;
+    color: #ffffff;
+}
+.turn-btn:disabled,
+.turn-btn[disabled]{
+  border: 1px solid #F1F2F2;
+  background-color: #F1F2F2;
+  box-shadow: none;
+  color: #B3B3B3;
+  cursor: auto;
+}
+
+.therapist-content span{
+    color: #cccccc;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.logOut{
+    cursor: pointer;
+    color: #c1c1c1 !important;
+}
+
+.logOut:hover{
+    cursor: pointer;
+    color: #3A7ABA !important;
+}
+.btn-close{
+    font-size: 30px;
+}
+
+.text-modal{
+    color: #b4b4b4;
+}
+
+.text-content{
+    color: #bebebe;
+}
+
+.lgnd-stt-turn{
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    border-radius: 2px;
+    margin-right: 0.5rem;
+    margin-bottom: -2px;
+}
+.lgnd-stt-turn-ocup{
+    background-color: #F1F2F2;
+}
+.lgnd-stt-turn-avail{
+    background-color: #ffffff;
+    border: 1px solid #20619A;
+}
+.lgnd-stt-turn-navail{
+    background-color: #004A8C;
+}
+.lgnd-stt-turn-nconfirm{
+    background-color: #D2DEEA;
+}
+.btn-agendar, .btn-cancelReserva {
+    background-color: #FFFFFF;
+    border: 1px solid #004A8C;
+    color: #808080;
+    font-size: 16px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 28px;
+    cursor: pointer;
+    width: 200px;
+    border-radius: 0px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 100%;
+}
+.btn-agendar{
+    background-image: url('../../assets/images/agendar.png');
+}
+.btn-cancelReserva{
+    background-image: url('../../assets/images/cancelReserva.png');
+}
+
+.turn-por-confirmar{
+    background-color: #D2DEEA;
+    border: 1px solid #D2DEEA;
+}
+.turn-ocupado{
+    border: 1px solid #F1F2F2;
+    background-color: #F1F2F2;
+}
+.turn-disponible{
+    background-color: #FFFFFF;
+    border: 1px solid #004A8C;
+}   
+.turn-seleccionado{
+    background-color: #004A8C !important;
+    border: 1px solid #004A8C !important;
+    color: #ffffff;
+}

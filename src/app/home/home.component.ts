@@ -73,21 +73,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   subsGetUsers: Subscription;
   subsGetMe: Subscription;
   subsSendMail: Subscription;
-  date: any;
+  // date: any;
   terapeuta1: any[];
   terapeuta2: any[];
   terapeuta3: any[];
   inscriptionList: any[];
   reportList: any[];
-  primero: InscripcionModel = {
-    date: '21/08/2018',
-    hourStart: '12:00',
-    hourEnd: '12:20',
-    userName: 'acabrera',
-    userAssist: 'alejandra',
-    therapist: 1,
-    boolAny: false
-  };
+  // primero: InscripcionModel = {
+  //   date: 'la fecha',
+  //   hourStart: 'la hora',
+  //   hourEnd: 'hora de termino',
+  //   userName: 'nombre usuario',
+  //   boolAny: false
+  // };
 
   segundo: ReportsModel = {
     date: 'la fecha',
@@ -126,65 +124,65 @@ export class HomeComponent implements OnInit, OnDestroy {
 
    
     // get turnos
-    this.turnoService.getTurnosT1()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.terapeuta1 = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x["$key"] = elem.key;
-        this.terapeuta1.push(x);
-      });
-      console.log(this.terapeuta1);
-    });
+    // this.turnoService.getTurnosT1()
+    // .snapshotChanges()
+    // .subscribe(item => {
+    //   this.terapeuta1 = [];
+    //   item.forEach(elem => {
+    //     let x = elem.payload.toJSON();
+    //     x["$key"] = elem.key;
+    //     this.terapeuta1.push(x);
+    //   });
+    //   console.log(this.terapeuta1);
+    // });
 
-    this.turnoService.getTurnosT2()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.terapeuta2 = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x["$key"] = elem.key;
-        this.terapeuta2.push(x);
-      });
-      console.log(this.terapeuta2);
-    });
+    // this.turnoService.getTurnosT2()
+    // .snapshotChanges()
+    // .subscribe(item => {
+    //   this.terapeuta2 = [];
+    //   item.forEach(elem => {
+    //     let x = elem.payload.toJSON();
+    //     x["$key"] = elem.key;
+    //     this.terapeuta2.push(x);
+    //   });
+    //   console.log(this.terapeuta2);
+    // });
 
-    this.turnoService.getTurnosT3()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.terapeuta3 = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x["$key"] = elem.key;
-        this.terapeuta3.push(x);
-      });
-      console.log(this.terapeuta3);
-    });
+    // this.turnoService.getTurnosT3()
+    // .snapshotChanges()
+    // .subscribe(item => {
+    //   this.terapeuta3 = [];
+    //   item.forEach(elem => {
+    //     let x = elem.payload.toJSON();
+    //     x["$key"] = elem.key;
+    //     this.terapeuta3.push(x);
+    //   });
+    //   console.log(this.terapeuta3);
+    // });
 
     // get inscriptions
-    this.inscriptionService.getInscriptions()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.inscriptionList = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x["$key"] = elem.key;
-        this.terapeuta3.push(x);
-      });
-    });    
+    // this.inscriptionService.getInscriptions()
+    // .snapshotChanges()
+    // .subscribe(item => {
+    //   this.inscriptionList = [];
+    //   item.forEach(elem => {
+    //     let x = elem.payload.toJSON();
+    //     x["$key"] = elem.key;
+    //     this.inscriptionList.push(x);
+    //   });
+    // });    
 
-    // get reports
-    this.reportService.getReports()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.reportList = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x['$key'] = elem.key;
-        this.reportList.push(x)
-      })
-    })
+    // // get reports
+    // this.reportService.getReports()
+    // .snapshotChanges()
+    // .subscribe(item => {
+    //   this.reportList = [];
+    //   item.forEach(elem => {
+    //     let x = elem.payload.toJSON();
+    //     x['$key'] = elem.key;
+    //     this.reportList.push(x)
+    //   })
+    // })
   }
 
   ngOnDestroy() {
@@ -192,7 +190,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
 
-  // onSendMail() {
+  onSendMail() {
   //   this.message = {
   //     subject: 'Welcome to Microsoft Graph development with Angular 4 and the Microsoft Graph Connect sample',
   //     toRecipients: [{
@@ -205,48 +203,49 @@ export class HomeComponent implements OnInit, OnDestroy {
   //         contentType: "html"
   //     }
   // }
-  //   this.subsSendMail = this.homeService.sendMail(this.message).subscribe();
-  //   this.emailSent = true;
-  // }
+    this.subsSendMail = this.homeService.sendMail(this.message).subscribe();
+    this.emailSent = true;
+  }
 
  
 
-  // onSendCalendar(){
+  onSendCalendar(){
 
-  //   this.date = new Date();
+    // this.date = new Date();
 
-  //   this.send = {
-  //       subject: "soy mariiii",
-  //       start: {
-  //         dateTime: this.date,
-  //         timeZone: "GMT-0500"
-  //       },
-  //       end: {
-  //         dateTime: this.date,
-  //         timeZone: "GMT-0500"
-  //       }
-  //   }
-  //   this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
+    // this.send = {
+    //     subject: "soy mariiii",
+    //     start: {
+    //       dateTime: this.date,
+    //       timeZone: "GMT-0500"
+    //     },
+    //     end: {
+    //       dateTime: this.date,
+    //       timeZone: "GMT-0500"
+    //     }
+    // }
+    
+    this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
+  }
+
+  // onLogout() {
+  //   this.authService.logout();
   // }
 
-  onLogout() {
-    this.authService.logout();
-  }
+  // onLogin() {
+  //   this.authService.login();
+  // }
 
-  onLogin() {
-    this.authService.login();
-  }
+  // insertInscription(x){
+  //   if (InscripcionModel){
+  //         this.inscriptionService.insertInscription(x);
+  //   }
+  // }
 
-  insertInscription(x){
-    if (InscripcionModel){
-          this.inscriptionService.insertInscription(x);
-    }
-  }
-
-  insertReport(x){
-    if (ReportsModel){
-          this.reportService.insertReport(x);
-          console.log(x)
-    }
-  }
+  // insertReport(x){
+  //   if (ReportsModel){
+  //         this.reportService.insertReport(x);
+  //         console.log(x)
+  //   }
+  // }
 }

@@ -9,6 +9,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -20,13 +24,18 @@ import { ViewAdminComponent } from './view-admin/view-admin.component';
 import { ViewLoginComponent } from './view-login/view-login.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
+// services
 import { HttpService } from './shared/http.service';
 import { AuthService } from './auth/auth.service';
 import { HomeService } from './home/home.service';
 import { TurnosService } from './services/turnos.service';
 import { ReportService } from './services/report.service';
 import { InscriptionService } from './services/inscription.service';
+
 import { AuthFirebaseService } from './services/auth-firebase.service';
+
+import { UserService } from './services/user.service';
+
 
 // import angular firebase
 import { AngularFireModule } from 'angularfire2';
@@ -35,7 +44,6 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 // enviroment - config firebase
 import { environment } from '../environments/environment';
-
 
 // guard
 import { AuthGuard } from './guards/auth.guard';
@@ -69,17 +77,23 @@ const routes: Routes = [
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    CommonModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    NgbModule.forRoot()
   ],
   providers: [
     HttpService,
     AuthService,
     AuthGuard,
     HomeService,
+    InscriptionService,
     TurnosService,
     ReportService,
     InscriptionService,
-    AuthFirebaseService
+    AuthFirebaseService,
+    UserService
   ],
   bootstrap: [
     AppComponent
