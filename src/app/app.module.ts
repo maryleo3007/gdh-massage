@@ -11,7 +11,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { AppComponent } from './app.component';
@@ -23,6 +22,9 @@ import { ViewCoorComponent } from './view-coor/view-coor.component';
 import { ViewAdminComponent } from './view-admin/view-admin.component';
 import { ViewLoginComponent } from './view-login/view-login.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 import { HttpService } from './shared/http.service';
 import { AuthService } from './auth/auth.service';

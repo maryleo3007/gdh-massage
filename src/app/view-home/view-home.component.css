@@ -18,18 +18,15 @@ box-shadow: none;
 color: #B3B3B3;
 cursor: auto;
 }
-
 .therapist-content span{
   color: #cccccc;
   font-size: 20px;
   font-weight: 100;
 }
-
 .logOut{
   cursor: pointer;
   color: #c1c1c1 !important;
 }
-
 .logOut:hover{
   cursor: pointer;
   color: #3A7ABA !important;
@@ -37,15 +34,12 @@ cursor: auto;
 .btn-close{
   font-size: 30px;
 }
-
 .text-modal{
   color: #b4b4b4;
 }
-
 .text-content{
   color: #bebebe;
 }
-
 .lgnd-stt-turn{
   display: inline-block;
   height: 15px;
@@ -89,7 +83,6 @@ cursor: auto;
 .btn-cancelReserva{
   background-image: url('../../assets/images/cancelReserva.png');
 }
-
 .turn-por-confirmar{
   background-color: #D2DEEA;
   border: 1px solid #D2DEEA;
