@@ -159,10 +159,26 @@ export class ViewCoorComponent implements OnInit {
     this.therapist3Choose = true;
   }
 
-  addRegister(a,b,c,d,e,f,g,h) {
-    var x = document.getElementById(g);
-    f = true;
-    console.log(a,b,c,d,e,f,x,h)
+  addRegister(date,hourStart,hourEnd,assistance,userAssist, stringVal,userName,boolMatch,boolAny) {
+    assistance = true;
+    boolMatch = false;
+    userAssist = userAssist.toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"").replace(/ /g,"");
+    stringVal = stringVal.toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"").replace(/ /g,"");
+    if( userAssist === stringVal) {
+      boolMatch = true;
+    }
+    console.log(
+      {'fecha': date,
+      'inicio': hourStart,
+      'fin': hourEnd,
+      'asistencia': assistance,
+      'nombre de asistencia': userAssist,
+      'input val': stringVal,
+      'nombre usuario': userName,
+      'coincide': boolMatch,
+      'booleanox': boolAny
+    }
+  )
     // console.log(this.test)
   }
 }
