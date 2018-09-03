@@ -27,12 +27,26 @@ export class InscriptionService {
       boolAny: inscription.boolAny,
       therapist: inscription.therapist,
       userAssist: inscription.userAssist,
-      stringVal: inscription.stringVal
+      stringVal: inscription.stringVal,
+      type: inscription.type,
+      displayName: inscription.displayName
     })
   }
 
   deleteInscription($key: string){
     this.inscriptionList.remove($key);
+  }
+
+  updateBoolAny($key: string, flag: boolean) {
+    this.inscriptionList.update($key, { boolAny: flag })
+  }
+
+  updateStringVal($key: string, flag: string) {
+    this.inscriptionList.update($key, { stringVal: flag })
+  }
+
+  updateType($key: string, flag: string) {
+    this.inscriptionList.update($key, { type: flag })
   }
 
 }

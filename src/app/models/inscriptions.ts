@@ -8,4 +8,6 @@ export class InscripcionModel {
   public userAssist: string;
   public therapist: number;
   public stringVal: string;
+  public type:string;
+  public displayName: string;
 }
