@@ -17,6 +17,8 @@ import { InscripcionModel } from './../models/inscriptions';
 import { ReportsModel } from './../models/reports';
 import { TurnModel } from './../models/turns';
 import { UserModel } from './../models/users';
+import { LoginComponent } from '../login/login.component';
+import { log } from 'util';
 
 @Component({
   selector: 'app-view-home',
@@ -54,7 +56,7 @@ export class ViewHomeComponent implements OnInit {
   modalConfirm: NgbModalRef;
   userReserved: string = "false";
   therapistIds: Array<string> = ['terapeuta1', 'terapeuta2', 'terapeuta3'];
-  usersList: any[] = [];
+  returnThis:boolean = false;
   
   primero: InscripcionModel = {
     $key:'',
@@ -109,12 +111,10 @@ export class ViewHomeComponent implements OnInit {
       this.userName = me.displayName.substring(cutUserName+1);
     });
     
+
     // send name and nameUser to local storage
     localStorage.setItem('name', this.name);
     localStorage.setItem('userName', this.userName);
-    console.log(localStorage.getItem('userReserved'));
-    // this.userReserved = localStorage.getItem('userReserved');
-    this.userReserved = 'false';
       
     // get turnos
 
@@ -207,7 +207,11 @@ export class ViewHomeComponent implements OnInit {
           x['$key'] = elem.key;
           this.userList.push(x);
         });
-        this.usersList = this.userList;
+        this.userList.forEach((elem)=>{
+          if( elem.mail === this.me.mail ){
+             this.returnThis =  true;
+          }
+        });
       });
   }
 
@@ -284,7 +288,17 @@ export class ViewHomeComponent implements OnInit {
       });
   }
 
-
+  onExistUser(){ 
+    this.userList.forEach((elem)=>{
+      if( elem.mail === this.me.mail ){
+        console.log(elem.mail);
+        console.log(this.me.mail);
+               
+         this.returnThis =  true;
+      }
+    });
+    return this.returnThis;
+  }
   onConfirmTurn1 (x, modal){
     let userExist  = false;
     this.user.mail = this.me.mail;
@@ -449,26 +463,26 @@ export class ViewHomeComponent implements OnInit {
     this.modalSelectTurn.close();
   }
 
-  cancelTurn2(x){
+  cancelTurn2(inscription: InscripcionModel){
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
     this.selectedTurn.userName = '';
     this.userReserved = "false";
     this.selectedTurn.count--
     this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-    // this.onDelete(x.$key);
+    this.onDelete(inscription.$key);
     this.modalConfirm.close();
     this.modalSelectTurn.close();
   }
 
-  cancelTurn3(x){
+  cancelTurn3(inscription: InscripcionModel){
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
     this.selectedTurn.userName = '';
     this.userReserved = "false";
     this.selectedTurn.count--
     this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-    // this.onDelete(x.$key);
+    this.onDelete(inscription.$key);
     this.modalConfirm.close();
     this.modalSelectTurn.close();
   }
