@@ -55,7 +55,7 @@ export class ViewHomeComponent implements OnInit {
   countConfirm: number = 0;
   modalSelectTurn: NgbModalRef;
   modalConfirm: NgbModalRef;
-  userReserved: string = "false";
+  modalUser: any;
   therapistIds: Array<string> = ['terapeuta1', 'terapeuta2', 'terapeuta3'];
   returnThis:boolean = false;
   
@@ -210,9 +210,7 @@ export class ViewHomeComponent implements OnInit {
           let x = elem.payload.toJSON();
           x['$key'] = elem.key;
           this.userList.push(x);
-        });
-        console.log(this.me);
-                
+        });  
         this.userList.forEach((elem)=>{
           if( elem.mail === this.me.mail ){
              this.returnThis =  true;
@@ -336,7 +334,7 @@ export class ViewHomeComponent implements OnInit {
   onConfirmTurn1 (user: UserModel, x, modal){
     this.selectedUser = user;
     this.selectedUser.reserved = true;
-    
+
     this.selectedTurn.confirm = true;
     this.selectedTurn.userName =  this.name;
     this.selectedTurn.count++
@@ -352,10 +350,6 @@ export class ViewHomeComponent implements OnInit {
     this.insertInscription(x);
     this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
     this.updateUser(user.$key,this.selectedUser);
-
-    this.userReserved = "true";
-    
-    localStorage.setItem('userReserved', this.userReserved);
 
     this.modalSelectTurn.close();
     this.modalConfirm =  this.modalService.open(modal, { centered: true });
@@ -373,7 +367,7 @@ export class ViewHomeComponent implements OnInit {
 
     this.selectedUser = user;
     this.selectedUser.reserved = true;
-    
+
     this.selectedTurn.confirm = true;
     this.selectedTurn.userName =  this.name;
     this.selectedTurn.count++
@@ -389,10 +383,7 @@ export class ViewHomeComponent implements OnInit {
     this.insertInscription(x);
     this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
     this.updateUser(user.$key,this.selectedUser);
-    this.userReserved = "true";
 
-    localStorage.setItem('userReserved', this.userReserved);
-    
     this.modalSelectTurn.close();
     this.modalConfirm =  this.modalService.open(modal, { centered: true });
     this.modalConfirm.result.then((result) => {
@@ -409,7 +400,7 @@ export class ViewHomeComponent implements OnInit {
 
     this.selectedUser = user;
     this.selectedUser.reserved = true;
-    
+
     this.selectedTurn.confirm = true;
     this.selectedTurn.userName =  this.name;
     this.selectedTurn.count++
@@ -425,7 +416,6 @@ export class ViewHomeComponent implements OnInit {
     this.insertInscription(x);
     this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
     this.updateUser(user.$key,this.selectedUser);
-    this.userReserved = "true";
     
     this.modalSelectTurn.close();
     this.modalConfirm =  this.modalService.open(modal, { centered: true });
@@ -475,46 +465,51 @@ export class ViewHomeComponent implements OnInit {
     this.userService.updateUser(key,x);
   }
 
-  cancelTurn1(inscription: InscripcionModel){
+  cancelTurn1(user: UserModel, inscription: InscripcionModel, modalConfirm){
+    console.log(modalConfirm);
+    
+   
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
     this.selectedTurn.userName = '';
-    this.selectedUser.reserved = false;
-    this.userReserved = "false";
+    user.reserved = false;
     
     this.selectedTurn.count--
     this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
-    this.updateUser(this.selectedUser.$key,this.selectedUser);
+    this.updateUser(user.$key,user);
     this.onDelete(inscription.$key);
 
-    localStorage.setItem('userReserved', this.userReserved);
     this.modalConfirm.close();
     this.modalSelectTurn.close();
+
+    
   }
 
-  cancelTurn2(inscription: InscripcionModel){
+  cancelTurn2(user: UserModel, inscription: InscripcionModel){
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
     this.selectedTurn.userName = '';
-    this.selectedUser.reserved = false;
-    this.userReserved = "false";
+    user.reserved = false;
+
     this.selectedTurn.count--
     this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-    this.updateUser(this.selectedUser.$key,this.selectedUser);
+    this.updateUser(user.$key,user);
     this.onDelete(inscription.$key);
     this.modalConfirm.close();
     this.modalSelectTurn.close();
   }
 
-  cancelTurn3(inscription: InscripcionModel){
+  cancelTurn3(user: UserModel, inscription: InscripcionModel){
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
     this.selectedTurn.userName = '';
-    this.selectedUser.reserved = false;
-    this.userReserved = "false";
+
+    
+    user.reserved = false;
+
     this.selectedTurn.count--
     this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-    this.updateUser(this.selectedUser.$key,this.selectedUser);
+    this.updateUser(user.$key,user);
     this.onDelete(inscription.$key);
     this.modalConfirm.close();
     this.modalSelectTurn.close();

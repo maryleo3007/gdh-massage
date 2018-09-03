@@ -30,6 +30,7 @@
       </div>
       <div class="container turn-content">
         <div *ngIf="returnThis">
+            holi true
                 <div *ngFor="let userItem of userList">
                     <div *ngIf="userItem.mail == me.mail">  
                         <div class="row">
@@ -121,6 +122,7 @@
                 </div> 
         </div>
         <div *ngIf="!returnThis">
+            holi false
                 <div class="row">
                         <div class="col-12 col-md-4 text-center">             
                             <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
@@ -242,16 +244,18 @@
                 <button type="button" class="btn btn-agendar" (click)="closeFirstModal()">Agendar </button>
             </div>
             <div class="text-center mt-4 mb-4">
-
-                    <div *ngFor="let inscriptionItem of inscriptionList">
-                        <div *ngIf = "inscriptionItem.therapist == selectedTurn.therapistId && inscriptionItem.hourStart == selectedTurn.hourStart && inscriptionItem.hourEnd == selectedTurn.hourEnd">
-                            <button *ngIf = "selectedTurn.therapistId == 1" type="button" class="btn btn-cancelReserva" aria-label="Close" (click)="cancelTurn1(inscriptionItem)">Cancelar reserva 1</button>
-                            <button *ngIf = "selectedTurn.therapistId == 2" type="button" class="btn btn-cancelReserva" aria-label="Close" (click)="cancelTurn2(inscriptionItem)">Cancelar reserva 2</button>
-                            <button *ngIf = "selectedTurn.therapistId == 3" type="button" class="btn btn-cancelReserva" aria-label="Close" (click)="cancelTurn3(inscriptionItem)">Cancelar reserva 3</button>
+                <div *ngFor="let userItem of userList">
+                    <div *ngIf="userItem.mail == me.mail">  
+                        <div *ngFor="let inscriptionItem of inscriptionList">
+                            <div *ngIf = "inscriptionItem.therapist == selectedTurn.therapistId && inscriptionItem.hourStart == selectedTurn.hourStart && inscriptionItem.hourEnd == selectedTurn.hourEnd">
+                                <button *ngIf = "selectedTurn.therapistId == 1" type="button" class="btn btn-cancelReserva" aria-label="Close" (click)="cancelTurn1(userItem,inscriptionItem, modalConfirm)">Cancelar reserva 1</button>
+                                <button *ngIf = "selectedTurn.therapistId == 2" type="button" class="btn btn-cancelReserva" aria-label="Close" (click)="cancelTurn2(userItem,inscriptionItem, modalConfirm)">Cancelar reserva 2</button>
+                                <button *ngIf = "selectedTurn.therapistId == 3" type="button" class="btn btn-cancelReserva" aria-label="Close" (click)="cancelTurn3(userItem,inscriptionItem, modalConfirm)">Cancelar reserva 3</button>
+                            </div>
+                                
                         </div>
-                            
                     </div>
-               
+                </div>
             </div>
           </div>
       </div>
