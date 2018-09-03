@@ -62,6 +62,9 @@ button.btn-primary:hover {
   border: 1px solid #c7c6c6;
 }
 
+i.fa-sign-out {
+  font-size: 1.2rem;
+}
 td button {
   font-size: 0.9rem;
 }
