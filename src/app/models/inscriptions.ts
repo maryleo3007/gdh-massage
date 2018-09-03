@@ -6,5 +6,6 @@ export class InscripcionModel {
   public userName: string;
   public userAssist: string;
   public therapist: number;
-  public stringVal: string;;
+  public stringVal: string;
+  public type: string;
 }

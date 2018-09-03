@@ -23,6 +23,7 @@ export class ReportService {
       hourEnd: report.hourEnd,
       userName: report.userName,
       userAssist: report.userAssist,
+      userAssistRight: report.userAssistRight,
       boolMatch: report.boolMatch,
       assistance: report.assistance,
       boolAny: report.boolAny,

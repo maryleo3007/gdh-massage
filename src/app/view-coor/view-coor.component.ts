@@ -125,12 +125,9 @@ export class ViewCoorComponent implements OnInit {
           this.reportList.push(x)
         })
       })
-
       this.therapist1Choose = true;
       this.therapist2Choose = false;
       this.therapist3Choose = false;
-      
-
   }
 
   logoutUser() {
@@ -159,33 +156,42 @@ export class ViewCoorComponent implements OnInit {
     this.therapist3Choose = true;
   }
 
-  addRegister(date,hourStart,hourEnd,assistance,userAssist, stringVal,userName,boolMatch,boolAny, therapist,$key) {
-    assistance = true;
+  addRegister(date,hourStart,hourEnd,assistance,userAssist, stringVal,userName,boolMatch,boolAny, therapist,$key, type) {
+    if(stringVal.length > 0) {
+      assistance = true;
+    } else {
+      assistance = false;
+    }
+    
     boolMatch = false;
     userAssist = userAssist.toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"").replace(/ /g,"");
     stringVal = stringVal.toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,"").replace(/ /g,"");
     if(userAssist === stringVal) {
       boolMatch = true;
     }
-      
     let report: ReportsModel = {
       date: date,
       hourStart: hourStart,
       hourEnd: hourEnd,
       userName: userName,
+      userAssistRight: userAssist,
       userAssist: stringVal,
       boolMatch: boolMatch,
       assistance: assistance,
       boolAny: boolAny,
       therapist: therapist
     };
-    boolAny = true;
-    this.inscriptionService.updateBoolAny($key,boolAny);
-
     this.reportService.insertReport(report);
-    
-    console.log(date,hourStart,hourEnd,assistance,userAssist, stringVal,userName,boolMatch,boolAny, therapist,$key)
-    stringVal = stringVal;
-    console.log(stringVal)
+    boolAny = true;
+    type = 'password';
+    this.inscriptionService.updateStringVal($key,stringVal)
+    this.inscriptionService.updateBoolAny($key,boolAny);
+    this.inscriptionService.updateType($key, type)
   }
+
+  
+
+  
+
+
 }

@@ -25,8 +25,8 @@
         <button class="btn rounded-0" [class.btn-primary]='therapist3Choose' [class.btn-light]='!therapist3Choose' (click)='chooseTerap3()'>Terapeuta 3</button>
       </div>
     </div>
-
   </div>
+
   <div class="container">
     <div class="row">
       <div class="col-10 mx-auto">
@@ -45,22 +45,22 @@
               <td>{{item.hourStart}} - {{item.hourEnd}}</td>
               <td>{{item.userName}}</td>
               <td>
-                <input type="text" #userAssist='ngModel' class='border-top-0 border-left-0 border-right-0 border-bottom-0' [(ngModel)]='item.stringVal'>
+                <input type={{item.type}} #userAssist='ngModel' class='border-top-0 border-left-0 border-right-0 border-bottom-0' [(ngModel)]='item.stringVal'>
               </td>
               <td>
-                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistance, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key)'>
+                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistance, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type)'>
                   <i class="fa fa-check-square-o" aria-hidden="true"></i>
                 </button>
               </td>
               <td>
-                <button>
-                  <i class="fa fa-times" aria-hidden="true"></i>
+                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistance, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type)'>
+                  <i class="fa fa-times" aria-hidden="true" ></i>
                 </button>
               </td>
             </tr>
           </tbody>
         </table>
-        
+
 
         <table *ngIf="therapist2Choose" class="table table-sm table-bordered table-hover bg-white mt-2 text-center">
           <thead>
@@ -77,15 +77,15 @@
               <td>{{item.hourStart}} - {{item.hourEnd}}</td>
               <td>{{item.userName}}</td>
               <td>
-                <input type="text" [attr.data-assist]='item.userAssist' class='border-top-0 border-left-0 border-right-0 border-bottom-0'>
+                <input type={{item.type}} #userAssist='ngModel' class='border-top-0 border-left-0 border-right-0 border-bottom-0' [(ngModel)]='item.stringVal'>
               </td>
               <td>
-                <button [disabled]='false'>
+                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistance, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type)'>
                   <i class="fa fa-check-square-o" aria-hidden="true"></i>
                 </button>
               </td>
               <td>
-                <button>
+                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistance, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type)'>
                   <i class="fa fa-times" aria-hidden="true"></i>
 
                 </button>
@@ -109,15 +109,15 @@
               <td>{{item.hourStart}} - {{item.hourEnd}}</td>
               <td>{{item.userName}}</td>
               <td>
-                <input type="text" [attr.data-assist]='item.userAssist' class='border-top-0 border-left-0 border-right-0 border-bottom-0'>
+                <input type={{item.type}} #userAssist='ngModel' class='border-top-0 border-left-0 border-right-0 border-bottom-0' [(ngModel)]='item.stringVal'>
               </td>
               <td>
-                <button [disabled]='false'>
+                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistance, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type)'>
                   <i class="fa fa-check-square-o" aria-hidden="true"></i>
                 </button>
               </td>
               <td>
-                <button>
+                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistance, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type)'>
                   <i class="fa fa-times" aria-hidden="true"></i>
 
                 </button>

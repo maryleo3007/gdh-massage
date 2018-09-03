@@ -4,6 +4,7 @@ export class ReportsModel {
   public hourEnd: string;
   public userName: string;
   public userAssist?: string;
+  public userAssistRight: string;
   public boolMatch: boolean;
   public assistance: boolean;
   public boolAny: boolean;

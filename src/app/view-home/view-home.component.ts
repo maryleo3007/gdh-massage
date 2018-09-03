@@ -64,7 +64,8 @@ export class ViewHomeComponent implements OnInit {
     userAssist: '',
     therapist: 0,
     boolAny: false,
-    stringVal:''
+    stringVal:'',
+    type: 'text'
   };
 
   segundo: ReportsModel = {
@@ -76,7 +77,8 @@ export class ViewHomeComponent implements OnInit {
     boolMatch: false,
     assistance: false,
     boolAny: false,
-    therapist: 1
+    therapist: 1,
+    userAssistRight: ''
   };
 
   user: UserModel = {
