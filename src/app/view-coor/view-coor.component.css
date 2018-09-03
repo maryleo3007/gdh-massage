@@ -42,6 +42,26 @@ button.btn-primary:hover {
   background-color: #1b3260 !important;
 }
 
+.bg-btn {
+  background-color: #f3f0f0;
+}
+
+.btn-assist i.fa{
+  color: rgb(192, 220, 103);
+}
+
+.btn-no-assist i.fa {
+  color: rgb(198, 108, 86);
+}
+
+.btn-assist, .btn-no-assist {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border: 1px solid #c7c6c6;
+}
+
 td button {
   font-size: 0.9rem;
 }

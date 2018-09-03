@@ -9,4 +9,5 @@ export class ReportsModel {
   public assistance: boolean;
   public boolAny: boolean;
   public therapist: number;
+  public lastName: string;
 }
