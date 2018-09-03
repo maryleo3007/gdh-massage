@@ -1,4 +1,5 @@
 export class InscripcionModel {
+  public $key: string;
   public boolAny: boolean;
   public dateInscription: string;
   public hourStart: string;
@@ -7,5 +8,6 @@ export class InscripcionModel {
   public userAssist: string;
   public therapist: number;
   public stringVal: string;
-  public type: string;
+  public type:string;
+  public displayName: string;
 }

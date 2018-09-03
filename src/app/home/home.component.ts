@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   subsGetUsers: Subscription;
   subsGetMe: Subscription;
   subsSendMail: Subscription;
-  date: any;
+  // date: any;
   terapeuta1: any[];
   terapeuta2: any[];
   terapeuta3: any[];
@@ -86,6 +86,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   //   userName: 'acabrera',
   //   userAssist: 'alejandra',
   //   therapist: 1,
+  //   boolAny: false
+  // };
+
+  // segundo: ReportsModel = {
+  //   date: 'la fecha',
+  //   hourStart: 'la hora',
+  //   hourEnd: 'hora de termino',
+  //   userName: 'nombre usuario',
+  //   userAssist: 'nombre asistencia',
+  //   boolMatch: false,
+  //   assistance: false,
+  //   boolAny: false
+  // };
   //   boolAny: false
   // };
 
@@ -126,41 +139,41 @@ export class HomeComponent implements OnInit, OnDestroy {
 
    
     // get turnos
-    this.turnoService.getTurnosT1()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.terapeuta1 = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x["$key"] = elem.key;
-        this.terapeuta1.push(x);
-      });
-      // console.log(this.terapeuta1);
-    });
+    // this.turnoService.getTurnosT1()
+    // .snapshotChanges()
+    // .subscribe(item => {
+    //   this.terapeuta1 = [];
+    //   item.forEach(elem => {
+    //     let x = elem.payload.toJSON();
+    //     x["$key"] = elem.key;
+    //     this.terapeuta1.push(x);
+    //   });
+    //   console.log(this.terapeuta1);
+    // });
 
-    this.turnoService.getTurnosT2()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.terapeuta2 = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x["$key"] = elem.key;
-        this.terapeuta2.push(x);
-      });
-      // console.log(this.terapeuta2);
-    });
+    // this.turnoService.getTurnosT2()
+    // .snapshotChanges()
+    // .subscribe(item => {
+    //   this.terapeuta2 = [];
+    //   item.forEach(elem => {
+    //     let x = elem.payload.toJSON();
+    //     x["$key"] = elem.key;
+    //     this.terapeuta2.push(x);
+    //   });
+    //   console.log(this.terapeuta2);
+    // });
 
-    this.turnoService.getTurnosT3()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.terapeuta3 = [];
-      item.forEach(elem => {
-        let x = elem.payload.toJSON();
-        x["$key"] = elem.key;
-        this.terapeuta3.push(x);
-      });
-      // console.log(this.terapeuta3);
-    });
+    // this.turnoService.getTurnosT3()
+    // .snapshotChanges()
+    // .subscribe(item => {
+    //   this.terapeuta3 = [];
+    //   item.forEach(elem => {
+    //     let x = elem.payload.toJSON();
+    //     x["$key"] = elem.key;
+    //     this.terapeuta3.push(x);
+    //   });
+    //   console.log(this.terapeuta3);
+    // });
 
     // get inscriptions
     this.inscriptionService.getInscriptions()
@@ -170,7 +183,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       item.forEach(elem => {
         let x = elem.payload.toJSON();
         x["$key"] = elem.key;
-        this.terapeuta3.push(x);
+        this.inscriptionList.push(x);
       });
     });    
 
@@ -192,7 +205,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
 
-  // onSendMail() {
+  onSendMail() {
   //   this.message = {
   //     subject: 'Welcome to Microsoft Graph development with Angular 4 and the Microsoft Graph Connect sample',
   //     toRecipients: [{
@@ -205,29 +218,30 @@ export class HomeComponent implements OnInit, OnDestroy {
   //         contentType: "html"
   //     }
   // }
-  //   this.subsSendMail = this.homeService.sendMail(this.message).subscribe();
-  //   this.emailSent = true;
-  // }
+    this.subsSendMail = this.homeService.sendMail(this.message).subscribe();
+    this.emailSent = true;
+  }
 
  
 
-  // onSendCalendar(){
+  onSendCalendar(){
 
-  //   this.date = new Date();
+    // this.date = new Date();
 
-  //   this.send = {
-  //       subject: "soy mariiii",
-  //       start: {
-  //         dateTime: this.date,
-  //         timeZone: "GMT-0500"
-  //       },
-  //       end: {
-  //         dateTime: this.date,
-  //         timeZone: "GMT-0500"
-  //       }
-  //   }
-  //   this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
-  // }
+    // this.send = {
+    //     subject: "soy mariiii",
+    //     start: {
+    //       dateTime: this.date,
+    //       timeZone: "GMT-0500"
+    //     },
+    //     end: {
+    //       dateTime: this.date,
+    //       timeZone: "GMT-0500"
+    //     }
+    // }
+    
+    this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
+  }
 
   onLogout() {
     this.authService.logout();
@@ -237,16 +251,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.authService.login();
   }
 
-  insertInscription(x){
-    if (InscripcionModel){
-          this.inscriptionService.insertInscription(x);
-    }
-  }
+  // insertInscription(x){
+  //   if (InscripcionModel){
+  //         this.inscriptionService.insertInscription(x);
+  //   }
+  // }
 
-  insertReport(x){
-    if (ReportsModel){
-          this.reportService.insertReport(x);
-          console.log(x)
-    }
-  }
+  // insertReport(x){
+  //   if (ReportsModel){
+  //         this.reportService.insertReport(x);
+  //         console.log(x)
+  //   }
+  // }
 }

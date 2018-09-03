@@ -28,7 +28,8 @@ export class InscriptionService {
       therapist: inscription.therapist,
       userAssist: inscription.userAssist,
       stringVal: inscription.stringVal,
-      type: inscription.type
+      type: inscription.type,
+      displayName: inscription.displayName
     })
   }
 
