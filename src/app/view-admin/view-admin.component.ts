@@ -13,6 +13,14 @@ export class ViewAdminComponent implements OnInit {
   public name: string;
   public correctUser: boolean;
   public show:boolean;
+  countries = [
+    {id: 1, name: "United States"},
+    {id: 2, name: "Australia"},
+    {id: 3, name: "Canada"},
+    {id: 4, name: "Brazil"},
+    {id: 5, name: "England"}
+  ];
+ public selectedValue:number;
   constructor(
     private authFirebaseService: AuthFirebaseService
   ) { }
@@ -30,9 +38,15 @@ export class ViewAdminComponent implements OnInit {
         }
       }     
     });
+    this.selectedValue = this.countries[0].id;
   }
   
   logoutUser() {
     this.authFirebaseService.logout();
   }
+
+  setNewUser(x) {
+    console.log(x)
+  }
+  
 }

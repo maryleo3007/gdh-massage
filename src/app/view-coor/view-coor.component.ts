@@ -157,7 +157,7 @@ export class ViewCoorComponent implements OnInit {
     this.therapist3Choose = true;
   }
 
-  addRegister(date,hourStart,hourEnd,assistance,userAssist, stringVal,userName,boolMatch,boolAny, therapist,$key, type, displayName) {
+  addRegister(date,hourStart,hourEnd,assistance,userAssist, stringVal,userName,boolMatch,boolAny, therapist,$key, type, displayName, mail) {
     if(stringVal.length > 0) {
       assistance = true;
     } else {
@@ -184,7 +184,8 @@ export class ViewCoorComponent implements OnInit {
       assistance: assistance,
       boolAny: boolAny,
       therapist: therapist,
-      lastName: lastName
+      lastName: lastName,
+      mail: mail
     };
     this.reportService.insertReport(report);
     boolAny = true;
@@ -192,10 +193,6 @@ export class ViewCoorComponent implements OnInit {
     this.inscriptionService.updateStringVal($key,stringVal)
     this.inscriptionService.updateBoolAny($key,boolAny);
     this.inscriptionService.updateType($key, type)
-
-    console.log(displayName)
-    console.log(lastName)
-    console.log(cutDisplayName)
   }
 
   

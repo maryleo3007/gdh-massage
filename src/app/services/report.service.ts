@@ -28,7 +28,8 @@ export class ReportService {
       assistance: report.assistance,
       boolAny: report.boolAny,
       therapist: report.therapist,
-      lastName: report.lastName
+      lastName: report.lastName,
+      mail: report.mail
     })
   }
 }

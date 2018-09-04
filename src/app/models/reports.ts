@@ -10,4 +10,5 @@ export class ReportsModel {
   public boolAny: boolean;
   public therapist: number;
   public lastName: string;
+  public mail: string;
 }

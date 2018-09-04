@@ -1,5 +1,20 @@
-<div class="log-out d-flex align-items-end" *ngIf="show">
-  <a class="nav-link" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
+<div class="log-out" *ngIf="show">
+  <div>
+      <select [(ngModel)]="selectedValue" (ngModelChange)="setNewUser($event)">
+          <option *ngFor="let c of countries" [ngValue]="c" [selected]='c.id === selectedValue'>{{c.name}}</option>
+      </select>
+  </div>
+  <div>
+      <p>{{selectedValue}}</p>
+  </div>
+  <div>
+      <a class="nav-link" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
+  </div>
+      <!-- <select [ngModel]="originalObject">
+          <option *ngFor="let object of objects" [ngValue]="object" [selected]="object.uniqueId === originalObject.uniqueId">{{object.name}}</option>
+      </select> -->
+  
+
 </div>
 <div class="log-out d-flex align-items-end" *ngIf="!show">
   <p>No es tu ruta</p>
