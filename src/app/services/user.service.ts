@@ -3,8 +3,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { UserModel } from './../models/user';
-// import { UserModel } from './../models/users';
+// import { UserModel } from './../models/user';
+import { UserModel } from './../models/users';
 
 
 @Injectable()
@@ -24,7 +24,8 @@ export class UserService {
     this.userList.push({
       mail: user.mail,
       reserved: user.reserved,
-      countReserved: user.countReserved
+      countReserved: user.countReserved,
+      countAgendas: user.countAgendas
     });
   }
 
@@ -32,7 +33,8 @@ export class UserService {
     this.userList.update(user.$key,{
       mail: user.mail,
       reserved: user.reserved,
-      countReserved: user.countReserved
+      countReserved: user.countReserved,
+      countAgendas: user.countAgendas
     });
   }
 

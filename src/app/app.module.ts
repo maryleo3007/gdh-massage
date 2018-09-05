@@ -23,8 +23,6 @@ import { ViewAdminComponent } from './view-admin/view-admin.component';
 import { ViewLoginComponent } from './view-login/view-login.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
-
-
 import { HttpService } from './shared/http.service';
 import { AuthService } from './auth/auth.service';
 import { HomeService } from './home/home.service';
@@ -44,7 +42,6 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 // enviroment - config firebase
 import { environment } from '../environments/environment';
 
-
 // guard
 import { AuthGuard } from './guards/auth.guard';
 
@@ -55,6 +52,7 @@ const routes: Routes = [
   { path: 'coordi', component: ViewCoorComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: ViewAdminComponent, canActivate: [AuthGuard] },
   {path: '**', component: NotFoundPageComponent},
+  {path: '**', pathMatch: 'full', redirectTo:'login'},
 ];
 
 @NgModule({
