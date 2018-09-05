@@ -73,7 +73,7 @@ export class ViewHomeComponent implements OnInit {
     stringVal:'',
     type: 'text',
     displayName: '',
-    mail:''
+    mail:'dfs'
   };
 
   // segundo: ReportsModel = {
