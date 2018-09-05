@@ -1,21 +1,23 @@
 <div class="log-out" *ngIf="show">
-  <div>
-      <select [(ngModel)]="selectedValue" (ngModelChange)="setNewUser($event)">
-          <option *ngFor="let c of countries" [ngValue]="c" [selected]='c.id === selectedValue.id'>{{c.name}}</option>
-      </select>
-  </div>
-  <div>
-      <p>{{selectedValue}}</p>
-  </div>
-  <div>
-      <a class="nav-link" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
-  </div>
-      <!-- <select [ngModel]="originalObject">
+    <div>
+        <select *ngIf="years" [(ngModel)]="selectedValueYear" (ngModelChange)="setNewUser($event)">
+            <option *ngFor="let c of years" [ngValue]="c" [selected]='c.year === selectedValueYear'>{{c.year}}</option>
+        </select>
+    </div>
+    <div>
+        <select [(ngModel)]="selectedValue" (ngModelChange)="setNewUser($event)">
+            <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue.id'>{{c.month}}</option>
+        </select>
+    </div>
+    <div>
+        <a class="nav-link" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
+    </div>
+    <!-- <select [ngModel]="originalObject">
           <option *ngFor="let object of objects" [ngValue]="object" [selected]="object.uniqueId === originalObject.uniqueId">{{object.name}}</option>
       </select> -->
-  
+
 
 </div>
 <div class="log-out d-flex align-items-end" *ngIf="!show">
-  <p>No es tu ruta</p>
+    <p>No es tu ruta</p>
 </div>
