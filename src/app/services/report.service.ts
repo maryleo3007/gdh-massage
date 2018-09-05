@@ -3,7 +3,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { ReportsModel } from './../models/reports';
+import { ReportsModel } from '../models/reports';
 
 @Injectable()
 export class ReportService {
@@ -23,9 +23,13 @@ export class ReportService {
       hourEnd: report.hourEnd,
       userName: report.userName,
       userAssist: report.userAssist,
+      userAssistRight: report.userAssistRight,
       boolMatch: report.boolMatch,
       assistance: report.assistance,
-      boolAny: report.boolAny
+      boolAny: report.boolAny,
+      therapist: report.therapist,
+      lastName: report.lastName,
+      mail: report.mail
     })
   }
 }

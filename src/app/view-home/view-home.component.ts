@@ -76,16 +76,18 @@ export class ViewHomeComponent implements OnInit {
     mail:''
   };
 
-  segundo: ReportsModel = {
-    date: 'la fecha',
-    hourStart: 'la hora',
-    hourEnd: 'hora de termino',
-    userName: 'nombre usuario',
-    userAssist: 'nombre asistencia',
-    boolMatch: false,
-    assistance: false,
-    boolAny: false
-  };
+  // segundo: ReportsModel = {
+  //   date: 'la fecha',
+  //   hourStart: 'la hora',
+  //   hourEnd: 'hora de termino',
+  //   userName: 'nombre usuario',
+  //   userAssist: 'nombre asistencia',
+  //   boolMatch: false,
+  //   assistance: false,
+  //   boolAny: false,
+  //   therapist: 1,
+  //   userAssistRight: ''
+  // };
 
   user: UserModel = {
     $key: '',

@@ -11,14 +11,14 @@ import * as MicrosoftGraph from "@microsoft/microsoft-graph-types"
 // services
 import { HomeService } from './home.service';
 import { AuthService } from '../auth/auth.service';
-import { TurnosService } from './../services/turnos.service';
-import { InscriptionService } from './../services/inscription.service';
-import { ReportService } from './../services/report.service';
+import { TurnosService } from '../services/turnos.service';
+import { InscriptionService } from '../services/inscription.service';
+import { ReportService } from '../services/report.service';
 
 
 // models
-import { InscripcionModel } from './../models/inscriptions';
-import { ReportsModel } from './../models/reports';
+import { InscripcionModel } from '../models/inscriptions';
+import { ReportsModel } from '../models/reports';
 
 
 
@@ -80,23 +80,38 @@ export class HomeComponent implements OnInit, OnDestroy {
   inscriptionList: any[];
   reportList: any[];
   // primero: InscripcionModel = {
+  //   date: '21/08/2018',
+  //   hourStart: '12:00',
+  //   hourEnd: '12:20',
+  //   userName: 'acabrera',
+  //   userAssist: 'alejandra',
+  //   therapist: 1,
+  //   boolAny: false
+  // };
+
+  // segundo: ReportsModel = {
   //   date: 'la fecha',
   //   hourStart: 'la hora',
   //   hourEnd: 'hora de termino',
   //   userName: 'nombre usuario',
+  //   userAssist: 'nombre asistencia',
+  //   boolMatch: false,
+  //   assistance: false,
+  //   boolAny: false
+  // };
   //   boolAny: false
   // };
 
-  segundo: ReportsModel = {
-    date: 'la fecha',
-    hourStart: 'la hora',
-    hourEnd: 'hora de termino',
-    userName: 'nombre usuario',
-    userAssist: 'nombre asistencia',
-    boolMatch: false,
-    assistance: false,
-    boolAny: false
-  };
+  // segundo: ReportsModel = {
+  //   date: 'la fecha',
+  //   hourStart: 'la hora',
+  //   hourEnd: 'hora de termino',
+  //   userName: 'nombre usuario',
+  //   userAssist: 'nombre asistencia',
+  //   boolMatch: false,
+  //   assistance: false,
+  //   boolAny: false
+  // };
 
   send: MicrosoftGraph.Event;
   subsSendCalendar: Subscription;

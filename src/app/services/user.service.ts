@@ -3,7 +3,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { UserModel } from './../models/users';
+import { UserModel } from './../models/user';
+// import { UserModel } from './../models/users';
 
 
 @Injectable()
