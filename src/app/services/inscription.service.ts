@@ -29,7 +29,8 @@ export class InscriptionService {
       userAssist: inscription.userAssist,
       stringVal: inscription.stringVal,
       type: inscription.type,
-      displayName: inscription.displayName
+      displayName: inscription.displayName,
+      mail: inscription.mail
     })
   }
 

@@ -10,4 +10,5 @@ export class InscripcionModel {
   public stringVal: string;
   public type:string;
   public displayName: string;
+  public mail: string;
 }
