@@ -20,7 +20,7 @@ export class ViewAdminComponent implements OnInit {
     {id: 4, name: "Brazil"},
     {id: 5, name: "England"}
   ];
- public selectedValue:number;
+ public selectedValue:any;
   constructor(
     private authFirebaseService: AuthFirebaseService
   ) { }
@@ -38,7 +38,7 @@ export class ViewAdminComponent implements OnInit {
         }
       }     
     });
-    this.selectedValue = this.countries[0].id;
+    this.selectedValue = this.countries[0];
   }
   
   logoutUser() {

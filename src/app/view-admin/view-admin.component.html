@@ -1,7 +1,7 @@
 <div class="log-out" *ngIf="show">
   <div>
       <select [(ngModel)]="selectedValue" (ngModelChange)="setNewUser($event)">
-          <option *ngFor="let c of countries" [ngValue]="c" [selected]='c.id === selectedValue'>{{c.name}}</option>
+          <option *ngFor="let c of countries" [ngValue]="c" [selected]='c.id === selectedValue.id'>{{c.name}}</option>
       </select>
   </div>
   <div>
