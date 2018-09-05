@@ -58,6 +58,8 @@ export class ViewHomeComponent implements OnInit {
   modalUser: any;
   therapistIds: Array<string> = ['terapeuta1', 'terapeuta2', 'terapeuta3'];
   returnThis:boolean = false;
+  mail:string;
+  ticks:number;
   
   primero: InscripcionModel = {
     $key:'',
@@ -70,7 +72,8 @@ export class ViewHomeComponent implements OnInit {
     boolAny: false,
     stringVal:'',
     type: 'text',
-    displayName: ''
+    displayName: '',
+    mail:''
   };
 
   segundo: ReportsModel = {
@@ -91,6 +94,17 @@ export class ViewHomeComponent implements OnInit {
     countReserved: -1
   }
 
+  turno: TurnModel = {
+    $key:'',
+    available : true,
+    confirm: false,
+    hourStart: '3:40',
+    hourEnd: '4:00',
+    therapistId : 2,
+    userName:'',
+    count:0
+  }
+
   send: MicrosoftGraph.Event;
   subsSendCalendar: Subscription;
 
@@ -105,7 +119,7 @@ export class ViewHomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-      
+
     this.subsGetMe = this.homeService.getMe().subscribe(me => {
       this.me = me; 
       let cutName = me.mail.indexOf('@');
@@ -113,6 +127,7 @@ export class ViewHomeComponent implements OnInit {
       this.name = me.mail.substring(0,cutName);
       this.userName = me.displayName.substring(cutUserName+1);
       this.displayName = me.displayName;
+      this.mail = me.mail
     });
     
 
@@ -261,6 +276,12 @@ export class ViewHomeComponent implements OnInit {
       
       this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
 
+      this.ticks = 9;
+      let timer = Observable.timer(2000,1000);
+      timer.subscribe(t=>{
+        this.ticks--;
+      });
+      
       this.modalSelectTurn  = this.modalService.open(modal, { centered: true });
       this.modalSelectTurn.result.then((result) => {    
         this.closeResult = `Closed with: ${result}`;
@@ -269,6 +290,13 @@ export class ViewHomeComponent implements OnInit {
         this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
+
+      setTimeout(()=>{  
+        this.modalSelectTurn.close();
+        this.selectedTurn.available = true;
+        this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
+        
+      }, 10000);
   }
 
   onSelectTurn2(user: UserModel, turn:TurnModel, modal): void{
@@ -299,7 +327,14 @@ export class ViewHomeComponent implements OnInit {
         this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }); 
+      setTimeout(()=>{   
+        this.modalSelectTurn.close();
+        this.selectedTurn.available = true;
+        this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
+      }, 10000);
+      
   }
+
 
   onSelectTurn3(user: UserModel, turn:TurnModel, modal): void{
 
@@ -329,6 +364,13 @@ export class ViewHomeComponent implements OnInit {
         this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
+      setTimeout(()=>{   
+        this.modalSelectTurn.close();
+        this.selectedTurn.available = true;
+        this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
+      }, 10000);
+
+      
   }
 
   onConfirmTurn1 (user: UserModel, x, modal){
@@ -346,6 +388,7 @@ export class ViewHomeComponent implements OnInit {
     this.primero.userAssist = this.userName;
     this.primero.userName = this.name;
     this.primero.displayName = this.displayName;
+    this.primero.mail = this.mail;
 
     this.insertInscription(x);
     this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
@@ -379,6 +422,7 @@ export class ViewHomeComponent implements OnInit {
     this.primero.userAssist = this.userName;
     this.primero.userName = this.name;
     this.primero.displayName = this.displayName;
+    this.primero.mail = this.mail;
 
     this.insertInscription(x);
     this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
@@ -412,6 +456,7 @@ export class ViewHomeComponent implements OnInit {
     this.primero.userAssist = this.userName;
     this.primero.userName = this.name;
     this.primero.displayName = this.displayName;
+    this.primero.mail = this.mail;
 
     this.insertInscription(x);
     this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
@@ -429,9 +474,62 @@ export class ViewHomeComponent implements OnInit {
 
     }
 
+    cancelTurn1(user: UserModel, inscription: InscripcionModel){     
+      
+      this.selectedTurn.available = true;
+      this.selectedTurn.confirm = false;
+      this.selectedTurn.userName = '';
+      user.reserved = false;
+      
+      this.selectedTurn.count--
+      this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
+      this.updateUser(user.$key,user);
+      this.onDelete(inscription.$key);   
+      this.modalSelectTurn.close();
+      
+      if(this.modalConfirm){
+        this.modalConfirm.close();
+      }
+    }
   
+    cancelTurn2(user: UserModel, inscription: InscripcionModel){
+      this.selectedTurn.available = true;
+      this.selectedTurn.confirm = false;
+      this.selectedTurn.userName = '';
+      user.reserved = false;
+  
+      this.selectedTurn.count--
+      this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
+      this.updateUser(user.$key,user);
+      this.onDelete(inscription.$key);
+
+      this.modalSelectTurn.close();
+
+      if(this.modalConfirm){
+        this.modalConfirm.close();
+      }
+    }
+  
+    cancelTurn3(user: UserModel, inscription: InscripcionModel){
+      this.selectedTurn.available = true;
+      this.selectedTurn.confirm = false;
+      this.selectedTurn.userName = '';
+  
+      
+      user.reserved = false;
+  
+      this.selectedTurn.count--
+      this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
+      this.updateUser(user.$key,user);
+      this.onDelete(inscription.$key);
+
+      this.modalSelectTurn.close();
+      if(this.modalConfirm){
+        this.modalConfirm.close();
+      }
+    }  
  
-    insertInscription(x){
+  insertInscription(x){
     if (InscripcionModel){
           this.inscriptionService.insertInscription(x);
     }
@@ -449,6 +547,12 @@ export class ViewHomeComponent implements OnInit {
     }
   }
 
+  insertTurn2(x){
+    if (TurnModel) {
+      this.turnoService.inserTurn2(x);
+    }
+  }
+
   updateTurn1(key, x){
     this.turnoService.updateTurn1(key,x);
   }
@@ -463,56 +567,6 @@ export class ViewHomeComponent implements OnInit {
 
   updateUser(key, x){
     this.userService.updateUser(key,x);
-  }
-
-  cancelTurn1(user: UserModel, inscription: InscripcionModel, modalConfirm){
-    console.log(modalConfirm);
-    
-   
-    this.selectedTurn.available = true;
-    this.selectedTurn.confirm = false;
-    this.selectedTurn.userName = '';
-    user.reserved = false;
-    
-    this.selectedTurn.count--
-    this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
-    this.updateUser(user.$key,user);
-    this.onDelete(inscription.$key);
-
-    this.modalConfirm.close();
-    this.modalSelectTurn.close();
-
-    
-  }
-
-  cancelTurn2(user: UserModel, inscription: InscripcionModel){
-    this.selectedTurn.available = true;
-    this.selectedTurn.confirm = false;
-    this.selectedTurn.userName = '';
-    user.reserved = false;
-
-    this.selectedTurn.count--
-    this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-    this.updateUser(user.$key,user);
-    this.onDelete(inscription.$key);
-    this.modalConfirm.close();
-    this.modalSelectTurn.close();
-  }
-
-  cancelTurn3(user: UserModel, inscription: InscripcionModel){
-    this.selectedTurn.available = true;
-    this.selectedTurn.confirm = false;
-    this.selectedTurn.userName = '';
-
-    
-    user.reserved = false;
-
-    this.selectedTurn.count--
-    this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-    this.updateUser(user.$key,user);
-    this.onDelete(inscription.$key);
-    this.modalConfirm.close();
-    this.modalSelectTurn.close();
   }
 
   onDelete($key: string) {

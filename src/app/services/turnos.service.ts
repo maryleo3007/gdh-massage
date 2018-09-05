@@ -47,6 +47,18 @@ export class TurnosService {
     return this.terapeuta3;
   }
 
+  inserTurn2(turn2: TurnModel){
+    this.terapeuta2.push({
+      available: turn2.available,
+      confirm: turn2.confirm,
+      hourEnd: turn2.hourEnd,
+      hourStart: turn2.hourStart,
+      therapistId: turn2.therapistId,
+      count: turn2.count,
+      userName: turn2.userName
+    });
+  }
+
   updateTurn1(key:string, turn: TurnModel){
       this.terapeuta1.update(turn.$key, {
         available: turn.available,
