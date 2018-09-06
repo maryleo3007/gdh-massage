@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
+
 // services
 import { HomeService } from '../home/home.service';
 import { AuthService } from '../auth/auth.service';
@@ -56,6 +57,7 @@ export class ViewHomeComponent implements OnInit {
   countConfirm: number = 0;
   modalSelectTurn: NgbModalRef;
   modalConfirm: NgbModalRef;
+  modalOnMessage: NgbModalRef;
   modalUser: any;
   therapistIds: Array<string> = ['terapeuta1', 'terapeuta2', 'terapeuta3'];
   returnThis:boolean = false;
@@ -96,7 +98,7 @@ export class ViewHomeComponent implements OnInit {
     $key: '',
     mail: '',
     reserved: false,
-    countReserved: -1,
+    countReserved: 0,
     // countAgendas: 0
   }
 
@@ -281,12 +283,18 @@ export class ViewHomeComponent implements OnInit {
     this.subsGetUsers.unsubscribe();
   }
 
-  onSendCalendar(){
+  onSendCalendar(user: UserModel){
+
+    console.log(user);
+    user.countReserved++;
+    this.updateUser(user.$key, user);
 
     this.date = new Date();
+    console.log(this.date);
+    
     let send;
     send = {
-      subject: "soy mariiii",
+      subject: "Masajes antiestrés",
       start: {
         dateTime: this.date,
         timeZone: "GMT-0500"
@@ -536,6 +544,15 @@ export class ViewHomeComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
 
+    }
+  
+    onMessageSelect(modal){
+      this.modalOnMessage =  this.modalService.open(modal,{centered: true});
+      this.modalOnMessage.result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
     }
 
     cancelTurn1(user: UserModel, inscription: InscripcionModel){     
