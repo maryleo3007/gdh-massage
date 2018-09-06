@@ -1,13 +1,51 @@
 <div class="log-out" *ngIf="show">
     <div>
-        <select *ngIf="years" [(ngModel)]="selectedValueYear" (ngModelChange)="setNewUser($event)">
+        <select *ngIf="years" [(ngModel)]="selectedValueYear" (ngModelChange)="selectYear($event)">
             <option *ngFor="let c of years" [ngValue]="c" [selected]='c.year === selectedValueYear'>{{c.year}}</option>
         </select>
     </div>
     <div>
-        <select [(ngModel)]="selectedValue" (ngModelChange)="setNewUser($event)">
+        <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)">
             <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue.id'>{{c.month}}</option>
         </select>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-10 mx-auto">
+                <table *ngIf="reportList" class="table table-sm table-bordered table-hover bg-white mt-2 text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="hora">Nombre y Apellido</th>
+                            <th scope="col" class="nombre">Correo</th>
+                            <th scope="col" colspan="5" class="codigo">Asistencia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of reportList">
+                            <td>{{item.userAssistRight}} - {{item.lastName}}</td>
+                            <td>{{item.mail}}</td>
+                            <td >
+                                <span *ngIf="item.assistance" >
+                                        <i *ngIf="item.boolMatch" [class.iconGreen]="item.boolMatch" class="fa fa-check-circle" aria-hidden="true"></i>
+                                        <i *ngIf="!item.boolMatch" [class.iconRed]="!item.boolMatch" class="fa fa-times-circle" aria-hidden="true" placement="top"
+                                        ngbPopover={{item.userAssist}}></i>
+
+                                    P</span>
+                                <span *ngIf="!item.assistance">A</span>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <div>
         <a class="nav-link" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
