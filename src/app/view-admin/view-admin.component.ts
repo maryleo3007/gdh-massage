@@ -96,5 +96,15 @@ export class ViewAdminComponent implements OnInit {
   setNewUser(x) {
     console.log(x)
   }
+
+  daysInMonth (month, year) {
+    return new Date(year, month, 0).getDate();
+  }
+
+  // // July
+  // daysInMonth(7,2009); // 31
+  // // February
+  // daysInMonth(2,2009); // 28
+  // daysInMonth(2,2008); // 29
   
 }

@@ -27,6 +27,7 @@ import { log } from 'util';
 })
 export class ViewHomeComponent implements OnInit {
 
+  private _success = new Subject<string>();
   events: MicrosoftGraph.Event[];
   me: MicrosoftGraph.User;
   message: MicrosoftGraph.Message;
@@ -59,7 +60,9 @@ export class ViewHomeComponent implements OnInit {
   therapistIds: Array<string> = ['terapeuta1', 'terapeuta2', 'terapeuta3'];
   returnThis:boolean = false;
   mail:string;
-  ticks:number;
+  ticks:number;  
+  staticAlertClosed = false;
+  successMessage: string;
   
   primero: InscripcionModel = {
     $key:'',
@@ -93,22 +96,24 @@ export class ViewHomeComponent implements OnInit {
     $key: '',
     mail: '',
     reserved: false,
-    countReserved: -1
+    countReserved: -1,
+    countAgendas: 0
   }
 
   turno: TurnModel = {
     $key:'',
     available : true,
     confirm: false,
-    hourStart: '3:40',
-    hourEnd: '4:00',
-    therapistId : 2,
+    hourStart: '',
+    hourEnd: '',
+    therapistId : 0,
     userName:'',
     count:0
   }
 
   send: MicrosoftGraph.Event;
   subsSendCalendar: Subscription;
+  subsCounter: Subscription;
 
   constructor(
     private homeService: HomeService,
@@ -122,14 +127,57 @@ export class ViewHomeComponent implements OnInit {
 
   ngOnInit() {
 
-    this.subsGetMe = this.homeService.getMe().subscribe(me => {
-      this.me = me; 
-      let cutName = me.mail.indexOf('@');
-      let cutUserName = me.displayName.indexOf(' ');
-      this.name = me.mail.substring(0,cutName);
-      this.userName = me.displayName.substring(cutUserName+1);
-      this.displayName = me.displayName;
-      this.mail = me.mail
+    this.subsGetMe = this.homeService.getMe().subscribe(objectMe => {
+      this.me = objectMe; 
+      let cutName = objectMe.mail.indexOf('@');
+      let cutUserName = objectMe.displayName.indexOf(' ');
+      this.name = objectMe.mail.substring(0,cutName);
+      this.userName = objectMe.displayName.substring(cutUserName+1);
+      this.displayName = objectMe.displayName;
+      this.mail = objectMe.mail
+      console.log(this.me );
+
+      if (this.mail == 'undefined') {
+        alert("cargando");
+        setTimeout(() =>{
+          this.userService.getUser()
+          .snapshotChanges()
+          .subscribe(item => {
+            this.userList = [];
+            item.forEach(elem => {
+              let x = elem.payload.toJSON();
+              x['$key'] = elem.key;
+              this.userList.push(x);
+            });  
+            this.userList.forEach((elem)=>{
+              if( elem.mail === this.me.mail ){
+                 this.returnThis =  true;
+              }
+            });
+          });
+        }, 3000);
+      }
+      else{
+        this.userService.getUser()
+        .snapshotChanges()
+        .subscribe(item => {
+          this.userList = [];
+          item.forEach(elem => {
+            let x = elem.payload.toJSON();
+            x['$key'] = elem.key;
+            this.userList.push(x);
+          });  
+          console.log(this.me);
+          this.userList.forEach((elem)=>{
+  
+            if( elem.mail === this.me.mail ){
+               this.returnThis =  true;
+            }
+          });
+        });
+      }
+      
+      
     });
     
 
@@ -219,21 +267,14 @@ export class ViewHomeComponent implements OnInit {
       });
 
       //get users
-      this.userService.getUser()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.userList = [];
-        item.forEach(elem => {
-          let x = elem.payload.toJSON();
-          x['$key'] = elem.key;
-          this.userList.push(x);
-        });  
-        this.userList.forEach((elem)=>{
-          if( elem.mail === this.me.mail ){
-             this.returnThis =  true;
-          }
-        });
-      });
+     
+      //alert messages
+      // setTimeout(() => this.staticAlertClosed = true, 20000);
+      
+      //     this._success.subscribe((message) => this.successMessage = message);
+      //     this._success.pipe(
+      //       debounceTime(5000)
+      // ).subscribe(() => this.successMessage = null);
   }
 
   ngOnDestroy() {
@@ -243,19 +284,23 @@ export class ViewHomeComponent implements OnInit {
   onSendCalendar(){
 
     this.date = new Date();
+    let send;
+    send = {
+      subject: "soy mariiii",
+      start: {
+        dateTime: this.date,
+        timeZone: "GMT-0500"
+      },
+      end: {
+        dateTime: this.date,
+        timeZone: "GMT-0500"
+      }
+  }
 
-    // this.send = {
-    //     subject: "soy mariiii",
-    //     start: {
-    //       dateTime: this.date,
-    //       timeZone: "GMT-0500"
-    //     },
-    //     end: {
-    //       dateTime: this.date,
-    //       timeZone: "GMT-0500"
-    //     }
-    // }
+    this.send = send;
     this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
+    
+    
   }
 
   onSelectTurn1(user: UserModel, turn:TurnModel, modal): void{
@@ -277,28 +322,30 @@ export class ViewHomeComponent implements OnInit {
       this.selectedTurn.available = false;
       
       this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
-
-      this.ticks = 9;
-      let timer = Observable.timer(2000,1000);
-      timer.subscribe(t=>{
+      
+      let timer;
+      this.ticks = 60;
+      timer = Observable.timer(1000,1000);
+      this.subsCounter  = timer.subscribe(t=>{
         this.ticks--;
       });
       
       this.modalSelectTurn  = this.modalService.open(modal, { centered: true });
       this.modalSelectTurn.result.then((result) => {    
+        this.selectedTurn.available = true;
+        this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
         this.closeResult = `Closed with: ${result}`;
+        this.subsCounter.unsubscribe();
       }, (reason) => {
         this.selectedTurn.available = true;
         this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
+        this.subsCounter.unsubscribe();
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
 
       setTimeout(()=>{  
-        this.modalSelectTurn.close();
-        this.selectedTurn.available = true;
-        this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
-        
-      }, 10000);
+        this.modalSelectTurn.close();       
+      }, 60000);
   }
 
   onSelectTurn2(user: UserModel, turn:TurnModel, modal): void{
@@ -321,20 +368,28 @@ export class ViewHomeComponent implements OnInit {
       
       this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
 
+      let timer;
+      this.ticks = 60;
+      timer = Observable.timer(1000,1000);
+      this.subsCounter  = timer.subscribe(t=>{
+        this.ticks--;
+      });
+
       this.modalSelectTurn  = this.modalService.open(modal, { centered: true });
       this.modalSelectTurn.result.then((result) => {    
+        this.selectedTurn.available = true;
+        this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
         this.closeResult = `Closed with: ${result}`;
+        this.subsCounter.unsubscribe();
       }, (reason) => {
         this.selectedTurn.available = true;
         this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
+        this.subsCounter.unsubscribe();
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }); 
       setTimeout(()=>{   
         this.modalSelectTurn.close();
-        this.selectedTurn.available = true;
-        this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-      }, 10000);
-      
+      }, 60000);
   }
 
 
@@ -358,21 +413,28 @@ export class ViewHomeComponent implements OnInit {
       
       this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
 
+      let timer;
+      this.ticks = 60;
+      timer = Observable.timer(1000,1000);
+      this.subsCounter  = timer.subscribe(t=>{
+        this.ticks--;
+      });
+
       this.modalSelectTurn  = this.modalService.open(modal, { centered: true });
-      this.modalSelectTurn.result.then((result) => {    
+      this.modalSelectTurn.result.then((result) => {  
+        this.selectedTurn.available = true;
+        this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);  
         this.closeResult = `Closed with: ${result}`;
+        this.subsCounter.unsubscribe();
       }, (reason) => {
         this.selectedTurn.available = true;
-        this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
+        this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);  
+        this.subsCounter.unsubscribe();
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
       setTimeout(()=>{   
         this.modalSelectTurn.close();
-        this.selectedTurn.available = true;
-        this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
       }, 10000);
-
-      
   }
 
   onConfirmTurn1 (user: UserModel, x, modal){
@@ -482,8 +544,7 @@ export class ViewHomeComponent implements OnInit {
       this.selectedTurn.confirm = false;
       this.selectedTurn.userName = '';
       user.reserved = false;
-      
-      this.selectedTurn.count--
+      this.selectedTurn.count--;
       this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
       this.updateUser(user.$key,user);
       this.onDelete(inscription.$key);   
@@ -499,8 +560,7 @@ export class ViewHomeComponent implements OnInit {
       this.selectedTurn.confirm = false;
       this.selectedTurn.userName = '';
       user.reserved = false;
-  
-      this.selectedTurn.count--
+      this.selectedTurn.count--;
       this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
       this.updateUser(user.$key,user);
       this.onDelete(inscription.$key);
@@ -516,11 +576,8 @@ export class ViewHomeComponent implements OnInit {
       this.selectedTurn.available = true;
       this.selectedTurn.confirm = false;
       this.selectedTurn.userName = '';
-  
-      
       user.reserved = false;
-  
-      this.selectedTurn.count--
+      this.selectedTurn.count--;
       this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
       this.updateUser(user.$key,user);
       this.onDelete(inscription.$key);
