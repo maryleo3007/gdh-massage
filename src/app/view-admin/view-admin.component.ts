@@ -47,19 +47,19 @@ export class ViewAdminComponent implements OnInit {
     this.currentYear = new Date().getFullYear();
 
     this.months = [
-      {id: 1, month: monthNames[this.currentMonth], number: this.currentMonth},
-      {id: 2, month: monthNames[0], number: 0},
-      {id: 3, month: monthNames[1], number: 1},
-      {id: 4, month: monthNames[2], number: 2},
-      {id: 5, month: monthNames[3], number: 3},
-      {id: 6, month: monthNames[4], number: 4},
-      {id: 7, month: monthNames[5], number: 5},
-      {id: 8, month: monthNames[6], number: 6},
-      {id: 9, month: monthNames[7], number: 7},
-      {id: 10, month: monthNames[8], number: 8},
-      {id: 11, month: monthNames[9], number: 9},
-      {id: 12, month: monthNames[10], number: 10},
-      {id: 13, month: monthNames[11], number: 11}
+      {id: 0, month: monthNames[this.currentMonth], number: this.currentMonth},
+      {id: 1, month: monthNames[0], number: 0},
+      {id: 2, month: monthNames[1], number: 1},
+      {id: 3, month: monthNames[2], number: 2},
+      {id: 4, month: monthNames[3], number: 3},
+      {id: 5, month: monthNames[4], number: 4},
+      {id: 6, month: monthNames[5], number: 5},
+      {id: 7, month: monthNames[6], number: 6},
+      {id: 8, month: monthNames[7], number: 7},
+      {id: 9, month: monthNames[8], number: 8},
+      {id: 10, month: monthNames[9], number: 9},
+      {id: 11, month: monthNames[10], number: 10},
+      {id: 12, month: monthNames[11], number: 11}
     ];
 
     
@@ -77,12 +77,16 @@ export class ViewAdminComponent implements OnInit {
     this.selectedValue = this.months[0];
     this.selectedValueYear = this.years[0];
 
-    // this.years.forEach(element => {
-    //   if(element.year === this.currentYear) {
-    //     console.log(element.year)
-    //     this.selectedValueYear = element.year;
-    //   }
-    // });
+    this.years.forEach(element => {
+      if(element.year === this.currentYear) {
+        var index = element.indexOf([1]);
+        console.log(index);
+        // console.log(element)
+        // console.log();
+
+        // this.selectedValueYear = element.year;
+      }
+    });
   }
   
   logoutUser() {
