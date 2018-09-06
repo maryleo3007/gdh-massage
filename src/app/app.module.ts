@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -79,7 +79,7 @@ const routes: Routes = [
     CommonModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    // NgbModule.forRoot()
+    NgbModule.forRoot()
   ],
   providers: [
     HttpService,

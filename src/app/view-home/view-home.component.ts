@@ -281,26 +281,25 @@ export class ViewHomeComponent implements OnInit {
     this.subsGetUsers.unsubscribe();
   }
 
-  onSendCalendar(user: UserModel){
+  onSendCalendar(){
 
     this.date = new Date();
-    console.log(user);
-    
-    user.countAgendas++
+    let send;
+    send = {
+      subject: "soy mariiii",
+      start: {
+        dateTime: this.date,
+        timeZone: "GMT-0500"
+      },
+      end: {
+        dateTime: this.date,
+        timeZone: "GMT-0500"
+      }
+  }
 
-    // this.send = {
-    //     subject: "soy mariiii",
-    //     start: {
-    //       dateTime: this.date,
-    //       timeZone: "GMT-0500"
-    //     },
-    //     end: {
-    //       dateTime: this.date,
-    //       timeZone: "GMT-0500"
-    //     }
-    // }
-    this.updateUser(user.$key,user);
-    // this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
+    this.send = send;
+    this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
+    
     
   }
 

@@ -113,8 +113,6 @@ export class ViewCoorComponent implements OnInit {
         console.log(this.therapist1List)
       });
 
-      
-
     // get reports
     this.reportService.getReports()
       .snapshotChanges()
