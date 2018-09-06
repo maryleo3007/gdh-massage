@@ -97,7 +97,7 @@ export class ViewHomeComponent implements OnInit {
     mail: '',
     reserved: false,
     countReserved: -1,
-    countAgendas: 0
+    // countAgendas: 0
   }
 
   turno: TurnModel = {

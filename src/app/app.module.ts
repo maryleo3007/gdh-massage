@@ -18,10 +18,10 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ViewHomeComponent } from './view-home/view-home.component';
 import { LoginFbComponent } from './login-fb/login-fb.component';
-// import { ViewCoorComponent } from './view-coor/view-coor.component';
-// import { ViewAdminComponent } from './view-admin/view-admin.component';
+import { ViewCoorComponent } from './view-coor/view-coor.component';
+import { ViewAdminComponent } from './view-admin/view-admin.component';
 import { ViewLoginComponent } from './view-login/view-login.component';
-// import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 import { HttpService } from './shared/http.service';
 import { AuthService } from './auth/auth.service';
@@ -29,10 +29,10 @@ import { HomeService } from './home/home.service';
 import { TurnosService } from './services/turnos.service';
 import { ReportService } from './services/report.service';
 import { InscriptionService } from './services/inscription.service';
-// import { AuthFirebaseService } from './services/auth-firebase.service';
+import { AuthFirebaseService } from './services/auth-firebase.service';
 import { UserService } from './services/user.service';
 
-// import { UserService } from './services/user.service';
+// import { UserService } from './services/user.service';   
 
 // import angular firebase
 import { AngularFireModule } from 'angularfire2';
@@ -49,11 +49,12 @@ const routes: Routes = [
   { path: '', component: ViewLoginComponent },
   { path: 'home', component: ViewHomeComponent },
   { path: 'login', component: LoginFbComponent },
-  // { path: 'coordi', component: ViewCoorComponent, canActivate: [AuthGuard] },
-  // { path: 'admin', component: ViewAdminComponent, canActivate: [AuthGuard] },
-  // {path: '**', component: NotFoundPageComponent},
+  { path: 'coordi', component: ViewCoorComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: ViewAdminComponent, canActivate: [AuthGuard] },
+  {path: '**', component: NotFoundPageComponent},
   {path: '**', pathMatch: 'full', redirectTo:'login'},
 ];
+
 
 @NgModule({
   declarations: [
@@ -63,9 +64,9 @@ const routes: Routes = [
     ViewLoginComponent,
     ViewHomeComponent,
     LoginFbComponent,
-    // ViewCoorComponent,
-    // ViewAdminComponent,
-    // NotFoundPageComponent
+    ViewCoorComponent,
+    ViewAdminComponent,
+    NotFoundPageComponent
   ],
   imports: [
     AngularFireAuthModule,
@@ -90,7 +91,7 @@ const routes: Routes = [
     TurnosService,
     ReportService,
     InscriptionService,
-    // AuthFirebaseService,
+    AuthFirebaseService,
     UserService
   ],
   bootstrap: [
