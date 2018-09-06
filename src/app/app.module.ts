@@ -55,6 +55,7 @@ const routes: Routes = [
   {path: '**', pathMatch: 'full', redirectTo:'login'},
 ];
 
+
 @NgModule({
   declarations: [
     AppComponent,
