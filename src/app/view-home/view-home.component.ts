@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable, Subject } from 'rxjs';
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-
+import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 
 // services
 import { HomeService } from '../home/home.service';
@@ -27,7 +27,7 @@ import { log } from 'util';
   styleUrls: ['./view-home.component.css']
 })
 export class ViewHomeComponent implements OnInit {
-
+  @ViewChild(ToastContainerDirective) toastContainer: ToastContainerDirective;
   private _success = new Subject<string>();
   events: MicrosoftGraph.Event[];
   me: MicrosoftGraph.User;
@@ -124,12 +124,13 @@ export class ViewHomeComponent implements OnInit {
     private inscriptionService: InscriptionService,
     private reportService: ReportService,
     private userService: UserService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
-
-    this.subsGetMe = this.homeService.getMe().subscribe(objectMe => {
+      this.toastr.overlayContainer = this.toastContainer;
+      this.subsGetMe = this.homeService.getMe().subscribe(objectMe => {
       this.me = objectMe; 
       let cutName = objectMe.mail.indexOf('@');
       let cutUserName = objectMe.displayName.indexOf(' ');
@@ -137,7 +138,6 @@ export class ViewHomeComponent implements OnInit {
       this.userName = objectMe.displayName.substring(cutUserName+1);
       this.displayName = objectMe.displayName;
       this.mail = objectMe.mail
-      console.log(this.me );
 
       if (this.mail == 'undefined') {
         alert("cargando");
@@ -269,14 +269,6 @@ export class ViewHomeComponent implements OnInit {
       });
 
       //get users
-     
-      //alert messages
-      // setTimeout(() => this.staticAlertClosed = true, 20000);
-      
-      //     this._success.subscribe((message) => this.successMessage = message);
-      //     this._success.pipe(
-      //       debounceTime(5000)
-      // ).subscribe(() => this.successMessage = null);
   }
 
   ngOnDestroy() {
@@ -307,8 +299,8 @@ export class ViewHomeComponent implements OnInit {
 
     this.send = send;
     this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
-    
-    
+    // this.toastr.success("Success", 'You are on right track.');
+    // this.toastr.success('in div');
   }
 
   onSelectTurn1(user: UserModel, turn:TurnModel, modal): void{
@@ -332,10 +324,14 @@ export class ViewHomeComponent implements OnInit {
       this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
       
       let timer;
-      this.ticks = 60;
+      let timerIni = 60;
+      
       timer = Observable.timer(1000,1000);
       this.subsCounter  = timer.subscribe(t=>{
-        this.ticks--;
+        timerIni--       
+        this.ticks = timerIni;
+        console.log(this.ticks--);
+        console.log(t);
       });
       
       this.modalSelectTurn  = this.modalService.open(modal, { centered: true });
@@ -352,7 +348,8 @@ export class ViewHomeComponent implements OnInit {
       });
 
       setTimeout(()=>{  
-        this.modalSelectTurn.close();       
+        this.modalSelectTurn.close();  
+        this.subsCounter.unsubscribe();     
       }, 60000);
   }
 
@@ -397,6 +394,7 @@ export class ViewHomeComponent implements OnInit {
       }); 
       setTimeout(()=>{   
         this.modalSelectTurn.close();
+        this.subsCounter.unsubscribe();
       }, 60000);
   }
 
@@ -442,7 +440,8 @@ export class ViewHomeComponent implements OnInit {
       });
       setTimeout(()=>{   
         this.modalSelectTurn.close();
-      }, 10000);
+        this.subsCounter.unsubscribe();
+      }, 60000);
   }
 
   onConfirmTurn1 (user: UserModel, x, modal){
@@ -470,10 +469,12 @@ export class ViewHomeComponent implements OnInit {
     this.modalConfirm =  this.modalService.open(modal, { centered: true });
     this.modalConfirm.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
+      this.subsCounter.unsubscribe();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       this.selectedTurn.available = true;
       this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
+      this.subsCounter.unsubscribe();
     });
 
   }
@@ -504,10 +505,12 @@ export class ViewHomeComponent implements OnInit {
     this.modalConfirm =  this.modalService.open(modal, { centered: true });
     this.modalConfirm.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
+      this.subsCounter.unsubscribe();
     }, (reason) => {
       this.selectedTurn.available = true;
       this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.subsCounter.unsubscribe();
     });
 
   }
@@ -538,10 +541,12 @@ export class ViewHomeComponent implements OnInit {
     this.modalConfirm =  this.modalService.open(modal, { centered: true });
     this.modalConfirm.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
+      this.subsCounter.unsubscribe();
     }, (reason) => {
       this.selectedTurn.available = true;
       this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.subsCounter.unsubscribe();
     });
 
     }
@@ -550,8 +555,10 @@ export class ViewHomeComponent implements OnInit {
       this.modalOnMessage =  this.modalService.open(modal,{centered: true});
       this.modalOnMessage.result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
+        this.subsCounter.unsubscribe();
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        this.subsCounter.unsubscribe();
       });
     }
 
@@ -560,15 +567,20 @@ export class ViewHomeComponent implements OnInit {
       this.selectedTurn.available = true;
       this.selectedTurn.confirm = false;
       this.selectedTurn.userName = '';
-      user.reserved = false;
       this.selectedTurn.count--;
+      user.reserved = false;
+      if (user.countReserved >= 1) {
+        user.countReserved--;
+      }
       this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
       this.updateUser(user.$key,user);
       this.onDelete(inscription.$key);   
       this.modalSelectTurn.close();
-      
+      this.subsCounter.unsubscribe();
+
       if(this.modalConfirm){
         this.modalConfirm.close();
+        this.subsCounter.unsubscribe();
       }
     }
   
@@ -576,16 +588,21 @@ export class ViewHomeComponent implements OnInit {
       this.selectedTurn.available = true;
       this.selectedTurn.confirm = false;
       this.selectedTurn.userName = '';
-      user.reserved = false;
       this.selectedTurn.count--;
+      user.reserved = false;
+      if (user.countReserved >= 1) {
+        user.countReserved--;
+      }
       this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
       this.updateUser(user.$key,user);
       this.onDelete(inscription.$key);
 
       this.modalSelectTurn.close();
+      this.subsCounter.unsubscribe();
 
       if(this.modalConfirm){
         this.modalConfirm.close();
+        this.subsCounter.unsubscribe();
       }
     }
   
@@ -593,15 +610,22 @@ export class ViewHomeComponent implements OnInit {
       this.selectedTurn.available = true;
       this.selectedTurn.confirm = false;
       this.selectedTurn.userName = '';
-      user.reserved = false;
       this.selectedTurn.count--;
+      user.reserved = false;
+      if (user.countReserved >= 1) {
+        user.countReserved--;
+      }
+      
+      
       this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
       this.updateUser(user.$key,user);
       this.onDelete(inscription.$key);
 
       this.modalSelectTurn.close();
+      this.subsCounter.unsubscribe();
       if(this.modalConfirm){
         this.modalConfirm.close();
+        this.subsCounter.unsubscribe();
       }
     }  
  
@@ -653,7 +677,12 @@ export class ViewHomeComponent implements OnInit {
     this.authService.logout();
   }
 
+  public showSuccess(){    
+    this.toastr.success("Success", 'You are on right track.');
+  }
+
   private getDismissReason(reason: any): string {
+    this.subsCounter.unsubscribe();
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {

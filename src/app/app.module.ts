@@ -77,7 +77,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     CommonModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({timeOut: 10000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true}),
     NgbModule.forRoot()
   ],
   providers: [
