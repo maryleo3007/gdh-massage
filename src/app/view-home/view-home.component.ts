@@ -37,7 +37,8 @@ export class ViewHomeComponent implements OnInit {
   subsGetUsers: Subscription;
   subsGetMe: Subscription;
   subsSendMail: Subscription;
-  date: any;
+  dateIni: any;
+  dateFin: any;
   terapeuta1: any[];
   terapeuta2: any[];
   terapeuta3: any[];
@@ -280,18 +281,29 @@ export class ViewHomeComponent implements OnInit {
     let getFullYear = date.getFullYear();
     let getMonth = date.getMonth();
     let getDay = date.getDate();
-    let getHour;
-    let getMinut;  
+    let getHourInit;
+    let getMinutInit;  
+    let getHourFin;
+    let getMinutFin; 
     
     if (this.selectedTurn.hourStart.length == 5) {
-      getHour = parseInt(this.selectedTurn.hourStart.slice(0, 2));
-      getMinut = parseInt(this.selectedTurn.hourStart.slice(3, 5));
+      getHourInit = parseInt(this.selectedTurn.hourStart.slice(0, 2));
+      getMinutInit = parseInt(this.selectedTurn.hourStart.slice(3, 5));
     } else {
-      getHour = parseInt(this.selectedTurn.hourStart.slice(0, 1)) + 12;
-      getMinut = parseInt(this.selectedTurn.hourStart.slice(2, 4));
+      getHourInit = parseInt(this.selectedTurn.hourStart.slice(0, 1)) + 12;
+      getMinutInit = parseInt(this.selectedTurn.hourStart.slice(2, 4));
     }
 
-    this.date = new Date(getFullYear,getMonth,getDay,getHour,getMinut);
+    if (this.selectedTurn.hourEnd.length == 5) {
+      getHourFin = parseInt(this.selectedTurn.hourEnd.slice(0, 2));
+      getMinutFin = parseInt(this.selectedTurn.hourEnd.slice(3, 5));
+    } else {
+      getHourFin = parseInt(this.selectedTurn.hourEnd.slice(0, 1)) + 12;
+      getMinutFin = parseInt(this.selectedTurn.hourEnd.slice(2, 4));
+    }
+
+    this.dateIni = new Date(getFullYear,getMonth,getDay,getHourInit,getMinutInit);
+    this.dateFin = new Date(getFullYear,getMonth,getDay,getHourFin,getMinutFin);
 
     user.countReserved++;
     this.updateUser(user.$key, user);
@@ -300,11 +312,11 @@ export class ViewHomeComponent implements OnInit {
     send = {
       subject: "Masajes antiestrés",
       start: {
-        dateTime: this.date,
+        dateTime: this.dateIni,
         timeZone: "GMT-0500"
       },
       end: {
-        dateTime: this.date,
+        dateTime: this.dateFin,
         timeZone: "GMT-0500"
       }
   }

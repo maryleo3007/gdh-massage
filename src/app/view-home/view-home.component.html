@@ -2,7 +2,7 @@
         <div class="col-md-6 col-8 col-sm-6">
           <span>Masajes antiestrés</span>
           <div class="separador"></div>
-          <span>Elije tu turno</span>
+          <span>Elige tu turno</span>
         </div>
         <div class="col-md-6 col-4 col-sm-6 text-right">
           <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
@@ -31,7 +31,7 @@
       </div>
       <div class="container turn-content">
         <div *ngIf="returnThis">
-            holi true
+            +
                 <div *ngFor="let userItem of userList">
                     <div *ngIf="userItem.mail == me.mail">  
                         <div class="row">
@@ -127,7 +127,7 @@
                 </div> 
         </div>
         <div *ngIf="!returnThis">
-            holi false
+            -
                 <div class="row">
                         <div class="col-12 col-md-4 text-center">             
                             <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
@@ -222,9 +222,7 @@
                         <button *ngIf = "selectedTurn.therapistId == 3 && selectedTurn.confirm == false" type="button" class="btn btn-confirm mr-2" (click)="onConfirmTurn3(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
                     </div>
                 </div>
-                <button type="button" class="btn btn-cancel" aria-label="Close" (click)="d('Cross click')">Cancelar</button>
-
-                
+                <button type="button" class="btn btn-cancel" aria-label="Close" (click)="d('Cross click')">Cancelar</button>      
         </div>
         <div class="timer">{{ticks}}</div>
         
@@ -290,7 +288,7 @@
                 <h4 class="modal-title pull-left text-modal mr-5 ml-5">
                     <strong>Lo siento, <br> ya has realizado una reserva.</strong>
                 <br>
-                    Si deseas puedes modificarlo ingresando a tu turno seleccionado.
+                    Si deseas puedes modificarla ingresando a tu turno seleccionado.
                 </h4>
             </div>
         </div>
