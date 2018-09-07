@@ -124,12 +124,11 @@ export class ViewHomeComponent implements OnInit {
     private inscriptionService: InscriptionService,
     private reportService: ReportService,
     private userService: UserService,
-    private modalService: NgbModal,
-    private toastr: ToastrService
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
-      this.toastr.overlayContainer = this.toastContainer;
+      
       this.subsGetMe = this.homeService.getMe().subscribe(objectMe => {
       this.me = objectMe; 
       let cutName = objectMe.mail.indexOf('@');
@@ -732,10 +731,6 @@ export class ViewHomeComponent implements OnInit {
     this.authService.logout();
   }
 
-  public showSuccess(){    
-    this.toastr.success("Success", 'You are on right track.');
-  }
-
   private getDismissReason(reason: any): string {
     this.subsCounter.unsubscribe();
     if (reason === ModalDismissReasons.ESC) {
@@ -747,7 +742,6 @@ export class ViewHomeComponent implements OnInit {
     }
   }
   
-
   private getDateFull(): string{
     this.today = new Date();
     this.dd = this.today.getDate();

@@ -32,6 +32,7 @@ import { InscriptionService } from './services/inscription.service';
 import { AuthFirebaseService } from './services/auth-firebase.service';
 import { UserService } from './services/user.service';
 
+
 // import angular firebase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
