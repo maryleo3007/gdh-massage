@@ -77,7 +77,7 @@ export class ViewAdminComponent implements OnInit {
       { id: 11, month: monthNames[10], number: '11' },
       { id: 12, month: monthNames[11], number: '12' }
     ];
-
+ 
     this.years = [
       { id: 14, year: this.currentYear },
       { id: 15, year: 2018 },
