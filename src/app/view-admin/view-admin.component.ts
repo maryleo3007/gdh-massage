@@ -59,9 +59,11 @@ export class ViewAdminComponent implements OnInit {
       this.currentMonth = '0' + this.currentMonth;
     }
     this.currentYear = new Date().getFullYear();
+    console.log(this.currentMonth);
+    
 
     this.months = [
-      { id: 0, month: monthNames[parseInt(this.currentMonth)], number: this.currentMonth },
+      { id: 0, month: monthNames[parseInt(this.currentMonth)-1], number: this.currentMonth },
       { id: 1, month: monthNames[0], number: '01' },
       { id: 2, month: monthNames[1], number: '02' },
       { id: 3, month: monthNames[2], number: '03' },
@@ -111,6 +113,9 @@ export class ViewAdminComponent implements OnInit {
           } 
         })
       })
+
+      console.log(this.selectedValueYear);
+      
   }
 
   logoutUser() {
@@ -118,14 +123,20 @@ export class ViewAdminComponent implements OnInit {
   }
 
   selectYear(x) {
-    this.selectedValueYear = x.year.toString();
-    console.log(this.selectedValueYear)
+    // var year = x.year.toString()
+    x = this.selectedValueYear;
+    // x = x.year.toString();
+    // this.selectedValueYear = x;
+    // console.log(this.selectedValueYear)
+    console.log(x.year.toString());
+    
   }
 
   selectMonth(x) {
-    this.selectedValue = x.number
-    console.log(this.selectedValue);
-    
+    x = this.selectedValue;
+    // this.selectedValue = x.number
+    console.log(this.selectedValue.number);  
+      
   }
 
   daysInMonth(month, year) {
