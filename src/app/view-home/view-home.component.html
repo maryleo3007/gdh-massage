@@ -217,12 +217,9 @@
         <div class="mt-4 mb-5 text-center">
                 <div *ngFor="let userItem of userList" class="d-inline">
                     <div *ngIf="userItem.mail == me.mail" class="d-inline">  
-                        <button *ngIf = "selectedTurn.therapistId == 1 && selectedTurn.confirm == false" type="button" class="btn btn-confirm mr-2" (click)="onConfirmTurn1(userItem,this.primero,modalConfirm)">Confirmar</button>
-                        <button *ngIf = "selectedTurn.therapistId == 2 && selectedTurn.confirm == false" type="button" class="btn btn-confirm mr-2" (click)="onConfirmTurn2(userItem,this.primero,modalConfirm)">Confirmar</button>
-                        <button *ngIf = "selectedTurn.therapistId == 3 && selectedTurn.confirm == false" type="button" class="btn btn-confirm mr-2" (click)="onConfirmTurn3(userItem,this.primero,modalConfirm)">Confirmar</button>
-                        <button *ngIf = "selectedTurn.therapistId == 1 && selectedTurn.confirm == true" type="button" class="btn btn-confirm mr-2" (click)="onMessageSelect(modalTurnoOcupado)">Confirmar</button>
-                        <button *ngIf = "selectedTurn.therapistId == 2 && selectedTurn.confirm == true" type="button" class="btn btn-confirm mr-2" (click)="onMessageSelect(modalTurnoOcupado)">Confirmar</button>
-                        <button *ngIf = "selectedTurn.therapistId == 3 && selectedTurn.confirm == true" type="button" class="btn btn-confirm mr-2" (click)="onMessageSelect(modalTurnoOcupado)">Confirmar</button>
+                        <button *ngIf = "selectedTurn.therapistId == 1 && selectedTurn.confirm == false" type="button" class="btn btn-confirm mr-2" (click)="onConfirmTurn1(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
+                        <button *ngIf = "selectedTurn.therapistId == 2 && selectedTurn.confirm == false" type="button" class="btn btn-confirm mr-2" (click)="onConfirmTurn2(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
+                        <button *ngIf = "selectedTurn.therapistId == 3 && selectedTurn.confirm == false" type="button" class="btn btn-confirm mr-2" (click)="onConfirmTurn3(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
                     </div>
                 </div>
                 <button type="button" class="btn btn-cancel" aria-label="Close" (click)="d('Cross click')">Cancelar</button>
@@ -257,8 +254,8 @@
             <div class="text-center ">
                 <div *ngFor="let userItem of userList" class="d-inline">
                     <div *ngIf="userItem.mail == me.mail" class="d-inline">
-                        <button *ngIf="userItem.countReserved < 1" type="button" class="btn-agendar" (click)="onSendCalendar(userItem)">Agendar </button>
-                        <button *ngIf="userItem.countReserved >= 1"  type="button" class="btn-agendar" disabled (click)="onSendCalendar(userItem)">Agendar </button>
+                        <button *ngIf="userItem.countReserved < 1" type="button" class="btn-agendar mt-3" (click)="onSendCalendar(userItem)">Agendar </button>
+                        <button *ngIf="userItem.countReserved >= 1"  type="button" class="btn-agendar mt-3" disabled (click)="onSendCalendar(userItem)">Agendar </button>
                         <div *ngIf="userItem.countReserved >= 1" class="event-notification">Se ha agendado en tu calendario</div>
                     </div>
                 </div>
@@ -268,9 +265,9 @@
                     <div *ngIf="userItem.mail == me.mail">  
                         <div *ngFor="let inscriptionItem of inscriptionList">
                             <div *ngIf = "inscriptionItem.therapist == selectedTurn.therapistId && inscriptionItem.hourStart == selectedTurn.hourStart && inscriptionItem.hourEnd == selectedTurn.hourEnd && inscriptionItem.mail == userItem.mail">
-                                <button *ngIf = "selectedTurn.therapistId == 1 " type="button" class="btn btn-cancelReserva" aria-label="Close" (click)="cancelTurn1(userItem,inscriptionItem)">Cancelar reserva 1</button>
-                                <button *ngIf = "selectedTurn.therapistId == 2 " type="button" class="btn btn-cancelReserva" aria-label="Close" (click)="cancelTurn2(userItem,inscriptionItem)">Cancelar reserva 2</button>
-                                <button *ngIf = "selectedTurn.therapistId == 3 " type="button" class="btn btn-cancelReserva" aria-label="Close" (click)="cancelTurn3(userItem,inscriptionItem)">Cancelar reserva 3</button>
+                                <button *ngIf = "selectedTurn.therapistId == 1 " type="button" class="btn btn-cancelReserva" aria-label="Close" (click)="cancelTurn1(userItem,inscriptionItem)">Cancelar reserva</button>
+                                <button *ngIf = "selectedTurn.therapistId == 2 " type="button" class="btn btn-cancelReserva" aria-label="Close" (click)="cancelTurn2(userItem,inscriptionItem)">Cancelar reserva</button>
+                                <button *ngIf = "selectedTurn.therapistId == 3 " type="button" class="btn btn-cancelReserva" aria-label="Close" (click)="cancelTurn3(userItem,inscriptionItem)">Cancelar reserva</button>
                             
                             </div>
                                 
