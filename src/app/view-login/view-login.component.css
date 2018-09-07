@@ -28,6 +28,14 @@
   background-position-x: -150px;
 }
 
+.absolute {
+  position: absolute;
+  top: 0;
+  padding-top: 1.5rem;
+  width: 25%;
+  left: 48px;
+}
+
 @media only screen and (max-width: 768px)  {
   .view-login div.row div:nth-child(2) {
     display: none;
@@ -42,6 +50,10 @@
   }
   .view-login div.row div:nth-child(1) div:nth-child(1) p{
     width: 80%;
+  }
+
+  .absolute {
+    display: none;
   }
 }
 
