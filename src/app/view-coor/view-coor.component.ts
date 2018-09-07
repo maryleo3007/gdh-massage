@@ -60,7 +60,7 @@ export class ViewCoorComponent implements OnInit {
     // current date
     const today = new Date();
     let dd: any = today.getDate();
-    let mm: any = today.getMonth() + 1; //January is 0!
+    let mm: any = today.getMonth() + 1; //January is 0
     const yyyy: any = today.getFullYear();
     if (dd < 10) {
       dd = '0' + dd;
@@ -110,7 +110,7 @@ export class ViewCoorComponent implements OnInit {
             this.therapist3List.sort(this.sortOrder);
           }          
         });
-        console.log(this.therapist1List)
+        // console.log(this.therapist1List)
       });
 
     // get reports
@@ -124,6 +124,8 @@ export class ViewCoorComponent implements OnInit {
           this.reportList.push(x)
         })
       })
+
+
       this.therapist1Choose = true;
       this.therapist2Choose = false;
       this.therapist3Choose = false;

@@ -32,16 +32,11 @@ export class LoginFbComponent implements OnInit {
             auth.email === 'valvarez@inteligogroup.com'
           ) {
             this.router.navigate(['/admin']);
-            // console.log('es vania o aurora')
           } else if (
             auth.email === 'coordinadora@inteligogroup.com' ||
-            auth.email === 'acabrera@inteligogroup.com' ||
-            auth.email === 'kalejo@inteligogroup.com' ||
-            auth.email === 'mllamocca@inteligogroup.com' ||
-            auth.email === 'linga@inteligogroup.com'
+            auth.email === 'acabrera@inteligogroup.com' 
           ) {
             this.router.navigate(['/coordi']);
-            // console.log('coordinadora')
           } 
         });
       })
