@@ -335,7 +335,7 @@ export class ViewHomeComponent implements OnInit {
       
       this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
 
-      this.modalSelectTurn  = this.modalService.open(modal, { centered: true });
+      this.modalSelectTurn  = this.modalService.open(modal);
       this.modalSelectTurn.result.then((result) => {    
         this.selectedTurn.available = true;
         this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
@@ -388,7 +388,7 @@ export class ViewHomeComponent implements OnInit {
       
       this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
 
-      this.modalSelectTurn  = this.modalService.open(modal, { centered: true });
+      this.modalSelectTurn  = this.modalService.open(modal);
       this.modalSelectTurn.result.then((result) => {    
         this.selectedTurn.available = true;
         this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
@@ -437,7 +437,7 @@ export class ViewHomeComponent implements OnInit {
       
       this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
 
-      this.modalSelectTurn  = this.modalService.open(modal, { centered: true });
+      this.modalSelectTurn  = this.modalService.open(modal);
       this.modalSelectTurn.result.then((result) => {  
         this.selectedTurn.available = true;
         this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);  
@@ -466,7 +466,7 @@ export class ViewHomeComponent implements OnInit {
 
     if (this.selectedTurn.confirm == true){
       this.modalSelectTurn.close();
-      this.modalOnMessage =  this.modalService.open(modalTurnoOcupado, { centered: true });
+      this.modalOnMessage =  this.modalService.open(modalTurnoOcupado);
       this.modalOnMessage.result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
         this.subsCounter.unsubscribe();
@@ -495,7 +495,7 @@ export class ViewHomeComponent implements OnInit {
       this.updateUser(user.$key,this.selectedUser);
   
       this.modalSelectTurn.close();
-      this.modalConfirm =  this.modalService.open(modal, { centered: true });
+      this.modalConfirm =  this.modalService.open(modal);
       this.modalConfirm.result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
         this.subsCounter.unsubscribe();
@@ -513,7 +513,7 @@ export class ViewHomeComponent implements OnInit {
 
     if (this.selectedTurn.confirm == true){
       this.modalSelectTurn.close();
-      this.modalOnMessage =  this.modalService.open(modalTurnoOcupado, { centered: true });
+      this.modalOnMessage =  this.modalService.open(modalTurnoOcupado);
       this.modalOnMessage.result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
         this.subsCounter.unsubscribe();
@@ -544,7 +544,7 @@ export class ViewHomeComponent implements OnInit {
       this.updateUser(user.$key,this.selectedUser);
   
       this.modalSelectTurn.close();
-      this.modalConfirm =  this.modalService.open(modal, { centered: true });
+      this.modalConfirm =  this.modalService.open(modal);
       this.modalConfirm.result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
         this.subsCounter.unsubscribe();
@@ -562,7 +562,7 @@ export class ViewHomeComponent implements OnInit {
 
       if (this.selectedTurn.confirm == true){
         this.modalSelectTurn.close();
-        this.modalOnMessage =  this.modalService.open(modalTurnoOcupado, { centered: true });
+        this.modalOnMessage =  this.modalService.open(modalTurnoOcupado);
         this.modalOnMessage.result.then((result) => {
           this.closeResult = `Closed with: ${result}`;
           this.subsCounter.unsubscribe();
@@ -592,7 +592,7 @@ export class ViewHomeComponent implements OnInit {
         this.updateUser(user.$key,this.selectedUser);
         
         this.modalSelectTurn.close();
-        this.modalConfirm =  this.modalService.open(modal, { centered: true });
+        this.modalConfirm =  this.modalService.open(modal);
         this.modalConfirm.result.then((result) => {
           this.closeResult = `Closed with: ${result}`;
           this.subsCounter.unsubscribe();
@@ -606,7 +606,7 @@ export class ViewHomeComponent implements OnInit {
   }
   
   onMessageSelect(modal){
-    this.modalOnMessage =  this.modalService.open(modal,{centered: true});
+    this.modalOnMessage =  this.modalService.open(modal);
     this.modalOnMessage.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       this.subsCounter.unsubscribe();
