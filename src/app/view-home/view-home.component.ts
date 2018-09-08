@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild  } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable, Subject } from 'rxjs';
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
-import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalRef, NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 
 // services
@@ -125,8 +125,14 @@ export class ViewHomeComponent implements OnInit {
     private inscriptionService: InscriptionService,
     private reportService: ReportService,
     private userService: UserService,
-    private modalService: NgbModal
-  ) { }
+    private modalService: NgbModal,
+    private carouselConfig: NgbCarouselConfig
+  ) { 
+
+    carouselConfig.interval = 10000;
+    carouselConfig.wrap = false;
+    carouselConfig.keyboard = false;
+  }
 
   ngOnInit() {
       

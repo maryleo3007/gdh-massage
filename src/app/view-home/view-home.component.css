@@ -30,7 +30,7 @@
 
 .logOut{
     cursor: pointer;
-    color: #c1c1c1 !important;
+    color: #929090 !important;
 }
 
 .logOut:hover{
@@ -47,10 +47,10 @@
 }
 
 .text-content{
-    color: #bebebe;
+    color: #929090;
 }
 .timer{
-    color: #bebebe;
+    color: #929090;
     text-align: right;
     background-image: url('../../assets/images/stopwatch.png');
     background-repeat: no-repeat;
@@ -125,6 +125,26 @@
     color: #ffffff;
 }
 .event-notification{
-    color: #e50246;
+    color: #004A8C;
     font-size: 13px;
 }
+.modal-open .modal{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.modal-center-vertical{
+    max-width: 50% !important;
+}
+.d-view{
+    display: none;
+}
+@media (min-width: 768px) {
+    .m-view{
+        display: none;
+    }
+    .d-view{
+        display: block;
+    }
+}
+
