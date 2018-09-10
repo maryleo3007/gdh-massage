@@ -15,15 +15,15 @@
 .btn-agendar:disabled,
 .btn-agendar[disabled]
 {
-  border: 1px solid #F1F2F2;
-  background-color: #F1F2F2;
-  box-shadow: none;
-  color: #B3B3B3;
-  cursor: auto;
+    border: 1px solid #F1F2F2;
+    background-color: #F1F2F2;
+    box-shadow: none;
+    color: #B3B3B3;
+    cursor: auto;
 }
 
 .therapist-content span{
-    color: #cccccc;
+    color: #b9b7b7;
     font-size: 20px;
     font-weight: 100;
 }
@@ -139,6 +139,33 @@
 .d-view{
     display: none;
 }
+.therapist-container-sm{
+    color:  #808080;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+}
+
+.therapist-container-sm span:nth-child(2){
+    font-weight: 600;
+    font-size: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+.content-lgnd{
+    padding-top: 5%;
+}
+.item-lgnd{
+    min-width: 150px;
+    margin-bottom: 20%;
+    margin-left: 10px;
+    color: #808080;
+}
+.item-logOut{
+    bottom: 0;
+    position: absolute;
+}
+
 @media (min-width: 768px) {
     .m-view{
         display: none;

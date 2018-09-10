@@ -100,7 +100,7 @@ export class ViewHomeComponent implements OnInit {
     mail: '',
     reserved: false,
     countReserved: 0,
-    // countAgendas: 0
+    countAgendas: 0
   }
 
   turno: TurnModel = {
@@ -129,9 +129,9 @@ export class ViewHomeComponent implements OnInit {
     private carouselConfig: NgbCarouselConfig
   ) { 
 
-    carouselConfig.interval = 10000;
-    carouselConfig.wrap = false;
-    carouselConfig.keyboard = false;
+    carouselConfig.interval = 1000000;
+    carouselConfig.wrap = true;
+    carouselConfig.keyboard = true;
   }
 
   ngOnInit() {
@@ -183,9 +183,7 @@ export class ViewHomeComponent implements OnInit {
             }
           });
         });
-      }
-      
-      
+      } 
     });
     
 
@@ -312,6 +310,7 @@ export class ViewHomeComponent implements OnInit {
     this.dateFin = new Date(getFullYear,getMonth,getDay,getHourFin,getMinutFin);
 
     user.countReserved++;
+    user.countAgendas++;
     this.updateUser(user.$key, user);
 
     let send;
