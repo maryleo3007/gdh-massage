@@ -27,6 +27,7 @@
 }
 .navbar img{
   height: 20px;
+  margin-left: -15px;
 }
 .navbar span:nth-child(1){
   font-weight: 600;

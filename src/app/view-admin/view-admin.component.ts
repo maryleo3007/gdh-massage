@@ -115,7 +115,6 @@ export class ViewAdminComponent implements OnInit {
       })
 
       console.log(this.selectedValueYear);
-      
   }
 
   logoutUser() {

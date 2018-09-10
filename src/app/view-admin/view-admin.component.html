@@ -1,4 +1,17 @@
 <div class="log-out" *ngIf="show">
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="col-3 text-left coordinadora">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <span>Coordinadora</span>
+        </div>
+        <div class="col-6 text-center title">
+            <span>Masajes Antiestrés</span>
+            <span>| Asistencia</span>
+        </div>
+        <div class="col-3 text-right">
+            <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
+        </div>
+    </nav>
     <div>
         <select *ngIf="years" [(ngModel)]="selectedValueYear" (ngModelChange)="selectYear($event)">
             <option *ngFor="let c of years" [ngValue]="c" [selected]='c.year === selectedValueYear'>{{c.year}}</option>
