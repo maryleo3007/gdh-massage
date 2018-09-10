@@ -128,3 +128,20 @@
     color: #e50246;
     font-size: 13px;
 }
+
+.loading div{
+    height: 100vh;
+}
+ 
+.loading div img{
+    height: 15vh;
+}
+
+.loading div div {
+    height: 40vh;
+}
+
+.loading div div a{
+    background-color: var(--dark-blue);
+    border-color: var(--dark-blue);
+}

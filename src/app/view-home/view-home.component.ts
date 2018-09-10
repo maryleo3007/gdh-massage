@@ -66,6 +66,9 @@ export class ViewHomeComponent implements OnInit {
   ticks:number;  
   staticAlertClosed = false;
   successMessage: string;
+  bool: boolean;
+  progres: boolean;
+  messageAuth: boolean;
   
   primero: InscripcionModel = {
     $key:'',
@@ -129,6 +132,16 @@ export class ViewHomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.bool = false;
+    this.progres = true;
+    this.messageAuth = false;
+      if(this.bool === false) {
+        setTimeout(() => {
+          this.messageAuth = true;
+          this.progres = false;
+          // this.bool = true;
+          }, 2000)
+      }
       
       this.subsGetMe = this.homeService.getMe().subscribe(objectMe => {
       this.me = objectMe; 
@@ -140,11 +153,13 @@ export class ViewHomeComponent implements OnInit {
       this.mail = objectMe.mail
 
       if (this.mail == 'undefined') {
+        this.bool = false;
         alert("cargando");
         setTimeout(() =>{
+          // this.progres = true;
           this.userService.getUser()
           .snapshotChanges()
-          .subscribe(item => {
+          .subscribe(item => {  
             this.userList = [];
             item.forEach(elem => {
               let x = elem.payload.toJSON();
@@ -160,6 +175,8 @@ export class ViewHomeComponent implements OnInit {
         }, 3000);
       }
       else{
+        this.bool = true;
+        this.progres = false;
         this.userService.getUser()
         .snapshotChanges()
         .subscribe(item => {
@@ -169,16 +186,17 @@ export class ViewHomeComponent implements OnInit {
             x['$key'] = elem.key;
             this.userList.push(x);
           });  
-          console.log(this.me);
+          // console.log(this.me);
           this.userList.forEach((elem)=>{
-  
             if( elem.mail === this.me.mail ){
                this.returnThis =  true;
             }
           });
         });
       }
-      
+      // console.log(this.bool);
+      // console.log(this.progres);
+      // console.log('ius');
       
     });
     
@@ -269,6 +287,8 @@ export class ViewHomeComponent implements OnInit {
       });
 
       //get users
+      // console.log(this.bool);
+      
   }
 
   ngOnDestroy() {
