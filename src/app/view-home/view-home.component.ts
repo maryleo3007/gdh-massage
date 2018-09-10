@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild  } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable, Subject } from 'rxjs';
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
-import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalRef, NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 
 // services
@@ -103,7 +103,7 @@ export class ViewHomeComponent implements OnInit {
     mail: '',
     reserved: false,
     countReserved: 0,
-    // countAgendas: 0
+    countAgendas: 0
   }
 
   turno: TurnModel = {
@@ -128,8 +128,14 @@ export class ViewHomeComponent implements OnInit {
     private inscriptionService: InscriptionService,
     private reportService: ReportService,
     private userService: UserService,
-    private modalService: NgbModal
-  ) { }
+    private modalService: NgbModal,
+    private carouselConfig: NgbCarouselConfig
+  ) { 
+
+    carouselConfig.interval = 1000000;
+    carouselConfig.wrap = true;
+    carouselConfig.keyboard = true;
+  }
 
   ngOnInit() {
     this.bool = false;
@@ -192,7 +198,7 @@ export class ViewHomeComponent implements OnInit {
             }
           });
         });
-      }
+      } 
     });
     
     // send name and nameUser to local storage
@@ -318,6 +324,7 @@ export class ViewHomeComponent implements OnInit {
     this.dateFin = new Date(getFullYear,getMonth,getDay,getHourFin,getMinutFin);
 
     user.countReserved++;
+    user.countAgendas++;
     this.updateUser(user.$key, user);
 
     let send;
