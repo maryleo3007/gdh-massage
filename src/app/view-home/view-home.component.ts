@@ -139,7 +139,6 @@ export class ViewHomeComponent implements OnInit {
         setTimeout(() => {
           this.messageAuth = true;
           this.progres = false;
-          // this.bool = true;
           }, 2000)
       }
       
@@ -194,13 +193,8 @@ export class ViewHomeComponent implements OnInit {
           });
         });
       }
-      // console.log(this.bool);
-      // console.log(this.progres);
-      // console.log('ius');
-      
     });
     
-
     // send name and nameUser to local storage
     localStorage.setItem('name', this.name);
     localStorage.setItem('userName', this.userName);
@@ -287,8 +281,6 @@ export class ViewHomeComponent implements OnInit {
       });
 
       //get users
-      // console.log(this.bool);
-      
   }
 
   ngOnDestroy() {
