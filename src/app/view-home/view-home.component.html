@@ -1,13 +1,15 @@
 <div *ngIf="this.bool">
     <nav class="navbar navbar-expand-lg navbar-light ">
-        <div class="col-md-6 col-3 col-sm-6">
-            <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
-            
+        <div class="col-md-4 col-4 col-sm-4">
+            <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">   
         </div>
-        <div class="col-md-6 col-9 col-sm-6 text-right">
+        <div class="col-md-4 col-8 col-sm-4 text-center">
             <span>Masajes antiestrés</span>
             <div class="separador"></div>
             <span>Elige tu turno</span>
+        </div>
+        <div class="col-md-4 col-sm-4 text-right d-none d-sm-none d-md-block">
+            <a class="logOut" (click)="onLogout()"> Salir <img src="../../assets/images/logout.png" alt=""></a>
         </div>
     </nav>
     <div class="d-view">
@@ -22,10 +24,7 @@
                     </div>
                     <div class="item-lgnd">
                         <div class="lgnd-stt-turn lgnd-stt-turn-ocup"></div><span>Ocupado</span>
-                    </div> 
-                    <div class="text-right item-logOut">
-                            <a class="logOut" (click)="onLogout()"> Salir <img src="../../assets/images/logout.png" alt=""></a>
-                    </div>                  
+                    </div>              
                 </div>
                 <div class="col-md-8 col-sm-2">
                         <div class="content">

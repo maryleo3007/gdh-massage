@@ -3,19 +3,18 @@
 }
 
 .view-login div.row div:nth-child(1) div:nth-child(1) h3{
-  color: var(--title-gray);
+  color: #5c6579;
   font-weight: 700;
 }
-
 .view-login div.row div:nth-child(1) div:nth-child(1) p{
-  color: var(--content-gray);
+  color: #8690a0;
   font-weight: 400;
   font-size: 1rem;
   width: 70%;
 }
 
 .view-login div.row div:nth-child(1) div:nth-child(1) button{
-  background-color: var(--dark-blue);
+  background-color: #30497B;
   color: white;
   font-size: 1.2rem;
 }
