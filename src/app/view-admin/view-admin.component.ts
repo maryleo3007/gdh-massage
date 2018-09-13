@@ -1,8 +1,6 @@
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AuthFirebaseService } from './../services/auth-firebase.service';
-import { element } from 'protractor';
 import { ReportService } from '../services/report.service';
-import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-view-admin',
@@ -25,6 +23,7 @@ export class ViewAdminComponent implements OnInit {
   reportList: any[];
   datesArray: any[];
   cloneReport: any[];
+  reportList2: any[];
   id1: any = 0;
   id2: any = 0;
   id3: any = 0;
@@ -90,7 +89,9 @@ export class ViewAdminComponent implements OnInit {
 
     this.selectedValue = this.months[0];
     this.selectedValueYear = this.years[0];
-
+    var currentDate = '/'+this.currentMonth+'/'+ this.currentYear
+    
+    
     this.years.forEach(element => {
       if (element.year === this.currentYear) {
       }
@@ -113,9 +114,7 @@ export class ViewAdminComponent implements OnInit {
           }
           x['numbersDates'] = this.datesArray.length;
           x['userAssistRight'] = x['userAssistRight'].replace(/\b\w/g, l => l.toUpperCase());
-          this.reportList.push(x);
-          console.log(x['userAssistRight']);
-          
+          this.reportList.push(x);          
           } 
         })
         for (let index = 0; index < this.reportList.length; index++) {
@@ -124,15 +123,33 @@ export class ViewAdminComponent implements OnInit {
           this.cloneReport.push(element);
           if(element === this.cloneReport[index]) {
             x = x + 1;
-            // console.log(this.cloneReport[index]);
           }         
         } 
       })  
-  }
 
-//   transformName(){
-//     this.item. = this.titlecasePipe.transform(this.fullName);
-// }
+      this.reportService.getReports2()
+      .snapshotChanges()
+      .subscribe(item => {
+        this.reportList2 = [];
+
+        item.forEach(elem => {
+          let x = elem.payload.toJSON();
+          x['$key'] = elem.key;
+          this.reportList2.push(x);
+          let evilResponseProps = Object.keys(x['dates']);
+          let goodResponse = [];
+          for (let prop in evilResponseProps) { 
+            console.log(prop);
+            
+            // goodResponse.push(evilResponseProps[prop]);
+        }
+        // console.log(goodResponse);
+        
+
+        })
+        console.log(this.reportList2);        
+      })
+  }
 
   logoutUser() {
     this.authFirebaseService.logout();

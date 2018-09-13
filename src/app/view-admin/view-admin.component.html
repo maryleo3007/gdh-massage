@@ -4,7 +4,7 @@
             <i class="fa fa-user" aria-hidden="true"></i>
             <span>Administradora</span>
         </div>
-        <div class="col-6 text-left title">
+        <div class="col-6 text-center title">
             <span>Masajes Antiestrés</span>
             <span>| Reporte</span>
         </div>
@@ -24,7 +24,7 @@
     </div> -->
     <div class="container">
         <div class="row">
-            <div class="col-10 mx-auto">
+            <!-- <div class="col-10 mx-auto">
                 <table *ngIf="reportList" class="table table-sm table-bordered table-hover bg-white mt-2 ">
                     <thead class="text-center">
                         <tr>
@@ -57,7 +57,28 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </div> -->
+            <table class="table table-sm table-bordered table-hover bg-white mt-2 ">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th colspan="5">Asistencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of reportList2">
+                        <td>{{item.name}} {{item.lastName}}</td>
+                        <td>{{item.mail}}</td>
+                        <td>{{item.dates}}</td>
+                        <div *ngFor="let v of reportList2">
+                            <td>{{v.name}}</td>
+                            <td></td>
+                        </div>
+                        <!-- <td>{{item.dates.hourEnd}}</td> -->
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <div>
