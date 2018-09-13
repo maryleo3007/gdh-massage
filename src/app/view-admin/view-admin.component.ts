@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { AuthFirebaseService } from './../services/auth-firebase.service';
 import { element } from 'protractor';
 import { ReportService } from '../services/report.service';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-view-admin',
@@ -23,6 +24,7 @@ export class ViewAdminComponent implements OnInit {
   public currentYear: number;
   reportList: any[];
   datesArray: any[];
+  cloneReport: any[];
   id1: any = 0;
   id2: any = 0;
   id3: any = 0;
@@ -33,7 +35,8 @@ export class ViewAdminComponent implements OnInit {
 
   constructor(
     private authFirebaseService: AuthFirebaseService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    // private titlecasePipe:TitleCasePipe
   ) { }
 
   ngOnInit() {
@@ -59,9 +62,8 @@ export class ViewAdminComponent implements OnInit {
       this.currentMonth = '0' + this.currentMonth;
     }
     this.currentYear = new Date().getFullYear();
-    console.log(this.currentMonth);
-    
-
+    // console.log(this.currentMonth);
+  
     this.months = [
       { id: 0, month: monthNames[parseInt(this.currentMonth)-1], number: this.currentMonth },
       { id: 1, month: monthNames[0], number: '01' },
@@ -99,6 +101,7 @@ export class ViewAdminComponent implements OnInit {
       .subscribe(item => {
         this.reportList = [];
         this.datesArray = [];
+        this.cloneReport = [];
         item.forEach(elem => {
           let x = elem.payload.toJSON();
           x['$key'] = elem.key;
@@ -109,14 +112,27 @@ export class ViewAdminComponent implements OnInit {
             this.id1 = this.id1 + 1; 
           }
           x['numbersDates'] = this.datesArray.length;
+          x['userAssistRight'] = x['userAssistRight'].replace(/\b\w/g, l => l.toUpperCase());
           this.reportList.push(x);
+          console.log(x['userAssistRight']);
+          
           } 
         })
-      })
-
-      console.log(this.selectedValueYear);
-      
+        for (let index = 0; index < this.reportList.length; index++) {
+          var x = 0;
+          const element = this.reportList[index];
+          this.cloneReport.push(element);
+          if(element === this.cloneReport[index]) {
+            x = x + 1;
+            // console.log(this.cloneReport[index]);
+          }         
+        } 
+      })  
   }
+
+//   transformName(){
+//     this.item. = this.titlecasePipe.transform(this.fullName);
+// }
 
   logoutUser() {
     this.authFirebaseService.logout();
@@ -128,14 +144,14 @@ export class ViewAdminComponent implements OnInit {
     // x = x.year.toString();
     // this.selectedValueYear = x;
     // console.log(this.selectedValueYear)
-    console.log(x.year.toString());
+    // console.log(x.year.toString());
     
   }
 
   selectMonth(x) {
     x = this.selectedValue;
     // this.selectedValue = x.number
-    console.log(this.selectedValue.number);  
+    // console.log(this.selectedValue.number);  
       
   }
 

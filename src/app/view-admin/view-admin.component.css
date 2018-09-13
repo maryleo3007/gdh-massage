@@ -5,3 +5,22 @@
 .iconGreen {
   color: #c0dc67;
 }
+
+div.administradora i {
+  font-size: 1.35rem;
+  background-color: #ededed;
+  border-radius: 50%;
+  padding-top: 0.50rem;
+  padding-bottom: 0.50rem;
+  padding-left: 0.65rem;
+  padding-right: 0.60rem;
+  color: var(--title-gray);
+}
+
+div.title span:nth-child(2) {
+  color: var(--title-gray);
+}
+
+div.administradora {
+  color: var(--title-gray);
+}

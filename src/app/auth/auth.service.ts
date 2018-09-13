@@ -18,8 +18,6 @@ import { Configs } from '../shared/configs';
 
 @Injectable()
 export class AuthService {
-  private boolAuth = new BehaviorSubject<boolean>(false)
-  public  curretBoolean = this.boolAuth.asObservable;
   constructor(
     private zone: NgZone,
     private router: Router,
@@ -47,18 +45,8 @@ export class AuthService {
       () => {
         // let correct = false;
         this.zone.run(() => {
-          this.boolAuth.next(true);
-          if (this.boolAuth) {
             this.router.navigate(['/home']);
-            console.log(this.boolAuth);
-            
-          } else {
-            this.router.navigate(['/']);
-          }
-          
-        });
-        console.log(this.boolAuth.value);
-      },
+        });      },
       e => console.error(e.error.message)
     );
 
