@@ -5,6 +5,7 @@ import { AuthFirebaseService } from './../services/auth-firebase.service';
 import { InscriptionService } from '../services/inscription.service';
 import { ReportService } from '../services/report.service';
 import { Report2Service } from './../services/report2.service';
+import { UserService } from './../services/user.service';
 
 // models 
 // models
@@ -12,7 +13,7 @@ import { InscripcionModel } from '../models/inscriptions';
 import { ReportsModel } from '../models/reports';
 import { Report2Model } from './../models/report2';
 import { ReportDateModel } from './../models/report-date';
-
+import { UserModel } from './../models/users';
 import { log } from 'util';
 @Component({
   selector: 'app-view-coor',
