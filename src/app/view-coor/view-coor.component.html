@@ -93,6 +93,10 @@
             </tr>
           </tbody>
         </table>
+        <div *ngFor="let item of therapist1List">
+          <button (click)='addReport2(item.mail)'>reporte 2 </button>
+        </div>
+        
 
         <table *ngIf="therapist3Choose" class="table table-sm table-bordered table-hover bg-white mt-2 text-center">
           <thead>

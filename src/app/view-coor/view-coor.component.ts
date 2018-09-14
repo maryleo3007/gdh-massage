@@ -32,18 +32,22 @@ export class ViewCoorComponent implements OnInit {
   public therapist2Choose: boolean;
   public therapist3Choose: boolean;
   public test: any;
+  public keyUser: string;
   inscriptionList: any[];
   therapist1List: any[];
   therapist2List: any[];
   therapist3List: any[];
+  report2List: any[];
+  reporListDate: any[];
   orderArr = [{ turn: '12:00' }, { turn: '12:20' }, { turn: '12:40' }, { turn: '1:00' }, { turn: '1:20' }, { turn: '1:40' }, { turn: '2:00' }, { turn: '2:20' }, { turn: '2:40' }, { turn: '3:00' }, { turn: '3:20' }, { turn: '3:40' }]
   reportList: any[];
-
 
   constructor(
     private authFirebaseService: AuthFirebaseService,
     private inscriptionService: InscriptionService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private report2Service: Report2Service,
+    private userService: UserService,
   ) { }
 
   ngOnInit() {
@@ -130,11 +134,36 @@ export class ViewCoorComponent implements OnInit {
           x['$key'] = elem.key;
           this.reportList.push(x)
         })
-      })
+    });
 
-      this.therapist1Choose = true;
-      this.therapist2Choose = false;
-      this.therapist3Choose = false;
+    //get reports2
+    this.report2Service.getReports2()
+    .snapshotChanges()
+    .subscribe(item =>{
+      this.report2List = [];
+      item.forEach(elem => {
+        let x = elem.payload.toJSON();
+        x['$key'] = elem.key;
+        this.report2List.push(x)         
+        // this.report2Service.getReportsDate(elem.key)
+        // .snapshotChanges()
+        // .subscribe(item1 =>{
+        //   this.reporListDate = [];
+        //   item1.forEach(e => {
+        //     let y = e.payload.toJSON();
+        //     y['$key'] = e.key;
+        //     this.reporListDate.push(y);
+        //   });
+        //   console.log(this.reporListDate);
+          
+        // });
+      });
+    });
+
+
+    this.therapist1Choose = true;
+    this.therapist2Choose = false;
+    this.therapist3Choose = false;
   }
 
   logoutUser() {
@@ -163,7 +192,41 @@ export class ViewCoorComponent implements OnInit {
     this.therapist3Choose = true;
   }
 
+
   addRegister(date,hourStart,hourEnd,assistance,userAssist, stringVal,userName,boolMatch,boolAny, therapist,$key, type, displayName, mail) {
+   
+    this.report2List.forEach( reportElem => {
+      if (mail == reportElem.mail) {
+        this.keyUser = reportElem.$key   
+      }
+    });
+
+    this.report2Service.getReportsDate(this.keyUser)
+    .snapshotChanges()
+    .subscribe(item1 =>{
+      this.reporListDate = [];
+      item1.forEach(e => {
+        let y = e.payload.toJSON();
+        y['$key'] = e.key;
+        this.reporListDate.push(y);
+      });
+      console.log(this.reporListDate);
+      
+    });
+
+    let reportDate : ReportDateModel = {
+      date: '14/2018',
+      hourStart: '12.00',
+      hourEnd: '12.20',
+      userAssist: 'any',
+      boolMatch: false,
+      assistance: false,
+      boolAny: false,
+      therapist: 1
+    }
+
+    this.insertReportDate(reportDate);
+    //
     if(stringVal.length > 0) {
       assistance = true;
     } else {
@@ -193,20 +256,21 @@ export class ViewCoorComponent implements OnInit {
       lastName: lastName,
       mail: mail
     };
-    this.reportService.insertReport(report);
-    boolAny = true;
-    type = 'password';
-    this.inscriptionService.updateStringVal($key,stringVal)
-    this.inscriptionService.updateBoolAny($key,boolAny);
-    this.inscriptionService.updateType($key, type)
+    // this.reportService.insertReport(report);
+    // boolAny = true;
+    // type = 'password';
+    // this.inscriptionService.updateStringVal($key,stringVal)
+    // this.inscriptionService.updateBoolAny($key,boolAny);
+    // this.inscriptionService.updateType($key, type)
 
     
 
   }
 
-  
-
-  
-
+  insertReportDate(x){
+    if (ReportDateModel) {
+      this.report2Service.insertReportDate(x);
+    }
+  }
 
 }
