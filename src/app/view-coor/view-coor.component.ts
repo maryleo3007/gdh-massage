@@ -250,6 +250,7 @@ export class ViewCoorComponent implements OnInit {
     this.inscriptionService.updateStringVal($key,stringVal)
     this.inscriptionService.updateBoolAny($key,boolAny);
     this.inscriptionService.updateType($key, type);
+    
   }
 
   insertReportDate(x){

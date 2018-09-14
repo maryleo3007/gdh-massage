@@ -47,7 +47,7 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: ViewLoginComponent },
-  { path: 'home', component: ViewHomeComponent},
+  { path: 'home', component: ViewHomeComponent },
   { path: 'login', component: LoginFbComponent },
   { path: 'coordi', component: ViewCoorComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: ViewAdminComponent, canActivate: [AuthGuard] },

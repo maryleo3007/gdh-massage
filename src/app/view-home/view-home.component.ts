@@ -451,7 +451,16 @@ export class ViewHomeComponent implements OnInit {
 
   onSelectTurn2(user: UserModel, turn:TurnModel, modal): void{
 
-      let userExist  = false;
+    let userExist  = false;
+    
+      let report2 : Report2Model = {
+        $key:'',
+        dates: [''],
+        name: this.userName,
+        lastName:this.lastName,
+        mail: this.mail
+      }
+
       this.user.mail = this.me.mail;
 
       this.userList.forEach((elem)=>{
@@ -462,6 +471,7 @@ export class ViewHomeComponent implements OnInit {
 
       if (userExist == false) {
         this.insertUser(this.user);
+        this.insertReport2(report2);
       }
     
       this.selectedTurn = turn;
@@ -501,6 +511,15 @@ export class ViewHomeComponent implements OnInit {
   onSelectTurn3(user: UserModel, turn:TurnModel, modal): void{
 
       let userExist  = false;
+
+      let report2 : Report2Model = {
+        $key:'',
+        dates: [''],
+        name: this.userName,
+        lastName:this.lastName,
+        mail: this.mail
+      }
+
       this.user.mail = this.me.mail;
 
       this.userList.forEach((elem)=>{
@@ -511,6 +530,7 @@ export class ViewHomeComponent implements OnInit {
 
       if (userExist == false) {
         this.insertUser(this.user);
+        this.insertReport2(report2);
       }
     
       this.selectedTurn = turn;

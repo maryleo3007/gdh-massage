@@ -1,18 +1,18 @@
 <div class="log-out" *ngIf="show">
     <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-        <div class="col-3 text-left coordinadora">
-            <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
+        <div class="col-3 text-left administradora">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <span>Administradora</span>
         </div>
         <div class="col-6 text-center title">
             <span>Masajes Antiestrés</span>
-            <span>| Asistencia</span>
+            <span>| Reporte</span>
         </div>
         <div class="col-3 text-right">
-            <i class="fa fa-user" aria-hidden="true"></i>
-            <span>Coordinadora</span>
+            <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
         </div>
     </nav>
-    <div>
+    <!-- <div>
         <select *ngIf="years" [(ngModel)]="selectedValueYear" (ngModelChange)="selectYear($event)">
             <option *ngFor="let c of years" [ngValue]="c" [selected]='c.year === selectedValueYear'>{{c.year}}</option>
         </select>
@@ -21,26 +21,26 @@
         <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)">
             <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue.id'>{{c.month}}</option>
         </select>
-    </div>
+    </div> -->
     <div class="container">
         <div class="row">
-            <div class="col-10 mx-auto">
-                <table *ngIf="reportList" class="table table-sm table-bordered table-hover bg-white mt-2 text-center">
-                    <thead>
+            <!-- <div class="col-10 mx-auto">
+                <table *ngIf="reportList" class="table table-sm table-bordered table-hover bg-white mt-2 ">
+                    <thead class="text-center">
                         <tr>
                             <th scope="col" class="hora">Nombre y Apellido</th>
                             <th scope="col" class="nombre">Correo</th>
                             <th scope="col" colspan="5" class="codigo">Asistencia</th>
                         </tr>
                     </thead>
-                    <tbody> 
+                    <tbody class="text-left">
                         <tr *ngFor="let item of reportList">
-                            <td>{{item.userAssistRight}} - {{item.lastName}}</td>
-                            <td>{{item.mail}}</td>
-                            <td >
-                                <span *ngIf="item.assistance" >
-                                        <i *ngIf="item.boolMatch" [class.iconGreen]="item.boolMatch" class="fa fa-check-circle" aria-hidden="true"></i>
-                                        <i *ngIf="!item.boolMatch" [class.iconRed]="!item.boolMatch" class="fa fa-times-circle" aria-hidden="true" placement="top"
+                            <td class="pl-4">{{ item.userAssistRight }} {{item.lastName}}</td>
+                            <td class="pl-4">{{item.mail}}</td>
+                            <td>
+                                <span *ngIf="item.assistance">
+                                    <i *ngIf="item.boolMatch" [class.iconGreen]="item.boolMatch" class="fa fa-check-circle" aria-hidden="true"></i>
+                                    <i *ngIf="!item.boolMatch" [class.iconRed]="!item.boolMatch" class="fa fa-times-circle" aria-hidden="true" placement="top"
                                         ngbPopover={{item.userAssist}}></i>
 
                                     P</span>
@@ -57,7 +57,28 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </div> -->
+            <table class="table table-sm table-bordered table-hover bg-white mt-2 ">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th colspan="5">Asistencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of reportList2">
+                        <td>{{item.name}} {{item.lastName}}</td>
+                        <td>{{item.mail}}</td>
+                        <td>{{item.dates}}</td>
+                        <div *ngFor="let v of reporListDate">
+                            <td>{{v.assistance}}</td>
+                            <td></td>
+                        </div>
+                        <!-- <td>{{item.dates.hourEnd}}</td> -->
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <div>

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AuthFirebaseService } from './../services/auth-firebase.service';
-import { element } from 'protractor';
 import { ReportService } from '../services/report.service';
+import { UserService } from './../services/user.service';
+import { Report2Service } from './../services/report2.service';
 
 @Component({
   selector: 'app-view-admin',
@@ -21,8 +22,12 @@ export class ViewAdminComponent implements OnInit {
   public selectedValueYear: any;
   public currentMonth: any;
   public currentYear: number;
+  report2List: any[];
+  reporListDate: any[];
   reportList: any[];
   datesArray: any[];
+  cloneReport: any[];
+  reportList2: any[];
   id1: any = 0;
   id2: any = 0;
   id3: any = 0;
@@ -33,7 +38,9 @@ export class ViewAdminComponent implements OnInit {
 
   constructor(
     private authFirebaseService: AuthFirebaseService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private report2Service: Report2Service,
+    // private titlecasePipe:TitleCasePipe
   ) { }
 
   ngOnInit() {
@@ -59,9 +66,8 @@ export class ViewAdminComponent implements OnInit {
       this.currentMonth = '0' + this.currentMonth;
     }
     this.currentYear = new Date().getFullYear();
-    console.log(this.currentMonth);
-    
-
+    // console.log(this.currentMonth);
+  
     this.months = [
       { id: 0, month: monthNames[parseInt(this.currentMonth)-1], number: this.currentMonth },
       { id: 1, month: monthNames[0], number: '01' },
@@ -88,7 +94,9 @@ export class ViewAdminComponent implements OnInit {
 
     this.selectedValue = this.months[0];
     this.selectedValueYear = this.years[0];
-
+    var currentDate = '/'+this.currentMonth+'/'+ this.currentYear
+    
+    
     this.years.forEach(element => {
       if (element.year === this.currentYear) {
       }
@@ -99,6 +107,7 @@ export class ViewAdminComponent implements OnInit {
       .subscribe(item => {
         this.reportList = [];
         this.datesArray = [];
+        this.cloneReport = [];
         item.forEach(elem => {
           let x = elem.payload.toJSON();
           x['$key'] = elem.key;
@@ -109,12 +118,68 @@ export class ViewAdminComponent implements OnInit {
             this.id1 = this.id1 + 1; 
           }
           x['numbersDates'] = this.datesArray.length;
-          this.reportList.push(x);
+          x['userAssistRight'] = x['userAssistRight'].replace(/\b\w/g, l => l.toUpperCase());
+          this.reportList.push(x);          
           } 
         })
+        for (let index = 0; index < this.reportList.length; index++) {
+          var x = 0;
+          const element = this.reportList[index];
+          this.cloneReport.push(element);
+          if(element === this.cloneReport[index]) {
+            x = x + 1;
+          }         
+        } 
+      })  
+
+      this.reportService.getReports2()
+      .snapshotChanges()
+      .subscribe(item => {
+        this.reportList2 = [];
+
+        item.forEach(elem => {
+          let x = elem.payload.toJSON();
+          x['$key'] = elem.key;
+          this.reportList2.push(x);
+          let evilResponseProps = Object.keys(x['dates']);
+          let goodResponse = [];
+          for (let prop in evilResponseProps) { 
+            console.log(prop);
+            
+            // goodResponse.push(evilResponseProps[prop]);
+        }
+        // console.log(goodResponse);
+        
+
+        })
+        console.log(this.reportList2);        
       })
 
-      console.log(this.selectedValueYear);
+
+      this.report2Service.getReports2()
+      .snapshotChanges()
+      .subscribe(item =>{
+        this.report2List = [];
+        item.forEach(elem => {
+          let x = elem.payload.toJSON();
+          x['$key'] = elem.key;
+          this.report2List.push(x)         
+          this.report2Service.getReportsDate(elem.key)
+          .snapshotChanges()
+          .subscribe(item1 =>{
+            this.reporListDate = [];
+            item1.forEach(e => {
+              let y = e.payload.toJSON();
+              y['$key'] = e.key;
+              this.reporListDate.push(y);
+            });
+            console.log(this.reporListDate);
+            
+          });
+        });
+      });
+
+
   }
 
   logoutUser() {
@@ -127,14 +192,14 @@ export class ViewAdminComponent implements OnInit {
     // x = x.year.toString();
     // this.selectedValueYear = x;
     // console.log(this.selectedValueYear)
-    console.log(x.year.toString());
+    // console.log(x.year.toString());
     
   }
 
   selectMonth(x) {
     x = this.selectedValue;
     // this.selectedValue = x.number
-    console.log(this.selectedValue.number);  
+    // console.log(this.selectedValue.number);  
       
   }
 
