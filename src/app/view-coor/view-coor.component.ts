@@ -198,7 +198,6 @@ export class ViewCoorComponent implements OnInit {
         y['$key'] = e.key;
         this.reporListDate.push(y);
       });
-      console.log(this.reporListDate); 
     });
 
     //
