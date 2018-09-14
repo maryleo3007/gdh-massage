@@ -4,11 +4,15 @@ import { AuthFirebaseService } from './../services/auth-firebase.service';
 // services
 import { InscriptionService } from '../services/inscription.service';
 import { ReportService } from '../services/report.service';
+import { Report2Service } from './../services/report2.service';
 
 // models 
 // models
 import { InscripcionModel } from '../models/inscriptions';
 import { ReportsModel } from '../models/reports';
+import { Report2Model } from './../models/report2';
+import { ReportDateModel } from './../models/report-date';
+
 import { log } from 'util';
 @Component({
   selector: 'app-view-coor',
@@ -34,6 +38,7 @@ export class ViewCoorComponent implements OnInit {
   orderArr = [{ turn: '12:00' }, { turn: '12:20' }, { turn: '12:40' }, { turn: '1:00' }, { turn: '1:20' }, { turn: '1:40' }, { turn: '2:00' }, { turn: '2:20' }, { turn: '2:40' }, { turn: '3:00' }, { turn: '3:20' }, { turn: '3:40' }]
   reportList: any[];
 
+
   constructor(
     private authFirebaseService: AuthFirebaseService,
     private inscriptionService: InscriptionService,
@@ -41,6 +46,7 @@ export class ViewCoorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+   
     this.isLogin = false;
     this.authFirebaseService.getAuth().subscribe(auth => {
       if (auth) {
@@ -125,7 +131,6 @@ export class ViewCoorComponent implements OnInit {
         })
       })
 
-
       this.therapist1Choose = true;
       this.therapist2Choose = false;
       this.therapist3Choose = false;
@@ -193,6 +198,9 @@ export class ViewCoorComponent implements OnInit {
     this.inscriptionService.updateStringVal($key,stringVal)
     this.inscriptionService.updateBoolAny($key,boolAny);
     this.inscriptionService.updateType($key, type)
+
+    
+
   }
 
   

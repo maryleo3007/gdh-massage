@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit, ViewChild, Input  } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable, Subject } from 'rxjs';
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
@@ -12,12 +12,15 @@ import { TurnosService } from './../services/turnos.service';
 import { InscriptionService } from './../services/inscription.service';
 import { ReportService } from './../services/report.service';
 import { UserService } from './../services/user.service';
+import { Report2Service } from './../services/report2.service';
 
 // models
 import { InscripcionModel } from './../models/inscriptions';
 import { ReportsModel } from './../models/reports';
 import { TurnModel } from './../models/turns';
 import { UserModel } from './../models/users';
+import { Report2Model } from './../models/report2';
+import { ReportDateModel } from './../models/report-date';
 import { LoginComponent } from '../login/login.component';
 import { log } from 'util';
 
@@ -44,6 +47,8 @@ export class ViewHomeComponent implements OnInit {
   terapeuta3: any[];
   inscriptionList: any[];
   reportList: any[];
+  report2List: any[];
+  reporListDate: any[];
   userList: any[];
   selectedTurn: TurnModel;
   selectedUser: UserModel;
@@ -54,6 +59,7 @@ export class ViewHomeComponent implements OnInit {
   yyyy:any;
   name: string;
   userName:string;
+  lastName: string;
   displayName: string;
   countConfirm: number = 0;
   modalSelectTurn: NgbModalRef;
@@ -69,6 +75,7 @@ export class ViewHomeComponent implements OnInit {
   bool: boolean;
   progres: boolean;
   messageAuth: boolean;
+
   
   primero: InscripcionModel = {
     $key:'',
@@ -117,6 +124,14 @@ export class ViewHomeComponent implements OnInit {
     count:0
   }
 
+  // report2: Report2Model = {
+  //   $key:'',
+  //   date: [''],
+  //   name: '',
+  //   lastName:'',
+  //   mail:''
+  // }
+
   send: MicrosoftGraph.Event;
   subsSendCalendar: Subscription;
   subsCounter: Subscription;
@@ -127,6 +142,7 @@ export class ViewHomeComponent implements OnInit {
     private turnoService: TurnosService,
     private inscriptionService: InscriptionService,
     private reportService: ReportService,
+    private report2Service: Report2Service,
     private userService: UserService,
     private modalService: NgbModal,
     private carouselConfig: NgbCarouselConfig
@@ -152,7 +168,9 @@ export class ViewHomeComponent implements OnInit {
       this.me = objectMe; 
       let cutName = objectMe.mail.indexOf('@');
       let cutUserName = objectMe.displayName.indexOf(' ');
+      let cutDisplayName = objectMe.displayName.indexOf(',');
       this.name = objectMe.mail.substring(0,cutName);
+      this.lastName  = objectMe.displayName.substring(0,cutDisplayName)
       this.userName = objectMe.displayName.substring(cutUserName+1);
       this.displayName = objectMe.displayName;
       this.mail = objectMe.mail
@@ -286,7 +304,29 @@ export class ViewHomeComponent implements OnInit {
         });
       });
 
-      //get users
+      //get reports2
+      this.report2Service.getReports2()
+      .snapshotChanges()
+      .subscribe(item =>{
+        this.report2List = [];
+        item.forEach(elem => {
+          let x = elem.payload.toJSON();
+          x['$key'] = elem.key;
+          this.report2List.push(x)         
+          this.report2Service.getReportsDate(elem.key)
+          .snapshotChanges()
+          .subscribe(item1 =>{
+            this.reporListDate = [];
+            item1.forEach(e => {
+              let y = e.payload.toJSON();
+              y['$key'] = e.key;
+              this.reporListDate.push(y);
+            });
+            console.log(this.reporListDate);
+            
+          });
+        });
+      });
   }
 
   ngOnDestroy() {
@@ -349,6 +389,27 @@ export class ViewHomeComponent implements OnInit {
   onSelectTurn1(user: UserModel, turn:TurnModel, modal): void{
 
       let userExist  = false;
+      
+
+      let reportDate : ReportDateModel = {
+        date: '08/2018',
+        hourStart: '12.00',
+        hourEnd: '12.20',
+        userAssist: 'any',
+        boolMatch: false,
+        assistance: false,
+        boolAny: false,
+        therapist: 2
+      }
+
+      let report2 : Report2Model = {
+        $key:'',
+        dates: [reportDate],
+        name: this.userName,
+        lastName:this.lastName,
+        mail: this.mail
+    }
+
       this.user.mail = this.me.mail;
 
       this.userList.forEach((elem)=>{
@@ -359,6 +420,8 @@ export class ViewHomeComponent implements OnInit {
 
       if (userExist == false) {
         this.insertUser(this.user);
+        this.insertReport2(report2);
+        this.insertReportDate(reportDate);
       }
 
       this.selectedTurn = turn;
@@ -735,6 +798,18 @@ export class ViewHomeComponent implements OnInit {
   insertTurn2(x){
     if (TurnModel) {
       this.turnoService.inserTurn2(x);
+    }
+  }
+
+  insertReport2(x){
+    if (Report2Model) {
+      this.report2Service.insertReport2(x);
+    }
+  }
+
+  insertReportDate(x){
+    if (ReportDateModel) {
+      this.report2Service.insertReportDate(x);
     }
   }
 

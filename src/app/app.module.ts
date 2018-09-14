@@ -28,6 +28,7 @@ import { AuthService } from './auth/auth.service';
 import { HomeService } from './home/home.service';
 import { TurnosService } from './services/turnos.service';
 import { ReportService } from './services/report.service';
+import { Report2Service } from './services/report2.service';
 import { InscriptionService } from './services/inscription.service';
 import { AuthFirebaseService } from './services/auth-firebase.service';
 import { UserService } from './services/user.service';
@@ -90,6 +91,7 @@ const routes: Routes = [
     InscriptionService,
     TurnosService,
     ReportService,
+    Report2Service,
     InscriptionService,
     AuthFirebaseService,
     UserService
