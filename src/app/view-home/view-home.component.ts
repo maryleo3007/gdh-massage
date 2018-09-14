@@ -497,7 +497,6 @@ export class ViewHomeComponent implements OnInit {
       });
   }
 
-
   onSelectTurn3(user: UserModel, turn:TurnModel, modal): void{
 
       let userExist  = false;
