@@ -145,18 +145,6 @@ export class ViewCoorComponent implements OnInit {
         let x = elem.payload.toJSON();
         x['$key'] = elem.key;
         this.report2List.push(x)         
-        // this.report2Service.getReportsDate(elem.key)
-        // .snapshotChanges()
-        // .subscribe(item1 =>{
-        //   this.reporListDate = [];
-        //   item1.forEach(e => {
-        //     let y = e.payload.toJSON();
-        //     y['$key'] = e.key;
-        //     this.reporListDate.push(y);
-        //   });
-        //   console.log(this.reporListDate);
-          
-        // });
       });
     });
 
@@ -210,22 +198,9 @@ export class ViewCoorComponent implements OnInit {
         y['$key'] = e.key;
         this.reporListDate.push(y);
       });
-      console.log(this.reporListDate);
-      
+      console.log(this.reporListDate); 
     });
 
-    let reportDate : ReportDateModel = {
-      date: '14/2018',
-      hourStart: '12.00',
-      hourEnd: '12.20',
-      userAssist: 'any',
-      boolMatch: false,
-      assistance: false,
-      boolAny: false,
-      therapist: 1
-    }
-
-    this.insertReportDate(reportDate);
     //
     if(stringVal.length > 0) {
       assistance = true;
@@ -256,15 +231,26 @@ export class ViewCoorComponent implements OnInit {
       lastName: lastName,
       mail: mail
     };
+
+    let reportDate : ReportDateModel = {
+      date: date,
+      hourStart: hourStart,
+      hourEnd: hourEnd,
+      userAssist: stringVal,
+      boolMatch: boolMatch,
+      assistance: assistance,
+      boolAny: boolAny,
+      therapist: therapist
+    }
+
+    this.insertReportDate(reportDate);
+
     // this.reportService.insertReport(report);
-    // boolAny = true;
-    // type = 'password';
-    // this.inscriptionService.updateStringVal($key,stringVal)
-    // this.inscriptionService.updateBoolAny($key,boolAny);
-    // this.inscriptionService.updateType($key, type)
-
-    
-
+    boolAny = true;
+    type = 'password';
+    this.inscriptionService.updateStringVal($key,stringVal)
+    this.inscriptionService.updateBoolAny($key,boolAny);
+    this.inscriptionService.updateType($key, type);
   }
 
   insertReportDate(x){

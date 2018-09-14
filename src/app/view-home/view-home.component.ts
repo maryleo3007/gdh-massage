@@ -389,22 +389,10 @@ export class ViewHomeComponent implements OnInit {
   onSelectTurn1(user: UserModel, turn:TurnModel, modal): void{
 
       let userExist  = false;
-      
-
-      let reportDate : ReportDateModel = {
-        date: '08/2018',
-        hourStart: '12.00',
-        hourEnd: '12.20',
-        userAssist: 'any',
-        boolMatch: false,
-        assistance: false,
-        boolAny: false,
-        therapist: 2
-      }
 
       let report2 : Report2Model = {
         $key:'',
-        dates: [reportDate],
+        dates: [''],
         name: this.userName,
         lastName:this.lastName,
         mail: this.mail
@@ -421,7 +409,6 @@ export class ViewHomeComponent implements OnInit {
       if (userExist == false) {
         this.insertUser(this.user);
         this.insertReport2(report2);
-        this.insertReportDate(reportDate);
       }
 
       this.selectedTurn = turn;
@@ -804,12 +791,6 @@ export class ViewHomeComponent implements OnInit {
   insertReport2(x){
     if (Report2Model) {
       this.report2Service.insertReport2(x);
-    }
-  }
-
-  insertReportDate(x){
-    if (ReportDateModel) {
-      this.report2Service.insertReportDate(x);
     }
   }
 
