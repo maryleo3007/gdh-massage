@@ -28,11 +28,13 @@ export class ViewAdminComponent implements OnInit {
   datesArray: any[];
   cloneReport: any[];
   reportList2: any[];
+  reportUserList: any[];
   id1: any = 0;
   id2: any = 0;
   id3: any = 0;
   id4: any = 0;
   id5: any = 0;
+
   // public valAsist: string;
 
 
@@ -144,7 +146,7 @@ export class ViewAdminComponent implements OnInit {
           let evilResponseProps = Object.keys(x['dates']);
           let goodResponse = [];
           for (let prop in evilResponseProps) { 
-            console.log(prop);
+            // console.log(prop);
             
             // goodResponse.push(evilResponseProps[prop]);
         }
@@ -152,7 +154,7 @@ export class ViewAdminComponent implements OnInit {
         
 
         })
-        console.log(this.reportList2);        
+        // console.log(this.reportList2);        
       })
 
 
@@ -163,7 +165,7 @@ export class ViewAdminComponent implements OnInit {
         item.forEach(elem => {
           let x = elem.payload.toJSON();
           x['$key'] = elem.key;
-          this.report2List.push(x)         
+          this.report2List.push(x);      
           this.report2Service.getReportsDate(elem.key)
           .snapshotChanges()
           .subscribe(item1 =>{
@@ -171,15 +173,15 @@ export class ViewAdminComponent implements OnInit {
             item1.forEach(e => {
               let y = e.payload.toJSON();
               y['$key'] = e.key;
+
               this.reporListDate.push(y);
+              // console.log(this.report2List);
+              
             });
-            console.log(this.reporListDate);
-            
+              console.log(this.reporListDate);
           });
         });
       });
-
-
   }
 
   logoutUser() {

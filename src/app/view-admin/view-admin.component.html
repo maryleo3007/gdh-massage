@@ -67,16 +67,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of reportList2">
+                    <tr *ngFor="let item of report2List">
                         <td>{{item.name}} {{item.lastName}}</td>
                         <td>{{item.mail}}</td>
                         <td>{{item.dates}}</td>
-                        <div *ngFor="let v of reporListDate">
-                            <td>{{v.assistance}}</td>
-                            <td></td>
-                        </div>
+                        
                         <!-- <td>{{item.dates.hourEnd}}</td> -->
                     </tr>
+                    <div *ngFor="let v of reporListDate">
+                        <td>{{v.assistance}}</td>
+                        <td></td>
+                    </div>
                 </tbody>
             </table>
         </div>
