@@ -201,11 +201,11 @@ export class ViewCoorComponent implements OnInit {
     });
 
     //
-    if(stringVal.length > 0) {
-      assistance = true;
-    } else {
-      assistance = false;
-    }
+    // if(stringVal.length > 0) {
+    //   assistance = true;
+    // } else {
+    //   assistance = false;
+    // }
 
     let cutDisplayName = displayName.indexOf(',');
     let lastName = displayName.substring(0,cutDisplayName)

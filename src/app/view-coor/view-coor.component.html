@@ -80,12 +80,12 @@
                 <input type={{item.type}} #userAssist='ngModel' class='border-top-0 border-left-0 border-right-0 border-bottom-0' [(ngModel)]='item.stringVal'>
               </td>
               <td>
-                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistance, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-assist">
+                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, true, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-assist">
                   <i class="fa fa-check-square-o" aria-hidden="true"></i>
                 </button>
               </td>
               <td>
-                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistance, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-no-assist">
+                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, false, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-no-assist">
                   <i class="fa fa-times" aria-hidden="true"></i>
 
                 </button>
