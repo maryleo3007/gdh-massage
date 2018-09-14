@@ -48,12 +48,12 @@
                 <input type={{item.type}} #userAssist='ngModel' class='border-top-0 border-left-0 border-right-0 border-bottom-0' [(ngModel)]='item.stringVal'>
               </td>
               <td>
-                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistance, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-assist">
+                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistTrue, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-assist">
                   <i class="fa fa-check-square-o" aria-hidden="true"></i>
                 </button>
               </td>
               <td>
-                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistance, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-no-assist">
+                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistFalse, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-no-assist">
                   <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
               </td>
@@ -80,18 +80,19 @@
                 <input type={{item.type}} #userAssist='ngModel' class='border-top-0 border-left-0 border-right-0 border-bottom-0' [(ngModel)]='item.stringVal'>
               </td>
               <td>
-                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, true, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-assist">
-                  <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                <button [disabled]='item.boolAny' #button [attr.data-bool]=true  (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistance, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-assist">
+                  <i class="fa fa-check-square-o" aria-hidden="true"  ></i>
                 </button>
               </td>
               <td>
-                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, false, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-no-assist">
+                <button [disabled]='item.boolAny'(click)='addRegister(item.date, item.hourStart, item.hourEnd, assistance, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-no-assist">
                   <i class="fa fa-times" aria-hidden="true"></i>
 
                 </button>
               </td>
             </tr>
           </tbody>
+         
         </table>
 
         <table *ngIf="therapist3Choose" class="table table-sm table-bordered table-hover bg-white mt-2 text-center">
@@ -112,12 +113,12 @@
                 <input type={{item.type}} #userAssist='ngModel' class='border-top-0 border-left-0 border-right-0 border-bottom-0' [(ngModel)]='item.stringVal'>
               </td>
               <td>
-                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistance, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-assist">
+                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistTrue, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-assist">
                   <i class="fa fa-check-square-o" aria-hidden="true"></i>
                 </button>
               </td>
               <td>
-                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistance, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-no-assist">
+                <button [disabled]='item.boolAny' (click)='addRegister(item.date, item.hourStart, item.hourEnd, assistFalse, item.userAssist, item.stringVal, item.userName, boolMatch, item.boolAny, item.therapist, item.$key, item.type, item.displayName, item.mail)' class="rounded btn bg-btn btn-no-assist">
                   <i class="fa fa-times" aria-hidden="true"></i>
 
                 </button>
@@ -130,13 +131,7 @@
     </div>
   </div>
   <div class="fixed-bottom text-secondary d-flex justify-content-end">
-      <a class="nav-link btn bg-white text-secondary" href="/login" (click)="logoutUser()">Salir  <i class="fa fa-sign-out text-secondary" aria-hidden="true"></i></a>
-    <!-- <button  class="btn bg-white" (click)="logoutUser()">
-        Salir<a class="nav-link btn"  href="/login" ><i class="fa fa-sign-out" aria-hidden="true"></i></a> 
-    </button> -->
-     
-
-    
+      <a class="nav-link btn bg-white text-secondary" href="/login" (click)="logoutUser()">Salir  <i class="fa fa-sign-out text-secondary" aria-hidden="true"></i></a>   
   </div>
 
 </div>
