@@ -32,6 +32,8 @@ export class ViewCoorComponent implements OnInit {
   public therapist2Choose: boolean;
   public therapist3Choose: boolean;
   public test: any;
+  public assistTrue = true;
+  public assistFalse = false;
   public keyUser: string;
   inscriptionList: any[];
   therapist1List: any[];
@@ -200,13 +202,6 @@ export class ViewCoorComponent implements OnInit {
       });
     });
 
-    //
-    if(stringVal.length > 0) {
-      assistance = true;
-    } else {
-      assistance = false;
-    }
-
     let cutDisplayName = displayName.indexOf(',');
     let lastName = displayName.substring(0,cutDisplayName)
     
@@ -257,6 +252,10 @@ export class ViewCoorComponent implements OnInit {
     if (ReportDateModel) {
       this.report2Service.insertReportDate(x);
     }
+  }
+  oh(x) {
+    console.log(x);
+    
   }
 
 }
