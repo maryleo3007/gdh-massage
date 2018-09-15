@@ -18,7 +18,7 @@
         </select>
     </div>
     <div>
-        <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)">
+        <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)"
             <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue.id'>{{c.month}}</option>
         </select>
     </div> -->
@@ -67,15 +67,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of reportList2">
+                    <tr *ngFor="let item of report2List">
                         <td>{{item.name}} {{item.lastName}}</td>
                         <td>{{item.mail}}</td>
-                        <td>{{item.dates}}</td>
-                        <div *ngFor="let v of reporListDate">
-                            <td>{{v.assistance}}</td>
-                            <td></td>
-                        </div>
-                        <!-- <td>{{item.dates.hourEnd}}</td> -->
+                        <div *ngFor="let v of arrayArray">
+                                <td *ngIf="item.mail === v.mail">{{v.userAssist}}</td>
+                            </div>
                     </tr>
                 </tbody>
             </table>
@@ -87,9 +84,8 @@
     <!-- <select [ngModel]="originalObject">
           <option *ngFor="let object of objects" [ngValue]="object" [selected]="object.uniqueId === originalObject.uniqueId">{{object.name}}</option>
       </select> -->
-
-
 </div>
+
 <div class="log-out d-flex align-items-end" *ngIf="!show">
     <p>No es tu ruta</p>
 </div>

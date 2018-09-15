@@ -28,6 +28,7 @@ export class ViewAdminComponent implements OnInit {
   datesArray: any[];
   cloneReport: any[];
   reportList2: any[];
+  arrayArray: any[];
   id1: any = 0;
   id2: any = 0;
   id3: any = 0;
@@ -131,55 +132,49 @@ export class ViewAdminComponent implements OnInit {
           }         
         } 
       })  
-
-      this.reportService.getReports2()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.reportList2 = [];
-
-        item.forEach(elem => {
-          let x = elem.payload.toJSON();
-          x['$key'] = elem.key;
-          this.reportList2.push(x);
-          let evilResponseProps = Object.keys(x['dates']);
-          let goodResponse = [];
-          for (let prop in evilResponseProps) { 
-            console.log(prop);
-            
-            // goodResponse.push(evilResponseProps[prop]);
-        }
-        // console.log(goodResponse);
-        
-
-        })
-        console.log(this.reportList2);        
-      })
-
-
+      
+      //get reports2
       this.report2Service.getReports2()
       .snapshotChanges()
       .subscribe(item =>{
         this.report2List = [];
+        this.arrayArray = [];
         item.forEach(elem => {
           let x = elem.payload.toJSON();
-          x['$key'] = elem.key;
-          this.report2List.push(x)         
+          x['$key'] = elem.key;          
+          this.report2List.push(x)   
+          console.log(this.report2List);       
           this.report2Service.getReportsDate(elem.key)
+          // this.report2List['dates']
           .snapshotChanges()
-          .subscribe(item1 =>{
+          .subscribe(item1 => {
             this.reporListDate = [];
             item1.forEach(e => {
               let y = e.payload.toJSON();
+              // console.log(y);              
               y['$key'] = e.key;
               this.reporListDate.push(y);
-            });
+              // console.log(this.report2List);             
+            });       
             console.log(this.reporListDate);
-            
+            this.reporListDate.forEach(element => {
+              this.arrayArray.push(element);
+              console.log(this.arrayArray);
+            });
           });
-        });
+          // console.log(this.report2List);
+          // console.log(this.arrayArray);
+        });        
       });
 
+      
+      
+  }
 
+  getDates(x) {
+    this.report2Service.getReportsDate(x);
+    console.log(this.report2Service.getReportsDate(x));
+    
   }
 
   logoutUser() {
@@ -200,7 +195,6 @@ export class ViewAdminComponent implements OnInit {
     x = this.selectedValue;
     // this.selectedValue = x.number
     // console.log(this.selectedValue.number);  
-      
   }
 
   daysInMonth(month, year) {

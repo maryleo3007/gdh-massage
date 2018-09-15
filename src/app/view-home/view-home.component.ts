@@ -323,7 +323,6 @@ export class ViewHomeComponent implements OnInit {
               this.reporListDate.push(y);
             });
             console.log(this.reporListDate);
-            
           });
         });
       });

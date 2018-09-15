@@ -44,7 +44,8 @@ export class Report2Service {
       boolMatch: reportDate.boolMatch,
       assistance: reportDate.assistance,
       boolAny: reportDate.boolAny,
-      therapist: reportDate.therapist
+      therapist: reportDate.therapist,
+      mail: reportDate.mail,
     })
   }
 

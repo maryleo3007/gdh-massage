@@ -234,7 +234,8 @@ export class ViewCoorComponent implements OnInit {
       boolMatch: boolMatch,
       assistance: assistance,
       boolAny: boolAny,
-      therapist: therapist
+      therapist: therapist,
+      mail: mail,
     }
 
     this.insertReportDate(reportDate);
