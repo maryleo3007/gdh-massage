@@ -74,6 +74,10 @@
                                 <td *ngIf="item.mail === v.mail">{{v.userAssist}}</td>
                             </div>
                     </tr>
+                    <div *ngFor="let v of reporListDate">
+                        <td>{{v.assistance}}</td>
+                        <td></td>
+                    </div>
                 </tbody>
             </table>
         </div>

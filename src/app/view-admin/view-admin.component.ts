@@ -34,6 +34,7 @@ export class ViewAdminComponent implements OnInit {
   id3: any = 0;
   id4: any = 0;
   id5: any = 0;
+
   // public valAsist: string;
 
 
@@ -153,6 +154,7 @@ export class ViewAdminComponent implements OnInit {
               let y = e.payload.toJSON();
               // console.log(y);              
               y['$key'] = e.key;
+
               this.reporListDate.push(y);
               // console.log(this.report2List);             
             });       
