@@ -68,7 +68,6 @@ export class ViewAdminComponent implements OnInit {
       this.currentMonth = '0' + this.currentMonth;
     }
     this.currentYear = new Date().getFullYear();
-    // console.log(this.currentMonth);
   
     this.months = [
       { id: 0, month: monthNames[parseInt(this.currentMonth)-1], number: this.currentMonth },
@@ -142,30 +141,25 @@ export class ViewAdminComponent implements OnInit {
         this.arrayArray = [];
         item.forEach(elem => {
           let x = elem.payload.toJSON();
-          x['$key'] = elem.key;          
-          this.report2List.push(x)   
-          console.log(this.report2List);       
+          x['$key'] = elem.key;  
           this.report2Service.getReportsDate(elem.key)
-          // this.report2List['dates']
           .snapshotChanges()
           .subscribe(item1 => {
             this.reporListDate = [];
             item1.forEach(e => {
               let y = e.payload.toJSON();
-              // console.log(y);              
               y['$key'] = e.key;
-
               this.reporListDate.push(y);
-              // console.log(this.report2List);             
             });       
-            console.log(this.reporListDate);
             this.reporListDate.forEach(element => {
-              this.arrayArray.push(element);
-              console.log(this.arrayArray);
+              if(element['dates'].substring(3) === `${this.selectedValue.number}/${this.selectedValueYear.year.toString()}`) {
+                this.arrayArray.push(element);
+                if(!this.report2List.includes(x)) {
+                  this.report2List.push(x)   
+                }
+              }
             });
           });
-          // console.log(this.report2List);
-          // console.log(this.arrayArray);
         });        
       });
 
@@ -175,8 +169,6 @@ export class ViewAdminComponent implements OnInit {
 
   getDates(x) {
     this.report2Service.getReportsDate(x);
-    console.log(this.report2Service.getReportsDate(x));
-    
   }
 
   logoutUser() {
@@ -184,29 +176,18 @@ export class ViewAdminComponent implements OnInit {
   }
 
   selectYear(x) {
-    // var year = x.year.toString()
-    x = this.selectedValueYear;
-    // x = x.year.toString();
-    // this.selectedValueYear = x;
-    // console.log(this.selectedValueYear)
-    // console.log(x.year.toString());
+    // x = this.selectedValueYear;
+    this.selectedValue.number
+    console.log(x.year.toString());
     
   }
 
   selectMonth(x) {
-    x = this.selectedValue;
-    // this.selectedValue = x.number
-    // console.log(this.selectedValue.number);  
+     x.number = this.selectedValue.number;
   }
 
   daysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
   }
-
-  // // July
-  // daysInMonth(7,2009); // 31
-  // // February
-  // daysInMonth(2,2009); // 28
-  // daysInMonth(2,2008); // 29
 
 }

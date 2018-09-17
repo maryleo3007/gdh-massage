@@ -12,16 +12,16 @@
             <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
         </div>
     </nav>
-    <!-- <div>
+    <div>
         <select *ngIf="years" [(ngModel)]="selectedValueYear" (ngModelChange)="selectYear($event)">
             <option *ngFor="let c of years" [ngValue]="c" [selected]='c.year === selectedValueYear'>{{c.year}}</option>
         </select>
     </div>
     <div>
-        <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)"
+        <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)">
             <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue.id'>{{c.month}}</option>
         </select>
-    </div> -->
+    </div>
     <div class="container">
         <div class="row">
             <!-- <div class="col-10 mx-auto">
@@ -67,11 +67,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of report2List">
+                    <tr *ngFor="let item of report2List" >
                         <td>{{item.name}} {{item.lastName}}</td>
                         <td>{{item.mail}}</td>
                         <div *ngFor="let v of arrayArray">
-                                <td *ngIf="item.mail === v.mail">{{v.userAssist}}</td>
+                                <td *ngIf="item.mail === v.mail">{{v.dates}}</td>
                             </div>
                     </tr>
                     <div *ngFor="let v of reporListDate">
