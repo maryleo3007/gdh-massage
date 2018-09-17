@@ -23,7 +23,7 @@
         </select>
     </div>
     <div>
-        <button (click)="getRepostRequest(selectedValue, selectedValueYear)">Buscar</button>
+        <button (click)="getRepostRequest(selectedValue, selectedValueYear)">Buscar</button>
     </div>
     <div class="container">
         <div class="row">
@@ -64,23 +64,31 @@
             <table class="table table-sm table-bordered table-hover bg-white mt-2 ">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Correo</th>
-                        <th colspan="5">Asistencia</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Correo</th>
+                        <th class="text-center" colspan="5">Asistencia</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of report2List" >
+                    
+                    <tr *ngFor="let item of report2List">
                         <td>{{item.name}} {{item.lastName}}</td>
                         <td>{{item.mail}}</td>
-                        <div *ngFor="let v of arrayArray">
-                                <td *ngIf="item.mail === v.mail">{{v.dates}}</td>
+                        <td>
+                            <div *ngFor="let v of arrayArray" class="reportAssist">
+                                <!-- <span *ngIf="item.mail === v.mail" class="reportAssist-item">{{v.userAssist}}</span> -->
+                                <div *ngIf="item.mail === v.mail" class="reportAssist-item">
+                                    <span *ngIf="v.assistance">
+                                        <i *ngIf="v.boolMatch" [class.iconGreen]="v.boolMatch" class="fa fa-check-circle" aria-hidden="true"></i>
+                                        <i *ngIf="!v.boolMatch" [class.iconRed]="!v.boolMatch" class="fa fa-times-circle" aria-hidden="true" placement="top"
+                                            ngbPopover={{v.userAssist}}></i>
+                                        P</span>
+                                    <span *ngIf="!v.assistance">A</span>
+                                    </div>
                             </div>
+                        </td> 
                     </tr>
-                    <div *ngFor="let v of reporListDate">
-                        <td>{{v.assistance}}</td>
-                        <td></td>
-                    </div>
                 </tbody>
             </table>
         </div>
