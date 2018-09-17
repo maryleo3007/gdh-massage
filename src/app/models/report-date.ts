@@ -7,4 +7,5 @@ export class ReportDateModel {
     public assistance: boolean;
     public boolAny: boolean;
     public therapist: number;
+    public mail: string;
 }

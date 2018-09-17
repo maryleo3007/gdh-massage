@@ -323,7 +323,6 @@ export class ViewHomeComponent implements OnInit {
               this.reporListDate.push(y);
             });
             console.log(this.reporListDate);
-            
           });
         });
       });
@@ -506,7 +505,6 @@ export class ViewHomeComponent implements OnInit {
         }
       });
   }
-
 
   onSelectTurn3(user: UserModel, turn:TurnModel, modal): void{
 

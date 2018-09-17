@@ -18,7 +18,7 @@
         </select>
     </div>
     <div>
-        <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)">
+        <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)"
             <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue.id'>{{c.month}}</option>
         </select>
     </div> -->
@@ -61,23 +61,29 @@
             <table class="table table-sm table-bordered table-hover bg-white mt-2 ">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Correo</th>
-                        <th colspan="5">Asistencia</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Correo</th>
+                        <th class="text-center" colspan="5">Asistencia</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of report2List">
                         <td>{{item.name}} {{item.lastName}}</td>
                         <td>{{item.mail}}</td>
-                        <td>{{item.dates}}</td>
-                        
-                        <!-- <td>{{item.dates.hourEnd}}</td> -->
+                        <td>
+                            <div *ngFor="let v of arrayArray" class="reportAssist">
+                                <!-- <span *ngIf="item.mail === v.mail" class="reportAssist-item">{{v.userAssist}}</span> -->
+                                <div *ngIf="item.mail === v.mail" class="reportAssist-item">
+                                    <span *ngIf="v.assistance">
+                                        <i *ngIf="v.boolMatch" [class.iconGreen]="v.boolMatch" class="fa fa-check-circle" aria-hidden="true"></i>
+                                        <i *ngIf="!v.boolMatch" [class.iconRed]="!v.boolMatch" class="fa fa-times-circle" aria-hidden="true" placement="top"
+                                            ngbPopover={{v.userAssist}}></i>
+                                        P</span>
+                                    <span *ngIf="!v.assistance">A</span>
+                                    </div>
+                            </div>
+                        </td> 
                     </tr>
-                    <div *ngFor="let v of reporListDate">
-                        <td>{{v.assistance}}</td>
-                        <td></td>
-                    </div>
                 </tbody>
             </table>
         </div>
@@ -88,9 +94,8 @@
     <!-- <select [ngModel]="originalObject">
           <option *ngFor="let object of objects" [ngValue]="object" [selected]="object.uniqueId === originalObject.uniqueId">{{object.name}}</option>
       </select> -->
-
-
 </div>
+
 <div class="log-out d-flex align-items-end" *ngIf="!show">
     <p>No es tu ruta</p>
 </div>
