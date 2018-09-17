@@ -165,6 +165,7 @@ export class ViewAdminComponent implements OnInit {
         item.forEach(elem => {
           let x = elem.payload.toJSON();
           x['$key'] = elem.key;
+
           this.report2List.push(x);      
           this.report2Service.getReportsDate(elem.key)
           .snapshotChanges()
@@ -174,12 +175,12 @@ export class ViewAdminComponent implements OnInit {
               let y = e.payload.toJSON();
               y['$key'] = e.key;
 
-              this.reporListDate.push(y);
-              // console.log(this.report2List);
+               this.reporListDate.push(y);
+              console.log(this.report2List);
               
-            });
-              console.log(this.reporListDate);
+            }); 
           });
+          console.log(this.reporListDate);
         });
       });
   }
