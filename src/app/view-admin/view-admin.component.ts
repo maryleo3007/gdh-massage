@@ -120,7 +120,8 @@ export class ViewAdminComponent implements OnInit {
           }
           x['numbersDates'] = this.datesArray.length;
           x['userAssistRight'] = x['userAssistRight'].replace(/\b\w/g, l => l.toUpperCase());
-          this.reportList.push(x);          
+          this.reportList.push(x);     
+              
           } 
         })
         for (let index = 0; index < this.reportList.length; index++) {
@@ -157,6 +158,8 @@ export class ViewAdminComponent implements OnInit {
                 if(!this.report2List.includes(x)) {
                   this.report2List.push(x)   
                 }
+                console.log(this.arrayArray);
+                
               }
             });
           });
