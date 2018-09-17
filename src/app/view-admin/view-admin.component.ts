@@ -30,10 +30,6 @@ export class ViewAdminComponent implements OnInit {
   reportList2: any[];
   arrayArray: any[];
   id1: any = 0;
-  id2: any = 0;
-  id3: any = 0;
-  id4: any = 0;
-  id5: any = 0;
 
   // public valAsist: string;
 
@@ -162,9 +158,6 @@ export class ViewAdminComponent implements OnInit {
           });
         });        
       });
-
-      
-      
   }
 
   getDates(x) {
@@ -176,14 +169,45 @@ export class ViewAdminComponent implements OnInit {
   }
 
   selectYear(x) {
-    // x = this.selectedValueYear;
-    this.selectedValue.number
-    console.log(x.year.toString());
-    
   }
 
   selectMonth(x) {
-     x.number = this.selectedValue.number;
+  }
+
+  getRepostRequest(month,year) {
+    this.selectMonth(month);
+    this.selectYear(year);
+    let currentMonth = month.number;
+    let currentYear = year.year.toString();
+    this.report2Service.getReports2()
+      .snapshotChanges()
+      .subscribe(item =>{
+        this.report2List = [];
+        this.arrayArray = [];
+        item.forEach(elem => {
+          let x = elem.payload.toJSON();
+          x['$key'] = elem.key;  
+          this.report2Service.getReportsDate(elem.key)
+          .snapshotChanges()
+          .subscribe(item1 => {
+            this.reporListDate = [];
+            item1.forEach(e => {
+              let y = e.payload.toJSON();
+              y['$key'] = e.key;
+              this.reporListDate.push(y);
+            });       
+            this.reporListDate.forEach(element => {
+              if(element['dates'].substring(3) === `${currentMonth}/${currentYear}`) {
+                this.arrayArray.push(element);
+                if(!this.report2List.includes(x)) {
+                  this.report2List.push(x)   
+                }
+              }
+            });
+          });
+        });        
+      });
+
   }
 
   daysInMonth(month, year) {
