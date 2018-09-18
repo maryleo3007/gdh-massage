@@ -8,8 +8,8 @@ export const environment = {
   firebaseConfig: {
     apiKey: "AIzaSyDfxhEHVwu9U0ckIh9Nr30bZma0W8JKfMQ",
     authDomain: "gdh-masajes.firebaseapp.com",
-    // databaseURL: "https://gdh-masajes.firebaseio.com",
-    databaseURL: "https://desarrollo-gdh-masajes.firebaseio.com",
+    databaseURL: "https://gdh-masajes.firebaseio.com",
+    // databaseURL: "https://desarrollo-gdh-masajes.firebaseio.com",
     projectId: "gdh-masajes",
     storageBucket: "gdh-masajes.appspot.com",
     messagingSenderId: "300960399533"
