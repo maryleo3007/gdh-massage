@@ -29,6 +29,7 @@ export class ViewAdminComponent implements OnInit {
   cloneReport: any[];
   reportList2: any[];
   arrayArray: any[];
+  monthArray: any[];
   id1: any = 0;
 
   // public valAsist: string;
@@ -105,6 +106,7 @@ export class ViewAdminComponent implements OnInit {
         this.reportList = [];
         this.datesArray = [];
         this.cloneReport = [];
+        this.monthArray = [];
         item.forEach(elem => {
           let x = elem.payload.toJSON();
           x['$key'] = elem.key;
@@ -150,14 +152,27 @@ export class ViewAdminComponent implements OnInit {
             this.reporListDate.forEach(element => {
               if(element['dates'].substring(3) === `${this.selectedValue.number}/${this.selectedValueYear.year.toString()}`) {
                 this.arrayArray.push(element);
+                
                 if(!this.report2List.includes(x)) {
+                  Object.keys(x['dates']).length;
                   this.report2List.push(x)   
                 }
               }
+              this.arrayArray.forEach(elem => {
+                if(!this.monthArray.includes(elem['dates'])) {
+                  this.monthArray.push(elem['dates']);
+                }
+                
             });
+            // console.log(this.monthArray);
+
+              
+            })         
           });
-        });        
+        }); 
+               
       });
+      
   }
 
   getDates(x) {
@@ -204,10 +219,18 @@ export class ViewAdminComponent implements OnInit {
                 }
               }
             });
+            this.monthArray = []
+            this.arrayArray.forEach(elem => {
+
+              if(!this.monthArray.includes(elem['dates'])) {
+                
+                this.monthArray.push(elem['dates']);
+              }
+              
+          });
           });
         });        
       });
-
   }
 
   daysInMonth(month, year) {

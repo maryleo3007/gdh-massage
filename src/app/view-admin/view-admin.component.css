@@ -24,10 +24,12 @@ div.title span:nth-child(2) {
 div.administradora {
   color: var(--title-gray);
 }
+
 .reportAssist{
   display: inline-block;
   border-right: 1px solid #dee2e6;
 }
+
 .reportAssist-item{
   display: inline-block;
   width: 80px;
@@ -35,4 +37,21 @@ div.administradora {
   text-align: center;
   margin-top: -0.3rem;
   margin-bottom: -0.3rem;
+}
+
+.btn-search {
+  background-color: #1b3260;
+  color: #ebecee;
+}
+
+p.mt-2, .sign-out {
+  color: #1b3260;
+}
+
+.w-35 {
+  width: 30% !important;
+}
+
+.pt-5px {
+  padding-top: 5px;
 }
