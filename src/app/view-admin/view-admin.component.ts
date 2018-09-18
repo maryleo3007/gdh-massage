@@ -18,10 +18,12 @@ export class ViewAdminComponent implements OnInit {
   public show: boolean;
   public months: any[];
   public years: any[];
+  public days: any[];
   public selectedValue: any;
   public selectedValueYear: any;
   public currentMonth: any;
   public currentYear: number;
+  public dayOfMonthArr:any[];
   report2List: any[];
   reporListDate: any[];
   reportList: any[];
@@ -30,6 +32,7 @@ export class ViewAdminComponent implements OnInit {
   reportList2: any[];
   arrayArray: any[];
   id1: any = 0;
+  
 
   // public valAsist: string;
 
@@ -58,6 +61,8 @@ export class ViewAdminComponent implements OnInit {
     const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
       "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"
     ];
+
+    this.days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
     this.currentMonth = new Date().getMonth() + 1;
     if (this.currentMonth < 10) {
@@ -88,6 +93,8 @@ export class ViewAdminComponent implements OnInit {
       { id: 17, year: 2020 },
       { id: 18, year: 2021 }
     ]
+
+
 
     this.selectedValue = this.months[0];
     this.selectedValueYear = this.years[0];
@@ -149,13 +156,13 @@ export class ViewAdminComponent implements OnInit {
               this.reporListDate.push(y);
             });       
             this.reporListDate.forEach(element => {
+              console.log(element.dates);
+              
               if(element['dates'].substring(3) === `${this.selectedValue.number}/${this.selectedValueYear.year.toString()}`) {
                 this.arrayArray.push(element);
                 if(!this.report2List.includes(x)) {
                   this.report2List.push(x)   
                 }
-                console.log(this.arrayArray);
-                
               }
             });
           });
@@ -212,9 +219,4 @@ export class ViewAdminComponent implements OnInit {
       });
 
   }
-
-  daysInMonth(month, year) {
-    return new Date(year, month, 0).getDate();
-  }
-
 }

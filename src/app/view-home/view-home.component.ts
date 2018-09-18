@@ -322,10 +322,11 @@ export class ViewHomeComponent implements OnInit {
               y['$key'] = e.key;
               this.reporListDate.push(y);
             });
-            console.log(this.reporListDate);
           });
         });
       });
+
+      
   }
 
   ngOnDestroy() {
@@ -368,7 +369,7 @@ export class ViewHomeComponent implements OnInit {
 
     let send;
     send = {
-      subject: "Masajes antiestrés",
+      subject: "Masajes antiestrés - Terapeuta "+this.selectedTurn.therapistId,
       start: {
         dateTime: this.dateIni,
         timeZone: "GMT-0500"
@@ -412,7 +413,7 @@ export class ViewHomeComponent implements OnInit {
 
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
-      
+      this.selectedTurn.count++
       this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
 
       this.modalSelectTurn  = this.modalService.open(modal);
@@ -475,7 +476,7 @@ export class ViewHomeComponent implements OnInit {
     
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
-      
+      this.selectedTurn.count++
       this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
 
       this.modalSelectTurn  = this.modalService.open(modal);
@@ -533,7 +534,7 @@ export class ViewHomeComponent implements OnInit {
     
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
-      
+      this.selectedTurn.count++
       this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
 
       this.modalSelectTurn  = this.modalService.open(modal);
@@ -578,7 +579,7 @@ export class ViewHomeComponent implements OnInit {
       this.selectedUser.reserved = true;
       this.selectedTurn.confirm = true;
       this.selectedTurn.userName =  this.name;
-      this.selectedTurn.count++
+      
   
       this.primero.dateInscription = this.getDateFull();
       this.primero.hourStart = this.selectedTurn.hourStart;
@@ -603,6 +604,7 @@ export class ViewHomeComponent implements OnInit {
         this.selectedTurn.available = true;
         this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
         this.subsCounter.unsubscribe();
+        this.selectedTurn.count++
       });
 
     }
@@ -619,6 +621,7 @@ export class ViewHomeComponent implements OnInit {
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         this.subsCounter.unsubscribe();
+        
       });
     }else{
 
@@ -627,7 +630,6 @@ export class ViewHomeComponent implements OnInit {
   
       this.selectedTurn.confirm = true;
       this.selectedTurn.userName =  this.name;
-      this.selectedTurn.count++
   
       this.primero.dateInscription = this.getDateFull();
       this.primero.hourStart = this.selectedTurn.hourStart;
@@ -652,6 +654,7 @@ export class ViewHomeComponent implements OnInit {
         this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         this.subsCounter.unsubscribe();
+        this.selectedTurn.count++
       });
 
     }
@@ -675,7 +678,6 @@ export class ViewHomeComponent implements OnInit {
     
         this.selectedTurn.confirm = true;
         this.selectedTurn.userName =  this.name;
-        this.selectedTurn.count++
     
         this.primero.dateInscription = this.getDateFull();
         this.primero.hourStart = this.selectedTurn.hourStart;
@@ -700,6 +702,7 @@ export class ViewHomeComponent implements OnInit {
           this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
           this.subsCounter.unsubscribe();
+          this.selectedTurn.count++
         });
       }
   }
@@ -720,7 +723,7 @@ export class ViewHomeComponent implements OnInit {
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
     this.selectedTurn.userName = '';
-    this.selectedTurn.count--;
+    this.selectedTurn.count = 0;
     user.reserved = false;
     if (user.countReserved >= 1) {
       user.countReserved--;
@@ -741,7 +744,7 @@ export class ViewHomeComponent implements OnInit {
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
     this.selectedTurn.userName = '';
-    this.selectedTurn.count--;
+    this.selectedTurn.count = 0;
     user.reserved = false;
     if (user.countReserved >= 1) {
       user.countReserved--;
@@ -763,19 +766,19 @@ export class ViewHomeComponent implements OnInit {
     this.selectedTurn.available = true;
     this.selectedTurn.confirm = false;
     this.selectedTurn.userName = '';
-    this.selectedTurn.count--;
+    this.selectedTurn.count = 0;
     user.reserved = false;
     if (user.countReserved >= 1) {
       user.countReserved--;
     }
-    
-    
+
     this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
     this.updateUser(user.$key,user);
     this.onDelete(inscription.$key);
 
     this.modalSelectTurn.close();
     this.subsCounter.unsubscribe();
+   
     if(this.modalConfirm){
       this.modalConfirm.close();
       this.subsCounter.unsubscribe();
@@ -863,5 +866,7 @@ export class ViewHomeComponent implements OnInit {
 
     return this.today;
   }
+
+
 
 }
