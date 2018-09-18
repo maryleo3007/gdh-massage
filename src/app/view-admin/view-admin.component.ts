@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthFirebaseService } from './../services/auth-firebase.service';
 import { ReportService } from '../services/report.service';
 import { UserService } from './../services/user.service';
@@ -22,8 +22,8 @@ export class ViewAdminComponent implements OnInit {
   public selectedValue: any;
   public selectedValueYear: any;
   public currentMonth: any;
-  public currentYear: number;
-  public dayOfMonthArr:any[];
+  public currentYear: any;
+  public dayOfMonthArr: any[];
   report2List: any[];
   reporListDate: any[];
   reportList: any[];
@@ -33,7 +33,7 @@ export class ViewAdminComponent implements OnInit {
   arrayArray: any[];
   monthArray: any[];
   id1: any = 0;
-  
+
 
   // public valAsist: string;
 
@@ -70,9 +70,9 @@ export class ViewAdminComponent implements OnInit {
       this.currentMonth = '0' + this.currentMonth;
     }
     this.currentYear = new Date().getFullYear();
-  
+    this.currentYear = this.currentYear.toString();
+
     this.months = [
-      { id: 0, month: monthNames[parseInt(this.currentMonth)-1], number: this.currentMonth },
       { id: 1, month: monthNames[0], number: '01' },
       { id: 2, month: monthNames[1], number: '02' },
       { id: 3, month: monthNames[2], number: '03' },
@@ -88,20 +88,29 @@ export class ViewAdminComponent implements OnInit {
     ];
 
     this.years = [
-      { id: 14, year: this.currentYear },
-      { id: 15, year: 2018 },
-      { id: 16, year: 2019 },
-      { id: 17, year: 2020 },
-      { id: 18, year: 2021 }
+      { id: 15, year: '2018' },
+      { id: 16, year: '2019' },
+      { id: 17, year: '2020' },
+      { id: 18, year: '2021' }
     ]
 
+    for (let index = 0; index < this.months.length; index++) {
+      if (this.currentMonth === this.months[index].number) {
+        this.selectedValue = this.months[index]
+      }
+
+      for (let index = 0; index < this.years.length; index++) {
+        if (this.currentYear === this.years[index].year) {
+          this.selectedValueYear = this.years[index]
+        }
+      }
+    }
 
 
-    this.selectedValue = this.months[0];
-    this.selectedValueYear = this.years[0];
-    var currentDate = '/'+this.currentMonth+'/'+ this.currentYear
-    
-    
+    // this.selectedValue = this.months[0];
+    var currentDate = '/' + this.currentMonth + '/' + this.currentYear
+
+
     this.years.forEach(element => {
       if (element.year === this.currentYear) {
       }
@@ -117,72 +126,67 @@ export class ViewAdminComponent implements OnInit {
         item.forEach(elem => {
           let x = elem.payload.toJSON();
           x['$key'] = elem.key;
-          if(x['date'].substring(3) === `${this.selectedValue.number}/${this.selectedValueYear.year.toString()}`) {
-            if(!(this.datesArray.includes(x['mail']))) {  
-              this.datesArray.push(x['mail']);         
-          } else {
-            this.id1 = this.id1 + 1; 
+          if (x['date'].substring(3) === `${this.selectedValue.number}/${this.selectedValueYear.year.toString()}`) {
+            if (!(this.datesArray.includes(x['mail']))) {
+              this.datesArray.push(x['mail']);
+            } else {
+              this.id1 = this.id1 + 1;
+            }
+            x['numbersDates'] = this.datesArray.length;
+            x['userAssistRight'] = x['userAssistRight'].replace(/\b\w/g, l => l.toUpperCase());
+            this.reportList.push(x);
+
           }
-          x['numbersDates'] = this.datesArray.length;
-          x['userAssistRight'] = x['userAssistRight'].replace(/\b\w/g, l => l.toUpperCase());
-          this.reportList.push(x);     
-              
-          } 
         })
         for (let index = 0; index < this.reportList.length; index++) {
           var x = 0;
           const element = this.reportList[index];
           this.cloneReport.push(element);
-          if(element === this.cloneReport[index]) {
+          if (element === this.cloneReport[index]) {
             x = x + 1;
-          }         
-        } 
-      })  
-      
-      //get reports2
-      this.report2Service.getReports2()
+          }
+        }
+      })
+
+    //get reports2
+    this.report2Service.getReports2()
       .snapshotChanges()
-      .subscribe(item =>{
+      .subscribe(item => {
         this.report2List = [];
         this.arrayArray = [];
         item.forEach(elem => {
           let x = elem.payload.toJSON();
-          x['$key'] = elem.key;  
+          x['$key'] = elem.key;
           this.report2Service.getReportsDate(elem.key)
-          .snapshotChanges()
-          .subscribe(item1 => {
-            this.reporListDate = [];
-            item1.forEach(e => {
-              let y = e.payload.toJSON();
-              y['$key'] = e.key;
-              this.reporListDate.push(y);
-            });       
-            this.reporListDate.forEach(element => {
-              console.log(element.dates);
-              
-              if(element['dates'].substring(3) === `${this.selectedValue.number}/${this.selectedValueYear.year.toString()}`) {
-                this.arrayArray.push(element);
-                
-                if(!this.report2List.includes(x)) {
-                  Object.keys(x['dates']).length;
-                  this.report2List.push(x)   
-                }
-              }
-              this.arrayArray.forEach(elem => {
-                if(!this.monthArray.includes(elem['dates'])) {
-                  this.monthArray.push(elem['dates']);
-                }
-                
-            });
-            // console.log(this.monthArray);
+            .snapshotChanges()
+            .subscribe(item1 => {
+              this.reporListDate = [];
+              item1.forEach(e => {
+                let y = e.payload.toJSON();
+                y['$key'] = e.key;
+                this.reporListDate.push(y);
+              });
+              this.reporListDate.forEach(element => {
+                if (element['dates'].substring(3) === `${this.selectedValue.number}/${this.selectedValueYear.year.toString()}`) {
+                  this.arrayArray.push(element);
 
-              
-            })         
-          });
-        }); 
-               
+                  if (!this.report2List.includes(x)) {
+                    Object.keys(x['dates']).length;
+                    this.report2List.push(x)
+                  }
+                }
+                this.arrayArray.forEach(elem => {
+                  if (!this.monthArray.includes(elem['dates'])) {
+                    this.monthArray.push(elem['dates']);
+                  }
+                });
+                // console.log(this.monthArray);
+              })
+            });
+        });
+
       });
-      
+
   }
 
   getDates(x) {
@@ -199,47 +203,45 @@ export class ViewAdminComponent implements OnInit {
   selectMonth(x) {
   }
 
-  getRepostRequest(month,year) {
+  getRepostRequest(month, year) {
     this.selectMonth(month);
     this.selectYear(year);
     let currentMonth = month.number;
-    let currentYear = year.year.toString();
+    let currentYear = year.year;
     this.report2Service.getReports2()
       .snapshotChanges()
-      .subscribe(item =>{
+      .subscribe(item => {
         this.report2List = [];
         this.arrayArray = [];
         item.forEach(elem => {
           let x = elem.payload.toJSON();
-          x['$key'] = elem.key;  
+          x['$key'] = elem.key;
           this.report2Service.getReportsDate(elem.key)
-          .snapshotChanges()
-          .subscribe(item1 => {
-            this.reporListDate = [];
-            item1.forEach(e => {
-              let y = e.payload.toJSON();
-              y['$key'] = e.key;
-              this.reporListDate.push(y);
-            });       
-            this.reporListDate.forEach(element => {
-              if(element['dates'].substring(3) === `${currentMonth}/${currentYear}`) {
-                this.arrayArray.push(element);
-                if(!this.report2List.includes(x)) {
-                  this.report2List.push(x)   
+            .snapshotChanges()
+            .subscribe(item1 => {
+              this.reporListDate = [];
+              item1.forEach(e => {
+                let y = e.payload.toJSON();
+                y['$key'] = e.key;
+                this.reporListDate.push(y);
+              });
+              this.reporListDate.forEach(element => {
+                if (element['dates'].substring(3) === `${currentMonth}/${currentYear}`) {
+                  this.arrayArray.push(element);
+                  if (!this.report2List.includes(x)) {
+                    this.report2List.push(x)
+                  }
                 }
-              }
-            });
-            this.monthArray = []
-            this.arrayArray.forEach(elem => {
+              });
+              this.monthArray = []
+              this.arrayArray.forEach(elem => {
+                if (!this.monthArray.includes(elem['dates'])) {
+                  this.monthArray.push(elem['dates']);
+                }
 
-              if(!this.monthArray.includes(elem['dates'])) {
-                
-                this.monthArray.push(elem['dates']);
-              }
-              
-          });
-          });
-        });        
+              });
+            });
+        });
       });
   }
 }
