@@ -12,93 +12,63 @@
             <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
         </div>
     </nav>
-    <div>
-        <select *ngIf="years" [(ngModel)]="selectedValueYear" (ngModelChange)="selectYear($event)">
-            <option *ngFor="let c of years" [ngValue]="c" [selected]='c.year === selectedValueYear'>{{c.year}}</option>
-        </select>
+    <div class="container mt-4 mb-3">
+        <div class="row d-flex justify-content-start">            
+            <div class="col-2 d-flex justify-content-around">
+                <p class="mt-2 mr-2 font-weight-bold">Mes </p>
+
+                <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)" class="custom-select input-group">
+                    <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue.id'>{{c.month}}</option>
+                </select>
+            </div>
+            <div class="col-2 d-flex justify-content-around">
+                    <p class="mt-2 mr-2  font-weight-bold">Año </p>
+                    <select *ngIf="years" [(ngModel)]="selectedValueYear" (ngModelChange)="selectYear($event)" class="custom-select input-group">
+    
+                        <option *ngFor="let c of years" [ngValue]="c" [selected]='c.year === selectedValueYear'>{{c.year}}</option>
+                    </select>
+                </div>
+            <div class="col-1">
+                <button class="btn btn-search font-weight-bold" (click)="getRepostRequest(selectedValue, selectedValueYear)">Buscar</button>
+            </div>
+        </div>
     </div>
-    <div>
-        <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)">
-            <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue.id'>{{c.month}}</option>
-        </select>
-    </div>
-    <div>
-            <button (click)="getRepostRequest(selectedValue, selectedValueYear)">Buscar</button>
-    </div>
+
     <div class="container">
         <div class="row">
-            <!-- <div class="col-10 mx-auto">
-                <table *ngIf="reportList" class="table table-sm table-bordered table-hover bg-white mt-2 ">
-                    <thead class="text-center">
-                        <tr>
-                            <th scope="col" class="hora">Nombre y Apellido</th>
-                            <th scope="col" class="nombre">Correo</th>
-                            <th scope="col" colspan="5" class="codigo">Asistencia</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-left">
-                        <tr *ngFor="let item of reportList">
-                            <td class="pl-4">{{ item.userAssistRight }} {{item.lastName}}</td>
-                            <td class="pl-4">{{item.mail}}</td>
-                            <td>
-                                <span *ngIf="item.assistance">
-                                    <i *ngIf="item.boolMatch" [class.iconGreen]="item.boolMatch" class="fa fa-check-circle" aria-hidden="true"></i>
-                                    <i *ngIf="!item.boolMatch" [class.iconRed]="!item.boolMatch" class="fa fa-times-circle" aria-hidden="true" placement="top"
-                                        ngbPopover={{item.userAssist}}></i>
-
-                                    P</span>
-                                <span *ngIf="!item.assistance">A</span>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> -->
             <table class="table table-sm table-bordered table-hover bg-white mt-2 ">
                 <thead>
                     <tr>
                         <th class="text-center">Nombre</th>
-                        <th class="text-center">Correo</th>
+                        <th class="text-center w-35">Correo</th>
                         <th class="text-center" colspan="5">Asistencia</th>
-                        
                     </tr>
                 </thead>
                 <tbody>
-                    
                     <tr *ngFor="let item of report2List">
-                        <td>{{item.name}} {{item.lastName}}</td>
-                        <td>{{item.mail}}</td>
-                        <td>
-                            <div *ngFor="let v of arrayArray" class="reportAssist">
-                                <!-- <span *ngIf="item.mail === v.mail" class="reportAssist-item">{{v.userAssist}}</span> -->
+                        <td class="pt-5px">{{item.name}} {{item.lastName}}</td>
+                        <td class="pt-5px">{{item.mail}}</td>
+                        <td class="pt-5px">
+                            <div *ngFor="let v of arrayArray" class="reportAssist ">
                                 <div *ngIf="item.mail === v.mail" class="reportAssist-item">
                                     <span *ngIf="v.assistance">
-                                        <i *ngIf="v.boolMatch" [class.iconGreen]="v.boolMatch" class="fa fa-check-circle" aria-hidden="true"></i>
-                                        <i *ngIf="!v.boolMatch" [class.iconRed]="!v.boolMatch" class="fa fa-times-circle" aria-hidden="true" placement="top"
-                                            ngbPopover={{v.userAssist}}></i>
+                                        <i *ngIf="v.boolMatch" [class.iconGreen]="v.boolMatch" class="fa fa-check-circle"
+                                            aria-hidden="true"></i>
+                                        <i *ngIf="!v.boolMatch" [class.iconRed]="!v.boolMatch" class="fa fa-times-circle"
+                                            aria-hidden="true" placement="top" ngbPopover={{v.userAssist}}></i>
                                         P</span>
-                                    <span *ngIf="!v.assistance">A</span>
-                                    </div>
+                                    <span *ngIf="!v.assistance" class="">A</span>
+                                </div>
                             </div>
-                        </td> 
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
     <div>
-        <a class="nav-link" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
+        <a class="nav-link sign-out" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
     </div>
-    <!-- <select [ngModel]="originalObject">
-          <option *ngFor="let object of objects" [ngValue]="object" [selected]="object.uniqueId === originalObject.uniqueId">{{object.name}}</option>
-      </select> -->
 </div>
 
 <div class="log-out d-flex align-items-end" *ngIf="!show">
