@@ -14,21 +14,20 @@
     </nav>
     <div class="container mt-4 mb-3">
         <div class="row d-flex justify-content-start">            
-            <div class="col-2 d-flex justify-content-around">
+            <div class="col-2 col-md-3 d-flex justify-content-around">
                 <p class="mt-2 mr-2 font-weight-bold">Mes </p>
 
-                <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)" class="custom-select input-group">
-                    <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue.id'>{{c.month}}</option>
+                <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)" class="custom-select">
+                    <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue.id' class="select-month py-4">{{c.month}}</option>
                 </select>
             </div>
-            <div class="col-2 d-flex justify-content-around">
+            <div class="col-2 col-md-3 d-flex justify-content-around">
                     <p class="mt-2 mr-2  font-weight-bold">Año </p>
-                    <select *ngIf="years" [(ngModel)]="selectedValueYear" (ngModelChange)="selectYear($event)" class="custom-select input-group">
-    
-                        <option *ngFor="let c of years" [ngValue]="c" [selected]='c.year === selectedValueYear'>{{c.year}}</option>
+                    <select *ngIf="years" [(ngModel)]="selectedValueYear" (ngModelChange)="selectYear($event)" class="custom-select">
+                        <option *ngFor="let c of years" [ngValue]="c" [selected]='c.year === selectedValueYear' class="select-year py-4">{{c.year}}</option>
                     </select>
                 </div>
-            <div class="col-1">
+            <div class="col-1 col-md-2">
                 <button class="btn btn-search font-weight-bold" (click)="getRepostRequest(selectedValue, selectedValueYear)">Buscar</button>
             </div>
         </div>
@@ -39,25 +38,25 @@
             <table class="table table-sm table-bordered table-hover bg-white mt-2 ">
                 <thead>
                     <tr>
-                        <th class="text-center">Nombre</th>
+                        <th class="text-center w-35">Nombre</th>
                         <th class="text-center w-35">Correo</th>
                         <th class="text-center" colspan="5">Asistencia</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of report2List">
-                        <td class="pt-5px">{{item.name}} {{item.lastName}}</td>
-                        <td class="pt-5px">{{item.mail}}</td>
+                        <td class="pt-5px pl-2">{{item.name}} {{item.lastName}}</td>
+                        <td class="pt-5px pl-2">{{item.mail}}</td>
                         <td class="pt-5px">
-                            <div *ngFor="let v of arrayArray" class="reportAssist ">
-                                <div *ngIf="item.mail === v.mail" class="reportAssist-item">
+                            <div *ngFor="let v of arrayArray" class="d-inline">
+                                <div *ngIf="item.mail === v.mail" [ngClass]="{'reportAssist': item.mail !== v.mail}" class="reportAssist-item">
                                     <span *ngIf="v.assistance">
                                         <i *ngIf="v.boolMatch" [class.iconGreen]="v.boolMatch" class="fa fa-check-circle"
                                             aria-hidden="true"></i>
                                         <i *ngIf="!v.boolMatch" [class.iconRed]="!v.boolMatch" class="fa fa-times-circle"
                                             aria-hidden="true" placement="top" ngbPopover={{v.userAssist}}></i>
                                         P</span>
-                                    <span *ngIf="!v.assistance" class="">A</span>
+                                    <span *ngIf="!v.assistance">A</span>
                                 </div>
                             </div>
                         </td>

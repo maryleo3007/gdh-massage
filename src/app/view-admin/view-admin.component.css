@@ -32,11 +32,12 @@ div.administradora {
 
 .reportAssist-item{
   display: inline-block;
-  width: 80px;
+  width: 70px;
   line-height: 35px;
   text-align: center;
   margin-top: -0.3rem;
   margin-bottom: -0.3rem;
+  border-right: 1px solid #dee2e6;
 }
 
 .btn-search {
@@ -49,9 +50,13 @@ p.mt-2, .sign-out {
 }
 
 .w-35 {
-  width: 30% !important;
+  width: 35% !important;
 }
 
 .pt-5px {
   padding-top: 5px;
 }
+
+option.select-year, option.select-month {
+  font-size: 1.095rem !important;
+} 
