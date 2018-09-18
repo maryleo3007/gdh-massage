@@ -4,4 +4,5 @@ export class UserModel {
     public reserved: boolean;
     public countReserved: number;
     public countAgendas: number;
+    public messageEvent: string;
 }

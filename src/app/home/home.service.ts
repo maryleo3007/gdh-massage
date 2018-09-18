@@ -48,6 +48,24 @@ export class HomeService {
     );
   }
 
+  getEventMe():Observable<MicrosoftGraph.Event>{
+    var client = this.getClient();
+    return Observable.fromPromise( client
+      .api('me/events')
+      .select('subject, start, end')
+      .get()
+      .then((res=>{
+        return res;
+      }))
+    )};
+
+  deleteEventMe(id: string) {
+    var client = this.getClient();
+    return Observable.fromPromise(client
+      .api('me/events/'+id)
+      .delete()
+  )};
+
   sendMail(mail: MicrosoftGraph.Message) {
     var client = this.getClient();
     return Observable.fromPromise(client

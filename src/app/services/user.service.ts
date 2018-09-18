@@ -24,7 +24,8 @@ export class UserService {
       mail: user.mail,
       reserved: user.reserved,
       countReserved: user.countReserved,
-      countAgendas: user.countAgendas
+      countAgendas: user.countAgendas,
+      messageEvent: user.messageEvent
     });
   }
 
@@ -33,7 +34,8 @@ export class UserService {
       mail: user.mail,
       reserved: user.reserved,
       countReserved: user.countReserved,
-      countAgendas: user.countAgendas
+      countAgendas: user.countAgendas,
+      messageEvent: user.messageEvent
     });
   }
 

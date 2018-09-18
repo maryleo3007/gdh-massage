@@ -450,9 +450,9 @@
               <div *ngIf="selectedTurn.count > 1 && selectedTurn.confirm == true">
                     
                     <h4 class="modal-title text-modal mr-5 ml-5 text-center">
-                    Tu turno de masajes
+                    Tienes una reserva confirmada,
                     <br>
-                    es de <strong>{{selectedTurn.hourStart}}</strong> - <strong>{{selectedTurn.hourEnd}}</strong>
+                    de <strong>{{selectedTurn.hourStart}}</strong> - <strong>{{selectedTurn.hourEnd}}</strong>
                     </h4>
               </div>
           </div>
@@ -463,7 +463,6 @@
                         <button *ngIf="userItem.countReserved < 1" type="button" class="btn-agendar mt-3" (click)="onSendCalendar(userItem)">Agendar </button>
                         <button *ngIf="userItem.countReserved >= 1"  type="button" class="btn-agendar mt-3" disabled (click)="onSendCalendar(userItem)">Agendar </button>
                         <div *ngIf="userItem.countReserved >= 1" class="event-notification">Se ha agendado en tu calendario</div>
-                        <div *ngIf="userItem.countAgendas > 1" class="event-notification">No olvides eliminar de tu calendario tu agenda anterior</div>
                     </div>
                 </div>
                 <div class="text-center mt-4 mb-4">

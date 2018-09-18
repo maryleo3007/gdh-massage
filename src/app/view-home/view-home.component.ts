@@ -32,14 +32,18 @@ import { log } from 'util';
 export class ViewHomeComponent implements OnInit {
   @ViewChild(ToastContainerDirective) toastContainer: ToastContainerDirective;
   private _success = new Subject<string>();
-  events: MicrosoftGraph.Event[];
+  events: MicrosoftGraph.Event;
   me: MicrosoftGraph.User;
   message: MicrosoftGraph.Message;
   emailSent: Boolean;
   calendarSent: Boolean;
   subsGetUsers: Subscription;
   subsGetMe: Subscription;
+  subsGetEventsMe: Subscription;
   subsSendMail: Subscription;
+  send: MicrosoftGraph.Event;
+  subsSendCalendar: Subscription;
+  subsCounter: Subscription;
   dateIni: any;
   dateFin: any;
   terapeuta1: any[];
@@ -76,6 +80,7 @@ export class ViewHomeComponent implements OnInit {
   progres: boolean;
   messageAuth: boolean;
 
+
   
   primero: InscripcionModel = {
     $key:'',
@@ -110,7 +115,8 @@ export class ViewHomeComponent implements OnInit {
     mail: '',
     reserved: false,
     countReserved: 0,
-    countAgendas: 0
+    countAgendas: 0,
+    messageEvent:''
   }
 
   turno: TurnModel = {
@@ -132,9 +138,7 @@ export class ViewHomeComponent implements OnInit {
   //   mail:''
   // }
 
-  send: MicrosoftGraph.Event;
-  subsSendCalendar: Subscription;
-  subsCounter: Subscription;
+  
 
   constructor(
     private homeService: HomeService,
@@ -217,7 +221,10 @@ export class ViewHomeComponent implements OnInit {
           });
         });
       } 
+
     });
+
+    
     
     // send name and nameUser to local storage
     localStorage.setItem('name', this.name);
@@ -326,7 +333,10 @@ export class ViewHomeComponent implements OnInit {
         });
       });
 
-      
+      let dateCurrent = new Date();
+      let hourCurrent = dateCurrent.getHours();
+      let minuteCurrent = dateCurrent.getMinutes();
+
   }
 
   ngOnDestroy() {
@@ -365,10 +375,12 @@ export class ViewHomeComponent implements OnInit {
 
     user.countReserved++;
     user.countAgendas++;
+    user.messageEvent = "Masajes antiestrés - Terapeuta "+this.selectedTurn.therapistId;
     this.updateUser(user.$key, user);
 
     let send;
     send = {
+      iCalUId: this.selectedUser.mail+"-"+this.selectedTurn.hourStart+"-"+this.selectedTurn.hourEnd,
       subject: "Masajes antiestrés - Terapeuta "+this.selectedTurn.therapistId,
       start: {
         dateTime: this.dateIni,
@@ -378,7 +390,7 @@ export class ViewHomeComponent implements OnInit {
         dateTime: this.dateFin,
         timeZone: "GMT-0500"
       }
-  }
+    }
 
     this.send = send;
     this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
@@ -728,6 +740,18 @@ export class ViewHomeComponent implements OnInit {
     if (user.countReserved >= 1) {
       user.countReserved--;
     }
+
+    this.subsGetEventsMe = this.homeService.getEventMe().subscribe( ObjEventsMe => {
+      let arrayEvents = [];
+      let idDelete = '';
+      arrayEvents = ObjEventsMe['value'];
+      arrayEvents.forEach(elem =>{
+        if (elem.subject === user.messageEvent) {
+          this.homeService.deleteEventMe(elem.id);
+        }
+      });
+    });
+
     this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
     this.updateUser(user.$key,user);
     this.onDelete(inscription.$key);   
@@ -749,6 +773,18 @@ export class ViewHomeComponent implements OnInit {
     if (user.countReserved >= 1) {
       user.countReserved--;
     }
+
+    this.subsGetEventsMe = this.homeService.getEventMe().subscribe( ObjEventsMe => {
+      let arrayEvents = [];
+      let idDelete = '';
+      arrayEvents = ObjEventsMe['value'];
+      arrayEvents.forEach(elem =>{
+        if (elem.subject === user.messageEvent) {
+          this.homeService.deleteEventMe(elem.id);
+        }
+      });
+    });
+
     this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
     this.updateUser(user.$key,user);
     this.onDelete(inscription.$key);
@@ -771,6 +807,17 @@ export class ViewHomeComponent implements OnInit {
     if (user.countReserved >= 1) {
       user.countReserved--;
     }
+
+    this.subsGetEventsMe = this.homeService.getEventMe().subscribe( ObjEventsMe => {
+      let arrayEvents = [];
+      let idDelete = '';
+      arrayEvents = ObjEventsMe['value'];
+      arrayEvents.forEach(elem =>{
+        if (elem.subject === user.messageEvent) {
+          this.homeService.deleteEventMe(elem.id);
+        }
+      });
+    });
 
     this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
     this.updateUser(user.$key,user);
