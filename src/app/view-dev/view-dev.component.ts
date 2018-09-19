@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthFirebaseService } from './../services/auth-firebase.service';
 import { InscriptionService } from '../services/inscription.service';
+import { TurnosService } from './../services/turnos.service';
+import { TurnModel } from './../models/turns';
 
 
 @Component({
@@ -13,11 +15,16 @@ export class ViewDevComponent implements OnInit {
   public emailUser: string;
   public show: boolean;
   inscriptionList: any[];
+  terapeuta1: any[];
+  terapeuta2: any[];
+  terapeuta3: any[];
+  
 
 
   constructor(
     private authFirebaseService: AuthFirebaseService,
     private inscriptionService: InscriptionService,
+    private turnoService: TurnosService
   ) { }
 
   ngOnInit() {
@@ -44,9 +51,47 @@ export class ViewDevComponent implements OnInit {
         x["$key"] = elem.key;
         this.inscriptionList.push(x)
       })
-      // console.log(this.inscriptionList);
-      
     })
+
+    // get therappist list - turns 
+    this.turnoService.getTurnosT1()
+      .snapshotChanges()
+      .subscribe(item => {   
+        this.terapeuta1 = [];
+        item.forEach(elem => {
+          let x = elem.payload.toJSON();
+          x["$key"] = elem.key;
+          this.terapeuta1.push(x);
+        });
+        console.log(this.terapeuta1);
+        
+      });
+
+      this.turnoService.getTurnosT2()
+      .snapshotChanges()
+      .subscribe(item => {
+        this.terapeuta2 = [];
+        item.forEach(elem => {
+          let x = elem.payload.toJSON();
+          x["$key"] = elem.key;
+          this.terapeuta2.push(x);
+        });
+        console.log(this.terapeuta2);
+        
+      });
+
+      this.turnoService.getTurnosT3()
+      .snapshotChanges()
+      .subscribe(item => {
+        this.terapeuta3 = [];
+        item.forEach(elem => {
+          let x = elem.payload.toJSON();
+          x["$key"] = elem.key;
+          this.terapeuta3.push(x);
+        });
+        console.log(this.terapeuta3);
+        
+      });
   }
 
   logoutUser() {
@@ -58,6 +103,12 @@ export class ViewDevComponent implements OnInit {
       this.inscriptionService.deleteInscription(element['$key'])
       
     });
+  }
+
+  updateTurnsT1() {
+    this.terapeuta1.forEach( element => {
+      this.turnoService.updatet1Turn1(element['$key']);
+    })
   }
 
 }

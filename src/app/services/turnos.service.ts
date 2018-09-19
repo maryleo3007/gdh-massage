@@ -85,4 +85,13 @@ export class TurnosService {
       count:turn.count
     });
   }
+
+  updatet1Turn1($key:string) {
+    this.terapeuta1.update($key, {
+      available: true,
+      confirm: false,
+      userName: '',
+      count: 0
+    })
+  }
 }
