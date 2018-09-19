@@ -33,11 +33,15 @@ export class LoginFbComponent implements OnInit {
           ) {
             this.router.navigate(['/admin']);
           } else if (
-            auth.email === 'coordinadora@inteligogroup.com' ||
-            auth.email === 'acabrera@inteligogroup.com' 
+            auth.email === 'coordinadora@inteligogroup.com'
           ) {
             this.router.navigate(['/coordi']);
-          } 
+          } else if (
+            auth.email === 'acabrera@inteligogroup.com' ||
+            auth.email === 'mllamocca@inteligogroup.com'
+          ) {
+            this.router.navigate(['/dev']);
+          }
         });
       })
       .catch(err => {

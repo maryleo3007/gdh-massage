@@ -1,0 +1,9 @@
+<div *ngIf="show">
+  <p>componnet dev</p>
+  <div>
+    <a class="nav-link sign-out" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
+</div>
+</div>
+<div class="log-out d-flex align-items-end" *ngIf="!show">
+  <p>No es tu ruta</p>
+</div>
