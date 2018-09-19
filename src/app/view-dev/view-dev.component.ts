@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthFirebaseService } from './../services/auth-firebase.service';
+import { InscriptionService } from '../services/inscription.service';
+
 
 @Component({
   selector: 'app-view-dev',
@@ -10,10 +12,12 @@ export class ViewDevComponent implements OnInit {
   public isLogin: boolean;
   public emailUser: string;
   public show: boolean;
+  inscriptionList: any[];
 
 
   constructor(
     private authFirebaseService: AuthFirebaseService,
+    private inscriptionService: InscriptionService,
   ) { }
 
   ngOnInit() {
@@ -29,10 +33,31 @@ export class ViewDevComponent implements OnInit {
         }
       }
     });
+
+    // get inscriptions
+    this.inscriptionService.getInscriptions()
+    .snapshotChanges()
+    .subscribe(item => {
+      this.inscriptionList = [];
+      item.forEach( elem => {
+        let x = elem.payload.toJSON();
+        x["$key"] = elem.key;
+        this.inscriptionList.push(x)
+      })
+      // console.log(this.inscriptionList);
+      
+    })
   }
 
   logoutUser() {
     this.authFirebaseService.logout();
+  }
+
+  deleteListInscription() {
+    this.inscriptionList.forEach(element => {
+      this.inscriptionService.deleteInscription(element['$key'])
+      
+    });
   }
 
 }
