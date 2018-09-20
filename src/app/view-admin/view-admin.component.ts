@@ -165,7 +165,10 @@ export class ViewAdminComponent implements OnInit {
                 let y = e.payload.toJSON();
                 y['$key'] = e.key;
                 this.reporListDate.push(y);
+                
               });
+              
+              
               this.reporListDate.forEach(element => {
                 if (element['dates'].substring(3) === `${this.selectedValue.number}/${this.selectedValueYear.year.toString()}`) {
                   this.arrayArray.push(element);
@@ -175,6 +178,8 @@ export class ViewAdminComponent implements OnInit {
                     this.report2List.push(x)
                   }
                 }
+                
+                
                 this.arrayArray.forEach(elem => {
                   if (!this.monthArray.includes(elem['dates'])) {
                     this.monthArray.push(elem['dates']);

@@ -26,6 +26,11 @@ export class Report2Service {
     return this.reportListDate;
   }
 
+  getReportsDate0($key){
+    this.reportListDate = this.firebase.list('report2/'+$key+'/dates/0');
+    return this.reportListDate;
+  }
+
   insertReport2(report: Report2Model) {
     this.report2List.push({
       dates: report.dates,
@@ -56,6 +61,11 @@ export class Report2Service {
       mail: report.mail,
       name: report.name
     });
+  }
+
+  deleteReportDate0($key){
+    this.reportListDate = this.firebase.list('report2/'+$key+'/dates');
+    this.reportListDate.remove('0');
   }
 
 }
