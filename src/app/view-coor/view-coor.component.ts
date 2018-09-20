@@ -80,7 +80,7 @@ export class ViewCoorComponent implements OnInit {
     if (mm < 10) {
       mm = '0' + mm;
     }
-    this.actualDate = '18' + '/' + mm + '/' + yyyy;
+    this.actualDate = dd + '/' + mm + '/' + yyyy;
 
     // get inscriptions
     this.inscriptionService.getInscriptions()

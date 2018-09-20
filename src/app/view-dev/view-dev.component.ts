@@ -131,7 +131,6 @@ export class ViewDevComponent implements OnInit {
   updateUserReset() {
     this.userList.forEach( element => {
       this.userService.updateUserReset(element['$key']);
-      
     })    
   }
 
