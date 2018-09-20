@@ -464,11 +464,11 @@ export class ViewHomeComponent implements OnInit {
 
   onSelectTurn2(user: UserModel, turn:TurnModel, modal): void{
 
-    let userExist  = false;
+      let userExist  = false;
     
       let report2 : Report2Model = {
         $key:'',
-        dates: [''],
+        dates: ['report1234'] ,
         name: this.userName,
         lastName:this.lastName,
         mail: this.mail
@@ -525,7 +525,7 @@ export class ViewHomeComponent implements OnInit {
 
       let report2 : Report2Model = {
         $key:'',
-        dates: [''],
+        dates: ['report1234'] ,
         name: this.userName,
         lastName:this.lastName,
         mail: this.mail
