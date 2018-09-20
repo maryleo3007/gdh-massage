@@ -245,7 +245,7 @@ export class ViewCoorComponent implements OnInit {
       console.log(this.report2List[''+index]);
       console.log(this.report2List['1'].dates['0']);
       
-      if (this.report2List[''+index].dates['0']) {
+      if (this.report2List[''+index].dates['0'] !== 'undefined') {
         if (this.report2List[''+index].dates['0'] == 'report1234') {
           this.report2Service.deleteReportDate0(this.report2List[''+index].$key);
         }
