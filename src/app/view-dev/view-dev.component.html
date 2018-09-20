@@ -1,0 +1,38 @@
+<div *ngIf="show" class="main-container">
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="col-3 text-left coordinadora">
+          <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
+        </div>
+        <div class="col-6 text-center title">
+          <span>Masajes Antiestrés</span>
+          <span>| Dev</span>
+        </div>
+        <div class="col-3 text-right log-out">
+            <a  href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
+        </div>
+      </nav>
+  <div class="container">
+    <div class="row pt-5">
+      
+      <div class="col-4 text-center">
+        <button class="btn btn-lg btn-confirm w-auto" (click)="deleteListInscription()">Borrar Inscripciones</button>
+      </div>
+      <div class="col-4 text-center">
+        <button class="btn btn-lg btn-confirm w-auto" (click)="updateTurnsT1()">Resetear turnos</button>
+      </div>
+      <div class="col-4 text-center">
+        <button class="btn btn-lg btn-confirm w-auto" (click)="updateUserReset()">Resetear Usuarios</button>
+      </div>
+    </div>
+  </div>
+
+  
+</div>
+<div class="d-flex justify-content-center" *ngIf="!show">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Esta dirección no esta disponible</h1>
+          <a class="nav-link sign-out" href="javascript:window.history.back();"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Volver</a>
+        </div>
+      </div>
+</div>

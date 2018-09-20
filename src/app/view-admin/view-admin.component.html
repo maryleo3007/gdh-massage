@@ -70,6 +70,11 @@
     </div>
 </div>
 
-<div class="log-out d-flex align-items-end" *ngIf="!show">
-    <p>No es tu ruta</p>
+<div class="d-flex justify-content-center" *ngIf="!show">
+        <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                  <h1 class="display-4">Esta dirección no esta disponible</h1>
+                        <a class="nav-link sign-out" href="javascript:window.history.back();"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Volver</a>
+                </div>
+              </div>
 </div>
