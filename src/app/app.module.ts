@@ -21,6 +21,7 @@ import { LoginFbComponent } from './login-fb/login-fb.component';
 import { ViewCoorComponent } from './view-coor/view-coor.component';
 import { ViewAdminComponent } from './view-admin/view-admin.component';
 import { ViewLoginComponent } from './view-login/view-login.component';
+import { ViewDevComponent } from './view-dev/view-dev.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 import { HttpService } from './shared/http.service';
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'login', component: LoginFbComponent },
   { path: 'coordi', component: ViewCoorComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: ViewAdminComponent, canActivate: [AuthGuard] },
+  { path: 'dev', component: ViewDevComponent, canActivate: [AuthGuard]},
   {path: '**', component: NotFoundPageComponent}
 ];
 
@@ -65,7 +67,8 @@ const routes: Routes = [
     LoginFbComponent,
     ViewCoorComponent,
     ViewAdminComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    ViewDevComponent
   ],
   imports: [
     AngularFireAuthModule,
