@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthFirebaseService } from './../services/auth-firebase.service';
 import { InscriptionService } from '../services/inscription.service';
 import { TurnosService } from './../services/turnos.service';
-import { TurnModel } from './../models/turns';
+import { element } from 'protractor';
+import { UserService } from './../services/user.service';
 
 
 @Component({
@@ -18,13 +19,15 @@ export class ViewDevComponent implements OnInit {
   terapeuta1: any[];
   terapeuta2: any[];
   terapeuta3: any[];
+  userList: any[];
   
 
 
   constructor(
     private authFirebaseService: AuthFirebaseService,
     private inscriptionService: InscriptionService,
-    private turnoService: TurnosService
+    private turnoService: TurnosService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -63,8 +66,6 @@ export class ViewDevComponent implements OnInit {
           x["$key"] = elem.key;
           this.terapeuta1.push(x);
         });
-        console.log(this.terapeuta1);
-        
       });
 
       this.turnoService.getTurnosT2()
@@ -75,9 +76,7 @@ export class ViewDevComponent implements OnInit {
           let x = elem.payload.toJSON();
           x["$key"] = elem.key;
           this.terapeuta2.push(x);
-        });
-        console.log(this.terapeuta2);
-        
+        });        
       });
 
       this.turnoService.getTurnosT3()
@@ -89,9 +88,19 @@ export class ViewDevComponent implements OnInit {
           x["$key"] = elem.key;
           this.terapeuta3.push(x);
         });
-        console.log(this.terapeuta3);
-        
       });
+
+      // get user list
+      this.userService.getUser()
+      .snapshotChanges()
+      .subscribe(item => {
+        this.userList = [];
+        item.forEach( elem => {
+          let x = elem.payload.toJSON();
+          x['$key'] = elem.key;
+          this.userList.push(x);
+        })
+      })
   }
 
   logoutUser() {
@@ -109,6 +118,21 @@ export class ViewDevComponent implements OnInit {
     this.terapeuta1.forEach( element => {
       this.turnoService.updatet1Turn1(element['$key']);
     })
+
+    this.terapeuta2.forEach( element => {
+      this.turnoService.updatet2Turn1(element['$key']);
+    })
+
+    this.terapeuta3.forEach( element => {
+      this.turnoService.updatet3Turn1(element['$key']);
+    })
+  }
+
+  updateUserReset() {
+    this.userList.forEach( element => {
+      this.userService.updateUserReset(element['$key']);
+      
+    })    
   }
 
 }

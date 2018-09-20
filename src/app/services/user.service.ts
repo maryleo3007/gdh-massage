@@ -39,4 +39,13 @@ export class UserService {
     });
   }
 
+  updateUserReset($key:string) {
+    this.userList.update($key, {
+      countAgendas: 0,
+      countReserved: 0,
+      messageEvent: '',
+      reserved: false
+    })
+  }
+
 }

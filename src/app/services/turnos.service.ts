@@ -94,4 +94,22 @@ export class TurnosService {
       count: 0
     })
   }
+
+  updatet2Turn1($key:string) {
+    this.terapeuta2.update($key, {
+      available: true,
+      confirm: false,
+      userName: '',
+      count: 0
+    })
+  }
+
+  updatet3Turn1($key:string) {
+    this.terapeuta3.update($key, {
+      available: true,
+      confirm: false,
+      userName: '',
+      count: 0
+    })
+  }
 }
