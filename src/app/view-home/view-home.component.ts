@@ -178,7 +178,6 @@ export class ViewHomeComponent implements OnInit {
       this.userName = objectMe.displayName.substring(cutUserName+1);
       this.displayName = objectMe.displayName;
       this.mail = objectMe.mail
-
       if (this.mail == 'undefined') {
         this.bool = false;
         alert("cargando");
@@ -196,24 +195,24 @@ export class ViewHomeComponent implements OnInit {
             this.userList.forEach((elem)=>{
               if( elem.mail === this.me.mail ){
                  this.returnThis =  true;
-              }
+              }             
             });
           });
         }, 3000);
       }
       else{
         this.bool = true;
-        this.progres = false;
+        this.progres = false;        
         this.userService.getUser()
         .snapshotChanges()
-        .subscribe(item => {
+        .subscribe(item => {         
           this.userList = [];
           item.forEach(elem => {
             let x = elem.payload.toJSON();
             x['$key'] = elem.key;
             this.userList.push(x);
           });  
-          // console.log(this.me);
+          
           this.userList.forEach((elem)=>{
             if( elem.mail === this.me.mail ){
                this.returnThis =  true;
@@ -319,7 +318,7 @@ export class ViewHomeComponent implements OnInit {
         item.forEach(elem => {
           let x = elem.payload.toJSON();
           x['$key'] = elem.key;
-          this.report2List.push(x)         
+          this.report2List.push(x);                  
           this.report2Service.getReportsDate(elem.key)
           .snapshotChanges()
           .subscribe(item1 =>{
@@ -327,7 +326,7 @@ export class ViewHomeComponent implements OnInit {
             item1.forEach(e => {
               let y = e.payload.toJSON();
               y['$key'] = e.key;
-              this.reporListDate.push(y);
+              this.reporListDate.push(y);    
             });
           });
         });
@@ -401,14 +400,17 @@ export class ViewHomeComponent implements OnInit {
   onSelectTurn1(user: UserModel, turn:TurnModel, modal): void{
 
       let userExist  = false;
+      let objReport = {
+        id:123
+      }
 
       let report2 : Report2Model = {
         $key:'',
-        dates: [''],
+        dates: ['report1234'] ,
         name: this.userName,
         lastName:this.lastName,
         mail: this.mail
-    }
+      }
 
       this.user.mail = this.me.mail;
 
@@ -422,7 +424,6 @@ export class ViewHomeComponent implements OnInit {
         this.insertUser(this.user);
         this.insertReport2(report2);
       }
-
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
       this.selectedTurn.count++
@@ -485,7 +486,6 @@ export class ViewHomeComponent implements OnInit {
         this.insertUser(this.user);
         this.insertReport2(report2);
       }
-    
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
       this.selectedTurn.count++
@@ -914,6 +914,24 @@ export class ViewHomeComponent implements OnInit {
     return this.today;
   }
 
+  //update users
+  updateUsersAdmin(){
+    this.userService.getUser()
+    .snapshotChanges()
+    .subscribe(item => {  
+      this.userList = [];
+      item.forEach(elem => {
+        let x = elem.payload.toJSON();
+        x['$key'] = elem.key;
+        this.userList.push(x);
+      });  
+      this.userList.forEach((elem)=>{
+        if( elem.mail === this.me.mail ){
+           this.returnThis =  true;
+        }
+      });
+    });
+  }
 
-
+  
 }
