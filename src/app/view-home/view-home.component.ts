@@ -101,19 +101,6 @@ export class ViewHomeComponent implements OnInit {
     mail:'dfs'
   };
 
-  // segundo: ReportsModel = {
-  //   date: 'la fecha',
-  //   hourStart: 'la hora',
-  //   hourEnd: 'hora de termino',
-  //   userName: 'nombre usuario',
-  //   userAssist: 'nombre asistencia',
-  //   boolMatch: false,
-  //   assistance: false,
-  //   boolAny: false,
-  //   therapist: 1,
-  //   userAssistRight: ''
-  // };
-
   user: UserModel = {
     $key: '',
     mail: '',
@@ -133,16 +120,6 @@ export class ViewHomeComponent implements OnInit {
     userName:'',
     count:0
   }
-
-  // report2: Report2Model = {
-  //   $key:'',
-  //   date: [''],
-  //   name: '',
-  //   lastName:'',
-  //   mail:''
-  // }
-
-  
 
   constructor(
     private homeService: HomeService,
@@ -232,30 +209,6 @@ export class ViewHomeComponent implements OnInit {
     localStorage.setItem('name', this.name);
     localStorage.setItem('userName', this.userName);
       
-    // get turnos
-
-      // this.therapistIds.forEach((elemento,index)=>{
-      //   console.log(elemento,index);
-      //   // this.terapeuta1[index] = elemento;
-        
-      //   this.turnoService.getTurnos(elemento)
-      //   .snapshotChanges()
-      //   .subscribe(item => {   
-      //     // this.terapeuta1 = [];
-      //     this.terapeuta1[index]= [];
-          
-      //     console.log(this.terapeuta1[index]);
-          
-      //     item.forEach(elem => {
-      //       let x = elem.payload.toJSON();
-      //       x["$key"] = elem.key;
-      //       // this.terapeuta1.push(x);
-      //       this.terapeuta1[index].push(x);
-      //     });
-      //     console.log(this.terapeuta1[index]);
-      //   });
-      // });
-
       this.turnoService.getTurnosT1()
       .snapshotChanges()
       .subscribe(item => {   
@@ -408,8 +361,6 @@ export class ViewHomeComponent implements OnInit {
 
     this.send = send;
     this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
-    // this.toastr.success("Success", 'You are on right track.');
-    // this.toastr.success('in div');
   }
 
   onSelectTurn1(user: UserModel, turn:TurnModel, modal): void{

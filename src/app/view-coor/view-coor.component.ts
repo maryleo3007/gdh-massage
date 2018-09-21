@@ -122,7 +122,6 @@ export class ViewCoorComponent implements OnInit {
             this.therapist3List.sort(this.sortOrder);
           }          
         });
-        // console.log(this.therapist1List)
       });
 
     // get reports
@@ -239,9 +238,7 @@ export class ViewCoorComponent implements OnInit {
 
     this.insertReportDate(reportDate);
     
-    for (let index = 0; index < this.report2List.length; index++) {
-      console.log(this.report2List[''+index].dates);
-      
+    for (let index = 0; index < this.report2List.length; index++) {      
       if (this.report2List[''+index].dates !== undefined) {
         if (this.report2List[''+index].dates['0'] == 'report1234') {
           this.report2Service.deleteReportDate0(this.report2List[''+index].$key);
@@ -265,7 +262,6 @@ export class ViewCoorComponent implements OnInit {
     }
   }
   oh(x) {
-    console.log(x);
     
   }
 
