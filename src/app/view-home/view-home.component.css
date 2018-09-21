@@ -195,4 +195,56 @@
     }
 }
 
+/* view not available */
+.not-available {
+    width: 100%;
+    /* height: 100vh; */
+}
+
+.not-available {
+    
+}
+.not-available::after {
+    content: "";
+    background: #30497B;
+    opacity: 2,5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+}
+
+.not-available h1 {
+    color:rgba(255, 255, 255, 0.904);
+    font-size:40px;
+}
+
+.not-available div {
+    height: 90vh;
+}
+
+.not-available div img {
+    left: 20px;
+    bottom: 15%;
+}
+
+.not-available div div {
+    margin-left: 17%;
+    margin-right: 17%;
+    padding-top: 13%;
+}
+
+@media (max-width: 768px) {
+    .not-available h1 {
+        font-size: 30px;
+    }
+    .not-available div div {
+        margin-left: 3%;
+        margin-right: 3%;
+        padding-top: 25%;
+    }
+}
+
 
