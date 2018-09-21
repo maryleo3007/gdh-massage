@@ -33,6 +33,7 @@ import { Report2Service } from './services/report2.service';
 import { InscriptionService } from './services/inscription.service';
 import { AuthFirebaseService } from './services/auth-firebase.service';
 import { UserService } from './services/user.service';
+import { SharingDataService } from './services/sharing-data.service';
 
 
 // import angular firebase
@@ -71,7 +72,7 @@ const routes: Routes = [
     ViewDevComponent
   ],
   imports: [
-    AngularFireAuthModule,
+  AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     BrowserModule,
@@ -97,7 +98,8 @@ const routes: Routes = [
     Report2Service,
     InscriptionService,
     AuthFirebaseService,
-    UserService
+    UserService,
+    SharingDataService
   ],
   bootstrap: [
     AppComponent

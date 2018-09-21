@@ -13,6 +13,7 @@ import { InscriptionService } from './../services/inscription.service';
 import { ReportService } from './../services/report.service';
 import { UserService } from './../services/user.service';
 import { Report2Service } from './../services/report2.service';
+import { SharingDataService } from './../services/sharing-data.service';
 
 // models
 import { InscripcionModel } from './../models/inscriptions';
@@ -79,6 +80,9 @@ export class ViewHomeComponent implements OnInit {
   bool: boolean;
   progres: boolean;
   messageAuth: boolean;
+  public changeBool: boolean;
+  currentBool: any[];
+
 
 
   
@@ -149,7 +153,8 @@ export class ViewHomeComponent implements OnInit {
     private report2Service: Report2Service,
     private userService: UserService,
     private modalService: NgbModal,
-    private carouselConfig: NgbCarouselConfig
+    private carouselConfig: NgbCarouselConfig,
+    private sharingDataService: SharingDataService
   ) { 
 
     carouselConfig.interval = 1000000;
@@ -222,9 +227,7 @@ export class ViewHomeComponent implements OnInit {
       } 
 
     });
-
-    
-    
+     
     // send name and nameUser to local storage
     localStorage.setItem('name', this.name);
     localStorage.setItem('userName', this.userName);
@@ -331,6 +334,18 @@ export class ViewHomeComponent implements OnInit {
           });
         });
       });
+
+      // get current boolean
+    this.sharingDataService.getCuurentBool()
+    .snapshotChanges()
+    .subscribe( item => {
+      this.currentBool = [];
+      item.forEach( elem => {
+        let x = elem.payload.toJSON();
+        x['$key'] = elem.key;
+        this.currentBool.push(x)
+      })      
+    })
 
       let dateCurrent = new Date();
       let hourCurrent = dateCurrent.getHours();
