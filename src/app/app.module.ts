@@ -34,6 +34,8 @@ import { InscriptionService } from './services/inscription.service';
 import { AuthFirebaseService } from './services/auth-firebase.service';
 import { UserService } from './services/user.service';
 import { SharingDataService } from './services/sharing-data.service';
+import { TurnsStateService } from './services/turns-state.service';
+
 
 
 // import angular firebase
@@ -72,7 +74,7 @@ const routes: Routes = [
     ViewDevComponent
   ],
   imports: [
-  AngularFireAuthModule,
+AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     BrowserModule,
@@ -99,7 +101,8 @@ const routes: Routes = [
     InscriptionService,
     AuthFirebaseService,
     UserService,
-    SharingDataService
+    SharingDataService,
+    TurnsStateService
   ],
   bootstrap: [
     AppComponent
