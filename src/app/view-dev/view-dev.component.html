@@ -38,11 +38,11 @@
       </div>
     </div>
     <div class="row pt-3">
-      <div *ngIf="terapeuta1" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4">
+      <div *ngIf="terapeuta1" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4 state-turn">
         <h4>Turnos - Terapeuta 1</h4>
         <div *ngFor="let turns1 of terapeuta1">
-            <div class="w-auto btn py-2 content-switch">
-                <span  class="mr-4 pt-2 text-turno">{{turns1.hourStart}} - {{turns1.hourEnd}} </span>
+            <div class="w-200 btn content-switch">
+                <span  class="mr-3 text-turno d-inline-block w-50">{{turns1.hourStart}} - {{turns1.hourEnd}} </span>
                 <label class="switch">
                   <input type="checkbox" [attr.checked]="turns1.available ? 'checked' : null" (click)="changeStateAvailableT1(turns1.$key, turns1.available)">
                   <span class="slider round"></span>
@@ -51,11 +51,11 @@
         </div>
 
       </div>
-      <div *ngIf="terapeuta2" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4">
+      <div *ngIf="terapeuta2" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4 state-turn">
           <h4>Turnos - Terapeuta 2</h4>
           <div *ngFor="let turns2 of terapeuta2">
-              <div class="w-auto btn py-2 content-switch">
-                  <span  class="mr-4 pt-2 text-turno">{{turns2.hourStart}} - {{turns2.hourEnd}} </span>
+              <div class="w-200 btn content-switch">
+                  <span  class="mr-3 text-turno d-inline-block w-50">{{turns2.hourStart}} - {{turns2.hourEnd}} </span>
                   <label class="switch">
                     <input type="checkbox" [attr.checked]="turns2.available ? 'checked' : null" (click)="changeStateAvailableT2(turns2.$key, turns2.available)">
                     <span class="slider round"></span>
@@ -64,11 +64,11 @@
           </div>
 
       </div>
-      <div *ngIf="terapeuta3" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4">
+      <div *ngIf="terapeuta3" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4 state-turn">
           <h4>Turnos - Terapeuta 3</h4>
           <div *ngFor="let turns3 of terapeuta3">
-              <div class="w-auto btn py-2 content-switch">
-                  <span  class="mr-4 pt-2 text-turno">{{turns3.hourStart}} - {{turns3.hourEnd}} </span>
+              <div class="w-200 btn content-switch">
+                  <span  class="mr-3 text-turno d-inline-block w-50">{{turns3.hourStart}} - {{turns3.hourEnd}} </span>
                   <label class="switch">
                     <input type="checkbox" [attr.checked]="turns3.available ? 'checked' : null" (click)="changeStateAvailableT3(turns3.$key, turns3.available)">
                     <span class="slider round"></span>
