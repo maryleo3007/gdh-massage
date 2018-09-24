@@ -13,6 +13,7 @@ import { InscriptionService } from './../services/inscription.service';
 import { ReportService } from './../services/report.service';
 import { UserService } from './../services/user.service';
 import { Report2Service } from './../services/report2.service';
+import { SharingDataService } from './../services/sharing-data.service';
 
 // models
 import { InscripcionModel } from './../models/inscriptions';
@@ -79,9 +80,9 @@ export class ViewHomeComponent implements OnInit {
   bool: boolean;
   progres: boolean;
   messageAuth: boolean;
+  public changeBool: boolean;
+  currentBool: any[];
 
-
-  
   primero: InscripcionModel = {
     $key:'',
     dateInscription: '',
@@ -96,19 +97,6 @@ export class ViewHomeComponent implements OnInit {
     displayName: '',
     mail:'dfs'
   };
-
-  // segundo: ReportsModel = {
-  //   date: 'la fecha',
-  //   hourStart: 'la hora',
-  //   hourEnd: 'hora de termino',
-  //   userName: 'nombre usuario',
-  //   userAssist: 'nombre asistencia',
-  //   boolMatch: false,
-  //   assistance: false,
-  //   boolAny: false,
-  //   therapist: 1,
-  //   userAssistRight: ''
-  // };
 
   user: UserModel = {
     $key: '',
@@ -130,16 +118,6 @@ export class ViewHomeComponent implements OnInit {
     count:0
   }
 
-  // report2: Report2Model = {
-  //   $key:'',
-  //   date: [''],
-  //   name: '',
-  //   lastName:'',
-  //   mail:''
-  // }
-
-  
-
   constructor(
     private homeService: HomeService,
     private authService: AuthService,
@@ -149,7 +127,8 @@ export class ViewHomeComponent implements OnInit {
     private report2Service: Report2Service,
     private userService: UserService,
     private modalService: NgbModal,
-    private carouselConfig: NgbCarouselConfig
+    private carouselConfig: NgbCarouselConfig,
+    private sharingDataService: SharingDataService
   ) { 
 
     carouselConfig.interval = 1000000;
@@ -222,37 +201,11 @@ export class ViewHomeComponent implements OnInit {
       } 
 
     });
-
-    
-    
+     
     // send name and nameUser to local storage
     localStorage.setItem('name', this.name);
     localStorage.setItem('userName', this.userName);
       
-    // get turnos
-
-      // this.therapistIds.forEach((elemento,index)=>{
-      //   console.log(elemento,index);
-      //   // this.terapeuta1[index] = elemento;
-        
-      //   this.turnoService.getTurnos(elemento)
-      //   .snapshotChanges()
-      //   .subscribe(item => {   
-      //     // this.terapeuta1 = [];
-      //     this.terapeuta1[index]= [];
-          
-      //     console.log(this.terapeuta1[index]);
-          
-      //     item.forEach(elem => {
-      //       let x = elem.payload.toJSON();
-      //       x["$key"] = elem.key;
-      //       // this.terapeuta1.push(x);
-      //       this.terapeuta1[index].push(x);
-      //     });
-      //     console.log(this.terapeuta1[index]);
-      //   });
-      // });
-
       this.turnoService.getTurnosT1()
       .snapshotChanges()
       .subscribe(item => {   
@@ -332,6 +285,18 @@ export class ViewHomeComponent implements OnInit {
         });
       });
 
+      // get current boolean
+    this.sharingDataService.getCuurentBool()
+    .snapshotChanges()
+    .subscribe( item => {
+      this.currentBool = [];
+      item.forEach( elem => {
+        let x = elem.payload.toJSON();
+        x['$key'] = elem.key;
+        this.currentBool.push(x)
+      })      
+    })
+
       let dateCurrent = new Date();
       let hourCurrent = dateCurrent.getHours();
       let minuteCurrent = dateCurrent.getMinutes();
@@ -393,8 +358,6 @@ export class ViewHomeComponent implements OnInit {
 
     this.send = send;
     this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
-    // this.toastr.success("Success", 'You are on right track.');
-    // this.toastr.success('in div');
   }
 
   onSelectTurn1(user: UserModel, turn:TurnModel, modal): void{

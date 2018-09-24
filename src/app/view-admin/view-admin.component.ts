@@ -34,15 +34,10 @@ export class ViewAdminComponent implements OnInit {
   monthArray: any[];
   id1: any = 0;
 
-
-  // public valAsist: string;
-
-
   constructor(
     private authFirebaseService: AuthFirebaseService,
     private reportService: ReportService,
     private report2Service: Report2Service,
-    // private titlecasePipe:TitleCasePipe
   ) { }
 
   ngOnInit() {

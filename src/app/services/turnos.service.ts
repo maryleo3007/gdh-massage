@@ -16,22 +16,6 @@ export class TurnosService {
 
   constructor(private firebase: AngularFireDatabase) { }
 
-  // getTurnos(therapistId){
-  //   switch (therapistId) {
-  //     case 'terapeuta1':
-  //     this.terapeuta1 = this.firebase.list('terapeuta1');
-  //     return this.terapeuta1;
-
-  //     case 'terapeuta2':
-  //     this.terapeuta2 = this.firebase.list('terapeuta2');
-  //     return this.terapeuta2;
-
-  //     case 'terapeuta3':
-  //     this.terapeuta3 = this.firebase.list('terapeuta3');
-  //     return this.terapeuta3;
-  //   }
-  // }
-
   getTurnosT1() {
     this.terapeuta1 = this.firebase.list('terapeuta1');
     return this.terapeuta1;
