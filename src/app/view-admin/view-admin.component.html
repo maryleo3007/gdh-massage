@@ -1,73 +1,245 @@
 <div class="log-out" *ngIf="show">
-    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-        <div class="col-3 text-left administradora">
-            <i class="fa fa-user" aria-hidden="true"></i>
-            <span>Administradora</span>
-        </div>
-        <div class="col-6 text-center title">
-            <span>Masajes Antiestrés</span>
-            <span>| Reporte</span>
-        </div>
-        <div class="col-3 text-right">
+    <nav class="navbar-light navbar-admin py-3" style="background-color: #e3f2fd;">
+        <div class="text-center">
             <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
         </div>
+        <div class="text-center title mt-3">
+                <span>Masajes Antiestrés</span>
+            </div>
+        <div class="text-center administradora mt-4 mb-4">
+            <div class="text-center mt-3"><i class="fa fa-user" aria-hidden="true"></i></div>
+            <div class="text-center mt-3">Administradora</div>
+        </div>
+        <div class="content-tabs">
+            <a href="" class="tab-item dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i aria-hidden="true" class="fa fa-file-text-o pr-2"></i>Reportes</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">General</a>
+                <a class="dropdown-item" href="#">Estadístico</a>
+            </div>
+                
+            <a href="" class="tab-item dropdown-toggle" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i aria-hidden="true" class="fa fa-cog pr-2"></i>Configuración</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                <a class="dropdown-item" href="#">Habilitar turno</a>
+                <a class="dropdown-item" href="#">Cambiar horario</a>
+                <a class="dropdown-item" href="#">Cambiar página</a>
+            </div>
+            <a class="nav-link sign-out" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
+        </div>
     </nav>
-    <div class="container mt-4 mb-3">
-        <div class="row d-flex justify-content-start">            
-            <div class="col-2 col-md-3 d-flex justify-content-around">
-                <p class="mt-2 mr-2 font-weight-bold">Mes </p>
-
-                <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)" class="custom-select">
-                    <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue.id' class="select-month py-4">{{c.month}}</option>
-                </select>
-            </div>
-            <div class="col-2 col-md-3 d-flex justify-content-around">
-                    <p class="mt-2 mr-2  font-weight-bold">Año </p>
-                    <select *ngIf="years" [(ngModel)]="selectedValueYear" (ngModelChange)="selectYear($event)" class="custom-select">
-                        <option *ngFor="let c of years" [ngValue]="c" [selected]='c.year === selectedValueYear' class="select-year py-4">{{c.year}}</option>
-                    </select>
-                </div>
-            <div class="col-1 col-md-2">
-                <button class="btn btn-search font-weight-bold" (click)="getRepostRequest(selectedValue, selectedValueYear)">Buscar</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <table class="table table-sm table-bordered table-hover bg-white mt-2 ">
-                <thead>
-                    <tr>
-                        <th class="text-center w-35">Nombre</th>
-                        <th class="text-center w-35">Correo</th>
-                        <th class="text-center" colspan="5">Asistencia</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of report2List">
-                        <td class="pt-5px pl-2">{{item.name}} {{item.lastName}}</td>
-                        <td class="pt-5px pl-2">{{item.mail}}</td>
-                        <td class="pt-5px">
-                            <div *ngFor="let v of arrayArray" class="d-inline">
-                                <div *ngIf="item.mail === v.mail" [ngClass]="{'reportAssist': item.mail !== v.mail}" class="reportAssist-item">
-                                    <span *ngIf="v.assistance">
-                                        <i *ngIf="v.boolMatch" [class.iconGreen]="v.boolMatch" class="fa fa-check-circle"
-                                            aria-hidden="true"></i>
-                                        <i *ngIf="!v.boolMatch" [class.iconRed]="!v.boolMatch" class="fa fa-times-circle"
-                                            aria-hidden="true" placement="top" ngbPopover={{v.userAssist}}></i>
-                                        P</span>
-                                    <span *ngIf="!v.assistance">A</span>
-                                </div>
+    <div class="content">
+        <div class="content-report" style="display:none">
+            <div class="container mt-4 mb-3">
+                        <div class="row d-flex justify-content-start">            
+                            <div class="col-2 col-md-3 d-flex justify-content-around">
+                                <p class="mt-2 mr-2 font-weight-bold">Mes </p>
+                
+                                <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)" class="custom-select">
+                                    <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue.id' class="select-month py-4">{{c.month}}</option>
+                                </select>
                             </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            <div class="col-2 col-md-3 d-flex justify-content-around">
+                                    <p class="mt-2 mr-2  font-weight-bold">Año </p>
+                                    <select *ngIf="years" [(ngModel)]="selectedValueYear" (ngModelChange)="selectYear($event)" class="custom-select">
+                                        <option *ngFor="let c of years" [ngValue]="c" [selected]='c.year === selectedValueYear' class="select-year py-4">{{c.year}}</option>
+                                    </select>
+                            </div>
+                            <div class="col-1 col-md-2">
+                                <button class="btn btn-search font-weight-bold" (click)="getRepostRequest(selectedValue, selectedValueYear)">Buscar</button>
+                            </div>
+                            <div class="col-12 col-md-12">
+                                <table class="table table-sm table-bordered table-hover bg-white mt-2 ">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center w-35">Nombre</th>
+                                            <th class="text-center w-35">Correo</th>
+                                            <th class="text-center" colspan="5">Asistencia</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of report2List">
+                                            <td class="pt-5px pl-2">{{item.name}} {{item.lastName}}</td>
+                                            <td class="pt-5px pl-2">{{item.mail}}</td>
+                                            <td class="pt-5px">
+                                                <div *ngFor="let v of arrayArray" class="d-inline">
+                                                    <div *ngIf="item.mail === v.mail" [ngClass]="{'reportAssist': item.mail !== v.mail}" class="reportAssist-item">
+                                                        <span *ngIf="v.assistance">
+                                                            <i *ngIf="v.boolMatch" [class.iconGreen]="v.boolMatch" class="fa fa-check-circle"
+                                                                aria-hidden="true"></i>
+                                                            <i *ngIf="!v.boolMatch" [class.iconRed]="!v.boolMatch" class="fa fa-times-circle"
+                                                                aria-hidden="true" placement="top" ngbPopover={{v.userAssist}}></i>
+                                                            P</span>
+                                                        <span *ngIf="!v.assistance">A</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+        <div class="content-config">
+            <div class="container">
+                <div class="col-12 col-md-12 mt-4">
+                    <h3>Actualización de turnos</h3>
+                    <form class="form-inline mt-2">
+                        <label for="inlineFormInput">Hora Inicial</label>
+                        <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Hora">
+                        <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Minuto">
+                        
+                        <label for="inlineFormInputGroup">Hora Final</label>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <!-- <div class="input-group-addon">@</div> -->
+                            <input type="number" class="form-control" id="inlineFormInputGroup" placeholder="Hora">
+                            <input type="number" class="form-control" id="inlineFormInputGroup" placeholder="Minuto">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </form>
+                    
+                </div>
+
+                <!--  -->
+                <div class="row">
+                        <div *ngIf="terapeuta1" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4 state-turn">
+                                <h4>Turnos - Terapeuta 1</h4>
+                                <div *ngFor="let turns1 of terapeuta1">
+                                  <div class="w-200 btn content-switch">
+                                    <span class="mr-3 text-turno d-inline-block w-50">{{turns1.hourStart}} - {{turns1.hourEnd}} </span>
+                                    <label class="switch">
+                                      <input type="checkbox" [attr.checked]="turns1.available ? 'checked' : null" (click)="changeStateAvailableT1(turns1.$key, turns1.available)">
+                                      <span class="slider round"></span>
+                                    </label>
+                                  </div>
+                                </div>
+                        
+                              </div>
+                              <div *ngIf="terapeuta2" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4 state-turn">
+                                <h4>Turnos - Terapeuta 2</h4>
+                                <div *ngFor="let turns2 of terapeuta2">
+                                  <div class="w-200 btn content-switch">
+                                    <span class="mr-3 text-turno d-inline-block w-50">{{turns2.hourStart}} - {{turns2.hourEnd}} </span>
+                                    <label class="switch">
+                                      <input type="checkbox" [attr.checked]="turns2.available ? 'checked' : null" (click)="changeStateAvailableT2(turns2.$key, turns2.available)">
+                                      <span class="slider round"></span>
+                                    </label>
+                                  </div>
+                                </div>
+                        
+                              </div>
+                              <div *ngIf="terapeuta3" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4 state-turn">
+                                <h4>Turnos - Terapeuta 3</h4>
+                                <div *ngFor="let turns3 of terapeuta3">
+                                  <div class="w-200 btn content-switch">
+                                    <span class="mr-3 text-turno d-inline-block w-50">{{turns3.hourStart}} - {{turns3.hourEnd}} </span>
+                                    <label class="switch">
+                                      <input type="checkbox" [attr.checked]="turns3.available ? 'checked' : null" (click)="changeStateAvailableT3(turns3.$key, turns3.available)">
+                                      <span class="slider round"></span>
+                                    </label>
+                                  </div>
+                                </div>
+                        
+                              </div>
+                </div>
+                <div>
+                    <p>cambiar vista</p>
+                    <div *ngIf="this.currentBool" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4">
+                            <div class="w-auto btn py-2 content-switch">
+                              <span *ngIf="currentBool[0].boolVal" class="mr-4 pt-2 text-turno">Turnos habilitados</span>
+                              <span *ngIf="!currentBool[0].boolVal" class="text-turno pt-2">Turnos deshabilitados</span>
+                              <label class="switch">
+                                <input type="checkbox" [attr.checked]="currentBool[0].boolVal ? 'checked' : null" (click)="updateCurentBool(currentBool[0].$key, currentBool[0].boolVal)">
+                                <span class="slider round"></span>
+                              </label>
+                            </div>
+                    
+                          </div>
+                </div>
+                <div>
+                    <h2>Resumen tabla pequeña</h2>
+                    <div>
+                            <div class="col-2 col-md-3 d-flex justify-content-around">
+                                    <p class="mt-2 mr-2 font-weight-bold">Mes </p>
+                    
+                                    <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)" class="custom-select">
+                                        <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue.id' class="select-month py-4">{{c.month}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-2 col-md-3 d-flex justify-content-around">
+                                        <p class="mt-2 mr-2  font-weight-bold">Año </p>
+                                        <select *ngIf="years" [(ngModel)]="selectedValueYear" (ngModelChange)="selectYear($event)" class="custom-select">
+                                            <option *ngFor="let c of years" [ngValue]="c" [selected]='c.year === selectedValueYear' class="select-year py-4">{{c.year}}</option>
+                                        </select>
+                                </div>
+                                <div class="col-1 col-md-2">
+                                    <button class="btn btn-search font-weight-bold" (click)="getRepostRequest(selectedValue, selectedValueYear)">Buscar</button>
+                                </div>
+                    </div>
+                    <div>
+                            <table class="table table-bordered table-hover">
+                                    <thead class="text-center">
+                                      <tr>
+                                          <th colspan="4">Usaron el beneficio</th>
+                                      </tr>
+                                      <tr>
+                                        <td colspan="4">200</td>
+                                      </tr>
+                                      
+                                    </thead>
+                                    
+                                    <tbody class="text-center">
+                                        <tr>
+                                          <td>Nombre correcto</td>
+                                          <td>Nombre Incorrecto</td>
+                                          <td>Asistieron</td>
+                                          <td>No asistieron</td>
+                                        </tr>
+                                        <tr>
+                                          <td>120</td>
+                                          <td>80</td>
+                                          <td>180</td>
+                                          <td>20</td>
+                                        </tr>
+                                      </tbody>
+                                  </table>
+                    </div>
+                </div>
+                <div class="col-12 col-md-12">
+                        <table class="table table-sm table-bordered table-hover bg-white mt-2 ">
+                            <thead>
+                                <tr>
+                                    <th class="text-center w-35">Nombre</th>
+                                    <th class="text-center w-35">Correo</th>
+                                    <th class="text-center" colspan="5">Asistencia</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of report2List">
+                                    <td class="pt-5px pl-2">{{item.name}} {{item.lastName}}</td>
+                                    <td class="pt-5px pl-2">{{item.mail}}</td>
+                                    <td class="pt-5px">
+                                        <div *ngFor="let v of arrayArray" class="d-inline">
+                                            <div *ngIf="item.mail === v.mail" [ngClass]="{'reportAssist': item.mail !== v.mail}" class="reportAssist-item">
+                                                <span *ngIf="v.assistance">
+                                                    <i *ngIf="v.boolMatch" [class.iconGreen]="v.boolMatch" class="fa fa-check-circle"
+                                                        aria-hidden="true"></i>
+                                                    <i *ngIf="!v.boolMatch" [class.iconRed]="!v.boolMatch" class="fa fa-times-circle"
+                                                        aria-hidden="true" placement="top" ngbPopover={{v.userAssist}}></i>
+                                                    P</span>
+                                                <span *ngIf="!v.assistance">A</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                
+                
+            </div>     
         </div>
     </div>
-    <div>
-        <a class="nav-link sign-out" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
-    </div>
+    
 </div>
 
 <div class="d-flex justify-content-center" *ngIf="!show">

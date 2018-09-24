@@ -83,9 +83,6 @@ export class ViewHomeComponent implements OnInit {
   public changeBool: boolean;
   currentBool: any[];
 
-
-
-  
   primero: InscripcionModel = {
     $key:'',
     dateInscription: '',
@@ -389,18 +386,15 @@ export class ViewHomeComponent implements OnInit {
       }
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
-      this.selectedTurn.count++;
       this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
 
       this.modalSelectTurn  = this.modalService.open(modal);
-      this.modalSelectTurn.result.then((result) => {  
-        this.selectedTurn.count--;  
+      this.modalSelectTurn.result.then((result) => {   
         this.selectedTurn.available = true;
         this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
         this.subsCounter.unsubscribe();
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
-        this.selectedTurn.count--;
         this.selectedTurn.available = true;
         this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
         this.subsCounter.unsubscribe();
@@ -445,19 +439,16 @@ export class ViewHomeComponent implements OnInit {
       }
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
-      this.selectedTurn.count++;
       this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
 
       this.modalSelectTurn  = this.modalService.open(modal);
       this.modalSelectTurn.result.then((result) => {    
         this.selectedTurn.available = true;
-        this.selectedTurn.count--;
         this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
         this.subsCounter.unsubscribe();
         this.closeResult = `Closed with: ${result}`;      
       }, (reason) => {
         this.selectedTurn.available = true;
-        this.selectedTurn.count--;
         this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
         this.subsCounter.unsubscribe();
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -502,19 +493,16 @@ export class ViewHomeComponent implements OnInit {
     
       this.selectedTurn = turn;
       this.selectedTurn.available = false;
-      this.selectedTurn.count++;
       this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
 
       this.modalSelectTurn  = this.modalService.open(modal);
       this.modalSelectTurn.result.then((result) => {  
         this.selectedTurn.available = true;
-        this.selectedTurn.count--;
         this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);  
         this.subsCounter.unsubscribe();
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
         this.selectedTurn.available = true;
-        this.selectedTurn.count--;
         this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
         this.subsCounter.unsubscribe();
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -548,7 +536,6 @@ export class ViewHomeComponent implements OnInit {
       this.selectedUser.reserved = true;
       this.selectedTurn.confirm = true;
       this.selectedTurn.userName =  this.name;
-      this.selectedTurn.count = this.selectedTurn.count + 2
 
       this.primero.dateInscription = this.getDateFull();
       this.primero.hourStart = this.selectedTurn.hourStart;
@@ -602,7 +589,6 @@ export class ViewHomeComponent implements OnInit {
   
       this.selectedTurn.confirm = true;
       this.selectedTurn.userName =  this.name;
-      this.selectedTurn.count = this.selectedTurn.count + 2;
   
       this.primero.dateInscription = this.getDateFull();
       this.primero.hourStart = this.selectedTurn.hourStart;
@@ -652,7 +638,6 @@ export class ViewHomeComponent implements OnInit {
         this.selectedUser.reserved = true;
         this.selectedTurn.confirm = true;
         this.selectedTurn.userName =  this.name;
-        this.selectedTurn.count = this.selectedTurn.count + 2;
     
         this.primero.dateInscription = this.getDateFull();
         this.primero.hourStart = this.selectedTurn.hourStart;
@@ -709,7 +694,6 @@ export class ViewHomeComponent implements OnInit {
 
     this.subsGetEventsMe = this.homeService.getEventMe().subscribe( ObjEventsMe => {
       let arrayEvents = [];
-      let idDelete = '';
       arrayEvents = ObjEventsMe['value'];
       arrayEvents.forEach(elem =>{
         if (elem.subject === user.messageEvent) {
@@ -723,9 +707,15 @@ export class ViewHomeComponent implements OnInit {
     this.onDelete(inscription.$key);   
     this.modalSelectTurn.close();
     this.subsCounter.unsubscribe();
-
     if(this.modalConfirm){
       this.modalConfirm.close();
+      this.modalConfirm.result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+        this.selectedTurn.count = 0;
+        this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
       this.subsCounter.unsubscribe();
     }
   }
@@ -742,7 +732,6 @@ export class ViewHomeComponent implements OnInit {
 
     this.subsGetEventsMe = this.homeService.getEventMe().subscribe( ObjEventsMe => {
       let arrayEvents = [];
-      let idDelete = '';
       arrayEvents = ObjEventsMe['value'];
       arrayEvents.forEach(elem =>{
         if (elem.subject === user.messageEvent) {
@@ -760,6 +749,13 @@ export class ViewHomeComponent implements OnInit {
 
     if(this.modalConfirm){
       this.modalConfirm.close();
+      this.modalConfirm.result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+        this.selectedTurn.count = 0;
+        this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
       this.subsCounter.unsubscribe();
     }
   }
@@ -776,7 +772,6 @@ export class ViewHomeComponent implements OnInit {
 
     this.subsGetEventsMe = this.homeService.getEventMe().subscribe( ObjEventsMe => {
       let arrayEvents = [];
-      let idDelete = '';
       arrayEvents = ObjEventsMe['value'];
       arrayEvents.forEach(elem =>{
         if (elem.subject === user.messageEvent) {
@@ -794,6 +789,13 @@ export class ViewHomeComponent implements OnInit {
    
     if(this.modalConfirm){
       this.modalConfirm.close();
+      this.modalConfirm.result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+        this.selectedTurn.count = 0;
+        this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
       this.subsCounter.unsubscribe();
     }
   }  

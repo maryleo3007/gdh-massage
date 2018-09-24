@@ -15,7 +15,7 @@
                     <span>Elige tu turno</span>
                 </div>
                 <div class="col-md-4 col-sm-4 text-right d-none d-sm-none d-md-block">
-                    <a class="logOut" (click)="onLogout()"> Salir <img src="../../assets/images/logout.png" alt=""></a>
+                    <a class="logOut" (click)="onLogout()"><i _ngcontent-c0="" aria-hidden="true" class="fa fa-sign-out"></i> Salir</a>
                 </div>
             </nav>
             <div class="d-view">
@@ -433,8 +433,6 @@
                     </button>
 
                 </div>
-
-
                 <div class="modal-body">
                     <div class="text-center">
                         <h3 class="modal-title text-modal">¿Deseas confirmar este turno?</h3>
@@ -466,7 +464,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="text-center">
-                        <div *ngIf="selectedTurn.count <= 1 && selectedTurn.confirm == true ">
+                        <div *ngIf="selectedTurn.count < 1 && selectedTurn.confirm == true ">
                             <div class="mb-4">
                                 <img src="../../assets/images/success.png" alt="">
                             </div>
@@ -476,7 +474,7 @@
                                 Recuerda que tu reserva es de <strong>{{selectedTurn.hourStart}}</strong> - <strong>{{selectedTurn.hourEnd}}</strong>
                             </h4>
                         </div>
-                        <div *ngIf="selectedTurn.count > 1 && selectedTurn.confirm == true">
+                        <div *ngIf="selectedTurn.count >= 1 && selectedTurn.confirm == true">
 
                             <h4 class="modal-title text-modal mr-5 ml-5 text-center">
                                 Tienes una reserva confirmada,
@@ -565,7 +563,7 @@
             <div class="text-center">
                 <img src="./../../assets/images/inteligo.png" class="position-absolute h-75" alt="inteligo-side">
                 <div class="justify-content-md-center">
-                    <h1 class="mt-5 mx-5">LAS RESERVAS ESTARÁN DISPONIBLES HASTA EL PRÓXIMO MARTES</h1>
+                    <h1 class="mt-5 mx-5">LAS RESERVAS ESTARÁN DISPONIBLES EL SIGUIENTE MARTES</h1>
                     <h1 class="mt-5 mx-5">¡GRACIAS!</h1>
                 </div>
 
