@@ -23,7 +23,7 @@
   font-size: 12px;
 }
 .navbar{
-  background-color: #F4F8FD;
+  background-color: #e3f2fd;
 }
 .navbar img{
   height: 20px;
@@ -31,11 +31,11 @@
 }
 .navbar span:nth-child(1){
   font-weight: 600;
-  color: #808CA5;
+  color: #30497b;
 }
 .navbar span:nth-child(3){
   font-weight: 100;
-  color: #30497B;
+  color: #5c6579;
 }
 .btn-confirm{
   background-color: #3A7ABA;

@@ -17,8 +17,8 @@ div.administradora i {
   color: var(--title-gray);
 }
 
-div.title span:nth-child(2) {
-  color: var(--title-gray);
+div.title  {
+  color: #5c6579;
 }
 
 div.administradora {
@@ -60,3 +60,56 @@ p.mt-2, .sign-out {
 option.select-year, option.select-month {
   font-size: 1.095rem !important;
 } 
+.navbar-admin{
+  width: 180px;
+  min-height: 100vh;
+  transition: all 0.3s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+.content{
+  margin-left: 180px;
+}
+thead tr th:nth-child(1), tbody tr td:nth-child(1){
+  width: 28% !important;
+}
+thead tr th:nth-child(2), tbody tr td:nth-child(2){
+  width: 28% !important;
+}
+thead tr th:nth-child(3), tbody tr td:nth-child(3){
+  width: 44% !important;
+}
+div a.tab-item.active,  div a.tab-item:hover{
+  border-left: 6px solid #2C79BE;
+  color: #2C79BE;
+}
+div a.tab-item {
+  display: block;
+  border-left: 5px solid #888E9F;
+  color: #888E9F;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  text-align: center;
+  text-decoration: none;
+}
+div a.tab-item:nth-child(1) {
+  border-top: 1px solid#d3d5da;
+  border-bottom: 1px solid #d3d5da;
+}
+div a.tab-item:nth-child(2) {
+  border-bottom: 1px solid #d3d5da;
+}
+.sign-out{
+  position: absolute;
+  bottom: 0;
+}
+@media (min-width: 576px){
+    .form-inline label {
+      padding-right: 10px;
+  }
+}
+
+
+

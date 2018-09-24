@@ -79,39 +79,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   terapeuta3: any[];
   inscriptionList: any[];
   reportList: any[];
-  // primero: InscripcionModel = {
-  //   date: '21/08/2018',
-  //   hourStart: '12:00',
-  //   hourEnd: '12:20',
-  //   userName: 'acabrera',
-  //   userAssist: 'alejandra',
-  //   therapist: 1,
-  //   boolAny: false
-  // };
 
-  // segundo: ReportsModel = {
-  //   date: 'la fecha',
-  //   hourStart: 'la hora',
-  //   hourEnd: 'hora de termino',
-  //   userName: 'nombre usuario',
-  //   userAssist: 'nombre asistencia',
-  //   boolMatch: false,
-  //   assistance: false,
-  //   boolAny: false
-  // };
-  //   boolAny: false
-  // };
-
-  // segundo: ReportsModel = {
-  //   date: 'la fecha',
-  //   hourStart: 'la hora',
-  //   hourEnd: 'hora de termino',
-  //   userName: 'nombre usuario',
-  //   userAssist: 'nombre asistencia',
-  //   boolMatch: false,
-  //   assistance: false,
-  //   boolAny: false
-  // };
 
   send: MicrosoftGraph.Event;
   subsSendCalendar: Subscription;
@@ -136,44 +104,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       localStorage.setItem('name', name);
       localStorage.setItem('userName', userName);
     });
-
-   
-    // get turnos
-    // this.turnoService.getTurnosT1()
-    // .snapshotChanges()
-    // .subscribe(item => {
-    //   this.terapeuta1 = [];
-    //   item.forEach(elem => {
-    //     let x = elem.payload.toJSON();
-    //     x["$key"] = elem.key;
-    //     this.terapeuta1.push(x);
-    //   });
-    //   console.log(this.terapeuta1);
-    // });
-
-    // this.turnoService.getTurnosT2()
-    // .snapshotChanges()
-    // .subscribe(item => {
-    //   this.terapeuta2 = [];
-    //   item.forEach(elem => {
-    //     let x = elem.payload.toJSON();
-    //     x["$key"] = elem.key;
-    //     this.terapeuta2.push(x);
-    //   });
-    //   console.log(this.terapeuta2);
-    // });
-
-    // this.turnoService.getTurnosT3()
-    // .snapshotChanges()
-    // .subscribe(item => {
-    //   this.terapeuta3 = [];
-    //   item.forEach(elem => {
-    //     let x = elem.payload.toJSON();
-    //     x["$key"] = elem.key;
-    //     this.terapeuta3.push(x);
-    //   });
-    //   console.log(this.terapeuta3);
-    // });
 
     // get inscriptions
     this.inscriptionService.getInscriptions()
@@ -228,20 +158,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onSendCalendar(){
 
-    // this.date = new Date();
-
-    // this.send = {
-    //     subject: "soy mariiii",
-    //     start: {
-    //       dateTime: this.date,
-    //       timeZone: "GMT-0500"
-    //     },
-    //     end: {
-    //       dateTime: this.date,
-    //       timeZone: "GMT-0500"
-    //     }
-    // }
-    
     this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
   }
 
@@ -253,16 +169,4 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.authService.login();
   }
 
-  // insertInscription(x){
-  //   if (InscripcionModel){
-  //         this.inscriptionService.insertInscription(x);
-  //   }
-  // }
-
-  // insertReport(x){
-  //   if (ReportsModel){
-  //         this.reportService.insertReport(x);
-  //         console.log(x)
-  //   }
-  // }
 }

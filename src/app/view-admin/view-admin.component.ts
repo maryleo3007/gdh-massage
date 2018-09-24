@@ -3,6 +3,7 @@ import { AuthFirebaseService } from './../services/auth-firebase.service';
 import { ReportService } from '../services/report.service';
 import { UserService } from './../services/user.service';
 import { Report2Service } from './../services/report2.service';
+import { TurnosService } from './../services/turnos.service';
 
 @Component({
   selector: 'app-view-admin',
@@ -34,15 +35,11 @@ export class ViewAdminComponent implements OnInit {
   monthArray: any[];
   id1: any = 0;
 
-
-  // public valAsist: string;
-
-
   constructor(
     private authFirebaseService: AuthFirebaseService,
     private reportService: ReportService,
     private report2Service: Report2Service,
-    // private titlecasePipe:TitleCasePipe
+    private turnosService: TurnosService
   ) { }
 
   ngOnInit() {
@@ -249,4 +246,13 @@ export class ViewAdminComponent implements OnInit {
         });
       });
   }
+
+  updateTurnSchedule(hourStart, hourEnd){
+    this.turnosService.deleteTurns();
+    
+  }
+
+  
+
+
 }

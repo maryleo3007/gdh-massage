@@ -4,6 +4,8 @@ import { InscriptionService } from '../services/inscription.service';
 import { TurnosService } from './../services/turnos.service';
 import { element } from 'protractor';
 import { UserService } from './../services/user.service';
+import { SharingDataService } from './../services/sharing-data.service';
+
 
 
 @Component({
@@ -20,6 +22,8 @@ export class ViewDevComponent implements OnInit {
   terapeuta2: any[];
   terapeuta3: any[];
   userList: any[];
+  currentBool: any[];
+  public changeBool: boolean;
   
 
 
@@ -27,7 +31,8 @@ export class ViewDevComponent implements OnInit {
     private authFirebaseService: AuthFirebaseService,
     private inscriptionService: InscriptionService,
     private turnoService: TurnosService,
-    private userService: UserService
+    private userService: UserService,
+    private sharingDataService: SharingDataService
   ) { }
 
   ngOnInit() {
@@ -44,6 +49,7 @@ export class ViewDevComponent implements OnInit {
       }
     });
 
+      
     // get inscriptions
     this.inscriptionService.getInscriptions()
     .snapshotChanges()
@@ -54,6 +60,18 @@ export class ViewDevComponent implements OnInit {
         x["$key"] = elem.key;
         this.inscriptionList.push(x)
       })
+    })
+
+    // get current boolean
+    this.sharingDataService.getCuurentBool()
+    .snapshotChanges()
+    .subscribe( item => {
+      this.currentBool = [];
+      item.forEach( elem => {
+        let x = elem.payload.toJSON();
+        x['$key'] = elem.key;
+        this.currentBool.push(x)
+      })      
     })
 
     // get therappist list - turns 
@@ -132,6 +150,10 @@ export class ViewDevComponent implements OnInit {
     this.userList.forEach( element => {
       this.userService.updateUserReset(element['$key']);
     })    
+  }
+
+  updateCurentBool($key, currentBool) {
+    this.sharingDataService.updateCurentBool($key, !currentBool)
   }
 
 }
