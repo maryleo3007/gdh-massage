@@ -121,6 +121,24 @@ export class TurnosService {
     })
   }
 
+  changeStateAvailableT1($key:string, bool: boolean) {
+    this.terapeuta1.update( $key, {
+      available: bool
+    })
+  }
+
+  changeStateAvailableT2($key:string, bool: boolean) {
+    this.terapeuta2.update( $key, {
+      available: bool
+    })
+  }
+
+  changeStateAvailableT3($key:string, bool: boolean) {
+    this.terapeuta3.update( $key, {
+      available: bool
+    })
+  }
+
   deleteTurns(){
     this.terapeuta1.remove();
     this.terapeuta2.remove();

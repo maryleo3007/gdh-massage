@@ -8,6 +8,7 @@ import { SharingDataService } from './../services/sharing-data.service';
 
 
 
+
 @Component({
   selector: 'app-view-dev',
   templateUrl: './view-dev.component.html',
@@ -25,8 +26,6 @@ export class ViewDevComponent implements OnInit {
   currentBool: any[];
   public changeBool: boolean;
   
-
-
   constructor(
     private authFirebaseService: AuthFirebaseService,
     private inscriptionService: InscriptionService,
@@ -154,6 +153,18 @@ export class ViewDevComponent implements OnInit {
 
   updateCurentBool($key, currentBool) {
     this.sharingDataService.updateCurentBool($key, !currentBool)
+  }
+
+  changeStateAvailableT1($key, available) {
+    this.turnoService.changeStateAvailableT1($key, !available);
+  }
+
+  changeStateAvailableT2($key, available) {
+    this.turnoService.changeStateAvailableT2($key, !available);
+  }
+
+  changeStateAvailableT3($key, available) {
+    this.turnoService.changeStateAvailableT3($key, !available);
   }
 
 }

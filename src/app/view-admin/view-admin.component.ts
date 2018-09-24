@@ -3,6 +3,9 @@ import { AuthFirebaseService } from './../services/auth-firebase.service';
 import { ReportService } from '../services/report.service';
 import { UserService } from './../services/user.service';
 import { Report2Service } from './../services/report2.service';
+import { TurnosService } from './../services/turnos.service';
+import { SharingDataService } from './../services/sharing-data.service';
+
 
 @Component({
   selector: 'app-view-admin',
@@ -32,12 +35,28 @@ export class ViewAdminComponent implements OnInit {
   reportList2: any[];
   arrayArray: any[];
   monthArray: any[];
+  terapeuta1: any[];
+  terapeuta2: any[];
+  terapeuta3: any[];
+  userList: any[];
+  currentBool: any[];
+  public changeBool: boolean;
   id1: any = 0;
+
+  // vars table
+  public total: number;
+  public noAttendance: number;
+  public attendance: number;
+  public writeCorrect: number;
+  public writeIncorrect: number;
+
 
   constructor(
     private authFirebaseService: AuthFirebaseService,
     private reportService: ReportService,
     private report2Service: Report2Service,
+    private turnosService: TurnosService,
+    private sharingDataService: SharingDataService
   ) { }
 
   ngOnInit() {
@@ -111,38 +130,6 @@ export class ViewAdminComponent implements OnInit {
       }
     });
 
-    this.reportService.getReports()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.reportList = [];
-        this.datesArray = [];
-        this.cloneReport = [];
-        this.monthArray = [];
-        item.forEach(elem => {
-          let x = elem.payload.toJSON();
-          x['$key'] = elem.key;
-          if (x['date'].substring(3) === `${this.selectedValue.number}/${this.selectedValueYear.year.toString()}`) {
-            if (!(this.datesArray.includes(x['mail']))) {
-              this.datesArray.push(x['mail']);
-            } else {
-              this.id1 = this.id1 + 1;
-            }
-            x['numbersDates'] = this.datesArray.length;
-            x['userAssistRight'] = x['userAssistRight'].replace(/\b\w/g, l => l.toUpperCase());
-            this.reportList.push(x);
-
-          }
-        })
-        for (let index = 0; index < this.reportList.length; index++) {
-          var x = 0;
-          const element = this.reportList[index];
-          this.cloneReport.push(element);
-          if (element === this.cloneReport[index]) {
-            x = x + 1;
-          }
-        }
-      })
-
     //get reports2
     this.report2Service.getReports2()
       .snapshotChanges()
@@ -186,6 +173,53 @@ export class ViewAdminComponent implements OnInit {
         });
 
       });
+
+      // get current boolean
+    this.sharingDataService.getCuurentBool()
+    .snapshotChanges()
+    .subscribe( item => {
+      this.currentBool = [];
+      item.forEach( elem => {
+        let x = elem.payload.toJSON();
+        x['$key'] = elem.key;
+        this.currentBool.push(x)
+      })      
+    })
+
+     // get therappist list - turns 
+     this.turnosService.getTurnosT1()
+     .snapshotChanges()
+     .subscribe(item => {   
+       this.terapeuta1 = [];
+       item.forEach(elem => {
+         let x = elem.payload.toJSON();
+         x["$key"] = elem.key;
+         this.terapeuta1.push(x);
+       });
+     });
+
+     this.turnosService.getTurnosT2()
+     .snapshotChanges()
+     .subscribe(item => {
+       this.terapeuta2 = [];
+       item.forEach(elem => {
+         let x = elem.payload.toJSON();
+         x["$key"] = elem.key;
+         this.terapeuta2.push(x);
+       });        
+     });
+
+     this.turnosService.getTurnosT3()
+     .snapshotChanges()
+     .subscribe(item => {
+       this.terapeuta3 = [];
+       item.forEach(elem => {
+         let x = elem.payload.toJSON();
+         x["$key"] = elem.key;
+         this.terapeuta3.push(x);
+       });
+     });
+
 
   }
 
@@ -244,4 +278,29 @@ export class ViewAdminComponent implements OnInit {
         });
       });
   }
+
+  // updateTurnSchedule(hourStart, hourEnd){
+  //   this.turnosService.deleteTurns();
+    
+  // }
+
+  // updateCurentBool($key, currentBool) {
+  //   this.sharingDataService.updateCurentBool($key, !currentBool)
+  // }
+
+  // changeStateAvailableT1($key, available) {
+  //   this.turnosService.changeStateAvailableT1($key, !available);
+  // }
+
+  // changeStateAvailableT2($key, available) {
+  //   this.turnosService.changeStateAvailableT2($key, !available);
+  // }
+
+  // changeStateAvailableT3($key, available) {
+  //   this.turnosService.changeStateAvailableT3($key, !available);
+  // }
+
+  
+
+
 }
