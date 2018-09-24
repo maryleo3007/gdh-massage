@@ -432,7 +432,7 @@
       </div>
       <div class="modal-body">
           <div class="text-center">
-              <div *ngIf="selectedTurn.count <= 1 && selectedTurn.confirm == true ">
+              <div *ngIf="selectedTurn.count < 1 && selectedTurn.confirm == true ">
                     <div class="mb-4">
                         <img src="../../assets/images/success.png" alt="">
                     </div>
@@ -442,7 +442,7 @@
                     Recuerda que tu reserva es de <strong>{{selectedTurn.hourStart}}</strong> - <strong>{{selectedTurn.hourEnd}}</strong>
                     </h4>
               </div>
-              <div *ngIf="selectedTurn.count > 1 && selectedTurn.confirm == true">
+              <div *ngIf="selectedTurn.count >= 1 && selectedTurn.confirm == true">
                     
                     <h4 class="modal-title text-modal mr-5 ml-5 text-center">
                     Tienes una reserva confirmada,
