@@ -41,42 +41,73 @@
       <div *ngIf="terapeuta1" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4 state-turn">
         <h4>Turnos - Terapeuta 1</h4>
         <div *ngFor="let turns1 of terapeuta1">
-            <div class="w-200 btn content-switch">
-                <span  class="mr-3 text-turno d-inline-block w-50">{{turns1.hourStart}} - {{turns1.hourEnd}} </span>
-                <label class="switch">
-                  <input type="checkbox" [attr.checked]="turns1.available ? 'checked' : null" (click)="changeStateAvailableT1(turns1.$key, turns1.available)">
-                  <span class="slider round"></span>
-                </label>
-              </div>
+          <div class="w-200 btn content-switch">
+            <span class="mr-3 text-turno d-inline-block w-50">{{turns1.hourStart}} - {{turns1.hourEnd}} </span>
+            <label class="switch">
+              <input type="checkbox" [attr.checked]="turns1.available ? 'checked' : null" (click)="changeStateAvailableT1(turns1.$key, turns1.available)">
+              <span class="slider round"></span>
+            </label>
+          </div>
         </div>
 
       </div>
       <div *ngIf="terapeuta2" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4 state-turn">
-          <h4>Turnos - Terapeuta 2</h4>
-          <div *ngFor="let turns2 of terapeuta2">
-              <div class="w-200 btn content-switch">
-                  <span  class="mr-3 text-turno d-inline-block w-50">{{turns2.hourStart}} - {{turns2.hourEnd}} </span>
-                  <label class="switch">
-                    <input type="checkbox" [attr.checked]="turns2.available ? 'checked' : null" (click)="changeStateAvailableT2(turns2.$key, turns2.available)">
-                    <span class="slider round"></span>
-                  </label>
-                </div>
+        <h4>Turnos - Terapeuta 2</h4>
+        <div *ngFor="let turns2 of terapeuta2">
+          <div class="w-200 btn content-switch">
+            <span class="mr-3 text-turno d-inline-block w-50">{{turns2.hourStart}} - {{turns2.hourEnd}} </span>
+            <label class="switch">
+              <input type="checkbox" [attr.checked]="turns2.available ? 'checked' : null" (click)="changeStateAvailableT2(turns2.$key, turns2.available)">
+              <span class="slider round"></span>
+            </label>
           </div>
+        </div>
 
       </div>
       <div *ngIf="terapeuta3" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4 state-turn">
-          <h4>Turnos - Terapeuta 3</h4>
-          <div *ngFor="let turns3 of terapeuta3">
-              <div class="w-200 btn content-switch">
-                  <span  class="mr-3 text-turno d-inline-block w-50">{{turns3.hourStart}} - {{turns3.hourEnd}} </span>
-                  <label class="switch">
-                    <input type="checkbox" [attr.checked]="turns3.available ? 'checked' : null" (click)="changeStateAvailableT3(turns3.$key, turns3.available)">
-                    <span class="slider round"></span>
-                  </label>
-                </div>
+        <h4>Turnos - Terapeuta 3</h4>
+        <div *ngFor="let turns3 of terapeuta3">
+          <div class="w-200 btn content-switch">
+            <span class="mr-3 text-turno d-inline-block w-50">{{turns3.hourStart}} - {{turns3.hourEnd}} </span>
+            <label class="switch">
+              <input type="checkbox" [attr.checked]="turns3.available ? 'checked' : null" (click)="changeStateAvailableT3(turns3.$key, turns3.available)">
+              <span class="slider round"></span>
+            </label>
           </div>
+        </div>
 
       </div>
+    </div>
+
+    <div class="row pt-3">
+
+      <table class="table table-bordered table-hover">
+        <thead class="text-center">
+          <tr>
+              <th colspan="4">Usaron el beneficio</th>
+          </tr>
+          <tr>
+            <td colspan="4">200</td>
+          </tr>
+          
+        </thead>
+        
+        <tbody class="text-center">
+            <tr>
+              <td>Nombre correcto</td>
+              <td>Nombre Incorrecto</td>
+              <td>Asistieron</td>
+              <td>No asistieron</td>
+            </tr>
+            <tr>
+              <td>120</td>
+              <td>80</td>
+              <td>180</td>
+              <td>20</td>
+            </tr>
+          </tbody>
+      </table>
+      
     </div>
 
 
