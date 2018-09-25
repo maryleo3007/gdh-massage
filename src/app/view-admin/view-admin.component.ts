@@ -49,6 +49,7 @@ export class ViewAdminComponent implements OnInit {
   public attendance: number;
   public writeCorrect: number;
   public writeIncorrect: number;
+  public loading: boolean;
 
 
   constructor(
@@ -147,9 +148,9 @@ export class ViewAdminComponent implements OnInit {
                 let y = e.payload.toJSON();
                 y['$key'] = e.key;
                 this.reporListDate.push(y);
-                
               });
               
+              console.log(this.reporListDate);
               
               this.reporListDate.forEach(element => {
                 if (element['dates'].substring(3) === `${this.selectedValue.number}/${this.selectedValueYear.year.toString()}`) {
@@ -167,12 +168,6 @@ export class ViewAdminComponent implements OnInit {
                 this.writeCorrect = 0;
                 this.attendance = 0;
                 this.noAttendance = 0;
-                this.arrayArray.forEach(elem => {
-                  if (!this.monthArray.includes(elem['dates'])) {
-                    this.monthArray.push(elem['dates']);
-                  }
- 
-                });   
                 for (let index = 0; index < this.arrayArray.length; index++) {
                   if(this.arrayArray[index].assistance === false) {
                     this.noAttendance = this.noAttendance + 1;
@@ -184,19 +179,27 @@ export class ViewAdminComponent implements OnInit {
                   if(this.arrayArray[index].assistance === true) {
                     this.attendance = this.attendance + 1;
                   }
-                  console.log('escribio bien ' + this.writeCorrect);
-                  console.log('escribio mal ' + this.writeIncorrect);
-                  console.log('no asistio ' + this.noAttendance);
-                  console.log('asistio ' + this.attendance);
+                  // console.log('escribio bien ' + this.writeCorrect);
+                  // console.log('escribio mal ' + this.writeIncorrect);
+                  // console.log('no asistio ' + this.noAttendance);
+                  // console.log('asistio ' + this.attendance);
                 }
-                     
-              })
-              
+                this.total = this.arrayArray.length;
+                  this.loading = false;
+                  if(this.total === (this.noAttendance + this.attendance)) {
+                    this.loading = true;
+                  } 
+                  // console.log(this.total);
+                  // console.log(this.loading);  
+                  // console.log(this.noAttendance + this.attendance);    
+                this.arrayArray.forEach(elem => {
+                  if (!this.monthArray.includes(elem['dates'])) {
+                    this.monthArray.push(elem['dates']);
+                  }
+                });                   
+              })        
             });  
-            
-              
         });
-
       });
 
       // get current boolean
@@ -289,6 +292,23 @@ export class ViewAdminComponent implements OnInit {
                   this.arrayArray.push(element);
                   if (!this.report2List.includes(x)) {
                     this.report2List.push(x)
+                  }
+                }
+                this.monthArray = [];
+                this.writeIncorrect = 0;
+                this.writeCorrect = 0;
+                this.attendance = 0;
+                this.noAttendance = 0;
+                for (let index = 0; index < this.arrayArray.length; index++) {
+                  if(this.arrayArray[index].assistance === false) {
+                    this.noAttendance = this.noAttendance + 1;
+                  } else if (this.arrayArray[index].boolMatch === true) {
+                    this.writeCorrect = this.writeCorrect + 1;
+                  } else if (this.arrayArray[index].assistance === true && this.arrayArray[index].boolMatch === false) {
+                    this.writeIncorrect = this.writeIncorrect + 1;
+                  } 
+                  if(this.arrayArray[index].assistance === true) {
+                    this.attendance = this.attendance + 1;
                   }
                 }
               });
