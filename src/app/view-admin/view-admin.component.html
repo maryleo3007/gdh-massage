@@ -176,13 +176,13 @@
                                 </div>
                     </div>
                     <div>
-                            <table class="table table-bordered table-hover">
+                            <table class="table table-bordered table-hover" *ngIf="arrayArray && monthArray">
                                     <thead class="text-center">
                                       <tr>
                                           <th colspan="4">Usaron el beneficio</th>
                                       </tr>
                                       <tr>
-                                        <td colspan="4">200</td>
+                                        <td colspan="4">{{arrayArray.length}}</td>
                                       </tr>
                                       
                                     </thead>
@@ -195,10 +195,10 @@
                                           <td>No asistieron</td>
                                         </tr>
                                         <tr>
-                                          <td>120</td>
-                                          <td>80</td>
-                                          <td>180</td>
-                                          <td>20</td>
+                                          <td>{{writeCorrect}}</td>
+                                          <td>{{writeIncorrect}}</td>
+                                          <td>{{attendance}}</td>
+                                          <td>{{noAttendance}}</td>
                                         </tr>
                                       </tbody>
                                   </table>

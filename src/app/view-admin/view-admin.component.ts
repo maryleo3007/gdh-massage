@@ -159,17 +159,42 @@ export class ViewAdminComponent implements OnInit {
                     Object.keys(x['dates']).length;
                     this.report2List.push(x)
                   }
+
                 }
                 
-                
+                this.monthArray = [];
+                this.writeIncorrect = 0;
+                this.writeCorrect = 0;
+                this.attendance = 0;
+                this.noAttendance = 0;
                 this.arrayArray.forEach(elem => {
                   if (!this.monthArray.includes(elem['dates'])) {
                     this.monthArray.push(elem['dates']);
                   }
-                });
-                // console.log(this.monthArray);
+ 
+                });   
+                for (let index = 0; index < this.arrayArray.length; index++) {
+                  if(this.arrayArray[index].assistance === false) {
+                    this.noAttendance = this.noAttendance + 1;
+                  } else if (this.arrayArray[index].boolMatch === true) {
+                    this.writeCorrect = this.writeCorrect + 1;
+                  } else if (this.arrayArray[index].assistance === true && this.arrayArray[index].boolMatch === false) {
+                    this.writeIncorrect = this.writeIncorrect + 1;
+                  } 
+                  if(this.arrayArray[index].assistance === true) {
+                    this.attendance = this.attendance + 1;
+                  }
+                  console.log('escribio bien ' + this.writeCorrect);
+                  console.log('escribio mal ' + this.writeIncorrect);
+                  console.log('no asistio ' + this.noAttendance);
+                  console.log('asistio ' + this.attendance);
+                }
+                     
               })
-            });
+              
+            });  
+            
+              
         });
 
       });
@@ -267,7 +292,7 @@ export class ViewAdminComponent implements OnInit {
                   }
                 }
               });
-              this.monthArray = []
+              this.monthArray = []      
               this.arrayArray.forEach(elem => {
                 if (!this.monthArray.includes(elem['dates'])) {
                   this.monthArray.push(elem['dates']);
