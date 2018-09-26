@@ -279,26 +279,25 @@ export class ViewAdminComponent implements OnInit {
       });
   }
 
-  // updateTurnSchedule(hourStart, hourEnd){
-  //   this.turnosService.deleteTurns();
-    
-  // }
+  updateTurnSchedule(hourStart, hourEnd){
+    this.turnosService.deleteTurns();
+  }
 
-  // updateCurentBool($key, currentBool) {
-  //   this.sharingDataService.updateCurentBool($key, !currentBool)
-  // }
+  updateCurentBool($key, currentBool) {
+    this.sharingDataService.updateCurentBool($key, !currentBool)
+  }
 
-  // changeStateAvailableT1($key, available) {
-  //   this.turnosService.changeStateAvailableT1($key, !available);
-  // }
+  changeStateAvailableT1($key, available) {
+    this.turnosService.changeStateAvailableT1($key, !available);
+  }
 
-  // changeStateAvailableT2($key, available) {
-  //   this.turnosService.changeStateAvailableT2($key, !available);
-  // }
+  changeStateAvailableT2($key, available) {
+    this.turnosService.changeStateAvailableT2($key, !available);
+  }
 
-  // changeStateAvailableT3($key, available) {
-  //   this.turnosService.changeStateAvailableT3($key, !available);
-  // }
+  changeStateAvailableT3($key, available) {
+    this.turnosService.changeStateAvailableT3($key, !available);
+  }
 
   
 
