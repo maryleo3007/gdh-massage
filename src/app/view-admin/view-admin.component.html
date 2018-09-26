@@ -1,5 +1,5 @@
 <div class="log-out" *ngIf="show">
-    <nav class="navbar-light navbar-admin py-3" style="background-color: #e3f2fd;">
+    <!-- <nav class="navbar-light navbar-admin py-3" style="background-color: #e3f2fd;">
         <div class="text-center">
             <img src="../../assets/images/logo-gris.png" alt="logo Inteligo">
         </div>
@@ -27,9 +27,9 @@
             </div>
             <a class="nav-link sign-out" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
         </div>
-    </nav>
+    </nav> -->
     <div class="content">
-        <div class="content-report" style="display:none">
+        <!-- <div class="content-report" style="display:none">
             <div class="container mt-4 mb-3">
                 <div class="row d-flex justify-content-start">
                     <div class="col-2 col-md-3 d-flex justify-content-around">
@@ -83,10 +83,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="content-config">
             <div class="container">
-                <div class="col-12 col-md-12 mt-4">
+                <!-- <div class="col-12 col-md-12 mt-4">
                     <h3>Actualización de turnos</h3>
                     <form class="form-inline mt-2">
                         <label for="inlineFormInput">Hora Inicial</label>
@@ -95,17 +95,17 @@
 
                         <label for="inlineFormInputGroup">Hora Final</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <!-- <div class="input-group-addon">@</div> -->
+                             <div class="input-group-addon">@</div> 
                             <input type="number" class="form-control" id="inlineFormInputGroup" placeholder="Hora">
                             <input type="number" class="form-control" id="inlineFormInputGroup" placeholder="Minuto">
                         </div>
                         <button type="submit" class="btn btn-primary">Actualizar</button>
                     </form>
 
-                </div>
+                </div> -->
 
                 <!--  -->
-                <div class="row">
+                <!-- <div class="row">
                     <div *ngIf="terapeuta1" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4 state-turn">
                         <h4>Turnos - Terapeuta 1</h4>
                         <div *ngFor="let turns1 of terapeuta1">
@@ -148,8 +148,8 @@
                         </div>
 
                     </div>
-                </div>
-                <div>
+                </div> -->
+                <!-- <div>
                     <p>cambiar vista</p>
                     <div *ngIf="this.currentBool" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center mt-4">
                         <div class="w-auto btn py-2 content-switch">
@@ -163,13 +163,14 @@
                         </div>
 
                     </div>
-                </div>
+                </div> -->
                 <div>
-                    <button class="">
+                    <!-- <button class="">
                         <i class="fa fa-spinner fa-spin"></i>Loading
-                    </button>
+                    </button> -->
                     <h2>Resumen tabla pequeña</h2>
                     <div>
+                        <h1>tabal general</h1>
                         <div class="col-2 col-md-3 d-flex justify-content-around">
                             <p class="mt-2 mr-2 font-weight-bold">Mes </p>
 
@@ -191,29 +192,81 @@
                         </div>
                     </div>
                     <div>
-                        <table class="table table-bordered table-hover" *ngIf="arrayArray && monthArray">
-                            <thead class="text-center">
-                                <tr>
-                                    <th colspan="4">Usaron el beneficio</th>
-                                </tr>
-                                <tr>
-                                    <td colspan="4">{{arrayArray.length}}</td>
-                                </tr>
+                            <h1>tabla resuemn</h1>
+                            <div class="col-2 col-md-3 d-flex justify-content-around">
+                                <p class="mt-2 mr-2 font-weight-bold">Mes </p>
+    
+                                <select [(ngModel)]="selectedValue2" (ngModelChange)="selectMonth($event)" class="custom-select">
+                                    <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue2.id'
+                                        class="select-month py-4">{{c.month}}</option>
+                                </select>
+                            </div>
+                            <div class="col-2 col-md-3 d-flex justify-content-around">
+                                <p class="mt-2 mr-2  font-weight-bold">Año </p>
+                                <select *ngIf="years" [(ngModel)]="selectedValueYear2" (ngModelChange)="selectYear($event)"
+                                    class="custom-select">
+                                    <option *ngFor="let c of years" [ngValue]="c" [selected]='c.year === selectedValueYear2'
+                                        class="select-year py-4">{{c.year}}</option>
+                                </select>
+                            </div>
+                            <div class="col-1 col-md-2">
+                                <button class="btn btn-search font-weight-bold" (click)="getRepostSummary(selectedValue2, selectedValueYear2)">Buscar</button>
+                            </div>
+                        </div>
+                    <div>
 
+                        <table class="table table-bordered" *ngIf="arrayArray">
+                            <thead>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td>#</td>
+                                    <td>%</td>
+                                </tr>
                             </thead>
-
-                            <tbody class="text-center">
+                            <tbody>
                                 <tr>
-                                    <td>Nombre correcto</td>
-                                    <td>Nombre Incorrecto</td>
-                                    <td>Asistieron</td>
-                                    <td>No asistieron</td>
+                                    <td rowspan="2">Nombre ingresado por coordinadora</td>
+                                    <td>correcto</td>
+                                    <td>{{writeCorrect}}</td>
+                                    <td>90%</td>
                                 </tr>
                                 <tr>
-                                    <td>{{writeCorrect}}</td>
+                                    <td>Incorrecto</td>
                                     <td>{{writeIncorrect}}</td>
+                                    <td>10%</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"># Asistencia</td>
                                     <td>{{attendance}}</td>
+                                    <td>100%</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <table class="table table-bordered" *ngIf="arrayArray">
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <td>#</td>
+                                    <td>%</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Asistieron</td>
+                                    <td>{{attendance}}</td>
+                                    <td>80%</td>
+                                </tr>
+                                <tr>
+                                    <td>No asistieron</td>
                                     <td>{{noAttendance}}</td>
+                                    <td>20%</td>
+                                </tr>
+                                <tr>
+                                    <td># veces de uso del beneficio</td>
+                                    <td>{{arrayArray.length}}</td>
+                                    <td>100%</td>
                                 </tr>
                             </tbody>
                         </table>
