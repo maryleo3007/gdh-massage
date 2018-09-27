@@ -6,6 +6,9 @@ import { Report2Service } from './../services/report2.service';
 import { TurnosService } from './../services/turnos.service';
 import { SharingDataService } from './../services/sharing-data.service';
 
+//models
+import { TurnModel } from './../models/turns';
+
 
 @Component({
   selector: 'app-view-admin',
@@ -299,7 +302,76 @@ export class ViewAdminComponent implements OnInit {
     this.turnosService.changeStateAvailableT3($key, !available);
   }
 
-  
+  updateSchedule(hourStart, minutStart, hourEnd, minutEnd){
+     
+    this.turnosService.deleteTurns();
+   
+    let sumaHour = parseInt(hourStart) - parseInt(this.terapeuta2[0].hourStart.slice(0, 2));
+    
+    this.terapeuta1.forEach((e,i) => {
+      let currenthourEnd;
+      let currenthourStart;
+      let getHourInit;
+      let getMinutInit;  
+      let getHourFin;
+      let getMinutFin; 
+      if (e.hourStart.length == 5) {
+        getHourInit = parseInt(e.hourStart.slice(0, 2));
+        getMinutInit = parseInt(e.hourStart.slice(3, 5));
+      } else {
+        getHourInit = parseInt(e.hourStart.slice(0, 1));
+        getMinutInit = parseInt(e.hourStart.slice(2, 4));
+      }
+      
+      currenthourStart = getHourInit+sumaHour;
+      
+      if (e.hourEnd.length == 5) {
+        getHourFin = parseInt(e.hourEnd.slice(0, 2));
+        getMinutFin = parseInt(e.hourEnd.slice(3, 5));
+      } else {
+        getHourFin = parseInt(e.hourEnd.slice(0, 1));
+        getMinutFin = parseInt(e.hourEnd.slice(2, 4));
+      }
+
+      currenthourEnd = getHourFin+sumaHour;
+
+      let turno1: TurnModel = {
+        $key:'',
+        available : true,
+        confirm: false,
+        hourStart: currenthourStart+':'+getMinutInit,
+        hourEnd: currenthourEnd+':'+getMinutFin,
+        therapistId : 1,
+        userName:'',
+        count:0
+      }
+      let turno2: TurnModel = {
+        $key:'',
+        available : true,
+        confirm: false,
+        hourStart: currenthourStart+':'+getMinutInit,
+        hourEnd: currenthourEnd+':'+getMinutFin,
+        therapistId : 2,
+        userName:'',
+        count:0
+      }
+      let turno3: TurnModel = {
+        $key:'',
+        available : true,
+        confirm: false,
+        hourStart: currenthourStart+':'+getMinutInit,
+        hourEnd: currenthourEnd+':'+getMinutFin,
+        therapistId : 3,
+        userName:'',
+        count:0
+      }
+      this.turnosService.inserTurn1(turno1);
+      this.turnosService.inserTurn2(turno2);
+      this.turnosService.inserTurn3(turno3);
+    }
+
+    );
+  }
 
 
 }
