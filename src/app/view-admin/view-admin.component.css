@@ -41,8 +41,8 @@ div.administradora {
 }
 
 .btn-search {
-  background-color: #1b3260;
-  color: #ebecee;
+  background-color: #2C79BE;
+  color: #f8f8f8;
 }
 
 p.mt-2, .sign-out {
@@ -136,5 +136,9 @@ div a.tab-item:nth-child(2) {
 }
 
 nav.navbar-horizontal ul li a{
-  color: #1b3260;
+  color: #2C79BE;
+}
+
+h4 {
+  color: #2C79BE;
 }

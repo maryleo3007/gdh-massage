@@ -15,19 +15,9 @@
                 <a class="tab-item active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
                     aria-controls="v-pills-home" aria-selected="true"><i aria-hidden="true" class="fa fa-file-text-o pr-2"></i>
                     Reportes
-                    <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">General</a>
-                                <a class="dropdown-item" href="#">Resumen</a>
-                            </div> -->
                 </a>
                 <a class="tab-item" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
                     aria-controls="v-pills-profile" aria-selected="false"><i aria-hidden="true" class="fa fa-cog pr-2"></i>Configuración
-                    <!-- <a class="dropdown-toggle fa fa-angle-down pr-2" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <a class="dropdown-item" href="#">Habilitar turno</a>
-                                <a class="dropdown-item" href="#">Cambiar horario</a>
-                                <a class="dropdown-item" href="#">Cambiar página</a>
-                            </div> -->
                 </a>
             </div>
 
@@ -74,117 +64,114 @@
 
                             </ul>
                         </nav>
-                            <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active container" id="home" role="tabpanel"
-                                    aria-labelledby="home-tab">
-                                    <div class="row">
-                                        <div class="col-6 mt-4 text-center">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active container" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row">
+                                    <div class="col-6 mt-4 text-center">
 
-                                            <h4>N° uso del beneficio</h4>
+                                        <h4>N° uso del beneficio</h4>
 
-                                            <table class="table table-bordered" *ngIf="arrayArray">
-                                                <thead class="table-gray">
-                                                    <tr>
-                                                        <td class=""></td>
-                                                        <td>#</td>
-                                                        <td>%</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="table-gray">Asistieron</td>
-                                                        <td>{{attendance}}</td>
-                                                        <td>{{attendancePercent}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="table-gray">No asistieron</td>
-                                                        <td>{{noAttendance}}</td>
-                                                        <td>{{noAttendancePercent}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="table-gray">TOTAL</td>
-                                                        <td>{{arrayArray.length}}</td>
-                                                        <td>{{totalPercent}}</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-                                        </div>
-                                        <div class="col-6 mt-4 text-center">
-
-                                            <h4>N° de asistencia</h4>
-                                            <table class="table table-bordered text" *ngIf="arrayArray">
-                                                <thead class="table-gray">
-                                                    <tr>
-                                                        <td colspan="2"></td>
-                                                        <td>#</td>
-                                                        <td>%</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td rowspan="2" class="table-gray">Nombre ingresado por coordinadora</td>
-                                                        <td class="table-light-gray">correcto</td>
-                                                        <td>{{writeCorrect}}</td>
-                                                        <td>{{writeCorrectPercent}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="table-light-gray">Incorrecto</td>
-                                                        <td>{{writeIncorrect}}</td>
-                                                        <td>{{writeIncorrectPercent}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2" class="table-gray">TOTAL</td>
-                                                        <td>{{attendance}}</td>
-                                                        <td>{{totalPercentAttendance}}</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                    </div>
-
-
-                                </div>
-                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                    <div class="col-12 col-md-12 px-5 pt-4">
-                                        <table class="table table-sm table-bordered table-hover bg-white mt-2 ">
-                                            <thead>
+                                        <table class="table table-bordered" *ngIf="arrayArray">
+                                            <thead class="table-gray">
                                                 <tr>
-                                                    <th class="text-center w-35">Nombre</th>
-                                                    <th class="text-center w-35">Correo</th>
-                                                    <th class="text-center" colspan="5">Asistencia</th>
+                                                    <td class=""></td>
+                                                    <td>#</td>
+                                                    <td>%</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr *ngFor="let item of report2List">
-                                                    <td class="pt-5px pl-2">{{item.name}} {{item.lastName}}</td>
-                                                    <td class="pt-5px pl-2">{{item.mail}}</td>
-                                                    <td class="pt-5px">
-                                                        <div *ngFor="let v of arrayArray" class="d-inline">
-                                                            <div *ngIf="item.mail === v.mail" [ngClass]="{'reportAssist': item.mail !== v.mail}"
-                                                                class="reportAssist-item">
-                                                                <span *ngIf="v.assistance">
-                                                                    <i *ngIf="v.boolMatch" [class.iconGreen]="v.boolMatch"
-                                                                        class="fa fa-check-circle" aria-hidden="true"></i>
-                                                                    <i *ngIf="!v.boolMatch" [class.iconRed]="!v.boolMatch"
-                                                                        class="fa fa-times-circle" aria-hidden="true"
-                                                                        placement="top" ngbPopover={{v.userAssist}}></i>
-                                                                    P</span>
-                                                                <span *ngIf="!v.assistance">A</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
+                                                <tr>
+                                                    <td class="table-gray">Asistieron</td>
+                                                    <td>{{attendance}}</td>
+                                                    <td *ngIf="attendancePercent !== NaN">{{attendancePercent}}</td>
+                                                    <td *ngIf="attendancePercent === NaN">0</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="table-gray">No asistieron</td>
+                                                    <td>{{noAttendance}}</td>
+                                                    <td>{{noAttendancePercent}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="table-gray">TOTAL</td>
+                                                    <td>{{arrayArray.length}}</td>
+                                                    <td>{{totalPercent}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="col-6 mt-4 text-center">
+
+                                        <h4>N° de asistencia</h4>
+                                        <table class="table table-bordered text" *ngIf="arrayArray">
+                                            <thead class="table-gray">
+                                                <tr>
+                                                    <td colspan="2"></td>
+                                                    <td>#</td>
+                                                    <td>%</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td rowspan="2" class="table-gray">Nombre ingresado por
+                                                        coordinadora</td>
+                                                    <td class="table-light-gray">correcto</td>
+                                                    <td>{{writeCorrect}}</td>
+                                                    <td>{{writeCorrectPercent}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="table-light-gray">Incorrecto</td>
+                                                    <td>{{writeIncorrect}}</td>
+                                                    <td>{{writeIncorrectPercent}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" class="table-gray">TOTAL</td>
+                                                    <td>{{attendance}}</td>
+                                                    <td>{{totalPercentAttendance}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
+
+                                </div>
+
+
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="col-12 col-md-12 px-5 pt-4">
+                                    <table class="table table-sm table-bordered table-hover bg-white mt-2 ">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center w-35">Nombre</th>
+                                                <th class="text-center w-35">Correo</th>
+                                                <th class="text-center" colspan="5">Asistencia</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of report2List">
+                                                <td class="pt-5px pl-2">{{item.name}} {{item.lastName}}</td>
+                                                <td class="pt-5px pl-2">{{item.mail}}</td>
+                                                <td class="pt-5px" colspan="5">
+                                                    <div *ngFor="let v of arrayArray" class="d-inline">
+                                                        <div *ngIf="item.mail === v.mail" [ngClass]="{'reportAssist': item.mail !== v.mail}"
+                                                            class="reportAssist-item">
+                                                            <span *ngIf="v.assistance">
+                                                                <i *ngIf="v.boolMatch" [class.iconGreen]="v.boolMatch"
+                                                                    class="fa fa-check-circle" aria-hidden="true"></i>
+                                                                <i *ngIf="!v.boolMatch" [class.iconRed]="!v.boolMatch"
+                                                                    class="fa fa-times-circle" aria-hidden="true"
+                                                                    placement="top" ngbPopover={{v.userAssist}}></i>
+                                                                P</span>
+                                                            <span *ngIf="!v.assistance">A</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                        
-
-
-
+                        </div>
                     </div>
                 </div>
                 <!-- <div class="content-config" style="display:none">

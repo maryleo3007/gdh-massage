@@ -39,6 +39,7 @@ export class ViewAdminComponent implements OnInit {
   terapeuta2: any[];
   terapeuta3: any[];
   userList: any[];
+  countArray: any[];
   currentBool: any[];
   public changeBool: boolean;
   id1: any = 0;
@@ -156,19 +157,18 @@ export class ViewAdminComponent implements OnInit {
                 y['$key'] = e.key;
                 this.reporListDate.push(y);
               });
-              
-              // console.log(this.reporListDate);
-              
+                            
               this.reporListDate.forEach(element => {
                 if (element['dates'].substring(3) === `${this.selectedValue.number}/${this.selectedValueYear.year.toString()}`) {
                   this.arrayArray.push(element);
 
                   if (!this.report2List.includes(x)) {
                     Object.keys(x['dates']).length;
+                    
                     this.report2List.push(x)
                   }
-
                 }
+
                 
                 this.monthArray = [];
                 this.writeIncorrect = 0;
