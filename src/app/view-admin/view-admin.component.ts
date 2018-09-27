@@ -303,11 +303,17 @@ export class ViewAdminComponent implements OnInit {
   }
 
   updateSchedule(hourStart, minutStart, hourEnd, minutEnd){
-     
-    this.turnosService.deleteTurns();
-   
-    let sumaHour = parseInt(hourStart) - parseInt(this.terapeuta2[0].hourStart.slice(0, 2));
+    let sumaHour;
+    this.turnosService.deleteTurns();  
     
+    if (this.terapeuta2[0].hourStart.length == 5) {
+      sumaHour = parseInt(hourStart) - parseInt(this.terapeuta2[0].hourStart.slice(0, 2));
+    } else {
+      sumaHour = parseInt(hourStart) - parseInt(this.terapeuta2[0].hourStart.slice(0, 1));
+    }
+    console.log("sumaHour" + sumaHour);
+    
+
     this.terapeuta1.forEach((e,i) => {
       let currenthourEnd;
       let currenthourStart;
@@ -315,32 +321,40 @@ export class ViewAdminComponent implements OnInit {
       let getMinutInit;  
       let getHourFin;
       let getMinutFin; 
+      //get hour start and minut start
       if (e.hourStart.length == 5) {
-        getHourInit = parseInt(e.hourStart.slice(0, 2));
-        getMinutInit = parseInt(e.hourStart.slice(3, 5));
+        getHourInit = parseInt(e.hourStart.slice(0, 2)); //12
+        getMinutInit = parseInt(e.hourStart.slice(3, 5));//20
       } else {
-        getHourInit = parseInt(e.hourStart.slice(0, 1));
-        getMinutInit = parseInt(e.hourStart.slice(2, 4));
+        getHourInit = parseInt(e.hourStart.slice(0, 1));//1
+        getMinutInit = parseInt(e.hourStart.slice(2, 4));//20
       }
-      
+      //get hour end and minut end
       currenthourStart = getHourInit+sumaHour;
+      console.log(currenthourStart);
+      
       
       if (e.hourEnd.length == 5) {
-        getHourFin = parseInt(e.hourEnd.slice(0, 2));
-        getMinutFin = parseInt(e.hourEnd.slice(3, 5));
+        getHourFin = parseInt(e.hourEnd.slice(0, 2));//12
+        getMinutFin = parseInt(e.hourEnd.slice(3, 5));//20
       } else {
-        getHourFin = parseInt(e.hourEnd.slice(0, 1));
-        getMinutFin = parseInt(e.hourEnd.slice(2, 4));
+        getHourFin = parseInt(e.hourEnd.slice(0, 1));//12
+        getMinutFin = parseInt(e.hourEnd.slice(2, 4));//40
       }
 
       currenthourEnd = getHourFin+sumaHour;
-
+      if (getMinutFin == 0) {
+        getMinutFin = '00';
+      }
+      if (getMinutInit == 0) {
+        getMinutInit='00';
+      }
       let turno1: TurnModel = {
         $key:'',
         available : true,
         confirm: false,
         hourStart: currenthourStart+':'+getMinutInit,
-        hourEnd: currenthourEnd+':'+getMinutFin,
+        hourEnd: currenthourStart+':'+getMinutFin,
         therapistId : 1,
         userName:'',
         count:0
@@ -350,7 +364,7 @@ export class ViewAdminComponent implements OnInit {
         available : true,
         confirm: false,
         hourStart: currenthourStart+':'+getMinutInit,
-        hourEnd: currenthourEnd+':'+getMinutFin,
+        hourEnd: currenthourStart+':'+getMinutFin,
         therapistId : 2,
         userName:'',
         count:0
@@ -360,7 +374,7 @@ export class ViewAdminComponent implements OnInit {
         available : true,
         confirm: false,
         hourStart: currenthourStart+':'+getMinutInit,
-        hourEnd: currenthourEnd+':'+getMinutFin,
+        hourEnd: currenthourStart+':'+getMinutFin,
         therapistId : 3,
         userName:'',
         count:0
