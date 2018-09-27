@@ -81,14 +81,6 @@ thead tr th:nth-child(2), tbody tr td:nth-child(2){
 thead tr th:nth-child(3), tbody tr td:nth-child(3){
   width: 44% !important;
 }
-
-.table-gray {
-  background-color: #f6f6f6;
-}
-
-.table-light-gray {
-  background-color: #f9f9f9;
-}
 div a.tab-item.active,  div a.tab-item:hover{
   border-left: 6px solid #2C79BE;
   color: #2C79BE;
@@ -123,18 +115,5 @@ div a.tab-item:nth-child(2) {
       border-left: 0px;
 }
 
-.nav-tabs .nav-link {
-  border: 0px solid transparent;
-  
-}
 
-.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-  color: #2C79BE;
-  background-color: transparent;
-  border-color: transparent;
-  border-bottom: 3px solid #2C79BE;
-}
 
-nav.navbar-horizontal ul li a{
-  color: #1b3260;
-}

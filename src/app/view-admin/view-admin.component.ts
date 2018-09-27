@@ -24,8 +24,6 @@ export class ViewAdminComponent implements OnInit {
   public days: any[];
   public selectedValue: any;
   public selectedValueYear: any;
-  public selectedValue2: any;
-  public selectedValueYear2: any;
   public currentMonth: any;
   public currentYear: any;
   public dayOfMonthArr: any[];
@@ -52,6 +50,13 @@ export class ViewAdminComponent implements OnInit {
   public writeCorrect: number;
   public writeIncorrect: number;
   public loading: boolean;
+  public totalPercent: number;
+  public noAttendancePercent: number;
+  public attendancePercent: number;
+  public writeCorrectPercent: number;
+  public writeIncorrectPercent: number;
+  public totalPercentAttendance: number;
+
 
 
   constructor(
@@ -114,13 +119,11 @@ export class ViewAdminComponent implements OnInit {
     for (let index = 0; index < this.months.length; index++) {
       if (this.currentMonth === this.months[index].number) {
         this.selectedValue = this.months[index]
-        this.selectedValue2 = this.months[index];
       }
 
       for (let index = 0; index < this.years.length; index++) {
         if (this.currentYear === this.years[index].year) {
           this.selectedValueYear = this.years[index];
-          this.selectedValueYear2 = this.years[index];
         }
       }
     }
@@ -172,6 +175,13 @@ export class ViewAdminComponent implements OnInit {
                 this.writeCorrect = 0;
                 this.attendance = 0;
                 this.noAttendance = 0;
+                this.total = 0;
+                this.writeCorrectPercent = 0;
+                this.writeIncorrectPercent = 0;
+                this.attendancePercent = 0;
+                this.noAttendancePercent = 0;
+                this.totalPercent = 0;
+                this.totalPercentAttendance = 0;
                 for (let index = 0; index < this.arrayArray.length; index++) {
                   if(this.arrayArray[index].assistance === false) {
                     this.noAttendance = this.noAttendance + 1;
@@ -184,7 +194,14 @@ export class ViewAdminComponent implements OnInit {
                     this.attendance = this.attendance + 1;
                   }
                 }
-                this.total = this.arrayArray.length;
+                this.total = this.noAttendance + this.attendance;
+                this.attendancePercent = Math.round((this.attendance * 100) / this.total);
+                this.noAttendancePercent = Math.round((this.noAttendance * 100) / this.total);
+                this.writeCorrectPercent = Math.round((this.writeCorrect * 100) / this.attendance);
+                this.writeIncorrectPercent = Math.round((this.writeIncorrect * 100) / this.attendance);
+                this.totalPercent = this.attendancePercent + this.noAttendancePercent;
+                this.totalPercentAttendance = this.writeCorrectPercent + this.writeIncorrectPercent;
+               
                   this.loading = false;
                   if(this.total === (this.noAttendance + this.attendance)) {
                     this.loading = true;
@@ -291,70 +308,18 @@ export class ViewAdminComponent implements OnInit {
                     this.report2List.push(x)
                   }
                 }
-                // this.monthArray = [];
-                // this.writeIncorrect = 0;
-                // this.writeCorrect = 0;
-                // this.attendance = 0;
-                // this.noAttendance = 0;
-                // for (let index = 0; index < this.arrayArray.length; index++) {
-                //   if(this.arrayArray[index].assistance === false) {
-                //     this.noAttendance = this.noAttendance + 1;
-                //   } else if (this.arrayArray[index].boolMatch === true) {
-                //     this.writeCorrect = this.writeCorrect + 1;
-                //   } else if (this.arrayArray[index].assistance === true && this.arrayArray[index].boolMatch === false) {
-                //     this.writeIncorrect = this.writeIncorrect + 1;
-                //   } 
-                //   if(this.arrayArray[index].assistance === true) {
-                //     this.attendance = this.attendance + 1;
-                //   }
-                // }
-              });
-              this.monthArray = []      
-              this.arrayArray.forEach(elem => {
-                if (!this.monthArray.includes(elem['dates'])) {
-                  this.monthArray.push(elem['dates']);
-                }
-
-              });
-            });
-        });
-      });
-  }
-
-  getRepostSummary(month, year) {
-    this.selectMonth(month);
-    this.selectYear(year);
-    let currentMonth = month.number;
-    let currentYear = year.year;
-    this.report2Service.getReports2()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.report2List = [];
-        this.arrayArray = [];
-        item.forEach(elem => {
-          let x = elem.payload.toJSON();
-          x['$key'] = elem.key;
-          this.report2Service.getReportsDate(elem.key)
-            .snapshotChanges()
-            .subscribe(item1 => {
-              this.reporListDate = [];
-              item1.forEach(e => {
-                let y = e.payload.toJSON();
-                y['$key'] = e.key;
-                this.reporListDate.push(y);
-              });
-              this.reporListDate.forEach(element => {
-                if (element['dates'].substring(3) === `${currentMonth}/${currentYear}`) {
-                  this.arrayArray.push(element);
-                  if (!this.report2List.includes(x)) {
-                    this.report2List.push(x)
-                  }
-                }
                 this.monthArray = [];
                 this.writeIncorrect = 0;
                 this.writeCorrect = 0;
                 this.attendance = 0;
                 this.noAttendance = 0;
+                this.total = 0;
+                this.writeCorrectPercent = 0;
+                this.writeIncorrectPercent = 0;
+                this.attendancePercent = 0;
+                this.noAttendancePercent = 0;
+                this.totalPercent = 0;
+                this.totalPercentAttendance = 0;
                 for (let index = 0; index < this.arrayArray.length; index++) {
                   if(this.arrayArray[index].assistance === false) {
                     this.noAttendance = this.noAttendance + 1;
@@ -367,8 +332,15 @@ export class ViewAdminComponent implements OnInit {
                     this.attendance = this.attendance + 1;
                   }
                 }
+                this.total = this.noAttendance + this.attendance;
+                this.attendancePercent = Math.round((this.attendance * 100) / this.total);
+                this.noAttendancePercent = Math.round((this.noAttendance * 100) / this.total);
+                this.writeCorrectPercent = Math.round((this.writeCorrect * 100) / this.attendance);
+                this.writeIncorrectPercent = Math.round((this.writeIncorrect * 100) / this.attendance);
+                this.totalPercent = this.attendancePercent + this.noAttendancePercent;
+                this.totalPercentAttendance = this.writeCorrectPercent + this.writeIncorrectPercent;
               });
-              // this.monthArray = []      
+              this.monthArray = []      
               this.arrayArray.forEach(elem => {
                 if (!this.monthArray.includes(elem['dates'])) {
                   this.monthArray.push(elem['dates']);
@@ -400,8 +372,4 @@ export class ViewAdminComponent implements OnInit {
   changeStateAvailableT3($key, available) {
     this.turnosService.changeStateAvailableT3($key, !available);
   }
-
-  
-
-
 }
