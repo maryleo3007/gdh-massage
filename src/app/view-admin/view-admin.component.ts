@@ -311,8 +311,6 @@ export class ViewAdminComponent implements OnInit {
     } else {
       sumaHour = parseInt(hourStart) - parseInt(this.terapeuta2[0].hourStart.slice(0, 1));
     }
-    console.log("sumaHour" + sumaHour);
-    
 
     this.terapeuta1.forEach((e,i) => {
       let currenthourEnd;
@@ -331,8 +329,6 @@ export class ViewAdminComponent implements OnInit {
       }
       //get hour end and minut end
       currenthourStart = getHourInit+sumaHour;
-      console.log(currenthourStart);
-      
       
       if (e.hourEnd.length == 5) {
         getHourFin = parseInt(e.hourEnd.slice(0, 2));//12
@@ -343,18 +339,28 @@ export class ViewAdminComponent implements OnInit {
       }
 
       currenthourEnd = getHourFin+sumaHour;
+
       if (getMinutFin == 0) {
         getMinutFin = '00';
       }
       if (getMinutInit == 0) {
         getMinutInit='00';
       }
+      console.log(currenthourStart);
+      console.log(currenthourEnd);
+      if (currenthourStart>12) {
+        currenthourStart =  this.customHourFormat(currenthourStart);
+      }
+      if (currenthourEnd>12) {
+        currenthourEnd = this.customHourFormat(currenthourEnd);
+      }
+
       let turno1: TurnModel = {
         $key:'',
         available : true,
         confirm: false,
         hourStart: currenthourStart+':'+getMinutInit,
-        hourEnd: currenthourStart+':'+getMinutFin,
+        hourEnd: currenthourEnd+':'+getMinutFin,
         therapistId : 1,
         userName:'',
         count:0
@@ -364,7 +370,7 @@ export class ViewAdminComponent implements OnInit {
         available : true,
         confirm: false,
         hourStart: currenthourStart+':'+getMinutInit,
-        hourEnd: currenthourStart+':'+getMinutFin,
+        hourEnd: currenthourEnd+':'+getMinutFin,
         therapistId : 2,
         userName:'',
         count:0
@@ -374,7 +380,7 @@ export class ViewAdminComponent implements OnInit {
         available : true,
         confirm: false,
         hourStart: currenthourStart+':'+getMinutInit,
-        hourEnd: currenthourStart+':'+getMinutFin,
+        hourEnd: currenthourEnd+':'+getMinutFin,
         therapistId : 3,
         userName:'',
         count:0
@@ -382,9 +388,52 @@ export class ViewAdminComponent implements OnInit {
       this.turnosService.inserTurn1(turno1);
       this.turnosService.inserTurn2(turno2);
       this.turnosService.inserTurn3(turno3);
-    }
+    });
+  }
 
-    );
+  customHourFormat(hour){
+    let hourReturn = '';
+      switch (hour) {
+        case 13:
+          hourReturn = '1';
+          break;
+        case 14:
+          hourReturn = '2';
+          break;
+        case 15:
+          hourReturn = '3';
+          break;
+        case 16:
+          hourReturn = '4';
+          break;
+        case 17:
+          hourReturn = '5';
+          break;
+        case 18:
+          hourReturn = '6';
+          break;  
+        case 19:
+          hourReturn = '7';
+          break;
+        case 20:
+          hourReturn = '8';
+          break;
+        case 21:
+          hourReturn = '9';
+          break;
+        case 22:
+          hourReturn = '10';
+          break;
+        case 23:
+          hourReturn = '11';
+          break;
+        case 24:
+          hourReturn = '12';
+          break;  
+        default:
+          break;
+      }
+    return hourReturn;
   }
 
 
