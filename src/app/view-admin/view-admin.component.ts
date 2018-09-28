@@ -6,14 +6,12 @@ import { Report2Service } from './../services/report2.service';
 import { TurnosService } from './../services/turnos.service';
 import { SharingDataService } from './../services/sharing-data.service';
 
-
 @Component({
   selector: 'app-view-admin',
   templateUrl: './view-admin.component.html',
   styleUrls: ['./view-admin.component.css']
 })
 export class ViewAdminComponent implements OnInit {
-
   public emailUser: string;
   public isLogin: boolean;
   public name: string;
@@ -57,8 +55,12 @@ export class ViewAdminComponent implements OnInit {
   public writeCorrectPercent: number;
   public writeIncorrectPercent: number;
   public totalPercentAttendance: number;
-
-
+  public attendanceBool: boolean;
+  public noAttendanceBool: boolean;
+  public totalPercentBool: boolean;
+  public writeCorrectBool: boolean;
+  public writeIncorrectBool: boolean;
+  public totalAttendanceBool: boolean;
 
   constructor(
     private authFirebaseService: AuthFirebaseService,
@@ -129,10 +131,8 @@ export class ViewAdminComponent implements OnInit {
       }
     }
 
-
     // this.selectedValue = this.months[0];
     var currentDate = '/' + this.currentMonth + '/' + this.currentYear
-
 
     this.years.forEach(element => {
       if (element.year === this.currentYear) {
@@ -168,7 +168,6 @@ export class ViewAdminComponent implements OnInit {
                     this.report2List.push(x)
                   }
                 }
-
                 
                 this.monthArray = [];
                 this.writeIncorrect = 0;
@@ -201,6 +200,51 @@ export class ViewAdminComponent implements OnInit {
                 this.writeIncorrectPercent = Math.round((this.writeIncorrect * 100) / this.attendance);
                 this.totalPercent = this.attendancePercent + this.noAttendancePercent;
                 this.totalPercentAttendance = this.writeCorrectPercent + this.writeIncorrectPercent;
+
+
+                if(isNaN(this.attendancePercent) === false) {
+                  this.attendanceBool = true
+                } else if (isNaN(this.attendancePercent)){
+                  this.attendanceBool = false
+                }
+
+                if(isNaN(this.noAttendancePercent) === false) {
+                  this.noAttendanceBool = true
+                } else if (isNaN(this.noAttendancePercent)){
+                  this.noAttendanceBool = false
+                }
+
+                if(isNaN(this.totalPercent) === false) {
+                  this.totalPercentBool = true
+                } else if (isNaN(this.totalPercent)){
+                  this.totalPercentBool = false
+                }
+
+                if(isNaN(this.writeCorrectPercent) === false) {
+                  this.writeCorrectBool = true
+                } else if (isNaN(this.writeCorrectPercent)){
+                  this.writeCorrectBool = false
+                }
+
+                if(isNaN(this.writeIncorrectPercent) === false) {
+                  this.writeIncorrectBool = true
+                } else if (isNaN(this.writeIncorrectPercent)){
+                  this.writeIncorrectBool = false
+                }
+
+                if(isNaN(this.attendancePercent) === false) {
+                  this.attendanceBool = true
+                } else if (isNaN(this.attendancePercent)){
+                  this.attendanceBool = false
+                }
+
+                if(isNaN(this.totalPercentAttendance) === false) {
+                  this.totalAttendanceBool = true
+                } else if (isNaN(this.totalPercentAttendance)){
+                  this.totalAttendanceBool = false
+                }
+
+                
                
                   this.loading = false;
                   if(this.total === (this.noAttendance + this.attendance)) {
@@ -261,8 +305,6 @@ export class ViewAdminComponent implements OnInit {
          this.terapeuta3.push(x);
        });
      });
-
-
   }
 
   getDates(x) {
@@ -339,6 +381,48 @@ export class ViewAdminComponent implements OnInit {
                 this.writeIncorrectPercent = Math.round((this.writeIncorrect * 100) / this.attendance);
                 this.totalPercent = this.attendancePercent + this.noAttendancePercent;
                 this.totalPercentAttendance = this.writeCorrectPercent + this.writeIncorrectPercent;
+                if(isNaN(this.attendancePercent) === false) {
+                  this.attendanceBool = true
+                } else if (isNaN(this.attendancePercent)){
+                  this.attendanceBool = false
+                }
+
+                
+                if(isNaN(this.noAttendancePercent) === false) {
+                  this.noAttendanceBool = true
+                } else if (isNaN(this.noAttendancePercent)){
+                  this.noAttendanceBool = false
+                }
+
+                if(isNaN(this.totalPercent) === false) {
+                  this.totalPercentBool = true
+                } else if (isNaN(this.totalPercent)){
+                  this.totalPercentBool = false
+                }
+
+                if(isNaN(this.writeCorrectPercent) === false) {
+                  this.writeCorrectBool = true
+                } else if (isNaN(this.writeCorrectPercent)){
+                  this.writeCorrectBool = false
+                }
+
+                if(isNaN(this.writeIncorrectPercent) === false) {
+                  this.writeIncorrectBool = true
+                } else if (isNaN(this.writeIncorrectPercent)){
+                  this.writeIncorrectBool = false
+                }
+
+                if(isNaN(this.attendancePercent) === false) {
+                  this.attendanceBool = true
+                } else if (isNaN(this.attendancePercent)){
+                  this.attendanceBool = false
+                }
+
+                if(isNaN(this.totalPercentAttendance) === false) {
+                  this.totalAttendanceBool = true
+                } else if (isNaN(this.totalPercentAttendance)){
+                  this.totalAttendanceBool = false
+                }
               });
               this.monthArray = []      
               this.arrayArray.forEach(elem => {
@@ -354,7 +438,6 @@ export class ViewAdminComponent implements OnInit {
 
   updateTurnSchedule(hourStart, hourEnd){
     this.turnosService.deleteTurns();
-    
   }
 
   updateCurentBool($key, currentBool) {

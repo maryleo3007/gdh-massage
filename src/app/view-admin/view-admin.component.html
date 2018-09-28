@@ -20,7 +20,6 @@
                     aria-controls="v-pills-profile" aria-selected="false"><i aria-hidden="true" class="fa fa-cog pr-2"></i>Configuración
                 </a>
             </div>
-
             <a class="nav-link sign-out" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
         </div>
     </nav>
@@ -29,11 +28,9 @@
             <div class="content">
                 <div class="content-report">
                     <div class="container-fluid pl-0 pr-0 mt-4 mb-3">
-
                         <div class="row d-flex justify-content-center mx-4 mb-3">
                             <div class="col-2 col-md-3 d-flex justify-content-around">
                                 <p class="mt-2 mr-2 font-weight-bold">Mes </p>
-
                                 <select [(ngModel)]="selectedValue" (ngModelChange)="selectMonth($event)" class="custom-select">
                                     <option *ngFor="let c of months" [ngValue]="c" [selected]='c.id === selectedValue.id'
                                         class="select-month py-4">{{c.month}}</option>
@@ -61,16 +58,13 @@
                                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
                                         aria-controls="profile" aria-selected="false">General</a>
                                 </li>
-
                             </ul>
                         </nav>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active container" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="row">
                                     <div class="col-6 mt-4 text-center">
-
                                         <h4>N° uso del beneficio</h4>
-
                                         <table class="table table-bordered" *ngIf="arrayArray">
                                             <thead class="table-gray">
                                                 <tr>
@@ -83,25 +77,25 @@
                                                 <tr>
                                                     <td class="table-gray">Asistieron</td>
                                                     <td>{{attendance}}</td>
-                                                    <td *ngIf="attendancePercent !== NaN">{{attendancePercent}}</td>
-                                                    <td *ngIf="attendancePercent === NaN">0</td>
+                                                    <td *ngIf="attendanceBool === true">{{attendancePercent}}</td>
+                                                    <td *ngIf="attendanceBool === false">0</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="table-gray">No asistieron</td>
                                                     <td>{{noAttendance}}</td>
-                                                    <td>{{noAttendancePercent}}</td>
+                                                    <td *ngIf="noAttendanceBool === true">{{noAttendancePercent}}</td>
+                                                    <td *ngIf="noAttendanceBool === false">0</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="table-gray">TOTAL</td>
-                                                    <td>{{arrayArray.length}}</td>
-                                                    <td>{{totalPercent}}</td>
+                                                    <td>{{total}}</td>
+                                                    <td *ngIf="totalPercentBool === true">{{totalPercent}}</td>
+                                                    <td *ngIf="totalPercentBool === false">0</td>
                                                 </tr>
                                             </tbody>
                                         </table>
-
                                     </div>
                                     <div class="col-6 mt-4 text-center">
-
                                         <h4>N° de asistencia</h4>
                                         <table class="table table-bordered text" *ngIf="arrayArray">
                                             <thead class="table-gray">
@@ -117,25 +111,25 @@
                                                         coordinadora</td>
                                                     <td class="table-light-gray">correcto</td>
                                                     <td>{{writeCorrect}}</td>
-                                                    <td>{{writeCorrectPercent}}</td>
+                                                    <td *ngIf="writeCorrectBool === true">{{writeCorrectPercent}}</td>
+                                                    <td *ngIf="writeCorrectBool === false">0</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="table-light-gray">Incorrecto</td>
                                                     <td>{{writeIncorrect}}</td>
-                                                    <td>{{writeIncorrectPercent}}</td>
+                                                    <td *ngIf="writeIncorrectBool === true">{{writeIncorrectPercent}}</td>
+                                                    <td *ngIf="writeIncorrectBool === false">0</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2" class="table-gray">TOTAL</td>
                                                     <td>{{attendance}}</td>
-                                                    <td>{{totalPercentAttendance}}</td>
+                                                    <td *ngIf="totalAttendanceBool === true">{{totalPercentAttendance}}</td>
+                                                    <td *ngIf="totalAttendanceBool === false">0</td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
-
                                 </div>
-
-
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="col-12 col-md-12 px-5 pt-4">
@@ -174,53 +168,14 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="content-config" style="display:none">
-                                        <div class="container">
-                                            <div class="col-12 col-md-12 mt-4">
-                                                <h3>Actualización de turnos</h3>
-                                                <form class="form-inline mt-2">
-                                                    <label for="inlineFormInput">Hora Inicial</label>
-                                                    <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Hora">
-                                                    <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Minuto">
-                                                    
-                                                    <label for="inlineFormInputGroup">Hora Final</label>
-                                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                                                        
-                                                        <input type="number" class="form-control" id="inlineFormInputGroup" placeholder="Hora">
-                                                        <input type="number" class="form-control" id="inlineFormInputGroup" placeholder="Minuto">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Actualizar</button>
-                                                </form>
-                                            </div>
-                                        </div>     
-                                    </div> -->
-                <!-- <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                            <li class="nav-item">
-                                              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
-                                            </li>
-                                            <li class="nav-item">
-                                              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
-                                            </li>
-                                            <li class="nav-item">
-                                              <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
-                                            </li>
-                                          </ul>
-                                          <div class="tab-content" id="pills-tabContent">
-                                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">1</div>
-                                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">.2</div>
-                                            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">.3.</div>
-                                          </div> -->
             </div>
         </div>
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
             <div class="content">
                 <p>holi</p>
             </div>
-
         </div>
     </div>
-
-
 </div>
 
 <div class="d-flex justify-content-center" *ngIf="!show">
