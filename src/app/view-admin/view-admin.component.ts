@@ -7,8 +7,7 @@ import { TurnosService } from './../services/turnos.service';
 import { SharingDataService } from './../services/sharing-data.service';
 
 //models
-import { TurnModel } from './../models/turns';
-
+import { TurnModel } from './../models/turns';  
 
 @Component({
   selector: 'app-view-admin',
@@ -16,7 +15,6 @@ import { TurnModel } from './../models/turns';
   styleUrls: ['./view-admin.component.css']
 })
 export class ViewAdminComponent implements OnInit {
-
   public emailUser: string;
   public isLogin: boolean;
   public name: string;
@@ -42,6 +40,7 @@ export class ViewAdminComponent implements OnInit {
   terapeuta2: any[];
   terapeuta3: any[];
   userList: any[];
+  countArray: any[];
   currentBool: any[];
   public changeBool: boolean;
   id1: any = 0;
@@ -52,7 +51,13 @@ export class ViewAdminComponent implements OnInit {
   public attendance: number;
   public writeCorrect: number;
   public writeIncorrect: number;
-
+  public loading: boolean;
+  public totalPercent: number;
+  public noAttendancePercent: number;
+  public attendancePercent: number;
+  public writeCorrectPercent: number;
+  public writeIncorrectPercent: number;
+  public totalPercentAttendance: number;
 
   constructor(
     private authFirebaseService: AuthFirebaseService,
@@ -118,15 +123,13 @@ export class ViewAdminComponent implements OnInit {
 
       for (let index = 0; index < this.years.length; index++) {
         if (this.currentYear === this.years[index].year) {
-          this.selectedValueYear = this.years[index]
+          this.selectedValueYear = this.years[index];
         }
       }
     }
 
-
     // this.selectedValue = this.months[0];
     var currentDate = '/' + this.currentMonth + '/' + this.currentYear
-
 
     this.years.forEach(element => {
       if (element.year === this.currentYear) {
@@ -150,31 +153,63 @@ export class ViewAdminComponent implements OnInit {
                 let y = e.payload.toJSON();
                 y['$key'] = e.key;
                 this.reporListDate.push(y);
-                
               });
-              
-              
+                            
               this.reporListDate.forEach(element => {
                 if (element['dates'].substring(3) === `${this.selectedValue.number}/${this.selectedValueYear.year.toString()}`) {
                   this.arrayArray.push(element);
 
                   if (!this.report2List.includes(x)) {
                     Object.keys(x['dates']).length;
+                    
                     this.report2List.push(x)
                   }
                 }
                 
-                
+                this.monthArray = [];
+                this.writeIncorrect = 0;
+                this.writeCorrect = 0;
+                this.attendance = 0;
+                this.noAttendance = 0;
+                this.total = 0;
+                this.writeCorrectPercent = 0;
+                this.writeIncorrectPercent = 0;
+                this.attendancePercent = 0;
+                this.noAttendancePercent = 0;
+                this.totalPercent = 0;
+                this.totalPercentAttendance = 0;
+                for (let index = 0; index < this.arrayArray.length; index++) {
+                  if(this.arrayArray[index].assistance === false) {
+                    this.noAttendance = this.noAttendance + 1;
+                  } else if (this.arrayArray[index].boolMatch === true) {
+                    this.writeCorrect = this.writeCorrect + 1;
+                  } else if (this.arrayArray[index].assistance === true && this.arrayArray[index].boolMatch === false) {
+                    this.writeIncorrect = this.writeIncorrect + 1;
+                  } 
+                  if(this.arrayArray[index].assistance === true) {
+                    this.attendance = this.attendance + 1;
+                  }
+                }
+                this.total = this.noAttendance + this.attendance;
+                this.attendancePercent = Math.round((this.attendance * 100) / this.total);
+                this.noAttendancePercent = Math.round((this.noAttendance * 100) / this.total);
+                this.writeCorrectPercent = Math.round((this.writeCorrect * 100) / this.attendance);
+                this.writeIncorrectPercent = Math.round((this.writeIncorrect * 100) / this.attendance);
+                this.totalPercent = this.attendancePercent + this.noAttendancePercent;
+                this.totalPercentAttendance = this.writeCorrectPercent + this.writeIncorrectPercent;
+               
+                  this.loading = false;
+                  if(this.total === (this.noAttendance + this.attendance)) {
+                    this.loading = true;
+                  } 
                 this.arrayArray.forEach(elem => {
                   if (!this.monthArray.includes(elem['dates'])) {
                     this.monthArray.push(elem['dates']);
                   }
-                });
-                // console.log(this.monthArray);
-              })
-            });
+                });                   
+              })        
+            });  
         });
-
       });
 
       // get current boolean
@@ -222,8 +257,6 @@ export class ViewAdminComponent implements OnInit {
          this.terapeuta3.push(x);
        });
      });
-
-
   }
 
   getDates(x) {
@@ -269,8 +302,39 @@ export class ViewAdminComponent implements OnInit {
                     this.report2List.push(x)
                   }
                 }
+                this.monthArray = [];
+                this.writeIncorrect = 0;
+                this.writeCorrect = 0;
+                this.attendance = 0;
+                this.noAttendance = 0;
+                this.total = 0;
+                this.writeCorrectPercent = 0;
+                this.writeIncorrectPercent = 0;
+                this.attendancePercent = 0;
+                this.noAttendancePercent = 0;
+                this.totalPercent = 0;
+                this.totalPercentAttendance = 0;
+                for (let index = 0; index < this.arrayArray.length; index++) {
+                  if(this.arrayArray[index].assistance === false) {
+                    this.noAttendance = this.noAttendance + 1;
+                  } else if (this.arrayArray[index].boolMatch === true) {
+                    this.writeCorrect = this.writeCorrect + 1;
+                  } else if (this.arrayArray[index].assistance === true && this.arrayArray[index].boolMatch === false) {
+                    this.writeIncorrect = this.writeIncorrect + 1;
+                  } 
+                  if(this.arrayArray[index].assistance === true) {
+                    this.attendance = this.attendance + 1;
+                  }
+                }
+                this.total = this.noAttendance + this.attendance;
+                this.attendancePercent = Math.round((this.attendance * 100) / this.total);
+                this.noAttendancePercent = Math.round((this.noAttendance * 100) / this.total);
+                this.writeCorrectPercent = Math.round((this.writeCorrect * 100) / this.attendance);
+                this.writeIncorrectPercent = Math.round((this.writeIncorrect * 100) / this.attendance);
+                this.totalPercent = this.attendancePercent + this.noAttendancePercent;
+                this.totalPercentAttendance = this.writeCorrectPercent + this.writeIncorrectPercent;
               });
-              this.monthArray = []
+              this.monthArray = []      
               this.arrayArray.forEach(elem => {
                 if (!this.monthArray.includes(elem['dates'])) {
                   this.monthArray.push(elem['dates']);
@@ -301,8 +365,7 @@ export class ViewAdminComponent implements OnInit {
   changeStateAvailableT3($key, available) {
     this.turnosService.changeStateAvailableT3($key, !available);
   }
-
-  updateSchedule(hourStart, minutStart, hourEnd, minutEnd){
+  updateSchedule(hourStart){
     let sumaHour;
     this.turnosService.deleteTurns();  
     
@@ -346,8 +409,7 @@ export class ViewAdminComponent implements OnInit {
       if (getMinutInit == 0) {
         getMinutInit='00';
       }
-      console.log(currenthourStart);
-      console.log(currenthourEnd);
+
       if (currenthourStart>12) {
         currenthourStart =  this.customHourFormat(currenthourStart);
       }
@@ -394,6 +456,8 @@ export class ViewAdminComponent implements OnInit {
   customHourFormat(hour){
     let hourReturn = '';
       switch (hour) {
+        case 0:
+          hourReturn = '12';
         case 13:
           hourReturn = '1';
           break;
@@ -435,6 +499,4 @@ export class ViewAdminComponent implements OnInit {
       }
     return hourReturn;
   }
-
-
 }
