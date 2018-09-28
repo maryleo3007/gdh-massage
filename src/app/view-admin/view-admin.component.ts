@@ -410,10 +410,10 @@ export class ViewAdminComponent implements OnInit {
         getMinutInit='00';
       }
 
-      if (currenthourStart>12) {
+      if (currenthourStart>12 || currenthourStart == 0) {
         currenthourStart =  this.customHourFormat(currenthourStart);
       }
-      if (currenthourEnd>12) {
+      if (currenthourEnd>12 || currenthourEnd == 0) {
         currenthourEnd = this.customHourFormat(currenthourEnd);
       }
 
@@ -454,10 +454,13 @@ export class ViewAdminComponent implements OnInit {
   }
 
   customHourFormat(hour){
+    console.log(hour);
+    
     let hourReturn = '';
       switch (hour) {
         case 0:
           hourReturn = '12';
+          break;
         case 13:
           hourReturn = '1';
           break;
