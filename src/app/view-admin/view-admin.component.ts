@@ -454,7 +454,6 @@ export class ViewAdminComponent implements OnInit {
   }
 
   customHourFormat(hour){
-    console.log(hour);
     
     let hourReturn = '';
       switch (hour) {
