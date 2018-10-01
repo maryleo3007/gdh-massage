@@ -120,3 +120,27 @@ div a.tab-item:nth-child(2) {
     padding-right: 10px;
   }
 }
+.dropdown-toggle::after{
+  border-right: 0px; 
+  border-left: 0px;
+}
+
+.nav-tabs .nav-link {
+border: 0px solid transparent;
+
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+color: #2C79BE;
+background-color: transparent;
+border-color: transparent;
+border-bottom: 3px solid #2C79BE;
+}
+
+nav.navbar-horizontal ul li a{
+color: #2C79BE;
+}
+
+h4 {
+color: #2C79BE;
+}

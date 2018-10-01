@@ -15,22 +15,11 @@
                 <a class="tab-item active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
                     aria-controls="v-pills-home" aria-selected="true"><i aria-hidden="true" class="fa fa-file-text-o pr-2"></i>
                     Reportes
-                    <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">General</a>
-                            <a class="dropdown-item" href="#">Resumen</a>
-                        </div> -->
                 </a>
                 <a class="tab-item" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
                     aria-controls="v-pills-profile" aria-selected="false"><i aria-hidden="true" class="fa fa-cog pr-2"></i>Configuración
-                    <!-- <a class="dropdown-toggle fa fa-angle-down pr-2" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                            <a class="dropdown-item" href="#">Habilitar turno</a>
-                            <a class="dropdown-item" href="#">Cambiar horario</a>
-                            <a class="dropdown-item" href="#">Cambiar página</a>
-                        </div> -->
                 </a>
             </div>
-
             <a class="nav-link sign-out" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
         </div>
     </nav>
@@ -75,9 +64,7 @@
                             <div class="tab-pane fade show active container" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="row">
                                     <div class="col-6 mt-4 text-center">
-
                                         <h4>N° uso del beneficio</h4>
-
                                         <table class="table table-bordered" *ngIf="arrayArray">
                                             <thead class="table-gray">
                                                 <tr>
@@ -90,18 +77,20 @@
                                                 <tr>
                                                     <td class="table-gray">Asistieron</td>
                                                     <td>{{attendance}}</td>
-                                                    <td *ngIf="attendancePercent !== NaN">{{attendancePercent}}</td>
-                                                    <td *ngIf="attendancePercent === NaN">0</td>
+                                                    <td *ngIf="attendanceBool === true">{{attendancePercent}}</td>
+                                                    <td *ngIf="attendanceBool === false">0</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="table-gray">No asistieron</td>
                                                     <td>{{noAttendance}}</td>
-                                                    <td>{{noAttendancePercent}}</td>
+                                                    <td *ngIf="noAttendanceBool === true">{{noAttendancePercent}}</td>
+                                                    <td *ngIf="noAttendanceBool === false">0</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="table-gray">TOTAL</td>
                                                     <td>{{total}}</td>
-                                                    <td>{{totalPercent}}</td>
+                                                    <td *ngIf="totalPercentBool === true">{{totalPercent}}</td>
+                                                    <td *ngIf="totalPercentBool === false">0</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -122,17 +111,20 @@
                                                         coordinadora</td>
                                                     <td class="table-light-gray">correcto</td>
                                                     <td>{{writeCorrect}}</td>
-                                                    <td>{{writeCorrectPercent}}</td>
+                                                    <td *ngIf="writeCorrectBool === true">{{writeCorrectPercent}}</td>
+                                                    <td *ngIf="writeCorrectBool === false">0</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="table-light-gray">Incorrecto</td>
                                                     <td>{{writeIncorrect}}</td>
-                                                    <td>{{writeIncorrectPercent}}</td>
+                                                    <td *ngIf="writeIncorrectBool === true">{{writeIncorrectPercent}}</td>
+                                                    <td *ngIf="writeIncorrectBool === false">0</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2" class="table-gray">TOTAL</td>
                                                     <td>{{attendance}}</td>
-                                                    <td>{{totalPercentAttendance}}</td>
+                                                    <td *ngIf="totalAttendanceBool === true">{{totalPercentAttendance}}</td>
+                                                    <td *ngIf="totalAttendanceBool === false">0</td>
                                                 </tr>
                                             </tbody>
                                         </table>
