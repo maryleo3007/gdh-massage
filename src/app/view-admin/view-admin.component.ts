@@ -43,6 +43,7 @@ export class ViewAdminComponent implements OnInit {
   countArray: any[];
   currentBool: any[];
   public changeBool: boolean;
+  public showErrInput: boolean = false;
   id1: any = 0;
 
   // vars table
@@ -456,6 +457,8 @@ export class ViewAdminComponent implements OnInit {
     this.turnosService.changeStateAvailableT3($key, !available);
   }
   updateSchedule(hourStart){
+    console.log(hourStart);
+    
     let sumaHour;
     this.turnosService.deleteTurns();  
     
@@ -487,7 +490,7 @@ export class ViewAdminComponent implements OnInit {
         getHourFin = parseInt(e.hourEnd.slice(0, 2));//12
         getMinutFin = parseInt(e.hourEnd.slice(3, 5));//20
       } else {
-        getHourFin = parseInt(e.hourEnd.slice(0, 1));//12
+        getHourFin = parseInt(e.hourEnd.slice(0, 1));//1
         getMinutFin = parseInt(e.hourEnd.slice(2, 4));//40
       }
 
