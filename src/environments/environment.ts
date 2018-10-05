@@ -4,5 +4,15 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig: {
+    apiKey: "AIzaSyDfxhEHVwu9U0ckIh9Nr30bZma0W8JKfMQ",
+    // apiKey: "AIzaSyD1AycQNzem3NtzWvWzEj1dIdnMlHzbuAM", //desarrollo
+    authDomain: "gdh-masajes.firebaseapp.com",
+    databaseURL: "https://gdh-masajes.firebaseio.com",
+    // databaseURL: "https://desarrollo-gdh-masajes.firebaseio.com",
+    projectId: "gdh-masajes",
+    storageBucket: "gdh-masajes.appspot.com",
+    messagingSenderId: "300960399533"
+  }
 };

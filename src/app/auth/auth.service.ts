@@ -12,6 +12,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import * as hello from 'hellojs/dist/hello.all.js';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Configs } from '../shared/configs';
 
@@ -19,7 +20,8 @@ import { Configs } from '../shared/configs';
 export class AuthService {
   constructor(
     private zone: NgZone,
-    private router: Router
+    private router: Router,
+    
   ) { }
 
   initAuth() {
@@ -41,12 +43,14 @@ export class AuthService {
   login() {
     hello('msft').login({ scope: Configs.scope }).then(
       () => {
+        // let correct = false;
         this.zone.run(() => {
-          this.router.navigate(['/home']);
-        });
-      },
+            this.router.navigate(['/home']);
+        });      },
       e => console.error(e.error.message)
     );
+
+    
   }
 
   logout() {

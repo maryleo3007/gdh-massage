@@ -5,10 +5,22 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-
+import { Observable, Subject } from 'rxjs';
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types"
+
+// services
 import { HomeService } from './home.service';
 import { AuthService } from '../auth/auth.service';
+import { TurnosService } from '../services/turnos.service';
+import { InscriptionService } from '../services/inscription.service';
+import { ReportService } from '../services/report.service';
+
+
+// models
+import { InscripcionModel } from '../models/inscriptions';
+import { ReportsModel } from '../models/reports';
+
+
 
 @Component({
   selector: 'app-home',
@@ -42,10 +54,15 @@ import { AuthService } from '../auth/auth.service';
       <div *ngIf="!this.emailSent && !me">
         <p class="ms-font-m ms-fontColor-redDark">Something went wrong, couldn't send an email.</p>
       </div>
+      <div>
+        <button class="btn btn-primary" (click)="insertInscription(this.primero)">agregar inscripcion</button>  
+        <button class="btn btn-primary" (click)="insertReport(this.segundo)">agregar reporte</button> 
+      </div>
     </div>
   </div>
 </div>
-  `
+  `,
+  providers: [InscriptionService]
 })
 export class HomeComponent implements OnInit, OnDestroy {
   events: MicrosoftGraph.Event[];
@@ -56,18 +73,61 @@ export class HomeComponent implements OnInit, OnDestroy {
   subsGetUsers: Subscription;
   subsGetMe: Subscription;
   subsSendMail: Subscription;
-  date: any;
+  // date: any;
+  terapeuta1: any[];
+  terapeuta2: any[];
+  terapeuta3: any[];
+  inscriptionList: any[];
+  reportList: any[];
+
 
   send: MicrosoftGraph.Event;
   subsSendCalendar: Subscription;
-
+  
   constructor(
     private homeService: HomeService,
-    private authService: AuthService
+    private authService: AuthService,
+    private turnoService: TurnosService,
+    private inscriptionService: InscriptionService,
+    private reportService: ReportService
   ) { }
 
   ngOnInit() {
-    this.subsGetMe = this.homeService.getMe().subscribe(me => this.me = me);
+    this.subsGetMe = this.homeService.getMe().subscribe(me => {
+      this.me = me; 
+      let cutName = me.mail.indexOf('@');
+      let cutUserName = me.displayName.indexOf(' ');
+      let name = me.mail.substring(0,cutName);
+      let userName = me.displayName.substring(cutUserName+1);
+      
+      // send name and nameUser to local storage
+      localStorage.setItem('name', name);
+      localStorage.setItem('userName', userName);
+    });
+
+    // get inscriptions
+    this.inscriptionService.getInscriptions()
+    .snapshotChanges()
+    .subscribe(item => {
+      this.inscriptionList = [];
+      item.forEach(elem => {
+        let x = elem.payload.toJSON();
+        x["$key"] = elem.key;
+        this.inscriptionList.push(x);
+      });
+    });    
+
+    // get reports
+    this.reportService.getReports()
+    .snapshotChanges()
+    .subscribe(item => {
+      this.reportList = [];
+      item.forEach(elem => {
+        let x = elem.payload.toJSON();
+        x['$key'] = elem.key;
+        this.reportList.push(x)
+      })
+    })
   }
 
   ngOnDestroy() {
@@ -76,7 +136,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   onSendMail() {
-    this.message = {
+    let messages;
+    messages = {
       subject: 'Welcome to Microsoft Graph development with Angular 4 and the Microsoft Graph Connect sample',
       toRecipients: [{
               emailAddress: {
@@ -88,6 +149,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           contentType: "html"
       }
   }
+    this.message = messages;
     this.subsSendMail = this.homeService.sendMail(this.message).subscribe();
     this.emailSent = true;
   }
@@ -96,20 +158,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onSendCalendar(){
 
-    this.date = new Date();
-
-    this.send = {
-        subject: "soy mariiii",
-        start: {
-          dateTime: this.date,
-          timeZone: "GMT-0500"
-        },
-        end: {
-          dateTime: this.date,
-          timeZone: "GMT-0500"
-        }
-    }
-    
     this.subsSendCalendar = this.homeService.sendCalendar(this.send).subscribe();
   }
 
@@ -120,4 +168,5 @@ export class HomeComponent implements OnInit, OnDestroy {
   onLogin() {
     this.authService.login();
   }
+
 }
