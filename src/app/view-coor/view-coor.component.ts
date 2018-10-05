@@ -41,7 +41,7 @@ export class ViewCoorComponent implements OnInit {
   therapist3List: any[];
   report2List: any[];
   reporListDate: any[];
-  orderArr = [{ turn: '12:00' }, { turn: '12:20' }, { turn: '12:40' }, { turn: '1:00' }, { turn: '1:20' }, { turn: '1:40' }, { turn: '2:00' }, { turn: '2:20' }, { turn: '2:40' }, { turn: '3:00' }, { turn: '3:20' }, { turn: '3:40' }]
+  orderArr = [{ turn: '1:00' }, { turn: '1:20' }, { turn: '1:40' }, { turn: '2:00' }, { turn: '2:20' }, { turn: '2:40' }, { turn: '3:00' }, { turn: '3:20' }, { turn: '3:40' }, { turn: '4:00' }, { turn: '4:20' }, { turn: '4:40' }]
   reportList: any[];
 
   constructor(
