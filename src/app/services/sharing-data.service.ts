@@ -6,6 +6,7 @@ export class SharingDataService {
 
   currentBool: AngularFireList<any>;
   currentTime: AngularFireList<any>;
+  hourCoor: AngularFireList<any>;
 
   constructor(private firebase: AngularFireDatabase) { }
 
@@ -19,6 +20,11 @@ export class SharingDataService {
     return this.currentTime;
   }
 
+  getHourCoor() {
+    this.hourCoor = this.firebase.list('hourCoor');
+    return this.hourCoor;
+  }
+
   updateCurentBool($key:string, bool: boolean){
     this.currentBool.update($key, {
       boolVal: bool
@@ -29,6 +35,12 @@ export class SharingDataService {
     this.currentTime.update($key, {
       time: time
     });
+  }
+
+  updateHourCoor($key:string, turn: string) {
+    this.hourCoor.update($key, {
+      turn: turn
+    })
   }
 
 }
