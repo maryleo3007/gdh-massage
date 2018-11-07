@@ -39,7 +39,8 @@ export class TurnosService {
       hourStart: turn1.hourStart,
       therapistId: turn1.therapistId,
       count: turn1.count,
-      userName: turn1.userName
+      userName: turn1.userName,
+      turnId: turn1.turnId
     });
   }
 
@@ -51,7 +52,8 @@ export class TurnosService {
       hourStart: turn2.hourStart,
       therapistId: turn2.therapistId,
       count: turn2.count,
-      userName: turn2.userName
+      userName: turn2.userName,
+      turnId: turn2.turnId
     });
   }
 
@@ -63,7 +65,8 @@ export class TurnosService {
       hourStart: turn3.hourStart,
       therapistId: turn3.therapistId,
       count: turn3.count,
-      userName: turn3.userName
+      userName: turn3.userName,
+      turnId: turn3.turnId
     });
   }
 

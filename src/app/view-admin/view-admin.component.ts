@@ -455,11 +455,6 @@ export class ViewAdminComponent implements OnInit {
       });
   }
 
-
-  updateTurnSchedule(hourStart, hourEnd){
-    this.turnosService.deleteTurns();
-  }
-
   updateCurentBool($key, currentBool) {
     this.sharingDataService.updateCurentBool($key, !currentBool)
   }
@@ -550,7 +545,8 @@ export class ViewAdminComponent implements OnInit {
         hourEnd: currenthourEnd+':'+getMinutFin,
         therapistId : 1,
         userName:'',
-        count:0
+        count:0,
+        turnId: 'therapist1Turn'+i
       }
       let turno2: TurnModel = {
         $key:'',
@@ -560,7 +556,8 @@ export class ViewAdminComponent implements OnInit {
         hourEnd: currenthourEnd+':'+getMinutFin,
         therapistId : 2,
         userName:'',
-        count:0
+        count:0,
+        turnId: 'therapist2Turn'+i
       }
       let turno3: TurnModel = {
         $key:'',
@@ -570,8 +567,10 @@ export class ViewAdminComponent implements OnInit {
         hourEnd: currenthourEnd+':'+getMinutFin,
         therapistId : 3,
         userName:'',
-        count:0
+        count:0,
+        turnId: 'therapist3Turn'+i
       }
+      
       this.turnosService.inserTurn1(turno1);
       this.turnosService.inserTurn2(turno2);
       this.turnosService.inserTurn3(turno3);
