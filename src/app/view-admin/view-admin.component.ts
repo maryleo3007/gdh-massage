@@ -47,8 +47,9 @@ export class ViewAdminComponent implements OnInit {
   msgEditionList: any[];
   public changeBool: boolean;
   public showErrInput: boolean = false;
-  id1: any = 0;
   public msgError: boolean = false;
+  id1: any = 0;
+  
 
   // vars table
   public total: number;
