@@ -6,6 +6,8 @@ import { InscriptionService } from '../services/inscription.service';
 import { ReportService } from '../services/report.service';
 import { Report2Service } from './../services/report2.service';
 import { UserService } from './../services/user.service';
+import { SharingDataService } from '../services/sharing-data.service';
+
 
 // models 
 // models
@@ -41,6 +43,7 @@ export class ViewCoorComponent implements OnInit {
   therapist3List: any[];
   report2List: any[];
   reporListDate: any[];
+  hourCoorList: any[];
   orderArr = [{ turn: '1:00' }, { turn: '1:20' }, { turn: '1:40' }, { turn: '2:00' }, { turn: '2:20' }, { turn: '2:40' }, { turn: '3:00' }, { turn: '3:20' }, { turn: '3:40' }, { turn: '4:00' }, { turn: '4:20' }, { turn: '4:40' }]
   reportList: any[];
 
@@ -50,6 +53,7 @@ export class ViewCoorComponent implements OnInit {
     private reportService: ReportService,
     private report2Service: Report2Service,
     private userService: UserService,
+    public sharingDataService: SharingDataService
   ) { }
 
   ngOnInit() {
@@ -68,7 +72,19 @@ export class ViewCoorComponent implements OnInit {
         }
       }
     });
-
+    
+    // get hour coor
+    this.sharingDataService.getHourCoor()
+    .snapshotChanges()
+    .subscribe( item => {
+      this.hourCoorList = [];
+      item.forEach( elem => {
+        let x = elem.payload.toJSON();
+        x['$key'] = elem.key;
+        this.hourCoorList.push(x);
+      })
+    })
+    
     // current date
     const today = new Date();
     let dd: any = today.getDate();
@@ -95,22 +111,22 @@ export class ViewCoorComponent implements OnInit {
           x["$key"] = elem.key;
           if (x['date'] === this.actualDate) {
             if (x['therapist'] === 1) {
-              for (const i in this.orderArr) {
-                if (x['hourStart'] === this.orderArr[i].turn) {
+              for (const i in this.hourCoorList) {
+                if (x['hourStart'] === this.hourCoorList[i].turn) {
                   x['order'] = parseInt(i);
                   this.therapist1List.push(x);
                 }
               }
             } else if (x['therapist'] === 2) {
-              for (const i in this.orderArr) {
-                if (x['hourStart'] === this.orderArr[i].turn) {
+              for (const i in this.hourCoorList) {
+                if (x['hourStart'] === this.hourCoorList[i].turn) {
                   x['order'] = parseInt(i);
                   this.therapist2List.push(x);
                 }
               }
             } else if (x['therapist'] === 3) {
-              for (const i in this.orderArr) {
-                if (x['hourStart'] === this.orderArr[i].turn) {
+              for (const i in this.hourCoorList) {
+                if (x['hourStart'] === this.hourCoorList[i].turn) {
                   x['order'] = parseInt(i);
                   this.therapist3List.push(x);
                 }

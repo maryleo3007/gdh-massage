@@ -89,6 +89,18 @@ export class ViewAdminComponent implements OnInit {
       }
     });
 
+    // get hour coor
+    this.sharingDataService.getHourCoor()
+    .snapshotChanges()
+    .subscribe( item => {
+      this.hourCoorList = [];
+      item.forEach( elem => {
+        let x = elem.payload.toJSON();
+        x['$key'] = elem.key;
+        this.hourCoorList.push(x);
+      })
+    })
+
     const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
       "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"
     ];
@@ -546,74 +558,61 @@ export class ViewAdminComponent implements OnInit {
       this.turnosService.inserTurn2(turno2);
       this.turnosService.inserTurn3(turno3);
     });
-
-      // get hourCoor
-      this.sharingDataService.getHourCoor()
-      .snapshotChanges()
-      .subscribe( item => {
-        this.hourCoorList = [];
-        item.forEach( elem => {
-          let x = elem.payload.toJSON();
-          x['$key'] = elem.key;
-          this.hourCoorList.push(x);
-        })      
-        for (let index = 0; index < this.hourCoorList.length; index++) {
-          let hour;
-          if(( index === 0 || index === 1) || index === 2) {
-            if(this.hourCoorList[index].turn.length === 5) {
-              if (hourStart > 12) hourStart = hourStart - 12;
-              // if (hourStart <= 12) hourStart = hourStart - 12;
-              hour = this.hourCoorList[index].turn.substring(3);
-              console.log(`${hourStart}:${hour}`);
-            }
-            if (this.hourCoorList[index].turn.length === 4) {
-              if (hourStart > 12)  hourStart = hourStart - 12;
-              hour = this.hourCoorList[index].turn.substring(2);
-              console.log(`${hourStart}:${hour}`);
-            }
+      
+      for (let index = 0; index < this.hourCoorList.length; index++) {
+        let hour;
+        if(( index === 0 || index === 1) || index === 2) {
+          if(this.hourCoorList[index].turn.length === 5) {
+            hourStart > 12 ? hourStart = hourStart - 12 : hourStart = hourStart 
+            hour = this.hourCoorList[index].turn.substring(3);
+            this.sharingDataService.updateHourCoor(this.hourCoorList[index].$key,`${hourStart}:${hour}`)
           } 
-          if (( index === 3 || index === 4) || index === 5) {
-            if(this.hourCoorList[index].turn.length === 5) {
-              if ((hourStart + 1)> 12) hourStart = hourStart - 12;
-              hour = this.hourCoorList[index].turn.substring(3);
-              console.log(`${parseInt(hourStart) + 1}:${hour}`);
-            }
-            if (this.hourCoorList[index].turn.length === 4) {
-              if ((hourStart+ 1) > 12)  hourStart = hourStart - 12;
-              hour = this.hourCoorList[index].turn.substring(2);
-              console.log(`${parseInt(hourStart) + 1}:${hour}`);
-            }
-          } 
-          if (( index === 6 || index === 7) || index === 8) {
-            if(this.hourCoorList[index].turn.length === 5) {
-              if ((hourStart + 2)> 12) hourStart = hourStart - 12;
-              hour = this.hourCoorList[index].turn.substring(3);
-              console.log(`${parseInt(hourStart)+ 2}:${hour}`);
-            }
-            if (this.hourCoorList[index].turn.length === 4) {
-              if ((hourStart+ 2) > 12)  hourStart = hourStart - 12;
-              hour = this.hourCoorList[index].turn.substring(2);
-              console.log(`${parseInt(hourStart) + 2}:${hour}`);
-            }
-          } 
-          if (( index === 9 || index === 10) || index === 11) {
-            if(this.hourCoorList[index].turn.length === 5) {
-              if ((hourStart + 3)> 12) hourStart = hourStart - 12;
-              hour = this.hourCoorList[index].turn.substring(3);
-              console.log(`${parseInt(hourStart)+ 3}:${hour}`);
-            }
-            if (this.hourCoorList[index].turn.length === 4) {
-              if ((hourStart+ 3) > 12)  hourStart = hourStart - 12;
-              hour = this.hourCoorList[index].turn.substring(2);
-              console.log(`${parseInt(hourStart) + 3}:${hour}`);
-            }
-          }        
-        }
-      })
+          if (this.hourCoorList[index].turn.length === 4) {
+            hourStart > 12 ? hourStart = hourStart - 12 : hourStart = hourStart
+            hour = this.hourCoorList[index].turn.substring(2);
+            this.sharingDataService.updateHourCoor(this.hourCoorList[index].$key,`${hourStart}:${hour}`)
+          }
+        } 
+        if (( index === 3 || index === 4) || index === 5) {
+          if(this.hourCoorList[index].turn.length === 5) {
+            (parseInt(hourStart) + 1) > 12 ? hourStart = hourStart - 12 : hourStart = hourStart
+            hour = this.hourCoorList[index].turn.substring(3);
+            this.sharingDataService.updateHourCoor(this.hourCoorList[index].$key,`${parseInt(hourStart) + 1}:${hour}`)
+          }
+          if (this.hourCoorList[index].turn.length === 4) {
+            (parseInt(hourStart) + 1) > 12 ? hourStart = hourStart - 12 : hourStart = hourStart
+            hour = this.hourCoorList[index].turn.substring(2);
+            this.sharingDataService.updateHourCoor(this.hourCoorList[index].$key,`${parseInt(hourStart) + 1}:${hour}`)
+          }
+        } 
+        if (( index === 6 || index === 7) || index === 8) {
+          if(this.hourCoorList[index].turn.length === 5) {
+            (parseInt(hourStart) + 2) > 12 ? hourStart = hourStart - 12 : hourStart = hourStart
+            hour = this.hourCoorList[index].turn.substring(3);
+            this.sharingDataService.updateHourCoor(this.hourCoorList[index].$key,`${parseInt(hourStart)+ 2}:${hour}`)
+          }
+          if (this.hourCoorList[index].turn.length === 4) {
+            (parseInt(hourStart) + 2) > 12 ? hourStart = hourStart - 12 : hourStart = hourStart
+            hour = this.hourCoorList[index].turn.substring(2);
+            this.sharingDataService.updateHourCoor(this.hourCoorList[index].$key,`${parseInt(hourStart)+ 2}:${hour}`)
+          }
+        } 
+        if (( index === 9 || index === 10) || index === 11) {
+          if(this.hourCoorList[index].turn.length === 5) {
+            (parseInt(hourStart) + 3) > 12 ? hourStart = hourStart - 12 : hourStart = hourStart
+            hour = this.hourCoorList[index].turn.substring(3);
+            this.sharingDataService.updateHourCoor(this.hourCoorList[index].$key,`${parseInt(hourStart)+ 3}:${hour}`)
+          }
+          if (this.hourCoorList[index].turn.length === 4) {
+            (parseInt(hourStart) + 3) > 12 ? hourStart = hourStart - 12 : hourStart = hourStart
+            hour = this.hourCoorList[index].turn.substring(2);
+            this.sharingDataService.updateHourCoor(this.hourCoorList[index].$key,`${parseInt(hourStart)+ 3}:${hour}`)
+          }
+        }        
+      }
   }
 
   customHourFormat(hour){
-    
     let hourReturn = '';
       switch (hour) {
         case 0:
@@ -658,9 +657,6 @@ export class ViewAdminComponent implements OnInit {
         default:
           break;
       }
-    
     return hourReturn;
-
-    
   }
 }
