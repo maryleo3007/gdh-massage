@@ -274,19 +274,26 @@
 
         </div>
         <div class="tab-pane fade" id="v-pills-edicion" role="tabpanel" aria-labelledby="v-pills-edicion-tab">
-            <div class="content">
-                <form class="form mt-2 updateSchedule mb-2 needs-validation" novalidate> 
+            <div class="wrapper-form-msg">
+                <!-- <form class="form mt-2 updateSchedule mb-2 needs-validation" novalidate> 
                     <label for="hourIni">Mensaje</label>
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <input #inputMsg type="text" class="form-control" id="inputMsg" required>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary" (click)="updateMsgEdition(inputMsg.value)">Actualizar</button>
-                        <!-- <div *ngIf="msgError == true" class="alert alert-warning" role="alert">
-                                Ingrese un valor
-                        </div> -->
+                        <input type="submit" class="btn btn-primary" (click)="updateMsgEdition(inputMsg.value)">Actualizar</input>
                     </div>
-                </form>
+                </form> -->
+                
+                    <div class="form-header">Editar mensaje al colaborador</div>
+                    <div class="form-grp">
+                      <label>Mensaje</label>
+                      <input #inputMsg type="text" id="inputMsg"/>
+                    </div>
+                    <div class="form-grp">
+                      <button class= "btn-updateMsg" type="submit" (click)="updateMsgEdition(inputMsg.value)">Actualizar</button>
+                    </div>
+                
             </div>
         </div>
     </div>

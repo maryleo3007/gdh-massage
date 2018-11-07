@@ -19,6 +19,7 @@ import { ReportService } from "./../services/report.service";
 import { UserService } from "./../services/user.service";
 import { Report2Service } from "./../services/report2.service";
 import { SharingDataService } from "./../services/sharing-data.service";
+import { EditionsService } from "./../services/editions.service";
 
 // models
 import { InscripcionModel } from "./../models/inscriptions";
@@ -60,6 +61,7 @@ export class ViewHomeComponent implements OnInit {
   reportList: any[];
   report2List: any[];
   reporListDate: any[];
+  msgEditionList: any[];
   userList: any[];
   selectedTurn: TurnModel;
   selectedUser: UserModel;
@@ -87,6 +89,7 @@ export class ViewHomeComponent implements OnInit {
   progres: boolean;
   messageAuth: boolean;
   public changeBool: boolean;
+  public editionsMsg: string;
   currentBool: any[];
   currentTime: any[];
   currentDate: string;
@@ -136,7 +139,8 @@ export class ViewHomeComponent implements OnInit {
     private userService: UserService,
     private modalService: NgbModal,
     private carouselConfig: NgbCarouselConfig,
-    private sharingDataService: SharingDataService
+    private sharingDataService: SharingDataService,
+    private editionsService: EditionsService
   ) {
     carouselConfig.interval = 1000000;
     carouselConfig.wrap = true;
@@ -248,6 +252,23 @@ export class ViewHomeComponent implements OnInit {
           this.terapeuta3.push(x);
         });
       });
+    
+    //get msg edition
+    this.editionsService.getMsgEditions()
+    .snapshotChanges()
+    .subscribe( item => {
+      this.msgEditionList = [];
+      item.forEach(element => {
+        let x = element.payload.toJSON();
+        x['$key'] = element.key;
+        this.msgEditionList.push(x)
+      });
+      this.msgEditionList.forEach(element => {
+        if (element.id == 1) {
+          this.editionsMsg = element.msg;
+        }
+      });
+    });
 
     // get inscriptions
     this.inscriptionService
