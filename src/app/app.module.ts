@@ -35,6 +35,7 @@ import { AuthFirebaseService } from './services/auth-firebase.service';
 import { UserService } from './services/user.service';
 import { SharingDataService } from './services/sharing-data.service';
 import { TurnsStateService } from './services/turns-state.service';
+import { EditionsService } from "./services/editions.service";
 
 
 
@@ -102,7 +103,8 @@ AngularFireAuthModule,
     AuthFirebaseService,
     UserService,
     SharingDataService,
-    TurnsStateService
+    TurnsStateService,
+    EditionsService
   ],
   bootstrap: [
     AppComponent

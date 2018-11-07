@@ -5,9 +5,11 @@ import { UserService } from './../services/user.service';
 import { Report2Service } from './../services/report2.service';
 import { TurnosService } from './../services/turnos.service';
 import { SharingDataService } from './../services/sharing-data.service';
+import { EditionsService } from "./../services/editions.service";
 
 //models
 import { TurnModel } from './../models/turns';  
+import { EditionsModel } from "./../models/editions";
 
 @Component({
   selector: 'app-view-admin',
@@ -42,9 +44,11 @@ export class ViewAdminComponent implements OnInit {
   userList: any[];
   countArray: any[];
   currentBool: any[];
+  msgEditionList: any[];
   public changeBool: boolean;
   public showErrInput: boolean = false;
   id1: any = 0;
+  public msgError: boolean = false;
 
   // vars table
   public total: number;
@@ -71,7 +75,8 @@ export class ViewAdminComponent implements OnInit {
     private reportService: ReportService,
     private report2Service: Report2Service,
     private turnosService: TurnosService,
-    private sharingDataService: SharingDataService
+    private sharingDataService: SharingDataService,
+    private editionsService: EditionsService
   ) { }
 
   ngOnInit() {
@@ -144,7 +149,6 @@ export class ViewAdminComponent implements OnInit {
       }
     });
 
-    //get reports2
   //get reports2
   this.report2Service.getReports2()
   .snapshotChanges()
@@ -271,6 +275,18 @@ export class ViewAdminComponent implements OnInit {
         this.currentBool.push(x)
       })      
     })
+
+    //get msg edition
+    this.editionsService.getMsgEditions()
+    .snapshotChanges()
+    .subscribe( item => {
+      this.msgEditionList = [];
+      item.forEach(element => {
+        let x = element.payload.toJSON();
+        x['$key'] = element.key;
+        this.msgEditionList.push(x)
+      });
+    });
 
      // get therappist list - turns 
      this.turnosService.getTurnosT1()
@@ -456,9 +472,22 @@ export class ViewAdminComponent implements OnInit {
   changeStateAvailableT3($key, available) {
     this.turnosService.changeStateAvailableT3($key, !available);
   }
+
+  updateMsgEdition(p_msgEdition){
+      let msgEdition: EditionsModel = {
+        $key:'',
+        msg: p_msgEdition
+      };
+      this.msgEditionList.forEach(element => {
+        if (element.id == 1) {
+          this.editionsService.updateMsgdition(element.$key, msgEdition);
+        }
+      });
+
+  }
+
   updateSchedule(hourStart){
-    console.log(hourStart);
-    
+
     let sumaHour;
     this.turnosService.deleteTurns();  
     
