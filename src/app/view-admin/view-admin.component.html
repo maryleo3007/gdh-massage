@@ -244,15 +244,22 @@
                             <div class="tab-pane fade" id="configSchedule">
                                 <div class="container">
                                     <div class="col-12 col-md-12 mt-4">
-                                        <form class="form-inline mt-2 updateSchedule mb-2">
-                                            <label for="inlineFormInput">Hora Inicial</label>
+                                        <form class="form-inline mt-2 updateSchedule mb-2 needs-validation" novalidate> 
+                                            <label for="hourIni">Hora Inicial</label>
                                             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                                                 <!-- <div class="input-group-addon">@</div> -->
-                                                <input #inputHourIni type="number" class="form-control" id="hourIni" maxlength="2">
+                                                <input #inputHourIni type="number" class="form-control" id="hourIni" maxlength="2" min="9" max="18" required>
                                                 <!-- <input type="number" class="form-control" id="minutIni" placeholder="Minuto" maxlength="2"> -->
+                                                
                                             </div>
-
-                                            <button type="submit" class="btn btn-primary" (click)="updateSchedule(inputHourIni.value)">Actualizar</button>
+                                            <div *ngIf="inputHourIni.value == '' || inputHourIni.value == undefined">
+                                                <button  type="submit" class="btn btn-primary" disabled>Actualizar</button>
+                                            </div>
+                                            <div *ngIf="inputHourIni.value != ''">
+                                                <button type="submit" class="btn btn-primary" (click)="updateSchedule(inputHourIni.value)">Actualizar</button>
+                                            </div>
+                                            
+                                           
                                         </form>
                                         <small class="text-muted">* Hora: Formato 24 hrs</small>
                                     </div>
