@@ -123,6 +123,7 @@ export class ViewHomeComponent implements OnInit {
     hourEnd: "",
     therapistId: 0,
     userName: "",
+    hour24:'',
     count: 0
   };
 
@@ -185,7 +186,7 @@ export class ViewHomeComponent implements OnInit {
                 }
               });
             });
-        }, 3000);
+        }, 30000);
       } else {
         this.bool = true;
         this.progres = false;
@@ -339,19 +340,25 @@ export class ViewHomeComponent implements OnInit {
       let date = new Date();
       let hour:any = date.getHours();
       let minute:any = date.getMinutes();
-      if ( hour <= 12 ) {
-        hour = hour.toString();
-      } else if (hour > 12) {
-        hour = (hour - 12).toString();
-      }
       if ( minute < 10 ) {
         minute = '0' + minute.toString();
       } else if (minute > 10) {
         minute = minute.toString();
       }
       let currentDate = `${hour}:${minute}` 
-      this.sharingDataService.updateCurentTiem(this.currentTime[0].$key,currentDate)
-    },2000)
+      this.sharingDataService.updateCurentTiem(this.currentTime[0].$key,currentDate),
+      console.log(this.currentTime[0].$key,currentDate);
+    },10000)
+  }
+
+  click(x,n) {
+    if(x>n)  {
+      console.log(true);
+    }
+    else if (x<n) {
+      console.log(false);
+    }
+    console.log(x,n);
   }
 
   onSendCalendar(user: UserModel) {

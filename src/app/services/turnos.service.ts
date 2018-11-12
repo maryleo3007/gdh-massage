@@ -36,6 +36,7 @@ export class TurnosService {
       available: turn1.available,
       confirm: turn1.confirm,
       hourEnd: turn1.hourEnd,
+      hour24: turn1.hour24,
       hourStart: turn1.hourStart,
       therapistId: turn1.therapistId,
       count: turn1.count,
@@ -47,6 +48,7 @@ export class TurnosService {
     this.terapeuta2.push({
       available: turn2.available,
       confirm: turn2.confirm,
+      hour24: turn2.hour24,
       hourEnd: turn2.hourEnd,
       hourStart: turn2.hourStart,
       therapistId: turn2.therapistId,
@@ -59,6 +61,7 @@ export class TurnosService {
     this.terapeuta3.push({
       available: turn3.available,
       confirm: turn3.confirm,
+      hour24: turn3.hour24,
       hourEnd: turn3.hourEnd,
       hourStart: turn3.hourStart,
       therapistId: turn3.therapistId,
