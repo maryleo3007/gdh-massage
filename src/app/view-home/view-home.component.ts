@@ -599,6 +599,15 @@ export class ViewHomeComponent implements OnInit {
   }
 
   onConfirmTurn1(user: UserModel, x, modal, modalTurnoOcupado) {
+    this.terapeuta1.forEach(element => {
+      console.log(element);
+      // if (condition) {
+        
+      // } else {
+        
+      // }
+      
+    });
     if (this.selectedTurn.confirm == true) {
       this.modalSelectTurn.close();
       this.modalOnMessage = this.modalService.open(modalTurnoOcupado);
