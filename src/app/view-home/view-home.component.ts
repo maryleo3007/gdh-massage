@@ -346,19 +346,8 @@ export class ViewHomeComponent implements OnInit {
         minute = minute.toString();
       }
       let currentDate = `${hour}:${minute}` 
-      this.sharingDataService.updateCurentTiem(this.currentTime[0].$key,currentDate),
-      console.log(this.currentTime[0].$key,currentDate);
-    },10000)
-  }
-
-  click(x,n) {
-    if(x>n)  {
-      console.log(true);
-    }
-    else if (x<n) {
-      console.log(false);
-    }
-    console.log(x,n);
+      this.sharingDataService.updateCurentTiem(this.currentTime[0].$key,currentDate);
+    },30000)
   }
 
   onSendCalendar(user: UserModel) {
@@ -435,7 +424,6 @@ export class ViewHomeComponent implements OnInit {
   }
 
   onSelectTurn1(user: UserModel, turn: TurnModel, modal): void {
-    console.log(turn.hourStart);
 
     let userExist = false;
 
@@ -492,7 +480,6 @@ export class ViewHomeComponent implements OnInit {
   }
 
   onSelectTurn2(user: UserModel, turn: TurnModel, modal): void {
-    console.log(turn.hourStart);
 
     let userExist = false;
 
@@ -549,7 +536,6 @@ export class ViewHomeComponent implements OnInit {
   }
 
   onSelectTurn3(user: UserModel, turn: TurnModel, modal): void {
-    console.log(turn.hourStart);
 
     let userExist = false;
 
