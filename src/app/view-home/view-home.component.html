@@ -457,11 +457,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    
-                    <div *ngIf="this.activateModalConfirm == false" class="progress bg-white d-flex align-items-center">
+                    <div *ngIf="this.activateModalConfirm == false" class="d-flex align-items-center loading-confirm-turn" >
                         <img src="./../../assets/images/loading.gif" alt="gif-loading" class="img-fluid">
                     </div>
-                    <div *ngIf="this.activateModalConfirm == true" class="progress bg-white d-flex align-items-center">
+                    <div *ngIf="this.activateModalConfirm == true" class=" d-flex align-items-center">
                         <div class="text-center">
                             <div *ngIf="selectedTurn.count < 1 && selectedTurn.confirm == true ">
                                 <div class="mb-4">
@@ -521,6 +520,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </ng-template>
