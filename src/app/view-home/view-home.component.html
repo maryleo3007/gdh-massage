@@ -435,12 +435,42 @@
                     <div class="mt-4 mb-5 text-center">
                         <div *ngFor="let userItem of userList" class="d-inline">
                             <div *ngIf="userItem.mail == me.mail" class="d-inline">
-                                <button *ngIf="selectedTurn.therapistId == 1 && selectedTurn.confirm == false" type="button"
+                                <div *ngFor="let item1 of terapeuta1">
+                                    <div *ngIf="item1.confirm == true && item1.turnId == selectedTurn.turnId">
+                                        <button type="button" class="btn btn-confirm mr-2" disabled>Confirmar</button>
+                                        <p>Lo sentimos, alguien más ya ha confirmado el turno.</p> 
+                                    </div>
+                                    <div *ngIf="item1.confirm == false && item1.turnId == selectedTurn.turnId">
+                                        <button *ngIf="selectedTurn.therapistId == 1" type="button"
+                                        class="btn btn-confirm mr-2" (click)="onConfirmTurn1(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
+                                    </div>      
+                                </div>
+                                <div *ngFor="let item2 of terapeuta2">
+                                    <div *ngIf="item2.confirm == true && item2.turnId == selectedTurn.turnId">
+                                        <button type="button" class="btn btn-confirm mr-2" disabled>Confirmar</button>
+                                        <p>Lo sentimos, alguien más ya ha confirmado el turno.</p> 
+                                    </div>
+                                    <div *ngIf="item2.confirm == false && item2.turnId == selectedTurn.turnId">
+                                        <button *ngIf="selectedTurn.therapistId == 2" type="button"
+                                        class="btn btn-confirm mr-2" (click)="onConfirmTurn2(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
+                                    </div>      
+                                </div>
+                                <div *ngFor="let item3 of terapeuta3">
+                                    <div *ngIf="item3.confirm == true && item3.turnId == selectedTurn.turnId">
+                                        <button type="button" class="btn btn-confirm mr-2" disabled>Confirmar</button>
+                                        <p>Lo sentimos, alguien más ya ha confirmado el turno.</p> 
+                                    </div>
+                                    <div *ngIf="item3.confirm == false && item3.turnId == selectedTurn.turnId">
+                                        <button *ngIf="selectedTurn.therapistId == 3" type="button"
+                                        class="btn btn-confirm mr-2" (click)="onConfirmTurn2(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
+                                    </div>      
+                                </div>
+                                <!-- <button *ngIf="selectedTurn.therapistId == 1" type="button"
                                     class="btn btn-confirm mr-2" (click)="onConfirmTurn1(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
-                                <button *ngIf="selectedTurn.therapistId == 2 && selectedTurn.confirm == false" type="button"
+                                <button *ngIf="selectedTurn.therapistId == 2" type="button"
                                     class="btn btn-confirm mr-2" (click)="onConfirmTurn2(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
-                                <button *ngIf="selectedTurn.therapistId == 3 && selectedTurn.confirm == false" type="button"
-                                    class="btn btn-confirm mr-2" (click)="onConfirmTurn3(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
+                                <button *ngIf="selectedTurn.therapistId == 3" type="button"
+                                    class="btn btn-confirm mr-2" (click)="onConfirmTurn3(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button> -->
                             </div>
                         </div>
                         <button type="button" class="btn btn-cancel" aria-label="Close" (click)="d('Cross click')">Cancelar</button>

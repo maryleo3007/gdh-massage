@@ -452,7 +452,6 @@ export class ViewHomeComponent implements OnInit {
   }
 
   onSelectTurn1(user: UserModel, turn: TurnModel, modal): void {
-    console.log(turn.hourStart);
 
     let userExist = false;
 
@@ -483,16 +482,36 @@ export class ViewHomeComponent implements OnInit {
     this.modalSelectTurn = this.modalService.open(modal);
     this.modalSelectTurn.result.then(
       result => {
-        this.selectedTurn.available = true;
-        this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
-        this.subsCounter.unsubscribe();
-        this.closeResult = `Closed with: ${result}`;
+        this.terapeuta1.forEach(element => {
+          if (this.selectedTurn.turnId == element.turnId) {
+            if (element.confirm == false) {
+              this.selectedTurn.available = true;
+              this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
+              this.subsCounter.unsubscribe();
+              this.closeResult = `Closed with: ${result}`;
+            }
+            else if (element.confirm == true) {
+              this.subsCounter.unsubscribe();
+              this.closeResult = `Closed with: ${result}`;
+            }
+          }
+        });
       },
       reason => {
-        this.selectedTurn.available = true;
-        this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
-        this.subsCounter.unsubscribe();
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        this.terapeuta1.forEach(element => {
+          if (this.selectedTurn.turnId == element.turnId) {
+            if (element.confirm == false) {
+              this.selectedTurn.available = true;
+              this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
+              this.subsCounter.unsubscribe();
+              this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            }
+            else if (element.confirm == true) {
+              this.subsCounter.unsubscribe();
+              this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            }
+          }
+        });
       }
     );
 
@@ -540,18 +559,39 @@ export class ViewHomeComponent implements OnInit {
     this.modalSelectTurn = this.modalService.open(modal);
     this.modalSelectTurn.result.then(
       result => {
-        this.selectedTurn.available = true;
-        this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-        this.subsCounter.unsubscribe();
-        this.closeResult = `Closed with: ${result}`;
+        this.terapeuta2.forEach(element => {
+          if (this.selectedTurn.turnId == element.turnId) {
+            if (element.confirm == false) {
+              this.selectedTurn.available = true;
+              this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
+              this.subsCounter.unsubscribe();
+              this.closeResult = `Closed with: ${result}`;
+            }
+            else if (element.confirm == true) {
+              this.subsCounter.unsubscribe();
+              this.closeResult = `Closed with: ${result}`;
+            }
+          }
+        });
       },
       reason => {
-        this.selectedTurn.available = true;
-        this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-        this.subsCounter.unsubscribe();
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        this.terapeuta2.forEach(element => {
+          if (this.selectedTurn.turnId == element.turnId) {
+            if (element.confirm == false) {
+              this.selectedTurn.available = true;
+              this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
+              this.subsCounter.unsubscribe();
+              this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            }
+            else if (element.confirm == true) {
+              this.subsCounter.unsubscribe();
+              this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            }
+          }
+        });
       }
     );
+
 
     let timer;
     this.ticks = 60;
@@ -596,20 +636,42 @@ export class ViewHomeComponent implements OnInit {
     this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
 
     this.modalSelectTurn = this.modalService.open(modal);
+    
     this.modalSelectTurn.result.then(
       result => {
-        this.selectedTurn.available = true;
-        this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-        this.subsCounter.unsubscribe();
-        this.closeResult = `Closed with: ${result}`;
+        this.terapeuta3.forEach(element => {
+          if (this.selectedTurn.turnId == element.turnId) {
+            if (element.confirm == false) {
+              this.selectedTurn.available = true;
+              this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
+              this.subsCounter.unsubscribe();
+              this.closeResult = `Closed with: ${result}`;
+            }
+            else if (element.confirm == true) {
+              this.subsCounter.unsubscribe();
+              this.closeResult = `Closed with: ${result}`;
+            }
+          }
+        });
       },
       reason => {
-        this.selectedTurn.available = true;
-        this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-        this.subsCounter.unsubscribe();
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        this.terapeuta3.forEach(element => {
+          if (this.selectedTurn.turnId == element.turnId) {
+            if (element.confirm == false) {
+              this.selectedTurn.available = true;
+              this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
+              this.subsCounter.unsubscribe();
+              this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            }
+            else if (element.confirm == true) {
+              this.subsCounter.unsubscribe();
+              this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            }
+          }
+        });
       }
     );
+
     let timer;
     this.ticks = 60;
 
@@ -623,6 +685,7 @@ export class ViewHomeComponent implements OnInit {
   }
 
   onConfirmTurn1(user: UserModel, x, modal, modalTurnoOcupado) {
+    this.activateModalConfirm = false;
 
     this.modalSelectTurn.close();
     this.modalConfirm = this.modalService.open(modal);
@@ -638,8 +701,7 @@ export class ViewHomeComponent implements OnInit {
     const timeOut = Observable.timer(3000);
 
     timeOut.subscribe( t => {
-      console.log(t);
-      
+ 
       let userNameLocal = this.me.mail.substring(0, this.me.mail.indexOf("@"));
       
       //get turn list
@@ -657,8 +719,6 @@ export class ViewHomeComponent implements OnInit {
       
       this.terapeuta1.forEach((e)=>{
         if( this.selectedTurn.turnId == e.turnId && e.userName == userNameLocal){
-          
-
           this.primero.dateInscription = this.getDateFull();
           this.primero.hourStart = this.selectedTurn.hourStart;
           this.primero.hourEnd = this.selectedTurn.hourEnd;
@@ -675,22 +735,22 @@ export class ViewHomeComponent implements OnInit {
           this.modalConfirm.result.then(
             result => {
               this.closeResult = `Closed with: ${result}`;
-              // this.selectedTurn.count++;
+              this.selectedTurn.count++;
               // this.selectedTurn.available = true;
-              // this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
+              this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
               this.subsCounter.unsubscribe();
             },
             reason => {
-              // this.selectedTurn.count++;
+              this.selectedTurn.count++;
               // this.selectedTurn.available = true;
-              // this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
+              this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
               this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
               this.subsCounter.unsubscribe();
             }
           );
           this.activateModalConfirm = true;
         }
-        else
+        
         if( this.selectedTurn.turnId == e.turnId && e.userName !== userNameLocal){
           this.modalConfirm.close();
           this.modalOnMessage = this.modalService.open(modalTurnoOcupado);
@@ -708,194 +768,190 @@ export class ViewHomeComponent implements OnInit {
               this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
             }
           );
+          this.activateModalConfirm = false;
         }
       })
     });
-    
-    // setTimeout(() => {
-
-    //   let userNameLocal = this.me.mail.substring(0, this.me.mail.indexOf("@"));
-      
-    //   //get turn list
-    //   this.turnoService
-    //   .getTurnosT1()
-    //   .snapshotChanges()
-    //   .subscribe(item => {
-    //     this.terapeuta1 = [];
-    //     item.forEach(elem => {
-    //       let x = elem.payload.toJSON();
-    //       x["$key"] = elem.key;
-    //       this.terapeuta1.push(x);
-    //     });
-    //   });
-      
-    //   this.terapeuta1.forEach((e)=>{
-    //     if( this.selectedTurn.turnId == e.turnId && e.userName == userNameLocal){
-    //       this.activateModalConfirm = true;
-
-    //       this.primero.dateInscription = this.getDateFull();
-    //       this.primero.hourStart = this.selectedTurn.hourStart;
-    //       this.primero.hourEnd = this.selectedTurn.hourEnd;
-    //       this.primero.therapist = this.selectedTurn.therapistId;
-    //       this.primero.userAssist = this.userName;
-    //       this.primero.userName = this.name;
-    //       this.primero.displayName = this.displayName;
-    //       this.primero.mail = this.mail;
-    
-    //       this.insertInscription(x);
-    //       this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
-    //       this.updateUser(user.$key, this.selectedUser);
-
-    //       this.modalConfirm.result.then(
-    //         result => {
-    //           this.closeResult = `Closed with: ${result}`;
-    //           this.selectedTurn.count++;
-    //           this.selectedTurn.available = true;
-    //           this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
-    //           this.subsCounter.unsubscribe();
-    //         },
-    //         reason => {
-    //           this.selectedTurn.count++;
-    //           this.selectedTurn.available = true;
-    //           this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
-    //           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    //           this.subsCounter.unsubscribe();
-    //         }
-    //       );
-    //       return false;
-    //     }
-    //     else
-    //     if( this.selectedTurn.turnId == e.turnId && e.userName !== userNameLocal){
-    //       this.modalConfirm.close();
-    //       this.modalOnMessage = this.modalService.open(modalTurnoOcupado);
-    //       this.modalOnMessage.result.then(
-    //         result => {
-    //           this.selectedUser.reserved = false;
-    //           this.updateUser(user.$key, this.selectedUser);
-    //           this.subsCounter.unsubscribe();
-    //           this.closeResult = `Closed with: ${result}`;
-    //         },
-    //         reason => {
-    //           this.selectedUser.reserved = false;
-    //           this.updateUser(user.$key, this.selectedUser);
-    //           this.subsCounter.unsubscribe();
-    //           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    //         }
-    //       );
-    //       return false;
-    //     }
-    //   })
-    // }, 3000);
   }
 
-
   onConfirmTurn2(user: UserModel, x, modal, modalTurnoOcupado) {
-    if (this.selectedTurn.confirm == true) {
-      this.modalSelectTurn.close();
-      this.modalOnMessage = this.modalService.open(modalTurnoOcupado);
-      this.modalOnMessage.result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-          this.subsCounter.unsubscribe();
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-          this.subsCounter.unsubscribe();
-        }
-      );
-    } else {
-      this.selectedUser = user;
-      this.selectedUser.reserved = true;
-
-      this.selectedTurn.confirm = true;
-      this.selectedTurn.userName = this.name;
-
-      this.primero.dateInscription = this.getDateFull();
-      this.primero.hourStart = this.selectedTurn.hourStart;
-      this.primero.hourEnd = this.selectedTurn.hourEnd;
-      this.primero.therapist = this.selectedTurn.therapistId;
-      this.primero.userAssist = this.userName;
-      this.primero.userName = this.name;
-      this.primero.displayName = this.displayName;
-      this.primero.mail = this.mail;
-
-      this.insertInscription(x);
-      this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-      this.updateUser(user.$key, this.selectedUser);
-
+      this.activateModalConfirm = false;
+    
       this.modalSelectTurn.close();
       this.modalConfirm = this.modalService.open(modal);
-      this.modalConfirm.result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-          this.selectedTurn.count++;
-          this.selectedTurn.available = true;
-          this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-          this.subsCounter.unsubscribe();
-        },
-        reason => {
-          this.selectedTurn.count++;
-          this.selectedTurn.available = true;
-          this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-          this.subsCounter.unsubscribe();
-        }
-      );
-    }
+  
+      this.selectedUser = user;
+      this.selectedUser.reserved = true;
+      
+      this.selectedTurn.confirm = true;
+      this.selectedTurn.userName = this.name;
+      
+      this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
+  
+      const timeOut = Observable.timer(3000);
+  
+      timeOut.subscribe( t => {
+    
+        let userNameLocal = this.me.mail.substring(0, this.me.mail.indexOf("@"));
+        
+        //get turn list
+        this.turnoService
+        .getTurnosT2()
+        .snapshotChanges()
+        .subscribe(item => {
+          this.terapeuta2 = [];
+          item.forEach(elem => {
+            let x = elem.payload.toJSON();
+            x["$key"] = elem.key;
+            this.terapeuta2.push(x);
+          });
+        });
+        
+        this.terapeuta2.forEach((e)=>{
+          if( this.selectedTurn.turnId == e.turnId && e.userName == userNameLocal){
+            this.primero.dateInscription = this.getDateFull();
+            this.primero.hourStart = this.selectedTurn.hourStart;
+            this.primero.hourEnd = this.selectedTurn.hourEnd;
+            this.primero.therapist = this.selectedTurn.therapistId;
+            this.primero.userAssist = this.userName;
+            this.primero.userName = this.name;
+            this.primero.displayName = this.displayName;
+            this.primero.mail = this.mail;
+      
+            this.insertInscription(x);
+            // this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
+            this.updateUser(user.$key, this.selectedUser);
+  
+            this.modalConfirm.result.then(
+              result => {
+                this.closeResult = `Closed with: ${result}`;
+                this.selectedTurn.count++;
+                // this.selectedTurn.available = true;
+                this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
+                this.subsCounter.unsubscribe();
+              },
+              reason => {
+                this.selectedTurn.count++;
+                // this.selectedTurn.available = true;
+                this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
+                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                this.subsCounter.unsubscribe();
+              }
+            );
+            this.activateModalConfirm = true;
+          }
+          
+          if( this.selectedTurn.turnId == e.turnId && e.userName !== userNameLocal){
+            this.modalConfirm.close();
+            this.modalOnMessage = this.modalService.open(modalTurnoOcupado);
+            this.modalOnMessage.result.then(
+              result => {
+                this.selectedUser.reserved = false;
+                this.updateUser(user.$key, this.selectedUser);
+                this.subsCounter.unsubscribe();
+                this.closeResult = `Closed with: ${result}`;
+              },
+              reason => {
+                this.selectedUser.reserved = false;
+                this.updateUser(user.$key, this.selectedUser);
+                this.subsCounter.unsubscribe();
+                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+              }
+            );
+            this.activateModalConfirm = false;
+          }
+        })
+      });
   }
 
   onConfirmTurn3(user: UserModel, x, modal, modalTurnoOcupado) {
-    if (this.selectedTurn.confirm == true) {
-      this.modalSelectTurn.close();
-      this.modalOnMessage = this.modalService.open(modalTurnoOcupado);
-      this.modalOnMessage.result.then(
-        result => {
-          this.closeResult = `Closed with: ${result}`;
-          this.subsCounter.unsubscribe();
-        },
-        reason => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-          this.subsCounter.unsubscribe();
-        }
-      );
-    } else {
-      this.selectedUser = user;
-      this.selectedUser.reserved = true;
-      this.selectedTurn.confirm = true;
-      this.selectedTurn.userName = this.name;
-
-      this.primero.dateInscription = this.getDateFull();
-      this.primero.hourStart = this.selectedTurn.hourStart;
-      this.primero.hourEnd = this.selectedTurn.hourEnd;
-      this.primero.therapist = this.selectedTurn.therapistId;
-      this.primero.userAssist = this.userName;
-      this.primero.userName = this.name;
-      this.primero.displayName = this.displayName;
-      this.primero.mail = this.mail;
-
-      this.insertInscription(x);
-      this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-      this.updateUser(user.$key, this.selectedUser);
-
+      this.activateModalConfirm = false;
+    
       this.modalSelectTurn.close();
       this.modalConfirm = this.modalService.open(modal);
-      this.modalConfirm.result.then(
-        result => {
-          this.selectedTurn.available = true;
-          this.selectedTurn.count++;
-          this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-          this.closeResult = `Closed with: ${result}`;
-          this.subsCounter.unsubscribe();
-        },
-        reason => {
-          this.selectedTurn.available = true;
-          this.selectedTurn.count++;
-          this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-          this.subsCounter.unsubscribe();
-        }
-      );
-    }
+  
+      this.selectedUser = user;
+      this.selectedUser.reserved = true;
+      
+      this.selectedTurn.confirm = true;
+      this.selectedTurn.userName = this.name;
+      
+      this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
+  
+      const timeOut = Observable.timer(3000);
+  
+      timeOut.subscribe( t => {
+    
+        let userNameLocal = this.me.mail.substring(0, this.me.mail.indexOf("@"));
+        
+        //get turn list
+        this.turnoService
+        .getTurnosT3()
+        .snapshotChanges()
+        .subscribe(item => {
+          this.terapeuta3 = [];
+          item.forEach(elem => {
+            let x = elem.payload.toJSON();
+            x["$key"] = elem.key;
+            this.terapeuta3.push(x);
+          });
+        });
+        
+        this.terapeuta3.forEach((e)=>{
+          if( this.selectedTurn.turnId == e.turnId && e.userName == userNameLocal){
+            this.primero.dateInscription = this.getDateFull();
+            this.primero.hourStart = this.selectedTurn.hourStart;
+            this.primero.hourEnd = this.selectedTurn.hourEnd;
+            this.primero.therapist = this.selectedTurn.therapistId;
+            this.primero.userAssist = this.userName;
+            this.primero.userName = this.name;
+            this.primero.displayName = this.displayName;
+            this.primero.mail = this.mail;
+      
+            this.insertInscription(x);
+            // this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
+            this.updateUser(user.$key, this.selectedUser);
+  
+            this.modalConfirm.result.then(
+              result => {
+                this.closeResult = `Closed with: ${result}`;
+                this.selectedTurn.count++;
+                // this.selectedTurn.available = true;
+                this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
+                this.subsCounter.unsubscribe();
+              },
+              reason => {
+                this.selectedTurn.count++;
+                // this.selectedTurn.available = true;
+                this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
+                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+                this.subsCounter.unsubscribe();
+              }
+            );
+            this.activateModalConfirm = true;
+          }
+          
+          if( this.selectedTurn.turnId == e.turnId && e.userName !== userNameLocal){
+            this.modalConfirm.close();
+            this.modalOnMessage = this.modalService.open(modalTurnoOcupado);
+            this.modalOnMessage.result.then(
+              result => {
+                this.selectedUser.reserved = false;
+                this.updateUser(user.$key, this.selectedUser);
+                this.subsCounter.unsubscribe();
+                this.closeResult = `Closed with: ${result}`;
+              },
+              reason => {
+                this.selectedUser.reserved = false;
+                this.updateUser(user.$key, this.selectedUser);
+                this.subsCounter.unsubscribe();
+                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+              }
+            );
+            this.activateModalConfirm = false;
+          }
+        })
+      });
   }
 
   onMessageSelect(modal) {
