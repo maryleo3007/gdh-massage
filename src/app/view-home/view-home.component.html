@@ -74,7 +74,7 @@
                                                     <div *ngIf="userItem.reserved == true" class="col-12 col-md-4 text-center">
                                                         <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
                                                             <button *ngIf="item1.confirm == false && item1.userName < 1"
-                                                                class="turn-btn turn-disponible" (click)="onSelectTurn1(userItem,item1,modalSorry)">
+                                                                class="turn-btn turn-disponible" (click)="onMessageSelect(modalSorry)">
                                                                 {{item1.hourStart}} - {{item1.hourEnd}} </button>
                                                             <button *ngIf="item1.confirm == true && item1.userName == name"
                                                                 class="turn-btn turn-seleccionado" (click)="onSelectTurn1(userItem,item1,modalConfirm)">
@@ -105,7 +105,7 @@
                                                     <div *ngIf="userItem.reserved == true" class="col-12 col-md-4 text-center">
                                                         <div *ngFor="let item2 of terapeuta2" class="mb-2 turn-container">
                                                             <button *ngIf="item2.confirm == false && item2.userName < 1"
-                                                                class="turn-btn turn-disponible" (click)="onSelectTurn2(userItem,item2,modalSorry)">
+                                                                class="turn-btn turn-disponible" (click)="onMessageSelect(modalSorry)">
                                                                 {{item2.hourStart}} - {{item2.hourEnd}} </button>
                                                             <button *ngIf="item2.confirm == true && item2.userName == name"
                                                                 class="turn-btn turn-seleccionado" (click)="onSelectTurn2(userItem,item2,modalConfirm)">
@@ -135,7 +135,7 @@
                                                     <div *ngIf="userItem.reserved == true" class="col-12 col-md-4 mb-2 text-center">
                                                         <div *ngFor="let item3 of terapeuta3" class="mb-2 turn-container">
                                                             <button *ngIf="item3.confirm == false && item3.userName < 1"
-                                                                class="turn-btn turn-disponible" (click)="onSelectTurn3(userItem,item3,modalSorry)" [disabled]='currentTime[0].time > item3.hourStart'>
+                                                                class="turn-btn turn-disponible" (click)="onMessageSelect(modalSorry)" [disabled]='currentTime[0].time > item3.hourStart'>
                                                                 {{item3.hourStart}} - {{item3.hourEnd}} </button>
                                                             <button *ngIf="item3.confirm == true && item3.userName == name"
                                                                 class="turn-btn turn-seleccionado" (click)="onSelectTurn3(userItem, item3,modalConfirm)" [disabled]='currentTime[0].time > item3.hourStart'>
@@ -241,7 +241,7 @@
                                     <div *ngIf="userItem.reserved == true" class="col-12 col-md-4 text-center">
                                         <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
                                             <button *ngIf="item1.confirm == false && item1.userName < 1" class="turn-btn turn-disponible"
-                                                (click)="onSelectTurn1(userItem,item1,modalSorry)">
+                                                (click)="onMessageSelect(modalSorry)">
                                                 {{item1.hourStart}} - {{item1.hourEnd}} </button>
                                             <button *ngIf="item1.confirm == true && item1.userName == name" class="turn-btn turn-seleccionado"
                                                 (click)="onSelectTurn1(userItem,item1,modalConfirm)">
@@ -277,7 +277,7 @@
                                     <div *ngIf="userItem.reserved == true" class="col-12 col-md-4 text-center">
                                         <div *ngFor="let item2 of terapeuta2" class="mb-2 turn-container">
                                             <button *ngIf="item2.confirm == false && item2.userName < 1" class="turn-btn turn-disponible"
-                                                (click)="onSelectTurn2(userItem,item2,modalSorry)">
+                                                (click)="onMessageSelect(modalSorry)">
                                                 {{item2.hourStart}} - {{item2.hourEnd}} </button>
                                             <button *ngIf="item2.confirm == true && item2.userName == name" class="turn-btn turn-seleccionado"
                                                 (click)="onSelectTurn2(userItem,item2,modalConfirm)">
@@ -313,7 +313,7 @@
                                     <div *ngIf="userItem.reserved == true" class="col-12 col-md-4 mb-2 text-center">
                                         <div *ngFor="let item3 of terapeuta3" class="mb-2 turn-container">
                                             <button *ngIf="item3.confirm == false && item3.userName < 1" class="turn-btn turn-disponible"
-                                                (click)="onSelectTurn3(userItem,item3,modalSorry)" [disabled]='currentTime[0].time > item3.hourStart'>
+                                                (click)="onMessageSelect(modalSorry)" [disabled]='currentTime[0].time > item3.hourStart'>
                                                 {{item3.hourStart}} - {{item3.hourEnd}} </button>
                                             <button *ngIf="item3.confirm == true && item3.userName == name" class="turn-btn turn-seleccionado"
                                                 (click)="onSelectTurn3(userItem, item3,modalConfirm)" [disabled]='currentTime[0].time > item3.hourStart'>
@@ -428,41 +428,52 @@
 
                 </div>
                 <div class="modal-body">
-                    <div class="text-center">
-                        <h3 class="modal-title text-modal">¿Deseas confirmar este turno?</h3>
-                    </div>
+                    
 
                     <div class="mt-4 mb-5 text-center">
                         <div *ngFor="let userItem of userList" class="d-inline">
                             <div *ngIf="userItem.mail == me.mail" class="d-inline">
                                 <div *ngFor="let item1 of terapeuta1">
                                     <div *ngIf="item1.confirm == true && item1.turnId == selectedTurn.turnId">
-                                        <button type="button" class="btn btn-confirm mr-2" disabled>Confirmar</button>
-                                        <p>Lo sentimos, alguien más ya ha confirmado el turno.</p> 
+                                        <!-- <button type="button" class="btn btn-confirm mr-2" disabled>Confirmar</button> -->
+                                        <h3>Lo sentimos, alguien más ya ha confirmado el turno.</h3> 
                                     </div>
                                     <div *ngIf="item1.confirm == false && item1.turnId == selectedTurn.turnId">
+                                        <div class="text-center">
+                                            <h3 class="modal-title text-modal">¿Deseas confirmar este turno?</h3>
+                                        </div>
                                         <button *ngIf="selectedTurn.therapistId == 1" type="button"
                                         class="btn btn-confirm mr-2" (click)="onConfirmTurn1(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
+                                        <button type="button" class="btn btn-cancel" aria-label="Close" (click)="d('Cross click')">Cancelar</button>
                                     </div>      
                                 </div>
                                 <div *ngFor="let item2 of terapeuta2">
                                     <div *ngIf="item2.confirm == true && item2.turnId == selectedTurn.turnId">
-                                        <button type="button" class="btn btn-confirm mr-2" disabled>Confirmar</button>
-                                        <p>Lo sentimos, alguien más ya ha confirmado el turno.</p> 
+                                        <!-- <button type="button" class="btn btn-confirm mr-2" disabled>Confirmar</button> -->
+                                        <h3>Lo sentimos, alguien más ya ha confirmado el turno.</h3> 
                                     </div>
                                     <div *ngIf="item2.confirm == false && item2.turnId == selectedTurn.turnId">
+                                        <div class="text-center">
+                                            <h3 class="modal-title text-modal">¿Deseas confirmar este turno?</h3>
+                                        </div>
                                         <button *ngIf="selectedTurn.therapistId == 2" type="button"
                                         class="btn btn-confirm mr-2" (click)="onConfirmTurn2(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
+                                        <button type="button" class="btn btn-cancel" aria-label="Close" (click)="d('Cross click')">Cancelar</button>
                                     </div>      
                                 </div>
                                 <div *ngFor="let item3 of terapeuta3">
+                                    
                                     <div *ngIf="item3.confirm == true && item3.turnId == selectedTurn.turnId">
-                                        <button type="button" class="btn btn-confirm mr-2" disabled>Confirmar</button>
-                                        <p>Lo sentimos, alguien más ya ha confirmado el turno.</p> 
+                                        <!-- <button type="button" class="btn btn-confirm mr-2" disabled>Confirmar</button> -->
+                                        <h3>Lo sentimos, alguien más ya ha confirmado el turno.</h3> 
                                     </div>
                                     <div *ngIf="item3.confirm == false && item3.turnId == selectedTurn.turnId">
+                                        <div class="text-center">
+                                            <h3 class="modal-title text-modal">¿Deseas confirmar este turno?</h3>
+                                        </div>
                                         <button *ngIf="selectedTurn.therapistId == 3" type="button"
                                         class="btn btn-confirm mr-2" (click)="onConfirmTurn2(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button>
+                                        <button type="button" class="btn btn-cancel" aria-label="Close" (click)="d('Cross click')">Cancelar</button>
                                     </div>      
                                 </div>
                                 <!-- <button *ngIf="selectedTurn.therapistId == 1" type="button"
@@ -473,7 +484,7 @@
                                     class="btn btn-confirm mr-2" (click)="onConfirmTurn3(userItem,this.primero,modalConfirm, modalTurnoOcupado)">Confirmar</button> -->
                             </div>
                         </div>
-                        <button type="button" class="btn btn-cancel" aria-label="Close" (click)="d('Cross click')">Cancelar</button>
+                        
                     </div>
                     <div class="timer">{{ticks}}</div>
 
@@ -487,10 +498,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div *ngIf="this.activateModalConfirm == false" class="d-flex align-items-center loading-confirm-turn" >
-                        <img src="./../../assets/images/loading.gif" alt="gif-loading" class="img-fluid">
+                    <div *ngIf="this.activateModalConfirm == false" class="loading-confirm-turn" >
+                        <img src="./../../assets/images/loading.gif" alt="gif-loading" class="img-fluid text-center">
                     </div>
-                    <div *ngIf="this.activateModalConfirm == true" class=" d-flex align-items-center">
+                    <div *ngIf="this.activateModalConfirm == true">
                         <div class="text-center">
                             <div *ngIf="selectedTurn.count < 1 && selectedTurn.confirm == true ">
                                 <div class="mb-4">

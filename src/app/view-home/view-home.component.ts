@@ -475,9 +475,19 @@ export class ViewHomeComponent implements OnInit {
       this.insertUser(this.user);
       this.insertReport2(report2);
     }
+
     this.selectedTurn = turn;
     this.selectedTurn.available = false;
     this.updateTurn1(this.selectedTurn.$key, this.selectedTurn);
+
+    //variable = true cuando el modal es el modal de confirmacion
+    this.terapeuta1.forEach(element => {
+      if (this.selectedTurn.turnId == element.turnId) {
+        if (element.confirm == true) {
+          this.activateModalConfirm = true;
+        }
+      }
+    });
 
     this.modalSelectTurn = this.modalService.open(modal);
     this.modalSelectTurn.result.then(
@@ -555,6 +565,15 @@ export class ViewHomeComponent implements OnInit {
     this.selectedTurn = turn;
     this.selectedTurn.available = false;
     this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
+
+    //variable = true cuando el modal es el modal de confirmacion
+    this.terapeuta1.forEach(element => {
+      if (this.selectedTurn.turnId == element.turnId) {
+        if (element.confirm == true) {
+          this.activateModalConfirm = true;
+        }
+      }
+    });
 
     this.modalSelectTurn = this.modalService.open(modal);
     this.modalSelectTurn.result.then(
@@ -634,6 +653,15 @@ export class ViewHomeComponent implements OnInit {
     this.selectedTurn = turn;
     this.selectedTurn.available = false;
     this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
+
+    //variable = true cuando el modal es el modal de confirmacion
+    this.terapeuta1.forEach(element => {
+      if (this.selectedTurn.turnId == element.turnId) {
+        if (element.confirm == true) {
+          this.activateModalConfirm = true;
+        }
+      }
+    });
 
     this.modalSelectTurn = this.modalService.open(modal);
     
@@ -955,8 +983,9 @@ export class ViewHomeComponent implements OnInit {
   }
 
   onMessageSelect(modal) {
-    this.modalOnMessage = this.modalService.open(modal);
-    this.modalOnMessage.result.then(
+    let modalMessageUserReserved;
+    modalMessageUserReserved = this.modalService.open(modal);
+    modalMessageUserReserved.result.then(
       result => {
         this.closeResult = `Closed with: ${result}`;
         this.subsCounter.unsubscribe();
