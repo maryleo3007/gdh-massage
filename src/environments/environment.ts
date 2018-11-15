@@ -6,19 +6,18 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    // // apiKey: "AIzaSyDfxhEHVwu9U0ckIh9Nr30bZma0W8JKfMQ",
-    // apiKey: "AIzaSyD1AycQNzem3NtzWvWzEj1dIdnMlHzbuAM", //desarrollo
-    // authDomain: "gdh-masajes.firebaseapp.com",
-    // // databaseURL: "https://gdh-masajes.firebaseio.com",
+    apiKey: "AIzaSyDfxhEHVwu9U0ckIh9Nr30bZma0W8JKfMQ",
+    authDomain: "gdh-masajes.firebaseapp.com",
+    databaseURL: "https://gdh-masajes.firebaseio.com",
+    projectId: "gdh-masajes",
+    storageBucket: "gdh-masajes.appspot.com",
+    messagingSenderId: "300960399533"
+    //desarrollo
+    // apiKey: "AIzaSyD1AycQNzem3NtzWvWzEj1dIdnMlHzbuAM",
+    // authDomain: "desarrollo-gdh-masajes.firebaseapp.com",
     // databaseURL: "https://desarrollo-gdh-masajes.firebaseio.com",
-    // projectId: "gdh-masajes",
-    // storageBucket: "gdh-masajes.appspot.com",
-    // messagingSenderId: "300960399533"
-    apiKey: "AIzaSyD1AycQNzem3NtzWvWzEj1dIdnMlHzbuAM",
-    authDomain: "desarrollo-gdh-masajes.firebaseapp.com",
-    databaseURL: "https://desarrollo-gdh-masajes.firebaseio.com",
-    projectId: "desarrollo-gdh-masajes",
-    storageBucket: "desarrollo-gdh-masajes.appspot.com",
-    messagingSenderId: "742423372408"
+    // projectId: "desarrollo-gdh-masajes",
+    // storageBucket: "desarrollo-gdh-masajes.appspot.com",
+    // messagingSenderId: "742423372408"
   }
 };

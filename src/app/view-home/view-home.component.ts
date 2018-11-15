@@ -128,7 +128,8 @@ export class ViewHomeComponent implements OnInit {
     therapistId: 0,
     userName: "",
     count: 0,
-    turnId: ""
+    turnId: "",
+    hour24:''
   };
 
   constructor(
@@ -192,7 +193,7 @@ export class ViewHomeComponent implements OnInit {
                 }
               });
             });
-        }, 3000);
+        }, 30000);
       } else {
         this.bool = true;
         this.progres = false;
@@ -363,19 +364,14 @@ export class ViewHomeComponent implements OnInit {
       let date = new Date();
       let hour:any = date.getHours();
       let minute:any = date.getMinutes();
-      if ( hour <= 12 ) {
-        hour = hour.toString();
-      } else if (hour > 12) {
-        hour = (hour - 12).toString();
-      }
       if ( minute < 10 ) {
         minute = '0' + minute.toString();
       } else if (minute > 10) {
         minute = minute.toString();
       }
       let currentDate = `${hour}:${minute}` 
-      this.sharingDataService.updateCurentTiem(this.currentTime[0].$key,currentDate)
-    },2000)
+      this.sharingDataService.updateCurentTiem(this.currentTime[0].$key,currentDate);
+    },30000)
   }
 
   onSendCalendar(user: UserModel) {
@@ -538,7 +534,6 @@ export class ViewHomeComponent implements OnInit {
   }
 
   onSelectTurn2(user: UserModel, turn: TurnModel, modal): void {
-    console.log(turn.hourStart);
 
     let userExist = false;
 
@@ -625,7 +620,6 @@ export class ViewHomeComponent implements OnInit {
   }
 
   onSelectTurn3(user: UserModel, turn: TurnModel, modal): void {
-    console.log(turn.hourStart);
 
     let userExist = false;
 
