@@ -887,7 +887,7 @@ export class ViewHomeComponent implements OnInit {
   }
 
   onConfirmTurn3(user: UserModel, x, modal, modalTurnoOcupado) {
-      this.activateModalConfirm = false;
+    this.activateModalConfirm = false;
     
       this.modalSelectTurn.close();
       this.modalConfirm = this.modalService.open(modal);

@@ -207,7 +207,8 @@ export class ViewAdminComponent implements OnInit {
                 y["$key"] = e.key;
                 this.reporListDate.push(y);
               });
-
+              console.log(this.reporListDate);
+              
               this.reporListDate.forEach(element => {
                 if (
                   element["dates"].substring(3) ===
