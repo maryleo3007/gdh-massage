@@ -1,0 +1,25 @@
+[debug] [2018-11-20T14:20:27.965Z] ----------------------------------------------------------------------
+[debug] [2018-11-20T14:20:27.972Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Inteligo\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2018-11-20T14:20:27.972Z] CLI Version:   6.0.1
+[debug] [2018-11-20T14:20:27.972Z] Platform:      win32
+[debug] [2018-11-20T14:20:27.973Z] Node Version:  v10.13.0
+[debug] [2018-11-20T14:20:27.976Z] Time:          Tue Nov 20 2018 09:20:27 GMT-0500 (GMT-05:00)
+[debug] [2018-11-20T14:20:27.976Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-20T14:20:28.040Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-20T14:20:28.040Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Inteligo\Desktop\inteligosab\gdh-massage
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+

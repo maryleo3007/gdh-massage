@@ -52,6 +52,7 @@
                                 </div>
                                 <div class="container turn-content">
                                     <div *ngIf="returnThis">
+                                        <!-- <button (click)="userBlock()">userblock</button> -->
                                         <div *ngFor="let userItem of userList">
                                             <div *ngIf="userItem.mail == me.mail && currentTime">
                                                 <div class="row">
