@@ -116,7 +116,10 @@ export class ViewHomeComponent implements OnInit {
     reserved: false,
     countReserved: 0,
     countAgendas: 0,
-    messageEvent: ""
+    messageEvent: "",
+    userBlocked: false,
+    dateBlocked:"",
+    lastDateAssist:""
   };
 
   turno: TurnModel = {
@@ -1204,26 +1207,6 @@ export class ViewHomeComponent implements OnInit {
     this.today = this.dd + "/" + this.mm + "/" + this.yyyy;
 
     return this.today;
-  }
-
-  userBlock() {
-    const arr = ["A","A","N","A","A","A","A","N","A","N","A","A","A","A"];
-    let count = 0;
-    let countUsersBlocked = 0;
-    let userBlock = false;
-    for(let i = 0; i < (arr.length) - 1; i++){
-      if(arr[i] == arr[i+1]){
-         count++;
-        if(count == 3){
-           userBlock = true;
-           countUsersBlocked++
-        }
-      }else if(arr[i] != arr[i+1]){
-        count = 0;
-      }
-    }
-    console.log(userBlock);
-    console.log(countUsersBlocked);
   }
 
   //update users

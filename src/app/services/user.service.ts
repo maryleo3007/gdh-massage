@@ -25,7 +25,10 @@ export class UserService {
       reserved: user.reserved,
       countReserved: user.countReserved,
       countAgendas: user.countAgendas,
-      messageEvent: user.messageEvent
+      messageEvent: user.messageEvent,
+      userBlocked: user.userBlocked,
+      dateBlocked: user.dateBlocked,
+      lastDateAssist: user.lastDateAssist
     });
   }
 
@@ -35,8 +38,19 @@ export class UserService {
       reserved: user.reserved,
       countReserved: user.countReserved,
       countAgendas: user.countAgendas,
-      messageEvent: user.messageEvent
+      messageEvent: user.messageEvent,
+      userBlocked: user.userBlocked,
+      dateBlocked: user.dateBlocked,
+      lastDateAssist: user.lastDateAssist
     });
+  }
+
+  updateUserBlock($key:string, userBlocked: boolean, dateBlocked: string, lastDateAssist: string)  {
+    this.userList.update( $key, {
+      userBlocked: userBlocked,
+      dateBlocked: dateBlocked,
+      lastDateAssist: lastDateAssist
+    })
   }
 
   updateUserReset($key:string) {

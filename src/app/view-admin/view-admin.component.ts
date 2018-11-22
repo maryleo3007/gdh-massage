@@ -5,11 +5,13 @@ import { Report2Service } from './../services/report2.service';
 import { TurnosService } from './../services/turnos.service';
 import { SharingDataService } from './../services/sharing-data.service';
 import { EditionsService } from "./../services/editions.service";
+import { UserService } from "./../services/user.service";
 
 //models
 
 import { EditionsModel } from "./../models/editions";
 import { TurnModel } from "./../models/turns";
+import { UserModel } from "./../models/users";
 
 @Component({
   selector: "app-view-admin",
@@ -30,6 +32,7 @@ export class ViewAdminComponent implements OnInit {
   public currentMonth: any;
   public currentYear: any;
   public dayOfMonthArr: any[];
+  today: any;
   report2List: any[];
   reporListDate: any[];
   reportList: any[];
@@ -78,7 +81,8 @@ export class ViewAdminComponent implements OnInit {
     private report2Service: Report2Service,
     private turnosService: TurnosService,
     private sharingDataService: SharingDataService,
-    private editionsService: EditionsService
+    private editionsService: EditionsService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -110,6 +114,20 @@ export class ViewAdminComponent implements OnInit {
           this.hourCoorList.push(x);
         });
       });
+    
+    //get users
+    this.userService
+    .getUser()
+    .snapshotChanges()
+    .subscribe(item => {
+      this.userList = [];
+      item.forEach(elem => {
+        let x = elem.payload.toJSON();
+        x["$key"] = elem.key;
+        this.userList.push(x);
+      });
+    });
+
 
     const monthNames = [
       "Enero",
@@ -207,8 +225,6 @@ export class ViewAdminComponent implements OnInit {
                 y["$key"] = e.key;
                 this.reporListDate.push(y);
               });
-              console.log(this.reporListDate);
-              
               this.reporListDate.forEach(element => {
                 if (
                   element["dates"].substring(3) ===
@@ -319,6 +335,23 @@ export class ViewAdminComponent implements OnInit {
                   }
                 });
               });
+
+              //bloquea usuario si tuvo 2 inasistencias consecutivas, obtiene la fecha de bloqueo y la fecha de la ultima inasistencia
+              let arrAssitanceUser = this.reporListDate.map((e)=>{return e.assistance})           
+              let ultPos = arrAssitanceUser[arrAssitanceUser.length - 1];
+              let penultPos = arrAssitanceUser[arrAssitanceUser.length - 2];
+
+                if(ultPos == false && penultPos == false){
+                  this.userList.forEach(element => {
+                    // correr esta actualizacion en gdh-desarrollo para que todos los usuarios tengan todos los atributos
+                    // this.updateUserBlock(element.$key, false, '',''); 
+                    
+                      if (this.reporListDate[0].mail == element.mail) {
+                        let lastDateAssistVal = this.reporListDate.slice(-1).pop();
+                        this.updateUserBlock(element.$key, true, this.getDateFull(),lastDateAssistVal.dates);                      
+                      }
+                  });
+                }
             });
         });
       });
@@ -800,5 +833,27 @@ export class ViewAdminComponent implements OnInit {
         break;
     }
     return hourReturn;
+  }
+
+  updateUserBlock(key, userBlock, dateBlocked, lastDateAssist) {
+    this.userService.updateUserBlock(key, userBlock,dateBlocked,lastDateAssist);
+  }
+
+  private getDateFull(): string {
+    this.today = new Date();
+    let dd, mm, yyyy
+    dd = this.today.getDate();
+    mm = this.today.getMonth() + 1;
+    yyyy = this.today.getFullYear();
+
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    this.today = dd + "/" + mm + "/" + yyyy;
+
+    return this.today;
   }
 }
