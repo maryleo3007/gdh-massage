@@ -29,7 +29,8 @@ export class UserService {
       userBlocked: user.userBlocked,
       dateBlocked: user.dateBlocked,
       lastDateAssist: user.lastDateAssist,
-      dateUnlocked: user.userBlocked
+      dateUnlocked: user.userBlocked,
+      countReservedMonth: user.countReservedMonth
     });
   }
 
@@ -43,7 +44,8 @@ export class UserService {
       userBlocked: user.userBlocked,
       dateBlocked: user.dateBlocked,
       lastDateAssist: user.lastDateAssist,
-      dateUnlocked: user.userBlocked
+      dateUnlocked: user.userBlocked,
+      countReservedMonth: user.countReservedMonth
     });
   }
 

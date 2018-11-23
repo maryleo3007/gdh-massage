@@ -120,7 +120,8 @@ export class ViewHomeComponent implements OnInit {
     userBlocked: false,
     dateBlocked:"",
     lastDateAssist:"",
-    dateUnlocked: ""
+    dateUnlocked: "",
+    countReservedMonth:0
   };
 
   turno: TurnModel = {
@@ -719,6 +720,7 @@ export class ViewHomeComponent implements OnInit {
 
     this.selectedUser = user;
     this.selectedUser.reserved = true;
+    this.selectedUser.countReservedMonth++
     
     this.selectedTurn.confirm = true;
     this.selectedTurn.userName = this.name;
@@ -809,6 +811,7 @@ export class ViewHomeComponent implements OnInit {
   
       this.selectedUser = user;
       this.selectedUser.reserved = true;
+      this.selectedUser.countReservedMonth++
       
       this.selectedTurn.confirm = true;
       this.selectedTurn.userName = this.name;
@@ -892,13 +895,14 @@ export class ViewHomeComponent implements OnInit {
   }
 
   onConfirmTurn3(user: UserModel, x, modal, modalTurnoOcupado) {
-    this.activateModalConfirm = false;
+      this.activateModalConfirm = false;
     
       this.modalSelectTurn.close();
       this.modalConfirm = this.modalService.open(modal);
   
       this.selectedUser = user;
       this.selectedUser.reserved = true;
+      this.selectedUser.countReservedMonth++
       
       this.selectedTurn.confirm = true;
       this.selectedTurn.userName = this.name;
@@ -1002,6 +1006,8 @@ export class ViewHomeComponent implements OnInit {
     this.selectedTurn.userName = "";
     this.selectedTurn.count = 0;
     user.reserved = false;
+    user.countReservedMonth--;
+
     if (user.countReserved >= 1) {
       user.countReserved--;
     }
@@ -1045,6 +1051,7 @@ export class ViewHomeComponent implements OnInit {
     this.selectedTurn.userName = "";
     this.selectedTurn.count = 0;
     user.reserved = false;
+    user.countReservedMonth--;
     if (user.countReserved >= 1) {
       user.countReserved--;
     }
@@ -1090,6 +1097,7 @@ export class ViewHomeComponent implements OnInit {
     this.selectedTurn.userName = "";
     this.selectedTurn.count = 0;
     user.reserved = false;
+    user.countReservedMonth--;
     if (user.countReserved >= 1) {
       user.countReserved--;
     }
