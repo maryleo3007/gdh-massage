@@ -28,7 +28,8 @@ export class UserService {
       messageEvent: user.messageEvent,
       userBlocked: user.userBlocked,
       dateBlocked: user.dateBlocked,
-      lastDateAssist: user.lastDateAssist
+      lastDateAssist: user.lastDateAssist,
+      dateUnlocked: user.userBlocked
     });
   }
 
@@ -41,7 +42,8 @@ export class UserService {
       messageEvent: user.messageEvent,
       userBlocked: user.userBlocked,
       dateBlocked: user.dateBlocked,
-      lastDateAssist: user.lastDateAssist
+      lastDateAssist: user.lastDateAssist,
+      dateUnlocked: user.userBlocked
     });
   }
 

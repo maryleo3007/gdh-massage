@@ -343,7 +343,7 @@ export class ViewAdminComponent implements OnInit {
 
                 if(ultPos == false && penultPos == false){
                   this.userList.forEach(element => {
-                    // correr esta actualizacion en gdh-desarrollo para que todos los usuarios tengan todos los atributos
+                    // correr esta actualizacion en gdh-produccion para que todos los usuarios tengan todos los atributos
                     // this.updateUserBlock(element.$key, false, '',''); 
                     
                       if (this.reporListDate[0].mail == element.mail) {

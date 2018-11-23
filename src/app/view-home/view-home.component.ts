@@ -119,7 +119,8 @@ export class ViewHomeComponent implements OnInit {
     messageEvent: "",
     userBlocked: false,
     dateBlocked:"",
-    lastDateAssist:""
+    lastDateAssist:"",
+    dateUnlocked: ""
   };
 
   turno: TurnModel = {
@@ -214,6 +215,7 @@ export class ViewHomeComponent implements OnInit {
             this.userList.forEach(elem => {
               if (elem.mail === this.me.mail) {
                 this.returnThis = true;
+                
               }
             });
           });

@@ -8,4 +8,5 @@ export class UserModel {
     public userBlocked: boolean;
     public dateBlocked: string;
     public lastDateAssist: string;
+    public dateUnlocked: string;
 }
