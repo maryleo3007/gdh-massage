@@ -380,7 +380,7 @@ export class ViewHomeComponent implements OnInit {
       } else if ( hour >= 10) {
         hour = hour.toString();
       } 
-      
+
       let currentDate = `${hour}:${minute}` 
       this.sharingDataService.updateCurentTiem(this.currentTime[0].$key,currentDate);
     },30000)
@@ -574,7 +574,7 @@ export class ViewHomeComponent implements OnInit {
     this.updateTurn2(this.selectedTurn.$key, this.selectedTurn);
 
     //variable = true cuando el modal es el modal de confirmacion
-    this.terapeuta1.forEach(element => {
+    this.terapeuta2.forEach(element => {
       if (this.selectedTurn.turnId == element.turnId) {
         if (element.confirm == true) {
           this.activateModalConfirm = true;
@@ -661,7 +661,7 @@ export class ViewHomeComponent implements OnInit {
     this.updateTurn3(this.selectedTurn.$key, this.selectedTurn);
 
     //variable = true cuando el modal es el modal de confirmacion
-    this.terapeuta1.forEach(element => {
+    this.terapeuta3.forEach(element => {
       if (this.selectedTurn.turnId == element.turnId) {
         if (element.confirm == true) {
           this.activateModalConfirm = true;
@@ -726,7 +726,7 @@ export class ViewHomeComponent implements OnInit {
 
     this.selectedUser = user;
     this.selectedUser.reserved = true;
-    this.selectedUser.countReservedMonth++ //contador para controlar que solo puedan reservar 2 veces al mes
+    
     
     this.selectedTurn.confirm = true;
     this.selectedTurn.userName = this.name;
@@ -817,7 +817,6 @@ export class ViewHomeComponent implements OnInit {
   
       this.selectedUser = user;
       this.selectedUser.reserved = true;
-      this.selectedUser.countReservedMonth++
       
       this.selectedTurn.confirm = true;
       this.selectedTurn.userName = this.name;
@@ -908,7 +907,6 @@ export class ViewHomeComponent implements OnInit {
   
       this.selectedUser = user;
       this.selectedUser.reserved = true;
-      this.selectedUser.countReservedMonth++
       
       this.selectedTurn.confirm = true;
       this.selectedTurn.userName = this.name;
@@ -1012,7 +1010,6 @@ export class ViewHomeComponent implements OnInit {
     this.selectedTurn.userName = "";
     this.selectedTurn.count = 0;
     user.reserved = false;
-    user.countReservedMonth--;
 
     if (user.countReserved >= 1) {
       user.countReserved--;
@@ -1057,7 +1054,6 @@ export class ViewHomeComponent implements OnInit {
     this.selectedTurn.userName = "";
     this.selectedTurn.count = 0;
     user.reserved = false;
-    user.countReservedMonth--;
     if (user.countReserved >= 1) {
       user.countReserved--;
     }
@@ -1103,7 +1099,6 @@ export class ViewHomeComponent implements OnInit {
     this.selectedTurn.userName = "";
     this.selectedTurn.count = 0;
     user.reserved = false;
-    user.countReservedMonth--;
     if (user.countReserved >= 1) {
       user.countReserved--;
     }

@@ -1,5 +1,5 @@
 {
   "projects": {
-    "default": "desarrollo-gdh-masajes"
+    "default": "gdh-masajes-prod"
   }
 }

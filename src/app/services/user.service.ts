@@ -44,16 +44,24 @@ export class UserService {
       userBlocked: user.userBlocked,
       dateBlocked: user.dateBlocked,
       lastDateAssist: user.lastDateAssist,
-      dateUnlocked: user.userBlocked,
-      countReservedMonth: user.countReservedMonth
+      dateUnlocked: user.userBlocked
     });
   }
 
-  updateUserBlock($key:string, userBlocked: boolean, dateBlocked: string, lastDateAssist: string)  {
+  // updateUserBlock($key:string, userBlocked: boolean, dateBlocked: string, lastDateAssist: string)  {
+  //   this.userList.update( $key, {
+  //     userBlocked: userBlocked,
+  //     dateBlocked: dateBlocked,
+  //     lastDateAssist: lastDateAssist
+  //   })
+  // }
+
+  updateUserBlock($key:string, userBlocked: boolean, dateBlocked: string, lastDateAssist: string, countReservedMonth: number)  {
     this.userList.update( $key, {
       userBlocked: userBlocked,
       dateBlocked: dateBlocked,
-      lastDateAssist: lastDateAssist
+      lastDateAssist: lastDateAssist,
+      countReservedMonth: countReservedMonth
     })
   }
 

@@ -191,6 +191,7 @@ export class ViewCoorComponent implements OnInit {
       });
     });
 
+    //modificar estado de usuario userBlocked si han transcurrido 2 semanas desde que se le bloqueo
     this.userService
             .getUser()
             .snapshotChanges()
@@ -241,6 +242,14 @@ export class ViewCoorComponent implements OnInit {
 
   addRegister(date,hourStart,hourEnd,assistance,userAssist, stringVal,userName,boolMatch,boolAny, therapist,$key, type, displayName, mail) {
    
+    //update contador de reservas por mes de un usuario
+    
+    this.userList.forEach(element => {
+      if (element.mail === mail) {
+        this.userService.updateUserCountReservedMonth(element.$key,element.countReservedMonth++);
+      }
+    });
+    
     this.report2List.forEach( reportElem => {
       if (mail == reportElem.mail) {
         this.keyUser = reportElem.$key   
