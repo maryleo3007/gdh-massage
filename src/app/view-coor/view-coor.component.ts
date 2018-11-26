@@ -7,7 +7,7 @@ import { ReportService } from '../services/report.service';
 import { Report2Service } from './../services/report2.service';
 import { UserService } from './../services/user.service';
 import { SharingDataService } from '../services/sharing-data.service';
-
+import { EditionsService } from "./../services/editions.service";
 
 // models 
 // models
@@ -44,6 +44,8 @@ export class ViewCoorComponent implements OnInit {
   report2List: any[];
   reporListDate: any[];
   hourCoorList: any[];
+  userList: any[];
+  msgEditionList: any[];
   orderArr = [{ turn: '1:00' }, { turn: '1:20' }, { turn: '1:40' }, { turn: '2:00' }, { turn: '2:20' }, { turn: '2:40' }, { turn: '3:00' }, { turn: '3:20' }, { turn: '3:40' }, { turn: '4:00' }, { turn: '4:20' }, { turn: '4:40' }]
   reportList: any[];
 
@@ -53,7 +55,8 @@ export class ViewCoorComponent implements OnInit {
     private reportService: ReportService,
     private report2Service: Report2Service,
     private userService: UserService,
-    public sharingDataService: SharingDataService
+    public sharingDataService: SharingDataService,
+    private editionsService: EditionsService
   ) { }
 
   ngOnInit() {
@@ -164,6 +167,45 @@ export class ViewCoorComponent implements OnInit {
       });
     });
 
+    //get msg edition for shared information about month
+    this.editionsService.getMsgEditions()
+    .snapshotChanges()
+    .subscribe( item => {
+      this.msgEditionList = [];
+      item.forEach(element => {
+        let x = element.payload.toJSON();
+        x['$key'] = element.key;
+        this.msgEditionList.push(x)
+      });
+      //reset del contador de asistencias por mes
+      this.msgEditionList.forEach(element => {
+        if (element.id == 2) {
+         console.log(element);
+         //si el mes actual es distinto del mes guardado resetear
+         if (element.monthVal != mm) {
+           this.userList.forEach(element => {
+            this.userService.updateUserCountReservedMonth(element.$key,0)
+          });
+         }
+        }
+      });
+    });
+
+    this.userService
+            .getUser()
+            .snapshotChanges()
+            .subscribe(item => {
+              this.userList = [];
+              item.forEach(elem => {
+                let x = elem.payload.toJSON();
+                x["$key"] = elem.key;
+                this.userList.push(x);
+              });
+              this.userList.forEach(elem => {
+                console.log(elem.$key);
+                
+              });
+            });
 
     this.therapist1Choose = true;
     this.therapist2Choose = false;

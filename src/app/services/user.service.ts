@@ -57,6 +57,12 @@ export class UserService {
     })
   }
 
+  updateUserCountReservedMonth($key:string, countReservedMonth)  {
+    this.userList.update( $key, {
+      countReservedMonth: countReservedMonth
+    })
+  }
+
   updateUserReset($key:string) {
     this.userList.update($key, {
       countAgendas: 0,

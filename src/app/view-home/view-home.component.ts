@@ -720,7 +720,7 @@ export class ViewHomeComponent implements OnInit {
 
     this.selectedUser = user;
     this.selectedUser.reserved = true;
-    this.selectedUser.countReservedMonth++
+    this.selectedUser.countReservedMonth++ //contador para controlar que solo puedan reservar 2 veces al mes
     
     this.selectedTurn.confirm = true;
     this.selectedTurn.userName = this.name;

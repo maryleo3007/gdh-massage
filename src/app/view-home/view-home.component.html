@@ -55,7 +55,7 @@
                                         <div *ngFor="let userItem of userList">
                                             <div *ngIf="userItem.mail == me.mail && currentTime">
                                                     <!-- Los turnos solo se muestran si el usuario no esta bloqueado -->
-                                                    <div *ngIf="userItem.userBlocked == false" class="row">
+                                                    <div *ngIf="userItem.userBlocked == false && userItem.countReservedMonth <= 2" class="row">
                                                             <div *ngIf="userItem.reserved == false" class="col-12 col-md-4 text-center">
                                                                     <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
                                                                         <button *ngIf="item1.confirm == false && item1.available == false && item1.userName < 1"
@@ -149,7 +149,10 @@
                                                     </div>
                                                     <div *ngIf="userItem.userBlocked == true" class="row">
                                                         {{userName}} debido a las constantes inasistencias, <hr>
-                                                        se han bloqueado los turnos, puedes volver a reservar pasado 2 semanas.
+                                                        se han bloqueado los turnos, puedes volver a reservar pasado 2 semanas
+                                                    </div>
+                                                    <div *ngIf="userItem.countReservedMonth > 2" class="row">
+                                                        {{userName}} solo puedes realizar 2 reservas al mes
                                                     </div>
                                                     <!-- Fin de validacion de usuario bloqueado     -->
                                             </div>
