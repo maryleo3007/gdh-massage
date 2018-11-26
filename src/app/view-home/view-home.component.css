@@ -10,6 +10,9 @@
     background-color: #004A8C;
     color: #ffffff;
 }
+.cancel-reserv, .msg-user{
+    color: #808080;
+}
 .turn-btn:disabled,
 .turn-btn[disabled], 
 .btn-agendar:disabled,
