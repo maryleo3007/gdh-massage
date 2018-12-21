@@ -57,7 +57,7 @@ const routes: Routes = [
   { path: 'coordi', component: ViewCoorComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: ViewAdminComponent, canActivate: [AuthGuard] },
   { path: 'dev', component: ViewDevComponent, canActivate: [AuthGuard]},
-  {path: '**', component: NotFoundPageComponent}
+  { path: '**', component: NotFoundPageComponent}
 ];
 
 
@@ -75,7 +75,7 @@ const routes: Routes = [
     ViewDevComponent
   ],
   imports: [
-AngularFireAuthModule,
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     BrowserModule,

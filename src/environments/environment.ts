@@ -20,12 +20,12 @@ export const environment = {
     // storageBucket: "desarrollo-gdh-masajes.appspot.com",
     // messagingSenderId: "742423372408"
     //produccion gdh.masajes
-    apiKey: "AIzaSyBm7Wdm4BYbt6QuiDBMfsYXIfI3ZC158zU",
-    authDomain: "gdh-masajes-produccion.firebaseapp.com",
-    databaseURL: "https://gdh-masajes-produccion.firebaseio.com",
-    projectId: "gdh-masajes-produccion",
-    storageBucket: "gdh-masajes-produccion.appspot.com",
-    messagingSenderId: "497018884063"
+    // apiKey: "AIzaSyBm7Wdm4BYbt6QuiDBMfsYXIfI3ZC158zU",
+    // authDomain: "gdh-masajes-produccion.firebaseapp.com",
+    // databaseURL: "https://gdh-masajes-produccion.firebaseio.com",
+    // projectId: "gdh-masajes-produccion",
+    // storageBucket: "gdh-masajes-produccion.appspot.com",
+    // messagingSenderId: "497018884063"
  
   }
 };
