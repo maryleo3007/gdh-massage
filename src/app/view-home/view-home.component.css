@@ -25,10 +25,10 @@
     cursor: auto;
 }
 
-.loading-confirm-turn{
+.loading-confirm-turn .gif-loading{
     height: 100px;
     width: 100px;
-    margin: auto
+    margin-left: 40%
 }
 
 .therapist-content span{

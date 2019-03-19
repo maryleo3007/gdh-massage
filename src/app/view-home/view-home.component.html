@@ -539,14 +539,15 @@
 
             <!-- modal para confirmar la reserva, se muestran las opciones de cancelar reserva y agendar  -->
             <ng-template #modalConfirm let-c="close" let-d="dismiss" class="modal-dialog-centered modal-center-vertical">
-                <div class="text-right mr-1">
+                <div *ngIf="this.activateModalConfirm == true" class="text-right mr-1">
                     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="d('Cross click')">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div *ngIf="this.activateModalConfirm == false" class="loading-confirm-turn" >
-                        <img src="./../../assets/images/loading.gif" alt="gif-loading" class="img-fluid text-center">
+                        <img src="./../../assets/images/loading.gif" alt="gif-loading" class="img-fluid text-center gif-loading">
+                        <div class="text-mute text-center"><small>Estamos procesando tu solicitud, por favor no cierres esta ventana</small></div>
                     </div>
                     <div *ngIf="this.activateModalConfirm == true">
                         <div class="text-center">
@@ -665,7 +666,7 @@
     </div>
     <div *ngIf="this.messageAuth" class="bg-white d-flex align-items-center">
         <div class="jumbotron">
-            <h1 class="display-4">¡No has iniciado sesión!</h1>
+            <h1 class="display-4">No has iniciado sesión</h1>
             <hr class="my-4">
             <a class="btn btn-primary btn-lg go-home" href="/" role="button">Ir a vista principal</a>
         </div>
