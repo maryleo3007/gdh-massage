@@ -17,7 +17,12 @@
                     Reportes
                 </a>
                 <a class="tab-item" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
-                    aria-controls="v-pills-profile" aria-selected="false"><i aria-hidden="true" class="fa fa-cog pr-2"></i>Configuración
+                    aria-controls="v-pills-profile" aria-selected="false"><i aria-hidden="true" class="fa fa-cog pr-2"></i>
+                    Configuración
+                </a>
+                <a class="tab-item" id="v-pills-edicion-tab" data-toggle="pill" href="#v-pills-edicion" role="tab"
+                    aria-controls="v-pills-edicion" aria-selected="false"><i aria-hidden="true" class="fa fa-pencil pr-2"></i>
+                    Edición
                 </a>
             </div>
             <a class="nav-link sign-out" href="/login" (click)="logoutUser()"><i class="fa fa-sign-out" aria-hidden="true"></i>Salir</a>
@@ -258,8 +263,6 @@
                                             <div *ngIf="inputHourIni.value != ''">
                                                 <button type="submit" class="btn btn-primary" (click)="updateSchedule(inputHourIni.value)">Actualizar</button>
                                             </div>
-                                            
-                                           
                                         </form>
                                         <small class="text-muted">* Hora: Formato 24 hrs</small>
                                     </div>
@@ -269,6 +272,29 @@
                 </div>
             </div>
 
+        </div>
+        <div class="tab-pane fade" id="v-pills-edicion" role="tabpanel" aria-labelledby="v-pills-edicion-tab">
+            <div class="wrapper-form-msg">
+                <!-- <form class="form mt-2 updateSchedule mb-2 needs-validation" novalidate> 
+                    <label for="hourIni">Mensaje</label>
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input #inputMsg type="text" class="form-control" id="inputMsg" required>
+                    </div>
+                    <div>
+                        <input type="submit" class="btn btn-primary" (click)="updateMsgEdition(inputMsg.value)">Actualizar</input>
+                    </div>
+                </form> -->
+                
+                    <div class="form-header">Editar mensaje al colaborador</div>
+                    <div class="form-grp">
+                      <label>Mensaje</label>
+                      <input #inputMsg type="text" id="inputMsg"/>
+                    </div>
+                    <div class="form-grp">
+                      <button class= "btn-updateMsg" type="submit" (click)="updateMsgEdition(inputMsg.value)">Actualizar</button>
+                    </div>
+                
+            </div>
         </div>
     </div>
 

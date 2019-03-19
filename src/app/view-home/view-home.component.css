@@ -10,6 +10,9 @@
     background-color: #004A8C;
     color: #ffffff;
 }
+.cancel-reserv, .msg-user{
+    color: #004A8C;
+}
 .turn-btn:disabled,
 .turn-btn[disabled], 
 .btn-agendar:disabled,
@@ -20,6 +23,12 @@
     box-shadow: none;
     color: #B3B3B3;
     cursor: auto;
+}
+
+.loading-confirm-turn .gif-loading{
+    height: 100px;
+    width: 100px;
+    margin-left: 40%
 }
 
 .therapist-content span{

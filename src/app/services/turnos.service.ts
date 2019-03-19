@@ -36,10 +36,12 @@ export class TurnosService {
       available: turn1.available,
       confirm: turn1.confirm,
       hourEnd: turn1.hourEnd,
+      hour24: turn1.hour24,
       hourStart: turn1.hourStart,
       therapistId: turn1.therapistId,
       count: turn1.count,
-      userName: turn1.userName
+      userName: turn1.userName,
+      turnId: turn1.turnId
     });
   }
 
@@ -47,11 +49,13 @@ export class TurnosService {
     this.terapeuta2.push({
       available: turn2.available,
       confirm: turn2.confirm,
+      hour24: turn2.hour24,
       hourEnd: turn2.hourEnd,
       hourStart: turn2.hourStart,
       therapistId: turn2.therapistId,
       count: turn2.count,
-      userName: turn2.userName
+      userName: turn2.userName,
+      turnId: turn2.turnId
     });
   }
 
@@ -59,11 +63,13 @@ export class TurnosService {
     this.terapeuta3.push({
       available: turn3.available,
       confirm: turn3.confirm,
+      hour24: turn3.hour24,
       hourEnd: turn3.hourEnd,
       hourStart: turn3.hourStart,
       therapistId: turn3.therapistId,
       count: turn3.count,
-      userName: turn3.userName
+      userName: turn3.userName,
+      turnId: turn3.turnId
     });
   }
 

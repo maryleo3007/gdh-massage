@@ -35,6 +35,7 @@ import { AuthFirebaseService } from './services/auth-firebase.service';
 import { UserService } from './services/user.service';
 import { SharingDataService } from './services/sharing-data.service';
 import { TurnsStateService } from './services/turns-state.service';
+import { EditionsService } from "./services/editions.service";
 
 
 
@@ -56,7 +57,7 @@ const routes: Routes = [
   { path: 'coordi', component: ViewCoorComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: ViewAdminComponent, canActivate: [AuthGuard] },
   { path: 'dev', component: ViewDevComponent, canActivate: [AuthGuard]},
-  {path: '**', component: NotFoundPageComponent}
+  { path: '**', component: NotFoundPageComponent}
 ];
 
 
@@ -74,7 +75,7 @@ const routes: Routes = [
     ViewDevComponent
   ],
   imports: [
-AngularFireAuthModule,
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     BrowserModule,
@@ -102,7 +103,8 @@ AngularFireAuthModule,
     AuthFirebaseService,
     UserService,
     SharingDataService,
-    TurnsStateService
+    TurnsStateService,
+    EditionsService
   ],
   bootstrap: [
     AppComponent
