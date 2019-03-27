@@ -241,14 +241,17 @@ export class ViewCoorComponent implements OnInit {
 
 
   addRegister(date,hourStart,hourEnd,assistance,userAssist, stringVal,userName,boolMatch,boolAny, therapist,$key, type, displayName, mail) {
-   
+
     //update contador de reservas por mes de un usuario
-    
+    let objectUser  = {$key:'',countReservedMonth:0};
+        
     this.userList.forEach(element => {
       if (element.mail === mail) {
-        this.userService.updateUserCountReservedMonth(element.$key,element.countReservedMonth++);
+        objectUser = element;
       }
     });
+
+    this.userService.updateUserCountReservedMonth(objectUser.$key,objectUser.countReservedMonth++);
     
     this.report2List.forEach( reportElem => {
       if (mail == reportElem.mail) {
