@@ -30,7 +30,8 @@ export class UserService {
       dateBlocked: user.dateBlocked,
       lastDateAssist: user.lastDateAssist,
       dateUnlocked: user.userBlocked,
-      countReservedMonth: user.countReservedMonth
+      countReservedMonth: user.countReservedMonth,
+      userBlockedAssist: user.userBlockedAssist
     });
   }
 
@@ -68,6 +69,12 @@ export class UserService {
   updateUserCountReservedMonth($key:string, countReservedMonth)  {
     this.userList.update( $key, {
       countReservedMonth: countReservedMonth
+    })
+  }
+
+  updateUserBlockedAssist($key:string, userBlockedAssist){
+    this.userList.update( $key, {
+      userBlockedAssist: userBlockedAssist
     })
   }
 

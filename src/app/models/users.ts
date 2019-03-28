@@ -10,4 +10,5 @@ export class UserModel {
     public lastDateAssist: string;
     public dateUnlocked: string;
     public countReservedMonth: number;
+    public userBlockedAssist: boolean;
 }
