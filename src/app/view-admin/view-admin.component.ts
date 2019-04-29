@@ -338,21 +338,23 @@ export class ViewAdminComponent implements OnInit {
               });
 
               //bloquea usuario si tuvo 2 inasistencias consecutivas, obtiene la fecha de bloqueo y la fecha de la ultima inasistencia
-              let arrAssitanceUser = this.reporListDate.map((e)=>{return e.assistance})           
-              let ultPos = arrAssitanceUser[arrAssitanceUser.length - 1];
-              let penultPos = arrAssitanceUser[arrAssitanceUser.length - 2];
+              // let arrAssitanceUser = this.reporListDate.map((e)=>{return e.assistance})           
+              // let ultPos = arrAssitanceUser[arrAssitanceUser.length - 1];
+              // let penultPos = arrAssitanceUser[arrAssitanceUser.length - 2];
 
-                if(ultPos == false && penultPos == false){
-                  this.userList.forEach(element => {
-                    // correr esta actualizacion en gdh-produccion para que todos los usuarios tengan todos los atributos
-                    this.updateUserBlock(element.$key, false, '','',0); 
+              //   if(ultPos == false && penultPos == false){
+              //     this.userList.forEach(element => {
+              //       // correr esta actualizacion en gdh-produccion para que todos los usuarios tengan todos los atributos
+              //       // this.updateUserBlock(element.$key, false, '','',0); 
                     
-                      // if (this.reporListDate[0].mail == element.mail) {
-                      //   let lastDateAssistVal = this.reporListDate.slice(-1).pop();
-                      //   this.updateUserBlock(element.$key, true, this.getDateFull(),lastDateAssistVal.dates);                      
-                      // }
-                  });
-                }
+              //         if (this.reporListDate[0].mail == element.mail) {
+              //           let lastDateAssistVal = this.reporListDate.slice(-1).pop();
+              //           this.updateUserBlock(element.$key, true, this.getDateFull(),lastDateAssistVal.dates,0);                      
+              //           console.log(lastDateAssistVal)
+              //         }
+                      
+              //     });
+              //   }
             });
         });
       });

@@ -54,7 +54,7 @@
                                         <div *ngFor="let userItem of userList">
                                             <div *ngIf="userItem.mail == me.mail && currentTime">
                                                  <!-- Los turnos solo se muestran si el usuario no esta bloqueado -->
-                                                <div *ngIf="userItem.userBlocked == false && userItem.countReservedMonth < 2" class="row">
+                                                <div *ngIf="userItem.userBlockedAssist == false && userItem.countReservedMonth < 2" class="row">
                                                     <!-- terapeuta1 -->
                                                     <div *ngIf="userItem.reserved == false" class="col-12 col-md-4 text-center">
                                                         <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
@@ -149,7 +149,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="userItem.userBlocked == true" class="row msg-user text-center text-uppercase align-middle mt-5">
+                                                <div *ngIf="userItem.userBlockedAssist == true" class="row msg-user text-center text-uppercase align-middle mt-5">
                                                     <div class="mt-5 mb-2 text-center w-100">
                                                             <img src="../../assets/images/sad.png" alt="bloqueo de usuarios" class="img-fluid">
                                                     </div>

@@ -121,7 +121,8 @@ export class ViewHomeComponent implements OnInit {
     dateBlocked:"",
     lastDateAssist:"",
     dateUnlocked: "",
-    countReservedMonth:0
+    countReservedMonth:0,
+    userBlockedAssist: false
   };
 
   turno: TurnModel = {
