@@ -6,12 +6,7 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    // apiKey: "AIzaSyDfxhEHVwu9U0ckIh9Nr30bZma0W8JKfMQ",
-    // authDomain: "gdh-masajes.firebaseapp.com",
-    // databaseURL: "https://gdh-masajes.firebaseio.com",
-    // projectId: "gdh-masajes",
-    // storageBucket: "gdh-masajes.appspot.com",
-    // messagingSenderId: "300960399533"
+    
     //desarrollo
     // apiKey: "AIzaSyD1AycQNzem3NtzWvWzEj1dIdnMlHzbuAM",
     // authDomain: "desarrollo-gdh-masajes.firebaseapp.com",
