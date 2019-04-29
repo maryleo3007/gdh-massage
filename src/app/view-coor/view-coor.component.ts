@@ -248,7 +248,7 @@ export class ViewCoorComponent implements OnInit {
     let objectUser  = {$key:'',countReservedMonth:0};
         
     this.userList.forEach(element => {
-      //this.userService.updateUserBlockedAssist(element.$key,false) correr en produccion solo una vez
+      this.userService.updateUserBlockedAssist(element.$key,false) //correr en produccion solo una vez
       if (element.mail === mail) {
         objectUser = element;
       }
