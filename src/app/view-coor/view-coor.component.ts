@@ -202,10 +202,10 @@ export class ViewCoorComponent implements OnInit {
                 x["$key"] = elem.key;
                 this.userList.push(x);
               });
-              this.userList.forEach(elem => {
-                // console.log(elem.$key);
+              // this.userList.forEach(element => {
+              //   this.userService.updateUserBlockedAssist(element.$key,false) //correr en produccion solo una vez
                 
-              });
+              // });
             });
 
     this.therapist1Choose = true;
@@ -241,9 +241,7 @@ export class ViewCoorComponent implements OnInit {
 
 
   addRegister(date,hourStart,hourEnd,assistance,userAssist, stringVal,userName,boolMatch,boolAny, therapist,$key, type, displayName, mail) {
-    console.log(date)
-    console.log(assistance)
-    console.log(mail)
+
     //update contador de reservas por mes de un usuario
     let objectUser  = {$key:'',countReservedMonth:0};
         
