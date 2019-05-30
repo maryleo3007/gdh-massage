@@ -54,7 +54,7 @@
                                         <div *ngFor="let userItem of userList">
                                             <div *ngIf="userItem.mail == me.mail && currentTime">
                                                  <!-- Los turnos solo se muestran si el usuario no esta bloqueado -->
-                                                <div *ngIf="userItem.userBlocked == false && userItem.countReservedMonth < 2" class="row">
+                                                <div *ngIf="userItem.userBlockedAssist == false && userItem.countReservedMonth < 2" class="row">
                                                     <!-- terapeuta1 -->
                                                     <div *ngIf="userItem.reserved == false" class="col-12 col-md-4 text-center">
                                                         <div *ngFor="let item1 of terapeuta1" class="mb-2 turn-container">
@@ -149,20 +149,21 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div *ngIf="userItem.userBlocked == true" class="row msg-user text-center text-uppercase align-middle mt-5">
-                                                    <div class="mt-5 mb-2 text-center w-100">
-                                                            <img src="../../assets/images/sad.png" alt="bloqueo de usuarios" class="img-fluid">
-                                                    </div>
+                                                <div *ngIf="userItem.userBlockedAssist == true" class="row msg-user align-middle mt-5">
                                                     
-                                                    <h3 class="text-center w-100"> {{userName}}, debido a las constantes inasistencias, <br>
-                                                        se han bloqueado los turnos, puedes volver a reservar en 2 semanas</h3>
+                                                    <h3 class="text-center w-100"> Hola {{userName}} <br> 
+                                                        Debido a la inasistencia en la última sesión de masajes, <br>
+                                                        se ha bloqueado la inscripción de esta semana, podrás<br>
+                                                        volver a inscribirte en 2 semanas.<br>
+                                                        ¡Te esperamos!</h3>
                                                 </div>
-                                                <div *ngIf="userItem.countReservedMonth >= 2" class="row msg-user text-center text-uppercase align-middle mt-5">
+                                                <div *ngIf="userItem.countReservedMonth >= 2" class="row msg-user align-middle mt-5">
                                                     
-                                                    <div class="mt-5 mb-2 text-center w-100">
-                                                            <img src="../../assets/images/sad.png" alt="cantidad de reservas" class="img-fluid">
-                                                    </div>
-                                                    <h3 class="text-center w-100 float-right">{{userName}}, solo puedes realizar 2 reservas al mes</h3>
+                                                    <h3 class="text-center w-100 float-right">Hola {{userName}} <br>
+                                                        A fin de que todos los colaboradores podamos hacer uso de  <br>
+                                                        este beneficio, solo podemos inscribirnos 2 veces al mes.<br>
+                                                        ¡Gracias por tu comprensión!
+                                                           </h3>
                                                 </div>
                                                 <!-- Fin de validacion de usuario bloqueado     -->
                                             </div>
@@ -248,7 +249,7 @@
                 <div *ngIf="returnThis">
                     <div *ngFor="let userItem of userList">
                         <div *ngIf="userItem.mail == me.mail && currentTime">
-                            <div *ngIf="userItem.userBlocked == false && userItem.countReservedMonth < 2">
+                            <div *ngIf="userItem.userBlockedAssist == false && userItem.countReservedMonth < 2">
                                 <ngb-carousel>
                                     <!-- terapeuta1 -->
                                     <ng-template ngbSlide>
@@ -366,20 +367,19 @@
                                     </ng-template>
                                 </ngb-carousel>
                             </div> 
-                            <div *ngIf="userItem.userBlocked == true" class="row msg-user text-center text-uppercase align-middle mt-5">
-                                <div class="mt-5 mb-2 text-center w-100">
-                                        <img src="../../assets/images/sad.png" alt="bloqueo de usuarios" class="img-fluid">
-                                </div>
-                                
-                                <h5 class="text-center w-100"> {{userName}}, debido a las constantes inasistencias, <br>
-                                    se han bloqueado los turnos, puedes volver a reservar en 2 semanas</h5>
+                            <div *ngIf="userItem.userBlockedAssist == true" class="row msg-user align-middle mt-5">
+                                <h5 class="text-center p-5"> Hola {{userName}} <br> 
+                                    Debido a la inasistencia en la última sesión de masajes, 
+                                    se ha bloqueado la inscripción de esta semana, podrás
+                                    volver a inscribirte en 2 semanas.
+                                    ¡Te esperamos!</h5>
                             </div>
-                            <div *ngIf="userItem.countReservedMonth >= 2" class="row msg-user text-center text-uppercase align-middle mt-5">
-                                
-                                <div class="mt-5 mb-2 text-center w-100">
-                                        <img src="../../assets/images/sad.png" alt="cantidad de reservas" class="img-fluid">
-                                </div>
-                                <h5 class="text-center w-100 float-right">{{userName}}, solo puedes realizar 2 reservas al mes</h5>
+                            <div *ngIf="userItem.countReservedMonth >= 2" class="row msg-user align-middle mt-5">
+                                <h5 class="text-center p-5">Hola {{userName}} <br>
+                                    A fin de que todos los colaboradores podamos hacer uso de  <br>
+                                    este beneficio, solo podemos inscribirnos 2 veces al mes.<br>
+                                    ¡Gracias por tu comprensión!
+                                       </h5>
                             </div>
                         </div>
                     </div>
