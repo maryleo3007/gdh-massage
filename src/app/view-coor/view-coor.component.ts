@@ -9,7 +9,7 @@ import { UserService } from './../services/user.service';
 import { SharingDataService } from '../services/sharing-data.service';
 import { EditionsService } from "./../services/editions.service";
 
-// models 
+
 // models
 import { InscripcionModel } from '../models/inscriptions';
 import { ReportsModel } from '../models/reports';
@@ -17,6 +17,7 @@ import { Report2Model } from './../models/report2';
 import { ReportDateModel } from './../models/report-date';
 import { UserModel } from './../models/users';
 import { log } from 'util';
+
 @Component({
   selector: 'app-view-coor',
   templateUrl: './view-coor.component.html',
@@ -30,6 +31,7 @@ export class ViewCoorComponent implements OnInit {
   public correctUser: boolean;
   public show: boolean;
   public actualDate: string;
+  public blockedDate: string;
   public therapist1Choose: boolean;
   public therapist2Choose: boolean;
   public therapist3Choose: boolean;
@@ -100,7 +102,7 @@ export class ViewCoorComponent implements OnInit {
       mm = '0' + mm;
     }
     this.actualDate = dd + '/' + mm + '/' + yyyy;
-
+    this.blockedDate = yyyy + '-' + mm +  '-' + dd;
     // get inscriptions
     this.inscriptionService.getInscriptions()
       .snapshotChanges()
@@ -255,7 +257,8 @@ export class ViewCoorComponent implements OnInit {
     this.userService.updateUserCountReservedMonth(objectUser.$key,++objectUser.countReservedMonth);
     
     if (!assistance) {
-      this.userService.updateUserBlockedAssist(objectUser.$key,true)
+      this.userService.updateUserBlockedAssist(objectUser.$key,true);
+      this.userService.updateUserDateBlockedAssist(objectUser.$key, this.blockedDate)
     }
 
     this.report2List.forEach( reportElem => {

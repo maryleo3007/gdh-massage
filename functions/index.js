@@ -23,36 +23,46 @@ exports.users_countReserved = functions.https.onRequest((req, res) => {
         res.send(snapshot.val());
     });
   });
+  exports.users_blockedAssist = functions.https.onRequest((req, res) => {
+    /* Instead use the admin */
+    if (req.method !== "POST") {
+        res.status(400).send('Please send a POST request');
+        return;
+    }
 
-// exports.httpPrueba = functions.https.onRequest((req, res) => {
+    var todayBlockedDate = '';
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+  
+    todayBlockedDate = yyyy + '-' + mm +  '-' + dd;
+    var fechaInicio = new Date(todayBlockedDate).getTime();
+    
+    const ref = admin.database().ref('users');
 
-//     return Promise.resolve()
-//         .then(() => {
-
-//             if (req.method !== "POST") {
-//                 res.status(400).send('Please send a POST request');
-//                 return;
-//             }
-
-
-//             let dbCon = admin.database().ref('users');
-//             dbCon.once("value", function(snapshot) {
-//                 snapshot.forEach(function(child) {
-//                     child.ref.update({
-//                         countReservedMonth: '1'
-//                     });
-//                 });
-//             });
-
-//         })
-//         .then((response) => {
-
-//             res.end();
-
-//         })
-//         .catch((err) => {
-//             console.error(err);
-//             return Promise.reject(err);
-//         });
-
-// });
+    ref.on("value", function(snapshot) {
+        snapshot.forEach(function(child) {
+            console.log(child.val())
+        var objeto = child.val()    
+            console.log(objeto.dateBlocked)
+            
+            
+            // if (userBlockedAssist) {
+            //     console.log(child)
+            //     // if ((fechaInicio-dateBlocked)/(1000*60*60*24) > 7) {
+            //     //     child.ref.update({
+            //     //         userBlockedAssist: false
+            //     //     });
+            //     // }
+            // }
+        });
+        res.send(snapshot.val());
+    });
+  });

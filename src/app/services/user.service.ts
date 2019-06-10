@@ -78,6 +78,12 @@ export class UserService {
     })
   }
 
+  updateUserDateBlockedAssist($key:string, userBlockedAssist){
+    this.userList.update( $key, {
+      dateBlocked: userBlockedAssist
+    })
+  }
+
   updateUserReset($key:string) {
     this.userList.update($key, {
       countAgendas: 0,
