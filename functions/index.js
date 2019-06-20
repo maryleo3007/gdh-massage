@@ -49,19 +49,18 @@ exports.users_countReserved = functions.https.onRequest((req, res) => {
 
     ref.on("value", function(snapshot) {
         snapshot.forEach(function(child) {
-            console.log(child.val())
         var objeto = child.val()    
-            console.log(objeto.dateBlocked)
-            
-            
-            // if (userBlockedAssist) {
-            //     console.log(child)
-            //     // if ((fechaInicio-dateBlocked)/(1000*60*60*24) > 7) {
-            //     //     child.ref.update({
-            //     //         userBlockedAssist: false
-            //     //     });
-            //     // }
-            // }
+            if (objeto.userBlockedAssist) {
+                console.log(objeto.mail)
+                
+                var fechaBloqueo = new Date(objeto.dateBlocked).getTime();
+                
+                if ((fechaInicio-fechaBloqueo)/(1000*60*60*24) > 7) {
+                    child.ref.update({
+                        userBlockedAssist: false
+                    });
+                }
+            }
         });
         res.send(snapshot.val());
     });
