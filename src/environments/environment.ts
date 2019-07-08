@@ -7,26 +7,19 @@ export const environment = {
   production: false,
   firebaseConfig: {
     //desarrollo gdh.masajes
-    apiKey: "AIzaSyBm7Wdm4BYbt6QuiDBMfsYXIfI3ZC158zU",
-    authDomain: "gdh-masajes-produccion.firebaseapp.com",
-    databaseURL: "https://gdh-masajes-produccion.firebaseio.com",
-    projectId: "gdh-masajes-produccion",
-    storageBucket: "gdh-masajes-produccion.appspot.com",
-    messagingSenderId: "497018884063"
-    //produccion  masajes
-    // apiKey: "AIzaSyBxdSNyiUr0zjJWKPkITsZBLulalJ-yyAQ",
-    // authDomain: "gdh-masajes2-produccion.firebaseapp.com",
-    // databaseURL: "https://gdh-masajes2-produccion.firebaseio.com",
-    // projectId: "gdh-masajes2-produccion",
-    // storageBucket: "gdh-masajes2-produccion.appspot.com",
-    // messagingSenderId: "498956326446"
+    // apiKey: "AIzaSyBm7Wdm4BYbt6QuiDBMfsYXIfI3ZC158zU",
+    // authDomain: "gdh-masajes-produccion.firebaseapp.com",
+    // databaseURL: "https://gdh-masajes-produccion.firebaseio.com",
+    // projectId: "gdh-masajes-produccion",
+    // storageBucket: "gdh-masajes-produccion.appspot.com",
+    // messagingSenderId: "497018884063"
     //nueva url masajes
-    // apiKey: "AIzaSyBp4GPYTdYOhjYbXH8STLKnHN50YsXXSfw",
-    // authDomain: "mi-bienestar-masajes.firebaseapp.com",
-    // databaseURL: "https://mi-bienestar-masajes.firebaseio.com",
-    // projectId: "mi-bienestar-masajes",
-    // storageBucket: "mi-bienestar-masajes.appspot.com",
-    // messagingSenderId: "425586986224"
+    apiKey: "AIzaSyBp4GPYTdYOhjYbXH8STLKnHN50YsXXSfw",
+    authDomain: "mi-bienestar-masajes.firebaseapp.com",
+    databaseURL: "https://mi-bienestar-masajes.firebaseio.com",
+    projectId: "mi-bienestar-masajes",
+    storageBucket: "mi-bienestar-masajes.appspot.com",
+    messagingSenderId: "425586986224"
 
   }
 };

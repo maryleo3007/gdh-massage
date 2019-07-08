@@ -23,24 +23,19 @@ exports.users_countReserved = functions.https.onRequest((req, res) => {
         res.send(snapshot.val());
     });
   });
-  exports.users_blockedAssist = functions.https.onRequest((req, res) => {
+
+exports.users_blockedAssist = functions.https.onRequest((req, res) => {
     /* Instead use the admin */
     if (req.method !== "POST") {
         res.status(400).send('Please send a POST request');
         return;
     }
 
-    var todayBlockedDate = '';
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0
-    var yyyy = today.getFullYear();
-    if (dd < 10) {
-      dd = '0' + dd;
-    }
-    if (mm < 10) {
-      mm = '0' + mm;
-    }
+    var todayBlockedDate = ''; var today = new Date(); var dd = today.getDate();
+    var mm = today.getMonth() + 1; var yyyy = today.getFullYear();
+    
+    if (dd < 10) { dd = '0' + dd;}
+    if (mm < 10) { mm = '0' + mm;}
   
     todayBlockedDate = yyyy + '-' + mm +  '-' + dd;
     var fechaInicio = new Date(todayBlockedDate).getTime();
@@ -49,7 +44,14 @@ exports.users_countReserved = functions.https.onRequest((req, res) => {
 
     ref.on("value", function(snapshot) {
         snapshot.forEach(function(child) {
-        var objeto = child.val()    
+            var objeto = child.val()
+            child.ref.update({
+                countAgendas: 0,
+                countReserved: 0,
+                messageEvent: '',
+                reserved: false
+            })
+
             if (objeto.userBlockedAssist) {
                 console.log(objeto.mail)
                 
@@ -61,6 +63,54 @@ exports.users_countReserved = functions.https.onRequest((req, res) => {
                     });
                 }
             }
+        });
+        res.send(snapshot.val());
+    });
+  });
+
+exports.updateTurns_T1 = functions.https.onRequest((req,res)=> {
+    const refTherapist1 = admin.database().ref('terapeuta1');
+
+    refTherapist1.on("value", function(snapshot) {
+        snapshot.forEach(function(child) {
+            child.ref.update({
+                available: true,
+                confirm: false,
+                userName: '',
+                count: 0
+            });
+        });
+        res.send(snapshot.val());
+    });
+  });
+
+exports.updateTurns_T2 = functions.https.onRequest((req,res)=> {
+    const refTherapist2 = admin.database().ref('terapeuta2');
+
+    refTherapist2.on("value", function(snapshot) {
+        snapshot.forEach(function(child) {
+            child.ref.update({
+                available: true,
+                confirm: false,
+                userName: '',
+                count: 0
+            });
+        });
+        res.send(snapshot.val());
+    });
+  });
+
+exports.updateTurns_T3 = functions.https.onRequest((req,res)=> {
+    const refTherapist3 = admin.database().ref('terapeuta3');
+
+    refTherapist3.on("value", function(snapshot) {
+        snapshot.forEach(function(child) {
+            child.ref.update({
+                available: true,
+                confirm: false,
+                userName: '',
+                count: 0
+            });
         });
         res.send(snapshot.val());
     });
