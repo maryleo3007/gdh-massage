@@ -69,7 +69,9 @@ export class ViewCoorComponent implements OnInit {
         this.emailUser = auth.email;
         this.isLogin = true;
         if (auth.email === 'aponcedeleon@inteligogroup.com' || auth.email === 'valvarez@inteligogroup.com' ||
-           auth.email === 'coordinadora@inteligogroup.com'
+           auth.email === 'coordinadora@inteligogroup.com'  ||
+           auth.email === 'ymorales@inteligogroup.com'  ||
+           auth.email === 'kcabrejos@inteligogroup.com'
         ) {
           this.show = true;
         } else if (auth.email == undefined || auth.email == null) {
